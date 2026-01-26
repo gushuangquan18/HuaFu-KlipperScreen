@@ -27,6 +27,12 @@ class Panel(ScreenPanel):
         self.content.add(scroll)
 
     def process_update(self, action, data):
+        """
+            更新风扇
+        :param action:
+        :param data:
+        :return:
+        """
         if action != "notify_status_update":
             return
 
@@ -35,6 +41,13 @@ class Panel(ScreenPanel):
                 self.update_fan_speed(None, fan, self._printer.get_fan_speed(fan))
 
     def update_fan_speed(self, widget, fan, speed):
+        """
+            更新风扇速度
+        :param widget:
+        :param fan:
+        :param speed:
+        :return:
+        """
         if fan not in self.devices:
             return
 
@@ -52,7 +65,11 @@ class Panel(ScreenPanel):
             self.set_fan_speed(None, None, fan)
 
     def add_fan(self, fan):
-
+        """
+            加载风扇
+        :param fan:
+        :return:
+        """
         logging.info(f"Adding fan: {fan}")
         changeable = any(fan.startswith(x) or fan == x for x in CHANGEABLE_FANS)
         name = Gtk.Label(halign=Gtk.Align.START, valign=Gtk.Align.CENTER, hexpand=True, vexpand=True,
@@ -109,6 +126,10 @@ class Panel(ScreenPanel):
         self.labels['devices'].show_all()
 
     def load_fans(self):
+        """
+            加载风扇
+        :return:
+        """
         fans = self._printer.get_fans()
         for fan in fans:
             # Support for hiding devices by name
@@ -118,6 +139,13 @@ class Panel(ScreenPanel):
             self.add_fan(fan)
 
     def set_fan_speed(self, widget, event, fan):
+        """
+            设置风扇速度
+        :param widget:
+        :param event:
+        :param fan:
+        :return:
+        """
         value = self.devices[fan]['scale'].get_value()
 
         if fan == "fan":
@@ -128,5 +156,10 @@ class Panel(ScreenPanel):
         GLib.timeout_add_seconds(1, self.check_fan_speed, fan)
 
     def check_fan_speed(self, fan):
+        """
+            检查风扇速度
+        :param fan:
+        :return:
+        """
         self.update_fan_speed(None, fan, self._printer.get_fan_speed(fan))
         return False

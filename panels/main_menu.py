@@ -3,7 +3,7 @@ import logging
 import gi
 
 gi.require_version("Gtk", "3.0")
-from gi.repository import Gtk, GLib
+from gi.repository import Gtk, GLib, GdkPixbuf
 from panels.menu import Panel as MenuPanel
 from ks_includes.widgets.heatergraph import HeaterGraph
 from ks_includes.widgets.keypad import Keypad
@@ -33,7 +33,10 @@ class Panel(MenuPanel):
             scroll.add(self.labels['menu'])
             self.main_menu.attach(scroll, 0, 3, 1, 2)
         else:
+            #上半部分显示3D打印机模型以及右边的提示语
             self.main_menu.attach(self.create_left_panel(), 0, 0, 1, 1)
+            #下半部分显示打印文件 打印头温度 耗材剩于量 wifi 以及助手信息提示信息
+            #items move(XY轴移动) temperature温度 extrude挤出 more(设置) print打印文件 gcodes
             self.labels['menu'] = self.arrangeMenuItems(items, 2, True)
             scroll.add(self.labels['menu'])
             self.main_menu.attach(scroll, 1, 0, 1, 1)
@@ -247,6 +250,11 @@ class Panel(MenuPanel):
         return self.left_panel
 
     def hide_numpad(self, widget=None):
+        """
+            隐藏数字键盘
+        :param widget:
+        :return:
+        """
         self.devices[self.active_heater]['name'].get_style_context().remove_class("button_active")
         self.active_heater = None
 
@@ -279,6 +287,12 @@ class Panel(MenuPanel):
                 )
 
     def show_numpad(self, widget, device):
+        """
+            调用数字键盘
+        :param widget:
+        :param device:
+        :return:
+        """
 
         if self.active_heater is not None:
             self.devices[self.active_heater]['name'].get_style_context().remove_class("button_active")

@@ -4,7 +4,7 @@ import logging
 import gi
 
 gi.require_version("Gtk", "3.0")
-from gi.repository import Gtk
+from gi.repository import Gtk, GLib, GdkPixbuf
 from jinja2 import Template
 from ks_includes.screen_panel import ScreenPanel
 from ks_includes.widgets.autogrid import AutoGrid
@@ -32,7 +32,15 @@ class Panel(ScreenPanel):
         if not self.content.get_children():
             self.content.add(self.scroll)
 
+
     def arrangeMenuItems(self, items, columns=None, expand_last=False):
+        """
+            添加主界面按钮信息
+        :param items:
+        :param columns:
+        :param expand_last:
+        :return:
+        """
         self.autogrid.clear()
         enabled = []
         for item in items:
@@ -45,6 +53,10 @@ class Panel(ScreenPanel):
         return self.autogrid
 
     def create_menu_items(self):
+        """
+            创建菜单元素
+        :return:
+        """
         count = sum(bool(self.evaluate_enable(i[next(iter(i))]['enable'])) for i in self.items)
         scale = 1.1 if 12 < count <= 16 else None  # hack to fit a 4th row
         for i in range(len(self.items)):
@@ -89,6 +101,11 @@ class Panel(ScreenPanel):
             self.labels[key] = b
 
     def evaluate_enable(self, enable):
+        """
+            是否启用按钮
+        :param enable:
+        :return:
+        """
         if enable == "{{ moonraker_connected }}":
             logging.info(f"moonraker connected {self._screen._ws.connected}")
             return self._screen._ws.connected

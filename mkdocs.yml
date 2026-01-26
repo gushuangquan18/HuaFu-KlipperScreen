@@ -1,10 +1,15 @@
+# 定义网站的名称，会显示在页面标题、导航栏等位置
 site_name: KlipperScreen
+# 定义网站的官方访问地址（URL），用于生成站点地图、链接跳转等
 site_url: https://klipperscreen.readthedocs.io
+# 定义网站的描述信息，会用于 SEO（搜索引擎优化）、页面 meta 标签等
 site_description: >-
   KlipperScreen documentation.
 
+# 定义代码仓库的展示名称（会显示在文档页面的仓库链接处）
 repo_name: KlipperScreen/KlipperScreen/
-repo_url: https://github.com/KlipperScreen/KlipperScreen/
+# 定义代码仓库的实际访问地址，文档页面会生成指向该地址的跳转链接
+repo_url: https://github.com/gushuangquan18/HuaFu-KlipperScreen.git
 nav:
     - Home: index.md
     - FAQ: FAQ.md
