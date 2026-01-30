@@ -128,8 +128,8 @@ class KlipperScreen(Gtk.Window):
         self.panels_reinit = [] #面板重新初始化
         self.last_popup_time = datetime.now()   #最新时间
 
+        #读取配置menu文件
         configfile = os.path.normpath(os.path.expanduser(args.configfile))
-
         self._config = KlipperScreenConfig(configfile, self)
         self.lang_ltr = set_text_direction(self._config.get_main_config().get("language", None))
         self.env = Environment(extensions=["jinja2.ext.i18n"], autoescape=True)
@@ -743,9 +743,17 @@ class KlipperScreen(Gtk.Window):
         logging.info(f"#### Go to submenu {name}")
         # Find current menu item
         if "main_menu" in self._cur_panels:
-            menu = "__main"
+            menu = "__home"
         elif "splash_screen" in self._cur_panels:
             menu = "__splashscreen"
+        elif "home" in self._cur_panels:
+            menu = "home"
+        elif "consumables" in self._cur_panels:
+            menu = "consumables"
+        elif "control" in self._cur_panels:
+            menu = "control"
+        elif "settings" in self._cur_panels:
+            menu = "settings"
         else:
             menu = "__print"
 
@@ -1011,7 +1019,7 @@ class KlipperScreen(Gtk.Window):
 
     def state_ready(self, wait=True):
         """
-            就绪
+            就绪 显示主页面
         :param wait:
         :return:
         """
@@ -1023,7 +1031,7 @@ class KlipperScreen(Gtk.Window):
             self.printer.state = "not ready"
             return
         self.files.refresh_files()
-        self.show_panel("main_menu", remove_all=True, items=self._config.get_menu_items("__main"))
+        self.show_panel("main_menu", remove_all=True, items=self._config.get_menu_items("__home_menu"))
 
     def state_startup(self):
         """
