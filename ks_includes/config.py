@@ -190,7 +190,9 @@ class KlipperScreenConfig:
                 strs = ('gcode', '')
                 numbers = [f'{option}' for option in config[section] if option != 'gcode']
             elif section.startswith('menu '):
-                strs = ('name', 'icon', 'panel', 'method', 'params', 'enable', 'confirm', 'style')
+                strs = ('name', 'type', 'value', 'icon', 'src', 'str', 'panel',
+                        'width' ,'height', 'row', 'column', 'rowspan', 'columnspan',
+                        'connect', 'method', 'params', 'enable', 'confirm', 'style')
             elif section.startswith('graph')\
                     or section.startswith('displayed_macros')\
                     or section.startswith('spoolman'):
@@ -484,13 +486,13 @@ class KlipperScreenConfig:
         if subsection != "":
             subsection = f"{subsection} "
         index = f"menu {menu} {subsection}"
+        #config.sections() 方法返回配置文件中所有节（section）的名称列表。
         items = [i[len(index):] for i in self.config.sections() if i.startswith(index)]
         menu_items = []
         for item in items:
-            split = item.split()
-            if len(split) == 1:
-                menu_items.append(self._build_menu_item(menu, index + item))
-
+            # split = item.split()
+            # if len(split) == 1:
+            menu_items.append(self._build_menu_item(menu, index + item))
         return menu_items
 
     def get_menu_name(self, menu="__main", subsection=""):
@@ -611,8 +613,19 @@ class KlipperScreenConfig:
         cfg = self.config[name]
         item = {
             "name": cfg.get("name"),
+            "type": cfg.get("type", None),
+            "value": cfg.get("value", None),
+            "row": cfg.get("row", None),
+            "column": cfg.get("column", None),
+            "rowspan": cfg.get("rowspan", None),
+            "columnspan": cfg.get("columnspan", None),
+            "src": cfg.get("src", None),
+            "str": cfg.get("str", None),
+            "connect": cfg.get("connect", None),
             "icon": cfg.get("icon", None),
             "panel": cfg.get("panel", None),
+            "width": cfg.get("width", None),
+            "height": cfg.get("height", None),
             "method": cfg.get("method", None),
             "confirm": cfg.get("confirm", None),
             "enable": cfg.get("enable", "True"),

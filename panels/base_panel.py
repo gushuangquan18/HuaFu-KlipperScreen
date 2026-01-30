@@ -34,14 +34,12 @@ class BasePanel(ScreenPanel):
         self.current_extruder = None
         self.last_usage_report = datetime.now()
         self.usage_report = 0
-        # Action bar buttons
+        # Action bar buttons 设置图标大小比例
         self.abscale = self.bts * 1.1
         self.control['back'] = self._gtk.Button('back', scale=self.abscale)
         self.control['back'].connect("clicked", self.back)
-        self.control['home'] = self._gtk.Button('main', scale=self.abscale)
-        self.control['home'].connect("clicked", self._screen._menu_go_back, True)
-        for control in self.control:
-            self.set_control_sensitive(False, control)
+        self.control['back'].set_no_show_all(True)
+
         self.control['estop'] = self._gtk.Button('emergency', scale=self.abscale)
         self.control['estop'].connect("clicked", self.emergency_stop)
         self.control['estop'].set_no_show_all(True)
@@ -63,7 +61,20 @@ class BasePanel(ScreenPanel):
         self.control['shortcut'].connect("clicked", self.menu_item_clicked, self.shorcut)
         self.control['shortcut'].set_no_show_all(True)
 
+        #新添加的左侧操作栏按钮
+        self.control['home'] = self._gtk.Button('home', scale=self.abscale)
+        self.control['home'].connect("clicked", self._screen._menu_go_back)
 
+        self.control['control'] = self._gtk.Button('control', scale=self.abscale)
+
+        # 耗材按钮
+        self.control['consumables'] = self._gtk.Button('consumables', scale=self.abscale)
+
+        self.control['settings'] = self._gtk.Button('settings', scale=self.abscale)
+        # 少个参数 _go_to_submenu
+        self.control['settings'].connect("clicked", self._screen._go_to_submenu)
+
+        self.control['messages'] = self._gtk.Button('message', scale=self.abscale)
 
         # Any action bar button should close the keyboard
         #移除键盘
@@ -85,11 +96,17 @@ class BasePanel(ScreenPanel):
         #设置左侧操作栏宽高
         self.action_bar.set_size_request(self._gtk.action_bar_width, self._gtk.action_bar_height)
         self.action_bar.add(self.control['back'])
-        self.action_bar.add(self.control['home'])
         self.action_bar.add(self.control['printer_select'])
+
         self.action_bar.add(self.control['shortcut'])
         self.action_bar.add(self.control['estop'])
         self.action_bar.add(self.control['shutdown'])
+
+        self.action_bar.add(self.control['home'])
+        self.action_bar.add(self.control['control'])
+        self.action_bar.add(self.control['consumables'])
+        self.action_bar.add(self.control['settings'])
+        self.action_bar.add(self.control['messages'])
         self.show_printer_select(len(self._config.get_printers()) > 1)
 
         # Titlebar
@@ -279,12 +296,12 @@ class BasePanel(ScreenPanel):
         connected = self._printer and self._printer.state not in {'disconnected', 'startup', 'shutdown', 'error'}
         printer_select = 'printer_select' not in self._screen._cur_panels
         self.control['estop'].set_visible(printing)
-        self.control['shutdown'].set_visible(not printing)
+        self.control['shutdown'].set_visible(printing)
         self.show_shortcut(connected and printer_select)
         self.show_heaters(connected and printer_select)
         self.show_printer_select(len(self._config.get_printers()) > 1)
-        for control in ('back', 'home'):
-            self.set_control_sensitive(len(self._screen._cur_panels) > 1, control=control)
+        # for control in ('back', 'home'):
+        #     self.set_control_sensitive(len(self._screen._cur_panels) > 1, control=control)
         self.current_panel = panel
         self.set_title(panel.title)
         self.content.add(panel.content)
