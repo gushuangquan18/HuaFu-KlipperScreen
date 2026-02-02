@@ -1,0 +1,311 @@
+{
+  "father":"menu",
+  "name":"settings_menu",
+  "type":"Grid",
+  "children": {
+    "user_messages": {
+      "name":"User Messages",
+      "type":"Button",
+      "column":0,
+      "row":0,
+      "columnspan":3,
+      "rowspan":3,
+      "panel":"user_messages",
+      "children": {
+        "user_messages_grid": {
+          "name":"User Messages Grid",
+          "type":"Grid",
+          "children": {
+            "printer_network_model":{
+              "name":"Printer Network Model",
+              "type":"Label",
+              "value":"仅局域网模式",
+              "column":0,
+              "row":0,
+              "columnspan":3,
+              "rowspan":1
+            },
+            "access_code_label":{
+              "name":"Access Code Label",
+              "type":"Label",
+              "value":"访问码：",
+              "column":0,
+              "row":1,
+              "columnspan":1,
+              "rowspan":1
+            },
+            "access_code":{
+              "name":"Access Code",
+              "type":"Label",
+              "value":"d7d9a7e8",
+              "column":1,
+              "row":1,
+              "columnspan":1,
+              "rowspan":1
+            },
+            "refresh_icon":{
+              "name":"Refresh Icon",
+              "type":"Image",
+              "width":10,
+              "height":20,
+              "column":2,
+              "row":1,
+              "columnspan":1,
+              "rowspan":1,
+              "src":"images/refresh.png"
+            }
+          }
+        }
+      }
+    },
+    "wifi":{
+      "name":"WIFI",
+      "type":"Button",
+      "column":3,
+      "row":0,
+      "columnspan":3,
+      "rowspan":1,
+      "panel":"wifi",
+      "children": {
+        "wifi_grid": {
+          "name":"WIFI Grid",
+          "type":"Grid",
+          "children": {
+            "wifi_label":{
+              "name":"WIFI Label",
+              "type":"Label",
+              "value":"Wi-Fi",
+              "column":0,
+              "row":0,
+              "columnspan":2,
+              "rowspan":1
+            },
+            "wifi_name":{
+              "name":"WIFI Name",
+              "type":"Label",
+              "value":"HuaFu",
+              "column":0,
+              "row":1,
+              "columnspan":2,
+              "rowspan":1
+            },
+            "right_arrow_icon":{
+              "name":"Right Arrow Icon",
+              "type":"Image",
+              "width":20,
+              "height":40,
+              "column":5,
+              "row":0,
+              "columnspan":1,
+              "rowspan":2,
+              "src":"images/right_arrow.png"
+            }
+          }
+        }
+      }
+    },
+    "disk_messages":{
+      "name":"Disk Messages",
+      "type":"Button",
+      "column":3,
+      "row":1,
+      "columnspan":3,
+      "rowspan":1,
+      "panel":"disk_messages",
+      "children": {
+        "disk_messages_grid": {
+          "name":"Disk Messages Grid",
+          "type":"Grid",
+          "children": {
+            "disk_messages_type_label":{
+              "name":"Disk Messages Type Label",
+              "type":"Label",
+              "value":"USB存储",
+              "column":0,
+              "row":0,
+              "columnspan":1,
+              "rowspan":1
+            },
+            "disk_message":{
+              "name":"Disk Messages",
+              "type":"Label",
+              "value":"17.7GB/32GB",
+              "column":3,
+              "row":0,
+              "columnspan":2,
+              "rowspan":1
+            },
+            "right_arrow_icon":{
+              "name":"Right Arrow Icon",
+              "type":"Image",
+              "width":20,
+              "height":40,
+              "column":5,
+              "row":0,
+              "columnspan":1,
+              "rowspan":1,
+              "src":"images/right_arrow.png"
+            }
+          }
+        }
+      }
+    },
+    "firmware_information": {
+      "name":"Firmware Information",
+      "type":"Button",
+      "column":3,
+      "row":2,
+      "columnspan":3,
+      "rowspan":1,
+      "panel":"firmware_information",
+      "children": {
+        "firmware_information_grid": {
+          "name":"Firmware Information Grid",
+          "type":"Grid",
+          "children": {
+            "firmware_information_label":{
+              "name":"Firmware Information Label",
+              "type":"Label",
+              "value":"固件",
+              "column":0,
+              "row":0,
+              "columnspan":1,
+              "rowspan":1
+            },
+            "firmware_information_version":{
+              "name":"Firmware Information Version",
+              "type":"Label",
+              "value":"01.01.02.02",
+              "column":3,
+              "row":0,
+              "columnspan":2,
+              "rowspan":1
+            },
+            "right_arrow_icon":{
+              "name":"Right Arrow Icon",
+              "type":"Image",
+              "width":20,
+              "height":40,
+              "column":5,
+              "row":0,
+              "columnspan":1,
+              "rowspan":1,
+              "src":"images/right_arrow.png"
+            }
+          }
+        }
+      }
+    },
+    "calibration":{
+      "name":"Calibration",
+      "type":"Button",
+      "column":0,
+      "row":3,
+      "columnspan":2,
+      "rowspan":2,
+      "panel":"calibration",
+      "children": {
+        "calibration_grid": {
+          "name":"Calibration Grid",
+          "type":"Grid",
+          "children": {
+            "calibration_image":{
+              "name":"Calibration Icon",
+              "type":"Image",
+              "width":80,
+              "height":80,
+              "column":0,
+              "row":0,
+              "columnspan":1,
+              "rowspan":1,
+              "src":"images/calibration.png"
+            },
+            "calibration_label":{
+              "name":"Calibration Label",
+              "type":"Label",
+              "value":"校准",
+              "column":0,
+              "row":1,
+              "columnspan":1,
+              "rowspan":1
+            }
+          }
+        }
+      }
+    },
+    "toolbox":{
+      "name":"ToolBox",
+      "type":"Button",
+      "column":2,
+      "row":3,
+      "columnspan":2,
+      "rowspan":3,
+      "panel":"toolbox",
+      "children": {
+        "toolbox_grid": {
+          "name":"ToolBox Grid",
+          "type":"Grid",
+          "children": {
+            "toolbox_image":{
+              "name":"ToolBox Icon",
+              "type":"Image",
+              "width":80,
+              "height":80,
+              "column":0,
+              "row":0,
+              "columnspan":1,
+              "rowspan":1,
+              "src":"images/toolbox.png"
+            },
+            "toolbox_label":{
+              "name":"ToolBox Label",
+              "type":"Label",
+              "value":"工具箱",
+              "column":0,
+              "row":1,
+              "columnspan":1,
+              "rowspan":1
+            }
+          }
+        }
+      }
+    },
+    "system_setting": {
+      "name":"System Setting",
+      "type":"Button",
+      "column":4,
+      "row":3,
+      "columnspan":2,
+      "rowspan":2,
+      "panel":"system_setting",
+      "children": {
+        "system_setting_grid": {
+          "name":"System setting Grid",
+          "type":"Grid",
+          "children": {
+            "system_setting_image":{
+              "name":"System Setting Icon",
+              "type":"Image",
+              "width":80,
+              "height":80,
+              "column":0,
+              "row":0,
+              "columnspan":1,
+              "rowspan":1,
+              "src":"images/system_settings.png"
+            },
+            "system_setting_label":{
+              "name":"System Setting Label",
+              "type":"Label",
+              "value":"设置",
+              "column":0,
+              "row":1,
+              "columnspan":1,
+              "rowspan":1
+            }
+          }
+        }
+      }
+    }
+  }
+}

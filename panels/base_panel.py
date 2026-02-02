@@ -80,7 +80,13 @@ class BasePanel(ScreenPanel):
         # 耗材按钮
         self.control['consumables_menu'] = self._gtk.Button('consumables_menu_icon', scale=self.abscale)
 
+        self.settings_menu = {
+            "panel": "settings_menu",
+            "icon": "settings_menu_icon",
+        }
         self.control['settings_menu'] = self._gtk.Button('settings_menu_icon', scale=self.abscale)
+        self.control['settings_menu'].connect("clicked", self.menu_item_clicked,self.settings_menu)
+
         # 少个参数 _go_to_submenu
         self.control['settings_menu'].connect("clicked", self._screen._go_to_submenu)
 

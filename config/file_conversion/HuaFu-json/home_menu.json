@@ -2,210 +2,218 @@
   "father":"menu",
   "name":"home_menu",
   "type":"Grid",
-  "up_grid":{
-    "name":"Up Grid",
-    "type":"Grid",
-    "width":1000,
-    "height":300,
-    "column":0,
-    "row":0,
-    "columnspan":1,
-    "rowspan":1,
-    "children":{
-      "printer":{
-        "name":"3D Printer Model",
-        "type":"Image",
-        "width":270,
-        "height":270,
-        "column":0,
-        "row":0,
-        "columnspan":1,
-        "rowspan":1,
-        "src":"images/3D_printer.png"
-      },
-      "tag_blue":{
-        "name":"Tag",
-        "type":"Image",
-        "width":6,
-        "height":40,
-        "column":1,
-        "row":0,
-        "columnspan":1,
-        "rowspan":1,
-        "src":"images/tag_blue.png"
-      },
-      "interactive_message":{
-        "name":"Interactive Message",
-        "type":"Label",
-        "column":2,
-        "row":0,
-        "columnspan":1,
-        "rowspan":1,
-        "value":"Today is another wonderful day!"
-      }
-    }
-  },
-  "down_grid":{
-    "name":"Down Grid",
-    "type":"Grid",
-    "width":1000,
-    "height":300,
-    "column":0,
-    "row":1,
-    "columnspan":1,
-    "rowspan":1,
-    "children":{
-      "print_file_list":{
-        "name":"Print File List",
-        "type":"Button",
-        "connect":"clicked",
-        "method":"go_to_next_interface",
-        "panel":"print_file_list",
-        "column":0,
-        "row":0,
-        "columnspan":1,
-        "rowspan":1,
-        "print_file_list_grid":{
-          "name":"Print File List Grid",
-          "type":"Grid",
+  "children":{
+    "up_grid":{
+      "name":"Up Grid",
+      "type":"Grid",
+      "width":1000,
+      "height":300,
+      "column":0,
+      "row":0,
+      "columnspan":1,
+      "rowspan":1,
+      "children":{
+        "printer":{
+          "name":"3D Printer Model",
+          "type":"Image",
+          "width":270,
+          "height":270,
           "column":0,
           "row":0,
           "columnspan":1,
           "rowspan":1,
-          "modeling_graphics":{
-            "name":"Modeling Graphics",
-            "type":"Image",
-            "width":150,
-            "height":150,
-            "column":0,
-            "row":0,
-            "columnspan":1,
-            "rowspan":1,
-            "src":"images/modeling_graphics.png"
-          },
-          "print_file_text":{
-            "name":"Print File Text",
-            "type":"Label",
-            "column":1,
-            "row":0,
-            "columnspan":1,
-            "rowspan":1,
-            "value":"打印文件"
-          }
-        }
-      },
-      "lower_right_grid":{
-        "name":"Lower_Right_Grid",
-        "type":"Grid",
-        "column":1,
-        "row":0,
-        "columnspan":1,
-        "rowspan":1,
-        "nozzle_extruder":{
-            "name":"Nozzle Extruder",
-            "type":"Button",
-            "connect":"clicked",
-            "method":"go_to_next_interface",
-            "panel":"nozzle_extruder",
-            "column":0,
-            "row":0,
-            "columnspan":1,
-            "rowspan":1,
-            "nozzle_extruder_grid":{
-              "name":"Nozzle Extruder Grid",
-              "type":"Grid",
-              "column":0,
-              "row":0,
-              "columnspan":1,
-              "rowspan":1,
-              "nozzle1_icon":{
-                "name":"Nozzle1 Icon",
-                "type":"Image",
-                "width":40,
-                "height":40,
-                "column":0,
-                "row":0,
-                "columnspan":1,
-                "rowspan":1,
-                "src":"images/nozzle.png"
-              },
-              "nozzle1_temperature_label":{
-                "name":"Nozzle1 Temperature",
-                "type":"Label",
-                "value":"25℃",
-                "column":0,
-                "row":1,
-                "columnspan":1,
-                "rowspan":1
-              },
-                "nozzle2_icon":{
-                "name":"Nozzle2 Icon",
-                "type":"Image",                
-                "width":40,
-                "height":40,
-                "src":"images/nozzle.png",
-                "column":0,
-                "row":2,
-                "columnspan":1,
-                "rowspan":1
-              },
-              "nozzle2_temperature_label":{
-                "name":"Nozzle2 Temperature",
-                "type":"Label",
-                "value":"25℃",
-                "column":0,
-                "row":3,
-                "columnspan":1,
-                "rowspan":1
-              }
-          }
+          "src":"images/3D_printer.png"
         },
-        "wifi":{
-          "name":"WIFI",
-          "type":"Button",
-          "panel":"wifi",
-          "connect":"clicked",
-          "method":"go_to_next_interface",
+        "tag_blue":{
+          "name":"Tag",
+          "type":"Image",
+          "width":6,
+          "height":40,
           "column":1,
           "row":0,
           "columnspan":1,
           "rowspan":1,
-          "wifi_grid":{
-            "name":"WIFI Grid",
+          "src":"images/tag_blue.png"
+        },
+        "interactive_message":{
+          "name":"Interactive Message",
+          "type":"Label",
+          "column":2,
+          "row":0,
+          "columnspan":1,
+          "rowspan":1,
+          "value":"Today is another wonderful day!"
+        }
+      }
+    },
+    "down_grid":{
+      "name":"Down Grid",
+      "type":"Grid",
+      "width":1000,
+      "height":300,
+      "column":0,
+      "row":1,
+      "columnspan":1,
+      "rowspan":1,
+      "children":{
+        "print_file_list":{
+          "name":"Print File List",
+          "type":"Button",
+          "connect":"clicked",
+          "method":"go_to_next_interface",
+          "panel":"print_file_list",
+          "column":0,
+          "row":0,
+          "columnspan":1,
+          "rowspan":1,
+          "print_file_list_grid":{
+            "name":"Print File List Grid",
             "type":"Grid",
-            "wifi_text":{
-              "name":"wifi",
-              "type":"Label",
-              "value":"WIFI",
-              "column":0,
-              "row":0,
-              "columnspan":1,
-              "rowspan":1
-            },
-            "wifi_image":{
-              "name":"WIFI Icon",
-              "type":"Image",              
-              "width":80,
-              "height":80,
-              "column":0,
-              "row":1,
-              "columnspan":1,
-              "rowspan":1,
-              "src":"images/wifi.png"
+            "column":0,
+            "row":0,
+            "columnspan":1,
+            "rowspan":1,
+            "children": {
+              "modeling_graphics":{
+                "name":"Modeling Graphics",
+                "type":"Image",
+                "width":150,
+                "height":150,
+                "column":0,
+                "row":0,
+                "columnspan":1,
+                "rowspan":1,
+                "src":"images/modeling_graphics.png"
+              },
+              "print_file_label":{
+                "name":"Print File Label",
+                "type":"Label",
+                "column":1,
+                "row":0,
+                "columnspan":1,
+                "rowspan":1,
+                "value":"打印文件"
+              }
             }
           }
         },
-        "messages_assistant":{
-          "name":"Messages Assistant",
-          "type":"Button",
-          "icon":"messages_assistant",
-          "panel":"messages",
-          "connect":"clicked",
-          "method":"menu_item_clicked",
-          "column":2,
+        "lower_right_grid":{
+          "name":"Lower_Right_Grid",
+          "type":"Grid",
+          "column":1,
           "row":0,
-          "columnspan":1  ,
-          "rowspan":1
+          "columnspan":1,
+          "rowspan":1,
+          "nozzle_extruder":{
+              "name":"Nozzle Extruder",
+              "type":"Button",
+              "connect":"clicked",
+              "method":"go_to_next_interface",
+              "panel":"nozzle_extruder",
+              "column":0,
+              "row":0,
+              "columnspan":1,
+              "rowspan":1,
+              "nozzle_extruder_grid":{
+                "name":"Nozzle Extruder Grid",
+                "type":"Grid",
+                "column":0,
+                "row":0,
+                "columnspan":1,
+                "rowspan":1,
+                "children": {
+                  "nozzle1_icon":{
+                    "name":"Nozzle1 Icon",
+                    "type":"Image",
+                    "width":40,
+                    "height":40,
+                    "column":0,
+                    "row":0,
+                    "columnspan":1,
+                    "rowspan":1,
+                    "src":"images/nozzle.png"
+                  },
+                  "nozzle1_temperature_label":{
+                    "name":"Nozzle1 Temperature",
+                    "type":"Label",
+                    "value":"25℃",
+                    "column":0,
+                    "row":1,
+                    "columnspan":1,
+                    "rowspan":1
+                  },
+                    "nozzle2_icon":{
+                    "name":"Nozzle2 Icon",
+                    "type":"Image",
+                    "width":40,
+                    "height":40,
+                    "src":"images/nozzle.png",
+                    "column":0,
+                    "row":2,
+                    "columnspan":1,
+                    "rowspan":1
+                  },
+                  "nozzle2_temperature_label":{
+                    "name":"Nozzle2 Temperature",
+                    "type":"Label",
+                    "value":"25℃",
+                    "column":0,
+                    "row":3,
+                    "columnspan":1,
+                    "rowspan":1
+                  }
+                }
+            }
+          },
+          "wifi":{
+            "name":"WIFI",
+            "type":"Button",
+            "panel":"wifi",
+            "connect":"clicked",
+            "method":"go_to_next_interface",
+            "column":1,
+            "row":0,
+            "columnspan":1,
+            "rowspan":1,
+            "wifi_grid":{
+              "name":"WIFI Grid",
+              "type":"Grid",
+              "children": {
+                "wifi_label":{
+                  "name":"Wifi Label",
+                  "type":"Label",
+                  "value":"WIFI",
+                  "column":0,
+                  "row":0,
+                  "columnspan":1,
+                  "rowspan":1
+                },
+                "wifi_image":{
+                  "name":"WIFI Icon",
+                  "type":"Image",
+                  "width":80,
+                  "height":80,
+                  "column":0,
+                  "row":1,
+                  "columnspan":1,
+                  "rowspan":1,
+                  "src":"images/wifi.png"
+                }
+              }
+            }
+          },
+          "messages_assistant":{
+            "name":"Messages Assistant",
+            "type":"Button",
+            "icon":"messages_assistant",
+            "panel":"messages",
+            "connect":"clicked",
+            "method":"menu_item_clicked",
+            "column":2,
+            "row":0,
+            "columnspan":1  ,
+            "rowspan":1
+          }
         }
       }
     }

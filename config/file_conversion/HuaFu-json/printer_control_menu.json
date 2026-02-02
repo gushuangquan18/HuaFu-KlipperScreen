@@ -22,45 +22,47 @@
         "row":0,
         "columnspan":1,
         "rowspan":1,
-        "air_system_icon":{
-          "name":"Air System Icon",
-          "type":"Image",
-          "width":40,
-          "height":40,
-          "column":0,
-          "row":0,
-          "columnspan":1,
-          "rowspan":2,
-          "src":"images/air_system.png"
-        },
-        "air_system_label":{
-          "name":"Air System Label",
-          "type":"Label",
-          "column":1,
-          "row":0,
-          "columnspan":3,
-          "rowspan":1,
-          "value":"空调系统"
-        },
-        "air_system_model":{
-          "name":"Air System Model",
-          "type":"Label",
-          "column":1,
-          "row":1,
-          "columnspan":3,
-          "rowspan":1,
-          "value":"腔温保持系统"
-        },
-        "right_arrow_icon":{
-          "name":"Right Arrow Icon",
-          "type":"Image",
-          "width":20,
-          "height":40,
-          "column":4,
-          "row":0,
-          "columnspan":1,
-          "rowspan":2,
-          "src":"images/right_arrow.png"
+        "children": {
+          "air_system_icon":{
+            "name":"Air System Icon",
+            "type":"Image",
+            "width":40,
+            "height":40,
+            "column":0,
+            "row":0,
+            "columnspan":1,
+            "rowspan":2,
+            "src":"images/air_system.png"
+          },
+          "air_system_label":{
+            "name":"Air System Label",
+            "type":"Label",
+            "column":1,
+            "row":0,
+            "columnspan":3,
+            "rowspan":1,
+            "value":"空调系统"
+          },
+          "air_system_model":{
+            "name":"Air System Model",
+            "type":"Label",
+            "column":1,
+            "row":1,
+            "columnspan":3,
+            "rowspan":1,
+            "value":"腔温保持系统"
+          },
+          "right_arrow_icon":{
+            "name":"Right Arrow Icon",
+            "type":"Image",
+            "width":20,
+            "height":40,
+            "column":4,
+            "row":0,
+            "columnspan":1,
+            "rowspan":2,
+            "src":"images/right_arrow.png"
+          }
         }
       }
   },
@@ -83,45 +85,47 @@
         "row":0,
         "columnspan":1,
         "rowspan":1,
-        "speed_control_icon":{
-          "name":"Speed Control Icon",
-          "type":"Image",
-          "width":40,
-          "height":40,
-          "column":0,
-          "row":0,
-          "columnspan":1,
-          "rowspan":2,
-          "src":"images/speed_control.png"
-        },
-        "speed_control_label":{
-          "name":"Speed Control Label",
-          "type":"Label",
-          "column":1,
-          "row":0,
-          "columnspan":3,
-          "rowspan":1,
-          "value":"速度"
-        },
-        "speed_control_model":{
-          "name":"Speed Control Model",
-          "type":"Label",
-          "column":1,
-          "row":1,
-          "columnspan":3,
-          "rowspan":1,
-          "value":"标准"
-        },
-        "right_arrow_icon":{
-          "name":"Right Arrow Icon",
-          "type":"Image",
-          "width":20,
-          "height":40,
-          "column":4,
-          "row":0,
-          "columnspan":1,
-          "rowspan":2,
-          "src":"images/right_arrow.png"
+        "children": {
+          "speed_control_icon":{
+            "name":"Speed Control Icon",
+            "type":"Image",
+            "width":40,
+            "height":40,
+            "column":0,
+            "row":0,
+            "columnspan":1,
+            "rowspan":2,
+            "src":"images/speed_control.png"
+          },
+          "speed_control_label":{
+            "name":"Speed Control Label",
+            "type":"Label",
+            "column":1,
+            "row":0,
+            "columnspan":3,
+            "rowspan":1,
+            "value":"速度"
+          },
+          "speed_control_model":{
+            "name":"Speed Control Model",
+            "type":"Label",
+            "column":1,
+            "row":1,
+            "columnspan":3,
+            "rowspan":1,
+            "value":"标准"
+          },
+          "right_arrow_icon":{
+            "name":"Right Arrow Icon",
+            "type":"Image",
+            "width":20,
+            "height":40,
+            "column":4,
+            "row":0,
+            "columnspan":1,
+            "rowspan":2,
+            "src":"images/right_arrow.png"
+          }
         }
       }
     },
@@ -144,45 +148,47 @@
         "row":0,
         "columnspan":1,
         "rowspan":1,
-        "sport_control_icon":{
-          "name":"Sport Control Icon",
-          "type":"Image",
-          "width":40,
-          "height":40,
-          "column":0,
-          "row":0,
-          "columnspan":1,
-          "rowspan":2,
-          "src":"images/sport_control.png"
-        },
-        "sport_control_label":{
-          "name":"Sport Control Label",
-          "type":"Label",
-          "column":1,
-          "row":0,
-          "columnspan":3,
-          "rowspan":1,
-          "value":"运动"
-        },
-        "sport_control_model":{
-          "name":"Sport Control Model",
-          "type":"Label",
-          "column":1,
-          "row":1,
-          "columnspan":3,
-          "rowspan":1,
-          "value":"XYZ"
-        },
-        "right_arrow_icon":{
-          "name":"Right Arrow Icon",
-          "type":"Image",
-          "width":20,
-          "height":40,
-          "column":4,
-          "row":0,
-          "columnspan":1,
-          "rowspan":2,
-          "src":"images/right_arrow.png"
+        "children": {
+          "sport_control_icon":{
+            "name":"Sport Control Icon",
+            "type":"Image",
+            "width":40,
+            "height":40,
+            "column":0,
+            "row":0,
+            "columnspan":1,
+            "rowspan":2,
+            "src":"images/sport_control.png"
+          },
+          "sport_control_label":{
+            "name":"Sport Control Label",
+            "type":"Label",
+            "column":1,
+            "row":0,
+            "columnspan":3,
+            "rowspan":1,
+            "value":"运动"
+          },
+          "sport_control_model":{
+            "name":"Sport Control Model",
+            "type":"Label",
+            "column":1,
+            "row":1,
+            "columnspan":3,
+            "rowspan":1,
+            "value":"XYZ"
+          },
+          "right_arrow_icon":{
+            "name":"Right Arrow Icon",
+            "type":"Image",
+            "width":20,
+            "height":40,
+            "column":4,
+            "row":0,
+            "columnspan":1,
+            "rowspan":2,
+            "src":"images/right_arrow.png"
+          }
         }
       }
     },
@@ -284,46 +290,49 @@
         "row":0,
         "columnspan":1,
         "rowspan":1,
-        "chassis_temperature_icon":{
-          "name":"Chassis Temperature Icon",
-          "type":"Image",
-          "width":40,
-          "height":40,
-          "column":0,
-          "row":0,
-          "columnspan":1,
-          "rowspan":2,
-          "src":"images/chassis_temperature.png"
-        },
-        "chassis_temperature_label":{
-          "name":"Chassis Temperature Label",
-          "type":"Label",
-          "column":1,
-          "row":0,
-          "columnspan":3,
-          "rowspan":1,
-          "value":"机箱"
-        },
-        "chassis_temperature_model":{
-          "name":"Chassis Temperature Model",
-          "type":"Label",
-          "column":1,
-          "row":1,
-          "columnspan":3,
-          "rowspan":1,
-          "value":"30℃/65℃"
-        },
-        "right_arrow_icon":{
-          "name":"Right Arrow Icon",
-          "type":"Image",
-          "width":20,
-          "height":40,
-          "column":4,
-          "row":0,
-          "columnspan":1,
-          "rowspan":2,
-          "src":"images/right_arrow.png"
+        "children": {
+          "chassis_temperature_icon":{
+            "name":"Chassis Temperature Icon",
+            "type":"Image",
+            "width":40,
+            "height":40,
+            "column":0,
+            "row":0,
+            "columnspan":1,
+            "rowspan":2,
+            "src":"images/chassis_temperature.png"
+          },
+          "chassis_temperature_label":{
+            "name":"Chassis Temperature Label",
+            "type":"Label",
+            "column":1,
+            "row":0,
+            "columnspan":3,
+            "rowspan":1,
+            "value":"机箱"
+          },
+          "chassis_temperature_model":{
+            "name":"Chassis Temperature Model",
+            "type":"Label",
+            "column":1,
+            "row":1,
+            "columnspan":3,
+            "rowspan":1,
+            "value":"30℃/65℃"
+          },
+          "right_arrow_icon":{
+            "name":"Right Arrow Icon",
+            "type":"Image",
+            "width":20,
+            "height":40,
+            "column":4,
+            "row":0,
+            "columnspan":1,
+            "rowspan":2,
+            "src":"images/right_arrow.png"
+          }
         }
+
       }
     },
     "hotbed_temperature":{
@@ -345,46 +354,49 @@
         "row":0,
         "columnspan":1,
         "rowspan":1,
-        "hotbed_temperature_icon":{
-          "name":"Hotbed Temperature Icon",
-          "type":"Image",
-          "width":40,
-          "height":40,
-          "column":0,
-          "row":0,
-          "columnspan":1,
-          "rowspan":2,
-          "src":"images/hotbed_temperature.png"
-        },
-        "hotbed_temperature_label":{
-          "name":"Hotbed Temperature Label",
-          "type":"Label",
-          "column":1,
-          "row":0,
-          "columnspan":3,
-          "rowspan":1,
-          "value":"热床"
-        },
-        "hotbed_temperature_model":{
-          "name":"Chassis Temperature Model",
-          "type":"Label",
-          "column":1,
-          "row":1,
-          "columnspan":3,
-          "rowspan":1,
-          "value":"30℃/65℃"
-        },
-        "right_arrow_icon":{
-          "name":"Right Arrow Icon",
-          "type":"Image",
-          "width":20,
-          "height":40,
-          "column":4,
-          "row":0,
-          "columnspan":1,
-          "rowspan":2,
-          "src":"images/right_arrow.png"
+        "children": {
+          "hotbed_temperature_icon":{
+            "name":"Hotbed Temperature Icon",
+            "type":"Image",
+            "width":40,
+            "height":40,
+            "column":0,
+            "row":0,
+            "columnspan":1,
+            "rowspan":2,
+            "src":"images/hotbed_temperature.png"
+          },
+          "hotbed_temperature_label":{
+            "name":"Hotbed Temperature Label",
+            "type":"Label",
+            "column":1,
+            "row":0,
+            "columnspan":3,
+            "rowspan":1,
+            "value":"热床"
+          },
+          "hotbed_temperature_model":{
+            "name":"Chassis Temperature Model",
+            "type":"Label",
+            "column":1,
+            "row":1,
+            "columnspan":3,
+            "rowspan":1,
+            "value":"30℃/65℃"
+          },
+          "right_arrow_icon":{
+            "name":"Right Arrow Icon",
+            "type":"Image",
+            "width":20,
+            "height":40,
+            "column":4,
+            "row":0,
+            "columnspan":1,
+            "rowspan":2,
+            "src":"images/right_arrow.png"
+          }
         }
+
       }
     },
     "light_system_grid":{
@@ -394,34 +406,36 @@
       "row":4,
       "columnspan":1,
       "rowspan":1,
-      "light_icon":{
-        "name":"Light Icon",
-        "type":"Image",
-        "width":20,
-        "height":40,
-        "column":0,
-        "row":0,
-        "columnspan":1,
-        "rowspan":1,
-        "src":"images/light.png"
-      },
-      "light_label":{
-        "name":"Light Label",
-        "type":"Label",
-        "column":1,
-        "row":0,
-        "columnspan":1,
-        "rowspan":1,
-        "value":"照明"
-      },
-      "light_switch":{
-        "name":"Light Switch",
-        "type":"Switch",
-        "column":2,
-        "row":0,
-        "columnspan":1,
-        "rowspan":1,
-        "value":"True"
+      "children": {
+        "light_icon":{
+          "name":"Light Icon",
+          "type":"Image",
+          "width":20,
+          "height":40,
+          "column":0,
+          "row":0,
+          "columnspan":1,
+          "rowspan":1,
+          "src":"images/light.png"
+        },
+        "light_label":{
+          "name":"Light Label",
+          "type":"Label",
+          "column":1,
+          "row":0,
+          "columnspan":1,
+          "rowspan":1,
+          "value":"照明"
+        },
+        "light_switch":{
+          "name":"Light Switch",
+          "type":"Switch",
+          "column":2,
+          "row":0,
+          "columnspan":1,
+          "rowspan":1,
+          "value":"True"
+        }
       }
     }
   }

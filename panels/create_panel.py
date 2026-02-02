@@ -77,8 +77,8 @@ class Panel(ScreenPanel):
             self.counter += 1
         elif(item['type'] == "Grid"):
             item_control_name = Gtk.Grid(orientation=Gtk.Orientation.HORIZONTAL)
-            item_control_name.set_column_homogeneous(True)
-            item_control_name.set_row_homogeneous(True)
+            # item_control_name.set_column_homogeneous(True)
+            # item_control_name.set_row_homogeneous(True)
             i+=1
             while i<len(self.items):
                 key_child = list(self.items[i])[0]
