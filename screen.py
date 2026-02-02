@@ -426,6 +426,8 @@ class KlipperScreen(Gtk.Window):
                 self._remove_current_panel()
             if panel_name not in self.panels:
                 try:
+                    if(panel != "splash_screen"):
+                        panel="general_create"
                     self.panels[panel_name] = self._load_panel(panel).Panel(self, title, **kwargs)
                 except Exception as e:
                     self.show_error_modal(f"Unable to load panel {panel}", f"{e}\n\n{traceback.format_exc()}")
@@ -434,6 +436,8 @@ class KlipperScreen(Gtk.Window):
                 logging.info(f"Reinitializing panel {panel}")
                 self.panels[panel_name].__init__(self, title, **kwargs)
                 self.panels_reinit.remove(panel_name)
+            if(panel_name.endswith("_menu")):
+                self._cur_panels.clear()
             self._cur_panels.append(panel_name)
             if 'extra' in kwargs and hasattr(self.panels[panel], "set_extra"):
                 self.panels[panel].set_extra(**kwargs)
@@ -742,20 +746,16 @@ class KlipperScreen(Gtk.Window):
         """
         logging.info(f"#### Go to submenu {name}")
         # Find current menu item
-        if "main_menu" in self._cur_panels:
-            menu = "__home"
-        elif "splash_screen" in self._cur_panels:
-            menu = "__splashscreen"
-        elif "home" in self._cur_panels:
-            menu = "home"
-        elif "consumables" in self._cur_panels:
-            menu = "consumables"
-        elif "control" in self._cur_panels:
-            menu = "control"
-        elif "settings" in self._cur_panels:
-            menu = "settings"
-        else:
-            menu = "__print"
+        if "home_menu" in self._cur_panels:
+            menu = "home_menu"
+        elif "printer_control_menu" in self._cur_panels:
+            menu = "printer_control_menu"
+        elif "consumables_menu" in self._cur_panels:
+            menu = "consumables_menu"
+        elif "settings_menu" in self._cur_panels:
+            menu = "settings_menu"
+        elif "messages_menu" in self._cur_panels:
+            menu = "messages_menu"
 
         logging.info(f"#### Menu {menu}")
         disname = self._config.get_menu_name(menu, name)
@@ -1031,7 +1031,7 @@ class KlipperScreen(Gtk.Window):
             self.printer.state = "not ready"
             return
         self.files.refresh_files()
-        self.show_panel("main_menu", remove_all=True, items=self._config.get_menu_items("__home_menu"))
+        self.show_panel("home_menu", remove_all=True, items=self._config.get_menu_items("home_menu"))
 
     def state_startup(self):
         """

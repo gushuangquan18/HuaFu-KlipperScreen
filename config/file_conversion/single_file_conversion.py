@@ -93,6 +93,6 @@ def convert_json_to_config(input_file: str, output_file: str) -> None:
 
 if __name__ == "__main__":
     # 配置输入输出文件路径
-    INPUT_FILE = "HuaFu-json/prompt_message_menu.json"
-    OUTPUT_FILE = "../prompt_message_menu.conf"
+    INPUT_FILE = "HuaFu-json/printer_control_menu.json"
+    OUTPUT_FILE = "../printer_control_menu.conf"
     convert_json_to_config(INPUT_FILE, OUTPUT_FILE)

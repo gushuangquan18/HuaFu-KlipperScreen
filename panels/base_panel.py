@@ -62,24 +62,33 @@ class BasePanel(ScreenPanel):
         self.control['shortcut'].set_no_show_all(True)
 
         #新添加的左侧操作栏按钮
-        self.control['home'] = self._gtk.Button('home', scale=self.abscale)
-        self.control['home'].connect("clicked", self._screen._menu_go_back)
+        self.home_menu = {
+            "panel": "home_menu",
+            "icon": "home_menu_icon",
+        }
+        self.control['home_menu'] = self._gtk.Button('home_menu_icon', scale=self.abscale)
+        self.control['home_menu'].connect("clicked", self.menu_item_clicked,self.home_menu)
+        # self.control['home_menu'].connect("clicked", self._screen._menu_go_back)
 
-        self.control['control'] = self._gtk.Button('control', scale=self.abscale)
-        self.control['control'].connect("clicked", self._screen._menu_go_back)
+        self.printer_control_menu = {
+            "panel": "printer_control_menu",
+            "icon": "printer_control_menu_icon",
+        }
+        self.control['printer_control_menu'] = self._gtk.Button('printer_control_menu_icon', scale=self.abscale)
+        self.control['printer_control_menu'].connect("clicked", self.menu_item_clicked,self.printer_control_menu)
 
         # 耗材按钮
-        self.control['consumables'] = self._gtk.Button('consumables', scale=self.abscale)
+        self.control['consumables_menu'] = self._gtk.Button('consumables_menu_icon', scale=self.abscale)
 
-        self.control['settings'] = self._gtk.Button('settings', scale=self.abscale)
+        self.control['settings_menu'] = self._gtk.Button('settings_menu_icon', scale=self.abscale)
         # 少个参数 _go_to_submenu
-        self.control['settings'].connect("clicked", self._screen._go_to_submenu)
+        self.control['settings_menu'].connect("clicked", self._screen._go_to_submenu)
 
         self.messages_menu = {
-            "panel": "messages",
-            "icon": "messages_menu",
+            "panel": "messages_menu",
+            "icon": "messages_menu_icon",
         }
-        self.control['messages_menu'] = self._gtk.Button('messages_menu', scale=self.abscale)
+        self.control['messages_menu'] = self._gtk.Button('messages_menu_icon', scale=self.abscale)
         self.control['messages_menu'].connect("clicked", self.menu_item_clicked,self.messages_menu)
 
         # Any action bar button should close the keyboard
@@ -103,10 +112,10 @@ class BasePanel(ScreenPanel):
         self.action_bar.set_size_request(self._gtk.action_bar_width, self._gtk.action_bar_height)
 
 
-        self.action_bar.add(self.control['home'])
-        self.action_bar.add(self.control['control'])
-        self.action_bar.add(self.control['consumables'])
-        self.action_bar.add(self.control['settings'])
+        self.action_bar.add(self.control['home_menu'])
+        self.action_bar.add(self.control['printer_control_menu'])
+        self.action_bar.add(self.control['consumables_menu'])
+        self.action_bar.add(self.control['settings_menu'])
         self.action_bar.add(self.control['messages_menu'])
         self.show_printer_select(len(self._config.get_printers()) > 1)
 

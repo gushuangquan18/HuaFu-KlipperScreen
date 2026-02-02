@@ -17,32 +17,12 @@ class Panel(CreatePanel):
         self.devices = {}
         self.graph_update = None
         self.active_heater = None
-        self.h = self.f = 0
-        self.main_menu = Gtk.Grid(row_homogeneous=True, column_homogeneous=True, hexpand=True, vexpand=True)
-        scroll = self._gtk.ScrolledWindow()
         self.numpad_visible = False
 
-        logging.info("### Making MainMenu")
 
-        stats = self._printer.get_printer_status_data()["printer"]
-        if stats["temperature_devices"]["count"] > 0 or stats["extruders"]["count"] > 0:
-            self._gtk.reset_temp_color()
-        if self._screen.vertical_mode:
-            self.main_menu.attach(self.create_up_panel(), 0, 0, 1, 3)
-            self.labels['menu'] = self.arrangeMenuItems(items, 3, True)
-            scroll.add(self.labels['menu'])
-            self.main_menu.attach(scroll, 0, 3, 1, 2)
-        else:
-            #上半部分显示3D打印机模型以及右边的提示语
-            # self.main_menu.attach(self.create_up_panel(), 0, 0, 1, 1)
-            #下半部分显示打印文件 打印头温度 耗材剩于量 wifi 以及助手信息提示信息
-            #items move(XY轴移动) temperature温度 extrude挤出 more(设置) print打印文件 gcodes
-            # self.labels['menu'] = self.arrangeMenuItems(items, 2, True)
-            # scroll.add(self.labels['menu'])
-            # scroll.add(self.arrangeMenuItems(items, 2, True))
-            self.main_menu.attach(self.labels['parent_grid'], 0, 0, 1, 1)
 
-        self.content.add(self.main_menu)
+
+
 
     def update_graph_visibility(self, force_hide=False):
         if self.left_panel is None:
