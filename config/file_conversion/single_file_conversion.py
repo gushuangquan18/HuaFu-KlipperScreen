@@ -48,7 +48,7 @@ def convert_json_to_config(input_file: str, output_file: str) -> None:
         # 2. 处理节点属性（严格按目标顺序，同时清除值前后空格）
         attr_order = ['name', 'type', 'width', 'height', 'icon', 'background',
                       'panel', 'row', 'column', 'rowspan', 'columnspan',
-                      'connect', 'connect_method',  'src', 'value']
+                      'connect', 'method',  'src', 'value']
         for attr in attr_order:
             if attr not in node:
                 continue
@@ -58,7 +58,7 @@ def convert_json_to_config(input_file: str, output_file: str) -> None:
             cleaned_value = clean_value(raw_value)
 
             # 按规则决定是否用 gettext 包裹（确保无多余空格）
-            if attr in ['name', 'background', 'connect', 'connect_method', 'src', 'value']:
+            if attr in ['name', 'background', 'connect', 'src', 'value']:
                 # 直接拼接，无额外空格：{{ gettext('xxx') }}
                 formatted_value = f" {{{{ gettext('{cleaned_value}') }}}}"
             else:
@@ -74,7 +74,7 @@ def convert_json_to_config(input_file: str, output_file: str) -> None:
 
         # 4. 处理直接嵌套的字典属性（如 air_system_HBox）
         for key, value in node.items():
-            if key in ['name', 'type', 'background', 'connect', 'connect_method',
+            if key in ['name', 'type', 'background', 'connect', 'method',
                        'panel', 'row', 'column', 'rowspan', 'columnspan',
                        'src', 'value', 'children','width','height','icon']:
                 continue
@@ -93,6 +93,6 @@ def convert_json_to_config(input_file: str, output_file: str) -> None:
 
 if __name__ == "__main__":
     # 配置输入输出文件路径
-    INPUT_FILE = "HuaFu-json/settings_menu.json"
-    OUTPUT_FILE = "../settings_menu.conf"
+    INPUT_FILE = "HuaFu-json/print_file_list.json"
+    OUTPUT_FILE = "../print_file_list.conf"
     convert_json_to_config(INPUT_FILE, OUTPUT_FILE)

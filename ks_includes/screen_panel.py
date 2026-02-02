@@ -69,6 +69,53 @@ class ScreenPanel:
         panel_args['items']=self._config.get_menu_items(item['panel'])
         self._screen.show_panel(item['panel'], **panel_args)
 
+
+    def show_dialog(self, widget):
+        """显示无标题选择对话框"""
+        # 创建无装饰的对话框
+        dialog = Gtk.Dialog()
+        dialog.set_decorated(False)  # 移除窗口装饰（标题栏和关闭按钮）
+        dialog.set_default_size(50, 80)
+        dialog.set_modal(True)
+        dialog.set_position(Gtk.WindowPosition.CENTER_ON_PARENT)
+
+        # 设置对话框样式
+        content_area = dialog.get_content_area()
+        content_area.set_border_width(15)
+        content_area.set_spacing(15)
+
+        # 创建按钮区域
+        grid = Gtk.Grid()
+
+        # A按钮
+        button_a = Gtk.Button(label="编辑")
+        button_a.set_size_request(80, 40)
+        button_a.connect("clicked", self.on_page_selected, dialog)
+
+        # B按钮
+        button_b = Gtk.Button(label="进料")
+        button_b.set_size_request(80, 40)
+        button_b.connect("clicked", self.on_page_selected, dialog)
+
+        # C按钮
+        button_c = Gtk.Button(label="退料")
+        button_c.set_size_request(80, 40)
+        button_c.connect("clicked", self.on_page_selected, dialog)
+
+        # 添加按钮到布局
+        grid.attach(button_a, 0,0,1,1)
+        grid.attach(button_b, 0,1,1,1)
+        grid.attach(button_c, 0,2,1,1)
+
+        content_area.pack_start(grid, False, False, 0)
+
+        # 显示对话框
+        dialog.show_all()
+
+    def on_page_selected(self, button, dialog):
+        """页面选择事件"""
+        dialog.destroy()
+
     def load_menu(self, widget, name, title=None):
         logging.info(f"loading menu {name}")
         if f"{name}_menu" not in self.labels:

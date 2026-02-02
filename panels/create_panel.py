@@ -1,5 +1,6 @@
 import json
 import logging
+from xxlimited_35 import Null
 
 import gi
 
@@ -39,6 +40,7 @@ class Panel(ScreenPanel):
     def create_child_items(self,i):
         self.counter =i
         key = list(self.items[i])[0]
+        key_child = key.split(' ')
         item = self.items[i][key]
         item_control_name = None
 
@@ -54,21 +56,29 @@ class Panel(ScreenPanel):
 
         elif(item['type']=="Button"):
             self.counter += 1
-            if(item["icon"] != "None"):
+            if(item["icon"] != None):
                 icon = self._screen.env.from_string(item['icon']).render(self.j2_data) if item['icon'] else None
                 item_control_name = self._gtk.Button(icon)
             else:
                 item_control_name = Gtk.Button()
-            if (item["panel"] != "None"):
+            if(item['value'] != None):
+                value = self._screen.env.from_string(item['value']).render(self.j2_data) if item['value'] else None
+                item_control_name.set_label(value)
+            if (item["panel"] != None):
                 parameter_item = {
                     "panel": item["panel"],
                     "icon": None,
                 }
                 item_control_name.connect("clicked", self.menu_item_clicked, parameter_item)
+            elif(key_child[len(key_child)-1] == 'go_back'):
+                item_control_name.connect("clicked", self._screen._menu_go_back)
+            elif(item['method'] == 'show_dialog'):
+                item_control_name.connect("clicked", self.show_dialog)
+
             if(self.counter<len(self.items)):
                 key_child = list(self.items[self.counter])[0]
                 item_child = self.items[self.counter]
-                if (item_child[key_child]['type'] == "Grid"):
+                if (item_child[key_child]['type'] == "Grid" and len(key_child)>len(key)):
                     item_control_name.add(self.create_child_items(self.counter))
 
         elif(item['type'] == "Label"):
@@ -125,6 +135,8 @@ class Panel(ScreenPanel):
         parent_grid.set_row_homogeneous(True)
         self.labels['parent_grid'] = parent_grid
         # self.content.add(parent_grid)
+
+
 
     def evaluate_enable(self, enable):
         """

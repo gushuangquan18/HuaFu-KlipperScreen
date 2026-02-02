@@ -78,7 +78,12 @@ class BasePanel(ScreenPanel):
         self.control['printer_control_menu'].connect("clicked", self.menu_item_clicked,self.printer_control_menu)
 
         # 耗材按钮
+        self.consumables_menu = {
+            "panel": "consumables_menu",
+            "icon": "consumables_menu_icon",
+        }
         self.control['consumables_menu'] = self._gtk.Button('consumables_menu_icon', scale=self.abscale)
+        self.control['consumables_menu'].connect("clicked", self.menu_item_clicked,self.consumables_menu)
 
         self.settings_menu = {
             "panel": "settings_menu",

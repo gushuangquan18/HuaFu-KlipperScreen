@@ -635,9 +635,13 @@ class KlipperScreen(Gtk.Window):
         with open(base_conf_path) as f:
             self.style_options = json.load(f)
         self.gtk.color_list = self.style_options['graph_colors']
+        #加载CSS文件
         base_css_path = os.path.join(klipperscreendir, "styles", "base.css")
+        #读取CSS文件
         self.base_css = pathlib.Path(base_css_path).read_text()
+        #替换CSS变量 "KS_FONT_SIZE" 字符串替换为 self.gtk.font_size 属性的值。使用了f-string格式化来插入字体大小的数值。
         self.base_css = self.base_css.replace("KS_FONT_SIZE", f"{self.gtk.font_size}")
+        #自定义颜色处理
         self.base_css = self.customize_graph_colors(self.base_css)
 
         self.style_provider.load_from_data(self.base_css.encode())

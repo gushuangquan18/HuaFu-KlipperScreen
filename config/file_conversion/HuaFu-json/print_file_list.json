@@ -2,71 +2,258 @@
   "father":"home_menu",
   "name":"print_file_list",    
   "type":"Grid",
-  "head_box":{
-    "name":"Head Box",
-    "type":"Box",
+  "head_grid":{
+    "name":"Head Grid",
+    "type":"Grid",
+    "column":0,
+    "row":0,
+    "columnspan":1,
+    "rowspan":1,
     "children":{
       "go_bcak":{
         "name":"Go Back",
         "type":"Button",
-        "src":"images/back.svg",
-        "connect":"clicked",
-        "method":"go_back"
+        "icon": "back",
+        "column":0,
+        "row":0,
+        "columnspan":1,
+        "rowspan":1
       },
       "onboard_storage":{
         "name":"Onboard Storage",
         "type":"Button",
         "value":"机内存储",
-        "connect":"clicked",
-        "method":"TODO"
+        "column":1,
+        "row":0,
+        "columnspan":2,
+        "rowspan":1
       },
       "USB":{
         "name":"USB",
         "type":"Button",
         "value":"USB",
-        "connect":"clicked",
-        "method":"TODO"
+        "column":3,
+        "row":0,
+        "columnspan":1,
+        "rowspan":1
       }
     }
   },
-  "file_list":{
-    "name":"File List",
-    "type":"ScrolledWindow",
-    "children":{
-      "file_grid":{
-        "name":"File Grid",
-        "type":"Grid",
-        "children":{
-          "select_print_file":{
-            "name":"Select Print File",
-            "type":"Button",
-            "connect":"clicked",
-            "method":"TODO",
-            "panel":"select_disc_print_list",
-            "hbox":{
-              "modeling_graphics":{
-                "name":"Modeling Graphics",
-                "type":"Image",
-                "src":"images/modeling_graphics.png"
-              },
-              "file_name":{
-                "name":"File Name",
-                "type":"Label",
-                "value":"file_name"
-              },
-              "print_time":{
-                "name":"Print Time",
-                "type":"Label",
-                "value":"print_time"
-              },
-              "print_weight":{
-                "name":"Print Weight",
-                "type":"Label",
-                "value":"print_weight"
-              }
+  "file_list": {
+    "name": "File List",
+    "type": "Grid",
+    "column": 0,
+    "row": 1,
+    "columnspan": 3,
+    "rowspan": 1,
+    "children": {
+      "select_print_file_one": {
+        "name": "Select Print File One",
+        "type": "Button",
+        "column":0,
+        "row":0,
+        "columnspan":1,
+        "rowspan":1,
+        "children": {
+          "select_print_file_grid": {
+            "name": "Select Print File Grid",
+            "type": "Grid",
+            "modeling_graphics": {
+              "name": "Modeling Graphics",
+              "type": "Image",
+              "width":150,
+              "height":150,
+              "column":0,
+              "row":0,
+              "columnspan":2,
+              "rowspan":2,
+              "src": "images/modeling_graphics.png"
+            },
+            "file_name": {
+              "name": "File Name",
+              "type": "Label",
+              "value": "文件1",
+              "column":0,
+              "row":3,
+              "columnspan":2,
+              "rowspan":1
+            },
+            "print_time": {
+              "name": "Print Time",
+              "type": "Label",
+              "value": "4h13m",
+              "column":0,
+              "row":4,
+              "columnspan":1,
+              "rowspan":1
+            },
+            "print_weight": {
+              "name": "Print Weight",
+              "type": "Label",
+              "value": "56g",
+              "column":1,
+              "row":4,
+              "columnspan":1,
+              "rowspan":1
             }
-          }            
-        }         
+          }
+        }
+      },
+      "select_print_file_two": {
+        "name": "Select Print File Two",
+        "type": "Button",
+        "column":1,
+        "row":0,
+        "columnspan":1,
+        "rowspan":1,
+        "children": {
+          "select_print_file_grid": {
+            "name": "Select Print File Grid",
+            "type": "Grid",
+            "modeling_graphics": {
+              "name": "Modeling Graphics",
+              "type": "Image",
+              "width":150,
+              "height":150,
+              "column":0,
+              "row":0,
+              "columnspan":2,
+              "rowspan":2,
+              "src": "images/modeling_graphics.png"
+            },
+            "file_name": {
+              "name": "File Name",
+              "type": "Label",
+              "value": "文件2",
+              "column":0,
+              "row":3,
+              "columnspan":2,
+              "rowspan":1
+            },
+            "print_time": {
+              "name": "Print Time",
+              "type": "Label",
+              "value": "4h13m",
+              "column":0,
+              "row":4,
+              "columnspan":1,
+              "rowspan":1
+            },
+            "print_weight": {
+              "name": "Print Weight",
+              "type": "Label",
+              "value": "56g",
+              "column":1,
+              "row":4,
+              "columnspan":1,
+              "rowspan":1
+            }
+          }
+        }
+      },
+      "select_print_file_three": {
+        "name": "Select Print File Three",
+        "type": "Button",
+        "column":2,
+        "row":0,
+        "columnspan":1,
+        "rowspan":1,
+        "children": {
+          "select_print_file_grid": {
+            "name": "Select Print File Grid",
+            "type": "Grid",
+            "modeling_graphics": {
+              "name": "Modeling Graphics",
+              "type": "Image",
+              "width":150,
+              "height":150,
+              "column":0,
+              "row":0,
+              "columnspan":2,
+              "rowspan":2,
+              "src": "images/modeling_graphics.png"
+            },
+            "file_name": {
+              "name": "File Name",
+              "type": "Label",
+              "value": "文件3",
+              "column":0,
+              "row":3,
+              "columnspan":2,
+              "rowspan":1
+            },
+            "print_time": {
+              "name": "Print Time",
+              "type": "Label",
+              "value": "4h13m",
+              "column":0,
+              "row":4,
+              "columnspan":1,
+              "rowspan":1
+            },
+            "print_weight": {
+              "name": "Print Weight",
+              "type": "Label",
+              "value": "56g",
+              "column":1,
+              "row":4,
+              "columnspan":1,
+              "rowspan":1
+            }
+          }
+        }
+      },
+      "select_print_file_four": {
+        "name": "Select Print File Four",
+        "type": "Button",
+        "column":3,
+        "row":0,
+        "columnspan":1,
+        "rowspan":1,
+        "children": {
+          "select_print_file_grid": {
+            "name": "Select Print File Grid",
+            "type": "Grid",
+            "modeling_graphics": {
+              "name": "Modeling Graphics",
+              "type": "Image",
+              "width":150,
+              "height":150,
+              "column":0,
+              "row":0,
+              "columnspan":2,
+              "rowspan":2,
+              "src": "images/modeling_graphics.png"
+            },
+            "file_name": {
+              "name": "File Name",
+              "type": "Label",
+              "value": "文件4",
+              "column":0,
+              "row":3,
+              "columnspan":2,
+              "rowspan":1
+            },
+            "print_time": {
+              "name": "Print Time",
+              "type": "Label",
+              "value": "4h13m",
+              "column":0,
+              "row":4,
+              "columnspan":1,
+              "rowspan":1
+            },
+            "print_weight": {
+              "name": "Print Weight",
+              "type": "Label",
+              "value": "56g",
+              "column":1,
+              "row":4,
+              "columnspan":1,
+              "rowspan":1
+            }
+          }
+        }
       }
     }
   }
