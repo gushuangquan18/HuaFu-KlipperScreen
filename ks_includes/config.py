@@ -95,7 +95,7 @@ class KlipperScreenConfig:
             printers.append("Printer Printer")
         self.printers = [
             {printer[8:]: {
-                "moonraker_host": self.config.get(printer, "moonraker_host", fallback="192.168.31.74"),
+                "moonraker_host": self.config.get(printer, "moonraker_host", fallback="192.168.6.144"),
                 "moonraker_port": self.config.get(printer, "moonraker_port", fallback="7125"),
                 "moonraker_path": self.config.get(printer, "moonraker_path", fallback='').strip('/'),
                 "moonraker_ssl": self.config.getboolean(printer, "moonraker_ssl", fallback=None),
@@ -191,6 +191,7 @@ class KlipperScreenConfig:
                 numbers = [f'{option}' for option in config[section] if option != 'gcode']
             elif section.startswith('menu '):
                 strs = ('name', 'type', 'value', 'icon', 'src', 'str', 'panel',
+                        'row_spacing','column_spacing','row_homogeneous','column_homogeneous',
                         'width' ,'height', 'row', 'column', 'rowspan', 'columnspan',
                         'connect', 'method', 'params', 'enable', 'confirm', 'style')
             elif section.startswith('graph')\
@@ -626,6 +627,10 @@ class KlipperScreenConfig:
             "panel": cfg.get("panel", None),
             "width": cfg.get("width", None),
             "height": cfg.get("height", None),
+            "row_spacing": cfg.get("row_spacing", None),
+            "column_spacing": cfg.get("column_spacing", None),
+            "row_homogeneous": cfg.get("row_homogeneous", "False"),
+            "column_homogeneous": cfg.get("column_homogeneous", "False"),
             "method": cfg.get("method", None),
             "confirm": cfg.get("confirm", None),
             "enable": cfg.get("enable", "True"),

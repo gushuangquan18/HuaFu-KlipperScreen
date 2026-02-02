@@ -1,0 +1,272 @@
+/* Material-dark theme created by Alfredo Monclus 2021 */
+/* 文件头注释：说明这是由 Alfredo Monclus 在 2021 年创建的 Material Dark 主题 */
+
+@define-color text #e2e2e2; 
+/* 定义主要文字颜色为浅灰色 (#e2e2e2)，用于正文文本 */
+
+@define-color bg #121212; 
+/* 定义背景颜色为深黑色 (#121212)，用于窗口和主要容器背景 */
+
+@define-color buttons-bg #090909; 
+/* 定义按钮背景颜色为极深的黑色 (#090909)，比主背景稍深或用于区分层级 */
+
+@define-color color1 #d46900; 
+/* 定义主题色1 (橙色)，常用于主要按钮或强调元素 */
+@define-color color2 #ed3c63; 
+/* 定义主题色2 (粉红色)，常用于次要按钮或警告 */
+@define-color color3 #849900; 
+/* 定义主题色3 (黄绿色)，常用于成功状态或确认 */
+@define-color color4 #007db4; 
+/* 定义主题色4 (蓝色)，常用于信息提示或链接 */
+
+@define-color echo #006412; 
+/* 定义回显/成功颜色 (深绿色)，用于表示操作成功或更新状态 */
+@define-color warning #EF6C00; 
+/* 定义警告颜色 (亮橙色)，用于表示警告信息 */
+@define-color error #B71C1C; 
+/* 定义错误颜色 (深红色)，用于表示错误或危险操作 */
+@define-color active #d46900; 
+/* 定义激活状态颜色，与 color1 相同 (橙色)，用于按钮按下或选中状态 */
+@define-color active-dark #282828; 
+/* 定义深色激活背景 (#282828)，用于复选框、输入框等控件的背景 */
+
+@define-color lines #a2a2a2; 
+/* 定义线条/辅助文字颜色 (中灰色)，用于时间戳或分割线 */
+@define-color slider #d81549; 
+/* 定义滑块/进度条颜色 (洋红色)，用于进度条填充色 */
+
+* { 
+    color: @text; 
+}
+/* 通配符选择器：设置页面上所有元素的默认文字颜色为 @text (浅灰) */
+
+junction, list row, treeview.view, button, window { 
+    background-color: @bg; 
+}
+/* 设置特定控件（连接点、列表行、树形视图、按钮、窗口）的背景色为 @bg (深黑) */
+
+/* --- 按钮样式变体 (Color Variants) --- */
+/* 以下代码为带有特定类名的按钮设置样式 */
+/* 它们都有圆角边框 (border-radius: 1em) 和不同的边框颜色 */
+button.color1 { 
+    background-color: @buttons-bg; 
+    border-color: @color1; 
+    border-radius: 1em; 
+}
+button.color2 { 
+    background-color: @buttons-bg; 
+    border-color: @color2; 
+    border-radius: 1em; 
+}
+button.color3 { 
+    background-color: @buttons-bg; 
+    border-color: @color3; 
+    border-radius: 1em; 
+}
+button.color4 { 
+    background-color: @buttons-bg; 
+    border-color: @color4; 
+    border-radius: 1em; 
+}
+/* --- 激活状态样式 (Active States) --- */
+.button_active { 
+    background-color: @active-dark; 
+    border-width: .25em; 
+    border-radius: 1em; 
+}
+/* 定义类名为 'button_active' 的元素样式：深色背景，粗边框 */
+
+/* 隐藏特定按钮在按下状态下的边框 */
+.active image, 
+button.color1:active, 
+button.color2:active, 
+button.color3:active, 
+button.color4:active, 
+button.update:active, 
+button.invalid:active, 
+.dialog button:active { 
+    border-style: none; 
+}
+
+/* --- 更新与无效按钮 (Update & Invalid) --- */
+/* 这些按钮没有左侧、右侧和顶部边框，只有底部边框 */
+button.update, button.invalid { 
+    background-color: @buttons-bg; 
+    border: 0; 
+    border-bottom: .3em solid; 
+    border-radius: .75em; 
+}
+button.update { 
+    border-bottom-color: @echo; 
+}
+/* 更新按钮底部边框为绿色 (@echo) */
+button.invalid { 
+    border-bottom-color: @error; 
+}
+/* 无效按钮底部边框为红色 (@error) */
+
+/* --- 下拉菜单与选择框 (Menus & Combobox) --- */
+menu, menuitem, combobox button, combobox arrow, combobox menuitem { 
+    background-color: @active-dark; 
+    border-color: @bg; 
+}
+/* 设置菜单、下拉框及其箭头的背景为深色激活背景，边框与主背景融合 */
+
+/* --- 复选框与开关 (Checkboxes & Switches) --- */
+treeview.view check, switch { 
+    background-color: @active-dark; 
+}
+/* 复选框和开关的默认背景 */
+treeview.view check:checked, switch:checked { 
+    background-color: @echo; 
+}
+/* 选中状态下的背景为绿色 */
+treeview.view check:checked { 
+    -gtk-icon-source: url("./styles/material-dark/images/complete.svg"); 
+}
+/* 选中时显示一个外部的 SVG 图标 (通常是一个对勾) */
+
+/* --- 输入框 (Entry) --- */
+entry { 
+    background-color: @active-dark; 
+    border-color: @active-dark; 
+}
+/* 输入框背景与边框统一为深色激活背景，视觉上更融合 */
+
+/* --- 标签 (Label) --- */
+label { 
+    color: @text; 
+}
+/* 确保标签文字颜色为浅灰色 (虽然全局已设置，但此处再次强调) */
+
+/* --- 进度条/滑块槽 (Trough) --- */
+trough { 
+    background-color: @active-dark; 
+    color: @text; 
+}
+/* 进度条/滑块的轨道背景 */
+trough highlight, trough progress { 
+    background-color: @slider; 
+    color: @text; 
+    border-color: @bg; 
+}
+/* 进度条/滑块的填充部分背景为洋红色 (@slider) */
+scale-mark { 
+    color: @text; 
+}
+/* 滑块刻度文字颜色 */
+
+/* --- 滚动条 (Scrollbar) --- */
+scrollbar, scrollbar button, scrollbar trough { 
+    background-color: @bg; 
+}
+/* 滚动条整体及按钮背景与主窗口一致 */
+scrollbar slider { 
+    background-color: @active-dark; 
+}
+/* 滚动条滑块部分背景为深色激活背景 */
+
+/* --- 文本视图 (Textview) --- */
+textview .time { 
+    color: @lines; 
+}
+/* 文本视图中类名为 'time' 的文字颜色为线条色 (中灰) */
+
+/* --- 对话框 (Dialog) --- */
+.dialog { 
+    border: @bg; 
+    background-color: @bg; 
+}
+/* 对话框背景与边框 */
+.dialog button { 
+    background-color: @buttons-bg; 
+    border-radius: .75em; 
+}
+/* 对话框内按钮的样式 */
+
+/* --- 水平切换按钮组 (Horizontal Toggle Buttons) --- */
+.horizontal_togglebuttons { 
+    border-color: @bg; 
+    background-color: @buttons-bg; 
+}
+.horizontal_togglebuttons_active, button.active { 
+    background-color: @active; 
+}
+/* 水平切换按钮组的激活状态背景为橙色 */
+
+/* --- 风扇滑块 (Fan Slider) --- */
+.fan_slider { 
+    color: @text; 
+}
+/* 风扇滑块控件的文字颜色 */
+
+/* --- 消息弹窗 (Message Popup) --- */
+.message_popup { 
+    border-bottom-color: @text; 
+}
+.message_popup_echo, .message_popup_echo button { 
+    background-color: @echo; 
+}
+.message_popup_warning, .message_popup_warning button { 
+    background-color: @warning; 
+}
+.message_popup_error, .message_popup_error button { 
+    background-color: @error; 
+}
+/* 定义不同类型的弹窗（回显、警告、错误）的背景色 */
+
+/* --- 打印状态 (Printing Status) --- */
+.printing-status, .printing-progress-text, .printing-status-label { 
+    color: @text; 
+}
+/* 打印相关状态文字颜色 */
+
+/* --- 消息气泡 (Message) --- */
+.message { 
+    border-color: @error; 
+    color: @text; 
+    background-color: @error; 
+}
+.message button { 
+    background-color: @text; 
+    color: @bg; 
+}
+/* 错误消息气泡及其内部按钮的样式 (白底黑字或黑底白字的反差) */
+
+/* --- 状态类 (Status Classes) --- */
+.warning { background-color: @warning; }
+.error { background-color: @error; }
+/* 通用的警告和错误背景类 */
+
+/* --- 键盘与输入 (Keyboard) --- */
+.keyboard_pad { 
+    background-color: @buttons-bg; 
+}
+/* 虚拟键盘背景 */
+
+/* --- 对话框边框颜色 (Dialog Borders) --- */
+/* 以下类用于给对话框底部添加不同颜色的装饰条 */
+
+.dialog-error {
+    border-bottom-color: @error;
+}
+
+.dialog-warning {
+    border-bottom-color: @warning;
+}
+
+.dialog-info {
+    border-bottom-color: @color4;
+}
+
+.dialog-default {
+    border-bottom-color: @color3;
+}
+
+.dialog-secondary {
+     border-bottom-color: @color2;
+}
+
+.dialog-primary {
+     border-bottom-color: @color1;
+}

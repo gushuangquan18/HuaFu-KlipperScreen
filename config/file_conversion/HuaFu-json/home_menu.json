@@ -5,13 +5,16 @@
   "children":{
     "up_grid":{
       "name":"Up Grid",
+      "name":"Up Grid",
       "type":"Grid",
-      "width":1000,
-      "height":300,
+      "width":900,
+      "height":310,
       "column":0,
       "row":0,
       "columnspan":1,
       "rowspan":1,
+      "row_spacing": 15,
+      "column_spacing": 10,
       "children":{
         "printer":{
           "name":"3D Printer Model",
@@ -49,8 +52,8 @@
     "down_grid":{
       "name":"Down Grid",
       "type":"Grid",
-      "width":1000,
-      "height":300,
+      "width":900,
+      "height":210,
       "column":0,
       "row":1,
       "columnspan":1,
@@ -73,6 +76,9 @@
             "row":0,
             "columnspan":1,
             "rowspan":1,
+            "width": 400,
+            "height": 190,
+            "column_spacing":1,
             "children": {
               "modeling_graphics":{
                 "name":"Modeling Graphics",
@@ -104,16 +110,18 @@
           "row":0,
           "columnspan":1,
           "rowspan":1,
+          "width": 500,
+          "height": 190,
           "nozzle_extruder":{
               "name":"Nozzle Extruder",
               "type":"Button",
               "connect":"clicked",
-              "method":"go_to_next_interface",
-              "panel":"nozzle_extruder",
+              "panel":"printer_control_menu",
               "column":0,
               "row":0,
               "columnspan":1,
               "rowspan":1,
+              "style":"color4",
               "nozzle_extruder_grid":{
                 "name":"Nozzle Extruder Grid",
                 "type":"Grid",
@@ -121,6 +129,8 @@
                 "row":0,
                 "columnspan":1,
                 "rowspan":1,
+                "width": 100,
+                "height": 190,
                 "children": {
                   "nozzle1_icon":{
                     "name":"Nozzle1 Icon",
@@ -169,50 +179,25 @@
             "name":"WIFI",
             "type":"Button",
             "panel":"wifi",
+            "icon": "wifi",
+            "value": "WiFi",
             "connect":"clicked",
-            "method":"go_to_next_interface",
             "column":1,
             "row":0,
             "columnspan":1,
             "rowspan":1,
-            "wifi_grid":{
-              "name":"WIFI Grid",
-              "type":"Grid",
-              "children": {
-                "wifi_label":{
-                  "name":"Wifi Label",
-                  "type":"Label",
-                  "value":"WIFI",
-                  "column":0,
-                  "row":0,
-                  "columnspan":1,
-                  "rowspan":1
-                },
-                "wifi_image":{
-                  "name":"WIFI Icon",
-                  "type":"Image",
-                  "width":80,
-                  "height":80,
-                  "column":0,
-                  "row":1,
-                  "columnspan":1,
-                  "rowspan":1,
-                  "src":"images/wifi.png"
-                }
-              }
-            }
+            "style":"home_button"
           },
           "messages_assistant":{
             "name":"Messages Assistant",
             "type":"Button",
             "icon":"messages_assistant",
-            "panel":"messages",
-            "connect":"clicked",
-            "method":"menu_item_clicked",
+            "panel":"messages_menu",
             "column":2,
             "row":0,
             "columnspan":1  ,
-            "rowspan":1
+            "rowspan":1,
+            "style":"home_button"
           }
         }
       }

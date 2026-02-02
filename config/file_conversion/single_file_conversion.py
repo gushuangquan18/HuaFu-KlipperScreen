@@ -46,9 +46,9 @@ def convert_json_to_config(input_file: str, output_file: str) -> None:
         output_lines.append(menu_line)
 
         # 2. 处理节点属性（严格按目标顺序，同时清除值前后空格）
-        attr_order = ['name', 'type', 'width', 'height', 'icon', 'background',
-                      'panel', 'row', 'column', 'rowspan', 'columnspan',
-                      'connect', 'method',  'src', 'value']
+        attr_order = ['name', 'type', 'width', 'height', 'icon', 'background','row_homogeneous','column_homogeneous',
+                      'panel', 'row', 'column', 'rowspan', 'columnspan','row_spacing','column_spacing',
+                      'connect', 'method',  'src', 'value','style']
         for attr in attr_order:
             if attr not in node:
                 continue
@@ -74,9 +74,9 @@ def convert_json_to_config(input_file: str, output_file: str) -> None:
 
         # 4. 处理直接嵌套的字典属性（如 air_system_HBox）
         for key, value in node.items():
-            if key in ['name', 'type', 'background', 'connect', 'method',
-                       'panel', 'row', 'column', 'rowspan', 'columnspan',
-                       'src', 'value', 'children','width','height','icon']:
+            if key in ['name', 'type', 'background', 'connect', 'method','row_homogeneous','column_homogeneous',
+                       'panel', 'row', 'column', 'rowspan', 'columnspan','row_spacing','column_spacing',
+                       'src', 'value', 'children','width','height','icon','style']:
                 continue
             if isinstance(value, dict) and 'name' in value:
                 process_node(value, current_menu_path)
@@ -93,6 +93,6 @@ def convert_json_to_config(input_file: str, output_file: str) -> None:
 
 if __name__ == "__main__":
     # 配置输入输出文件路径
-    INPUT_FILE = "HuaFu-json/print_file_list.json"
-    OUTPUT_FILE = "../print_file_list.conf"
+    INPUT_FILE = "HuaFu-json/printer_control_menu.json"
+    OUTPUT_FILE = "../printer_control_menu.conf"
     convert_json_to_config(INPUT_FILE, OUTPUT_FILE)

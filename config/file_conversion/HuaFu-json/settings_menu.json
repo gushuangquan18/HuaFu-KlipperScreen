@@ -204,34 +204,9 @@
       "columnspan":2,
       "rowspan":2,
       "panel":"calibration",
-      "children": {
-        "calibration_grid": {
-          "name":"Calibration Grid",
-          "type":"Grid",
-          "children": {
-            "calibration_image":{
-              "name":"Calibration Icon",
-              "type":"Image",
-              "width":80,
-              "height":80,
-              "column":0,
-              "row":0,
-              "columnspan":1,
-              "rowspan":1,
-              "src":"images/calibration.png"
-            },
-            "calibration_label":{
-              "name":"Calibration Label",
-              "type":"Label",
-              "value":"校准",
-              "column":0,
-              "row":1,
-              "columnspan":1,
-              "rowspan":1
-            }
-          }
-        }
-      }
+      "icon":"calibration",
+      "value": "校准",
+      "style": "color4"
     },
     "toolbox":{
       "name":"ToolBox",
@@ -241,34 +216,9 @@
       "columnspan":2,
       "rowspan":3,
       "panel":"toolbox",
-      "children": {
-        "toolbox_grid": {
-          "name":"ToolBox Grid",
-          "type":"Grid",
-          "children": {
-            "toolbox_image":{
-              "name":"ToolBox Icon",
-              "type":"Image",
-              "width":80,
-              "height":80,
-              "column":0,
-              "row":0,
-              "columnspan":1,
-              "rowspan":1,
-              "src":"images/toolbox.png"
-            },
-            "toolbox_label":{
-              "name":"ToolBox Label",
-              "type":"Label",
-              "value":"工具箱",
-              "column":0,
-              "row":1,
-              "columnspan":1,
-              "rowspan":1
-            }
-          }
-        }
-      }
+      "icon":"toolbox",
+      "value": "工具箱",
+      "style": "color4"
     },
     "system_setting": {
       "name":"System Setting",
@@ -278,34 +228,9 @@
       "columnspan":2,
       "rowspan":2,
       "panel":"system_setting",
-      "children": {
-        "system_setting_grid": {
-          "name":"System setting Grid",
-          "type":"Grid",
-          "children": {
-            "system_setting_image":{
-              "name":"System Setting Icon",
-              "type":"Image",
-              "width":80,
-              "height":80,
-              "column":0,
-              "row":0,
-              "columnspan":1,
-              "rowspan":1,
-              "src":"images/system_settings.png"
-            },
-            "system_setting_label":{
-              "name":"System Setting Label",
-              "type":"Label",
-              "value":"设置",
-              "column":0,
-              "row":1,
-              "columnspan":1,
-              "rowspan":1
-            }
-          }
-        }
-      }
+      "icon":"system_setting",
+      "value": "设置",
+      "style": "color4"
     }
   }
 }

@@ -17,7 +17,7 @@ class Panel(ScreenPanel):
         super().__init__(screen, title)
         self.items = items
         self.j2_data = self._printer.get_printer_status_data()
-        self.create_menu_items()
+        self.create_menu_items(title)
         self.scroll = self._gtk.ScrolledWindow()
         self.scroll.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
         # self.autogrid = AutoGrid()
@@ -58,7 +58,9 @@ class Panel(ScreenPanel):
             self.counter += 1
             if(item["icon"] != None):
                 icon = self._screen.env.from_string(item['icon']).render(self.j2_data) if item['icon'] else None
-                item_control_name = self._gtk.Button(icon)
+                value = self._screen.env.from_string(item['value']).render(self.j2_data) if item['value'] else None
+                style = self._screen.env.from_string(item['style']).render(self.j2_data) if item['style'] else None
+                item_control_name = self._gtk.Button(icon,value,style)
             else:
                 item_control_name = Gtk.Button()
             if(item['value'] != None):
@@ -85,10 +87,24 @@ class Panel(ScreenPanel):
             value = self._screen.env.from_string(item['value']).render(self.j2_data) if item['value'] else None
             item_control_name = Gtk.Label(label=_(value))
             self.counter += 1
-        elif(item['type'] == "Grid"):
+        elif(item['type'] == "Grid"):#移除默认边框
             item_control_name = Gtk.Grid(orientation=Gtk.Orientation.HORIZONTAL)
-            # item_control_name.set_column_homogeneous(True)
-            # item_control_name.set_row_homogeneous(True)
+            item_control_name.set_name(key_child[len(key_child)-1])
+            height = int(self._screen.env.from_string(item['height']).render(self.j2_data) if item['height'] else None)
+            width = int(self._screen.env.from_string(item['width']).render(self.j2_data) if item['width'] else None)
+            item_control_name.set_size_request(width, height)
+            if(item['row_spacing'] != None):
+                row_spacing =int(self._screen.env.from_string(item['row_spacing']).render(self.j2_data) if item['row_spacing'] else None)
+                item_control_name.set_row_spacing(50)
+            if(item['column_spacing'] != None):
+                column_spacing = int(self._screen.env.from_string(item['column_spacing']).render(self.j2_data) if item['column_spacing'] else None)
+                item_control_name.set_column_spacing(50)
+            if (item['column_homogeneous'] == 'True'):
+                item_control_name.set_column_homogeneous(True)
+            if (item['row_homogeneous'] == 'True'):
+                item_control_name.set_row_homogeneous(True)
+
+
             i+=1
             while i<len(self.items):
                 key_child = list(self.items[i])[0]
@@ -107,6 +123,9 @@ class Panel(ScreenPanel):
         elif (item['type'] == "Switch"):
             item_control_name= Gtk.Switch()
             value = self._screen.env.from_string(item['value']).render(self.j2_data) if item['value'] else None
+            height = int(self._screen.env.from_string(item['height']).render(self.j2_data) if item['height'] else None)
+            width = int(self._screen.env.from_string(item['width']).render(self.j2_data) if item['width'] else None)
+            item_control_name.set_size_request(width, height)
             item_control_name.set_active(bool(value))
             # self.binary_switch.connect("notify::active", self.on_binary_switch_toggled)
             self.counter += 1
@@ -115,7 +134,7 @@ class Panel(ScreenPanel):
 
 
 
-    def create_menu_items(self):
+    def create_menu_items(self,panel_name):
         """
             创建主界面 下半部分元素
         :return:
@@ -131,8 +150,10 @@ class Panel(ScreenPanel):
                     int(item['columnspan']),
                     int(item['rowspan']))
             i = self.counter
-        parent_grid.set_column_homogeneous(True)
-        parent_grid.set_row_homogeneous(True)
+        parent_grid.set_name(panel_name)
+        if(panel_name == "printer_control_menu"):
+            parent_grid.set_row_homogeneous(True)
+
         self.labels['parent_grid'] = parent_grid
         # self.content.add(parent_grid)
 

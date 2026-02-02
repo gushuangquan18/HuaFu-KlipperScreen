@@ -158,8 +158,8 @@ class KlipperScreen(Gtk.Window):
         self.wayland = display.get_name().startswith('wayland') or display.get_primary_monitor() is None
         logging.info(f"Wayland: {self.wayland} Display name: {display.get_name()}")
         #设置窗口大小 如果是None参数是默认 1100 620
-        self.width = self._config.get_main_config().getint("width", None)
-        self.height = self._config.get_main_config().getint("height", None)
+        self.width = self._config.get_main_config().getint("width", 1100)
+        self.height = self._config.get_main_config().getint("height", 620)
         if 'XDG_CURRENT_DESKTOP' in os.environ:
             logging.warning("Running inside a desktop environment is not recommended")
             if not self.width:
@@ -428,7 +428,7 @@ class KlipperScreen(Gtk.Window):
                 try:
                     if(panel != "splash_screen"):
                         panel="general_create"
-                    self.panels[panel_name] = self._load_panel(panel).Panel(self, title, **kwargs)
+                    self.panels[panel_name] = self._load_panel(panel).Panel(self, panel_name, **kwargs)
                 except Exception as e:
                     self.show_error_modal(f"Unable to load panel {panel}", f"{e}\n\n{traceback.format_exc()}")
                     return
@@ -1781,6 +1781,8 @@ def main():
         logging.exception(f"Failed to initialize window\n{e}\n\n{traceback.format_exc()}")
         raise RuntimeError from e
     win.connect("destroy", Gtk.main_quit)
+    # 关闭标题栏
+    # win.set_decorated(False)
     win.show_all()
     Gtk.main()
 
