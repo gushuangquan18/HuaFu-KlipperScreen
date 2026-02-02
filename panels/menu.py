@@ -44,11 +44,13 @@ class Panel(ScreenPanel):
         """
         self.autogrid.clear()
         enabled = []
-        for item in items:
-            key = list(item)[0]
-            if not self.evaluate_enable(item[key]['enable']):
-                logging.debug(f"X > {key}")
-                continue
+        # for item in items:
+        #     key = list(item)[0]
+        #     if not self.evaluate_enable(item[key]['enable']):
+        #         logging.debug(f"X > {key}")
+        #         continue
+        enabled.append(self.labels["up_box"])
+        enabled.append(self.labels["down_box"])
         self.autogrid.__init__(enabled, columns, expand_last, self._screen.vertical_mode)
         return self.autogrid
 
@@ -68,55 +70,53 @@ class Panel(ScreenPanel):
             self.counter += 1
         elif(item['type']=="Button"):
             self.counter += 1
-            if(item["panel"] is not None):
+            if(item["panel"] != "None"):
                 print(item)
-            if(item["icon"] is not None):
+            if(item["icon"] != "None"):
                 icon = self._screen.env.from_string(item['icon']).render(self.j2_data) if item['icon'] else None
+
                 control_name = self._gtk.Button(icon)
             else:
                 control_name = Gtk.Button()
-                j = self.counter
-                while j <len(self.items):
-                    key = list(self.items[j])[0]
-                    item = self.items[j]
-                    if (item[key]['type'] == "Grid"):
+                # control_name.connect("clicked", self.go_next_level)
+            #downbox 4 button 5 hbox6 image6 label7
+            j = self.counter
+            while j <len(self.items):
+                key = list(self.items[j])[0]
+                item = self.items[j]
+                if (item[key]['type'] == "Box" or item[key]['type'] == "Grid"):
+                    if (item['type'] == "Box"):
+                        self.labels[key] = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=5)
+                    else:
                         self.labels[key] = Gtk.Grid(orientation=Gtk.Orientation.HORIZONTAL)
-                        control_name.add(self.labels[key] )
-                        j=j+1
-                        while True:
-                            key_child = list(self.items[j])[0]
-                            item_child = self.items[j][key_child]
-                            key_father = ' '.join(key_child.split()[:-1]) if key_child and key_child.strip() else ''
-                            if (key_father == key and len((list(self.items[j])[0]).split()) > 1):
-                                self.labels[key].attach(
-                                    self.create_child_items(j),
-                                    int(item_child['column']),
-                                    int(item_child['row']),
-                                    int(item_child['columnspan']),
-                                    int(item_child['rowspan']))
-                                j = self.counter
-                            else:
-                                j = self.counter
-                                break
-                    break
+                    control_name.add(self.labels[key] )
+                    j=j+1
+                    while True:
+                        key_child = list(self.items[j])[0]
+                        # key_array = key_child.split()
+                        key_father = ' '.join(key_child.split()[:-1]) if key_child and key_child.strip() else ''
+                        if (key_father == key and len((list(self.items[j])[0]).split()) > 1):
+                            self.labels[key].attach(self.create_child_items(j))
+                            j = self.counter
+                        else:
+                            j = self.counter
+                            break
+                break
         elif(item['type'] == "Label"):
             value = self._screen.env.from_string(item['value']).render(self.j2_data) if item['value'] else None
             control_name = Gtk.Label(label=_(value))
             self.counter += 1
-        elif(item['type'] == "Grid"):
-            self.labels[key] = Gtk.Grid(orientation=Gtk.Orientation.HORIZONTAL)
+        elif(item['type'] == "Box" or item['type'] == "Grid"):
+            if (item['type'] == "Box"):
+                self.labels[key] = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=5)
+            else:
+                self.labels[key] = Gtk.Grid(orientation=Gtk.Orientation.HORIZONTAL)
             i+=1
             while i<len(self.items):
                 key_child = list(self.items[i])[0]
-                item_child = self.items[i][key_child]
                 key_father = ' '.join(key_child.split()[:-1]) if key_child and key_child.strip() else ''
                 if (key_father == key and len((list(self.items[i])[0]).split()) > 1):
-                    self.labels[key].attach(
-                        self.create_child_items(i),
-                        int(item_child['column']),
-                        int(item_child['row']),
-                        int(item_child['columnspan']),
-                        int(item_child['rowspan']))
+                    self.labels[key].attach(self.create_child_items(i))
                     i = self.counter
                 else:
                     i = self.counter + 1
@@ -141,32 +141,31 @@ class Panel(ScreenPanel):
         while i<len(self.items):
             key = list(self.items[i])[0]
             item = self.items[i][key]
-            if(item['type']=="Grid"):
-                self.labels[key] = Gtk.Grid()
-                parent_grid.attach(
-                    self.labels[key] ,
-                    int(item['column']),
-                    int(item['row']),
-                    int(item['columnspan']),
-                    int(item['rowspan']))
+            if(item['type']=="Box" or item['type']=="Grid"):
+                if(item['type']=="Box"):
+                    self.labels[key]=Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=5)
+                else:
+                    self.labels[key] = Gtk.Grid(orientation=Gtk.Orientation.HORIZONTAL)
+                row = int(self._screen.env.from_string(self.items[i]['row']).render(self.j2_data) if self.items[i]['row'] else None)
+                column = int(self._screen.env.from_string(self.items[i]['column']).render(self.j2_data) if self.items[i]['column'] else None)
+                rowspan = int(self._screen.env.from_string(self.items[i]['rowspan']).render(self.j2_data) if self.items[i]['rowspan'] else None)
+                columnspan = int(self._screen.env.from_string(self.items[i]['columnspan']).render(self.j2_data) if self.items[i]['columnspan'] else None)
+                parent_grid.attach(self.labels[key], row, column, rowspan, columnspan)
                 i+=1
                 while i<len(self.items):
                     key_child = list(self.items[i])[0]
-                    item_child = self.items[i][key_child]
                     key_father = ' '.join(key_child.split()[:-1]) if key_child and key_child.strip() else ''
                     if (key_father == key and len((list(self.items[i])[0]).split()) > 1):
-                        self.labels[key].attach(
-                            self.create_child_items(i),
-                            int(item_child['column']),
-                            int(item_child['row']),
-                            int(item_child['columnspan']),
-                            int(item_child['rowspan']))
+                        row = self._screen.env.from_string(self.items[i]['row']).render(self.j2_data) if self.items[i]['row'] else None
+                        column = self._screen.env.from_string(self.items[i]['column']).render(self.j2_data) if self.items[i]['column'] else None
+                        rowspan = self._screen.env.from_string(self.items[i]['rowspan']).render(self.j2_data) if self.items[i]['rowspan'] else None
+                        columnspan = self._screen.env.from_string(self.items[i]['columnspan']).render(self.j2_data) if self.items[i]['columnspan'] else None
+                        parent_grid.attach(self.create_child_items(i),row,column,rowspan,columnspan)
                         i = self.counter
                     else:
                         i = self.counter
                         break
-        self.labels['parent_grid']=parent_grid
-        return self.labels['parent_grid']
+        return parent_grid
 
 
             # box = Gtk.HBox(spacing=10)
@@ -242,6 +241,8 @@ class Panel(ScreenPanel):
             #     b.add(button_box)
             #
             # self.labels[key] = b
+    def print_test(self):
+        print("abc")
 
     def evaluate_enable(self, enable):
         """
