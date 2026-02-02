@@ -19,7 +19,7 @@ class Panel(ScreenPanel):
         self.create_menu_items()
         self.scroll = self._gtk.ScrolledWindow()
         self.scroll.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
-        self.autogrid = AutoGrid()
+        # self.autogrid = AutoGrid()
 
     def activate(self):
         self.j2_data = self._printer.get_printer_status_data()
@@ -28,7 +28,7 @@ class Panel(ScreenPanel):
     def add_content(self):
         for child in self.scroll.get_children():
             self.scroll.remove(child)
-        self.scroll.add(self.arrangeMenuItems(self.items))
+        # self.scroll.add(self.arrangeMenuItems(self.items))
         if not self.content.get_children():
             self.content.add(self.scroll)
 
@@ -84,19 +84,20 @@ class Panel(ScreenPanel):
             while j <len(self.items):
                 key = list(self.items[j])[0]
                 item = self.items[j]
-                if (item[key]['type'] == "Box" or item[key]['type'] == "Grid"):
-                    if (item['type'] == "Box"):
-                        self.labels[key] = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=5)
-                    else:
-                        self.labels[key] = Gtk.Grid(orientation=Gtk.Orientation.HORIZONTAL)
+                if (item[key]['type'] == "Grid"):
+                    self.labels[key] = Gtk.Grid(orientation=Gtk.Orientation.HORIZONTAL)
                     control_name.add(self.labels[key] )
                     j=j+1
                     while True:
                         key_child = list(self.items[j])[0]
-                        # key_array = key_child.split()
                         key_father = ' '.join(key_child.split()[:-1]) if key_child and key_child.strip() else ''
+                        item_child = self.items[j][key_child]
                         if (key_father == key and len((list(self.items[j])[0]).split()) > 1):
-                            self.labels[key].attach(self.create_child_items(j))
+                            self.labels[key].attach(self.create_child_items(j),
+                                               int(item_child['column']),
+                                               int(item_child['row']),
+                                               int(item_child['columnspan']),
+                                               int(item_child['rowspan']))
                             j = self.counter
                         else:
                             j = self.counter
@@ -106,17 +107,19 @@ class Panel(ScreenPanel):
             value = self._screen.env.from_string(item['value']).render(self.j2_data) if item['value'] else None
             control_name = Gtk.Label(label=_(value))
             self.counter += 1
-        elif(item['type'] == "Box" or item['type'] == "Grid"):
-            if (item['type'] == "Box"):
-                self.labels[key] = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=5)
-            else:
-                self.labels[key] = Gtk.Grid(orientation=Gtk.Orientation.HORIZONTAL)
+        elif(item['type'] == "Grid"):
+            self.labels[key] = Gtk.Grid(orientation=Gtk.Orientation.HORIZONTAL)
             i+=1
             while i<len(self.items):
                 key_child = list(self.items[i])[0]
                 key_father = ' '.join(key_child.split()[:-1]) if key_child and key_child.strip() else ''
+                item_child = self.items[i][key_child]
                 if (key_father == key and len((list(self.items[i])[0]).split()) > 1):
-                    self.labels[key].attach(self.create_child_items(i))
+                    self.labels[key].attach(self.create_child_items(i),
+                                       int(item_child['column']),
+                                       int(item_child['row']),
+                                       int(item_child['columnspan']),
+                                       int(item_child['rowspan']))
                     i = self.counter
                 else:
                     i = self.counter + 1
@@ -141,31 +144,43 @@ class Panel(ScreenPanel):
         while i<len(self.items):
             key = list(self.items[i])[0]
             item = self.items[i][key]
-            if(item['type']=="Box" or item['type']=="Grid"):
-                if(item['type']=="Box"):
-                    self.labels[key]=Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=5)
-                else:
-                    self.labels[key] = Gtk.Grid(orientation=Gtk.Orientation.HORIZONTAL)
-                row = int(self._screen.env.from_string(self.items[i]['row']).render(self.j2_data) if self.items[i]['row'] else None)
-                column = int(self._screen.env.from_string(self.items[i]['column']).render(self.j2_data) if self.items[i]['column'] else None)
-                rowspan = int(self._screen.env.from_string(self.items[i]['rowspan']).render(self.j2_data) if self.items[i]['rowspan'] else None)
-                columnspan = int(self._screen.env.from_string(self.items[i]['columnspan']).render(self.j2_data) if self.items[i]['columnspan'] else None)
-                parent_grid.attach(self.labels[key], row, column, rowspan, columnspan)
+            if(item['type']=="Grid"):
+                self.labels[key] = Gtk.Grid(orientation=Gtk.Orientation.HORIZONTAL)
+                parent_grid.attach(self.labels[key],
+                                   int(item['column']),
+                                   int(item['row']),
+                                   int(item['columnspan']),
+                                   int(item['rowspan']))
                 i+=1
                 while i<len(self.items):
                     key_child = list(self.items[i])[0]
                     key_father = ' '.join(key_child.split()[:-1]) if key_child and key_child.strip() else ''
+                    item_child = self.items[i][key_child]
                     if (key_father == key and len((list(self.items[i])[0]).split()) > 1):
-                        row = self._screen.env.from_string(self.items[i]['row']).render(self.j2_data) if self.items[i]['row'] else None
-                        column = self._screen.env.from_string(self.items[i]['column']).render(self.j2_data) if self.items[i]['column'] else None
-                        rowspan = self._screen.env.from_string(self.items[i]['rowspan']).render(self.j2_data) if self.items[i]['rowspan'] else None
-                        columnspan = self._screen.env.from_string(self.items[i]['columnspan']).render(self.j2_data) if self.items[i]['columnspan'] else None
-                        parent_grid.attach(self.create_child_items(i),row,column,rowspan,columnspan)
+                        self.labels[key].attach(self.create_child_items(i),
+                                   int(item_child['column']),
+                                   int(item_child['row']),
+                                   int(item_child['columnspan']),
+                                   int(item_child['rowspan']))
                         i = self.counter
                     else:
                         i = self.counter
                         break
-        return parent_grid
+            if (item['type'] == "Image"):
+                control_name = Gtk.Image()
+                image = self._screen.env.from_string(item['src']).render(self.j2_data) if item['src'] else None
+                height = int(self._screen.env.from_string(item['height']).render(self.j2_data) if item['height'] else None)
+                width = int(self._screen.env.from_string(item['width']).render(self.j2_data) if item['width'] else None)
+                pixbuf = GdkPixbuf.Pixbuf.new_from_file(image)
+                scaled_pixbuf = pixbuf.scale_simple(width, height, GdkPixbuf.InterpType.BILINEAR)
+                control_name.set_from_pixbuf(scaled_pixbuf)
+                parent_grid.attach(control_name,
+                                   int(item['column']),
+                                   int(item['row']),
+                                   int(item['columnspan']),
+                                   int(item['rowspan']))
+                i += 1
+        self.labels['parent_grid'] = parent_grid
 
 
             # box = Gtk.HBox(spacing=10)

@@ -39,8 +39,9 @@ class Panel(CreatePanel):
             #items move(XY轴移动) temperature温度 extrude挤出 more(设置) print打印文件 gcodes
             # self.labels['menu'] = self.arrangeMenuItems(items, 2, True)
             # scroll.add(self.labels['menu'])
-            scroll.add(self.arrangeMenuItems(items, 2, True))
-            self.main_menu.attach(scroll, 0, 0, 1, 1)
+            # scroll.add(self.arrangeMenuItems(items, 2, True))
+            self.main_menu.attach(self.labels['parent_grid'], 0, 0, 1, 1)
+
         self.content.add(self.main_menu)
 
     def update_graph_visibility(self, force_hide=False):
