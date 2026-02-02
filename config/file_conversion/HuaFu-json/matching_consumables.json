@@ -1,0 +1,89 @@
+{
+  "father":"select_disc_print",
+  "name":"matching_consumables",
+  "type":"Grid",
+  "head_box":{
+    "name":"Head Box",
+    "type":"Box",
+    "children":{
+      "go_bcak":{
+        "name":"Go Back",
+        "type":"Button",
+        "src":"images/back.svg",
+        "connect":"clicked",
+        "method":"go_back"
+      },
+      "matching_consumables_label":{
+        "name":"Matching Consumables",
+        "type":"Label",
+        "value":"匹配耗材"
+      },
+      "print":{
+        "name":"Print",
+        "type":"Button",
+        "panel":"Print",
+        "connect":"clicked",
+        "method":"TODO"
+      }
+    }
+  },
+  "details":{
+    "name":"Details",
+    "type":"Grid",
+    "children":{
+      "left_grid":{
+        "name":"Left Grid",
+        "type":"Grid",
+        "children":{
+          "disc_name":{
+            "name":"Disc Name",
+            "type":"Label",
+            "value":"盘1"
+          },        
+          "modeling_graphics":{
+            "name":"Modeling Graphics",
+            "type":"Image",
+            "src":"images/modeling_graphics.png"
+          }         
+        }         
+      },
+      "right_grid":{
+        "name":"Right Grid",
+        "type":"Grid",
+        "children":{
+          "extruder_name":{
+            "name":"Extruder Name",
+            "type":"Label",
+            "value":"右挤出机"
+          },        
+          "consumables_selection":{
+            "name":"Consumables Selection",
+            "type":"Button",
+            "panel":"side_panel",
+            "connect":"clicked",
+            "method":"TODO",
+            "hbox":{
+              "name":"按钮盒子",
+              "type":"HBox",
+              "consumables_type":{
+                "name":"Consumables Type",
+                "type":"Label",
+                "value":"AMS/ASA"
+              },
+                "consumables_image":{
+                "name":"Consumables Image",
+                "type":"Image",
+                "src":"images/consumables_image.png"
+              },
+              "consumables_type_name":{
+                "name":"Consumables Type Name",
+                "type":"Label",
+                "value":"A1 ASA"
+              }
+            }
+          }         
+        }         
+      }
+    }
+  }
+}

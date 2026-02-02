@@ -4,13 +4,13 @@ import gi
 
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk, GLib, GdkPixbuf
-from panels.create_panel import Panel as CreatePanel
+from panels.menu import Panel as MenuPanel
 from ks_includes.widgets.heatergraph import HeaterGraph
 from ks_includes.widgets.keypad import Keypad
 from ks_includes.KlippyGtk import find_widget
 
 
-class Panel(CreatePanel):
+class Panel(MenuPanel):
     def __init__(self, screen, title, items=None):
         super().__init__(screen, title, items)
         self.left_panel = None
@@ -37,9 +37,8 @@ class Panel(CreatePanel):
             # self.main_menu.attach(self.create_up_panel(), 0, 0, 1, 1)
             #下半部分显示打印文件 打印头温度 耗材剩于量 wifi 以及助手信息提示信息
             #items move(XY轴移动) temperature温度 extrude挤出 more(设置) print打印文件 gcodes
-            # self.labels['menu'] = self.arrangeMenuItems(items, 2, True)
-            # scroll.add(self.labels['menu'])
-            scroll.add(self.arrangeMenuItems(items, 2, True))
+            self.labels['menu'] = self.arrangeMenuItems(items, 2, True)
+            scroll.add(self.labels['menu'])
             self.main_menu.attach(scroll, 0, 0, 1, 1)
         self.content.add(self.main_menu)
 
@@ -224,34 +223,130 @@ class Panel(CreatePanel):
                 script
             )
 
-    def create_left_panel(self):
+    def create_up_panel(self):
         """
-            主页面
+            主页面3D打印机图片及提示词语
         :return:
         """
         self.labels['devices'] = Gtk.Grid(vexpand=False)
         self.labels['devices'].get_style_context().add_class('heater-grid')
-
-        name = Gtk.Label()
+        name = Gtk.Label("name")
         temp = Gtk.Label(label=_("Temp (°C)"))
-
         self.labels['devices'].attach(name, 0, 0, 1, 1)
         self.labels['devices'].attach(temp, 1, 0, 1, 1)
-
+        # 标题是否显示
+        name.set_no_show_all(True)
+        temp.set_no_show_all(True)
         self.labels['da'] = HeaterGraph(self._screen, self._printer, self._gtk.font_size)
-
+        self.labels['da'].set_no_show_all(True)
         scroll = self._gtk.ScrolledWindow(steppers=False)
         scroll.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
         scroll.get_style_context().add_class('heater-list')
         scroll.add(self.labels['devices'])
-
-        self.left_panel = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
-        self.left_panel.add(scroll)
+        self.up_panel = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=5)
+        self.up_panel.add(scroll)
+        #温度是否显示
+        scroll.set_no_show_all(True)
 
         for d in self._printer.get_temp_devices():
             self.add_device(d)
 
-        return self.left_panel
+        #新增代码
+        printer = Gtk.Image()
+        pixbuf = GdkPixbuf.Pixbuf.new_from_file("images/3D_printer.png")  # 3D打印机示例图
+        scaled_pixbuf = pixbuf.scale_simple(270, 270, GdkPixbuf.InterpType.BILINEAR)
+        printer.set_from_pixbuf(scaled_pixbuf)
+        self.up_panel.set_margin_top(20)
+        printer.set_margin_left(45)
+
+        tag = Gtk.Image()
+        tag_pixbuf = GdkPixbuf.Pixbuf.new_from_file("images/tag_blue.png")  #
+        tag.set_from_pixbuf(tag_pixbuf)
+        tag.set_margin_left(90)
+
+        message = Gtk.Label(label=_("  Today is another wonderful day!"))
+        message.set_margin_left(10)
+
+        self.image = Gtk.Image()
+        self.image.set_size_request(200, 200)
+
+        self.up_panel.add(printer)
+        self.up_panel.add(tag)
+        self.up_panel.add(message)
+        # self.up_panel.set_size_request(100, 100)
+
+
+        # GIF动画相关变量
+        self.animation_running = False
+        self.current_frame = 0
+        self.frames = []
+        self.frame_delay = 100  # 毫秒
+
+        # 加载GIF文件
+        self.load_gif("images/test.gif")
+
+
+
+        return self.up_panel
+
+    def load_gif(self, filename):
+        """加载GIF文件并提取帧"""
+        try:
+            # 加载GIF文件
+            self.pixbuf_animation = GdkPixbuf.PixbufAnimation.new_from_file(filename)
+            self.iter = self.pixbuf_animation.get_iter()
+
+            # 获取第一帧显示
+            pixbuf = self.iter.get_pixbuf()
+            if pixbuf:
+                # 缩放图片以适应显示区域
+                scaled_pixbuf = pixbuf.scale_simple(200, 200, GdkPixbuf.InterpType.BILINEAR)
+                self.image.set_from_pixbuf(scaled_pixbuf)
+
+                # 启动自动播放
+                self.start_animation_auto()
+        except Exception as e:
+            print(f"加载GIF失败: {e}")
+            # 显示错误信息
+            error_label = Gtk.Label(label="无法加载GIF文件")
+            self.image.set_from_pixbuf(None)
+
+    def start_animation_auto(self):
+        """自动开始播放动画"""
+        if not self.animation_running:
+            self.animation_running = True
+            self.animate()
+
+    def stop_animation(self):
+        """停止播放动画"""
+        self.animation_running = False
+
+    def animate(self):
+        """动画播放函数"""
+        if not self.animation_running:
+            return
+
+        # 获取当前帧
+        pixbuf = self.iter.get_pixbuf()
+        if pixbuf:
+            # 缩放图片以适应显示区域
+            scaled_pixbuf = pixbuf.scale_simple(200, 200, GdkPixbuf.InterpType.BILINEAR)
+            self.image.set_from_pixbuf(scaled_pixbuf)
+
+        # 计算下一帧的时间间隔
+        delay_time = self.iter.get_delay_time()
+        if delay_time == -1:
+            delay_time = 100  # 默认100毫秒
+
+        # 更新到下一帧
+        self.iter.advance()
+
+        # 继续播放下一帧
+        if self.animation_running:
+            GLib.timeout_add(delay_time, self.animate)
+
+
+
 
     def hide_numpad(self, widget=None):
         """

@@ -3,14 +3,14 @@ import logging
 import gi
 
 gi.require_version("Gtk", "3.0")
-from gi.repository import Gtk, GLib, GdkPixbuf
-from panels.create_panel import Panel as CreatePanel
+from gi.repository import Gtk, GLib
+from panels.menu import Panel as MenuPanel
 from ks_includes.widgets.heatergraph import HeaterGraph
 from ks_includes.widgets.keypad import Keypad
 from ks_includes.KlippyGtk import find_widget
 
 
-class Panel(CreatePanel):
+class Panel(MenuPanel):
     def __init__(self, screen, title, items=None):
         super().__init__(screen, title, items)
         self.left_panel = None
@@ -28,19 +28,15 @@ class Panel(CreatePanel):
         if stats["temperature_devices"]["count"] > 0 or stats["extruders"]["count"] > 0:
             self._gtk.reset_temp_color()
         if self._screen.vertical_mode:
-            self.main_menu.attach(self.create_up_panel(), 0, 0, 1, 3)
+            self.main_menu.attach(self.create_left_panel(), 0, 0, 1, 3)
             self.labels['menu'] = self.arrangeMenuItems(items, 3, True)
             scroll.add(self.labels['menu'])
             self.main_menu.attach(scroll, 0, 3, 1, 2)
         else:
-            #上半部分显示3D打印机模型以及右边的提示语
-            # self.main_menu.attach(self.create_up_panel(), 0, 0, 1, 1)
-            #下半部分显示打印文件 打印头温度 耗材剩于量 wifi 以及助手信息提示信息
-            #items move(XY轴移动) temperature温度 extrude挤出 more(设置) print打印文件 gcodes
-            # self.labels['menu'] = self.arrangeMenuItems(items, 2, True)
-            # scroll.add(self.labels['menu'])
-            scroll.add(self.arrangeMenuItems(items, 2, True))
-            self.main_menu.attach(scroll, 0, 0, 1, 1)
+            self.main_menu.attach(self.create_left_panel(), 0, 0, 1, 1)
+            self.labels['menu'] = self.arrangeMenuItems(items, 2, True)
+            scroll.add(self.labels['menu'])
+            self.main_menu.attach(scroll, 1, 0, 1, 1)
         self.content.add(self.main_menu)
 
     def update_graph_visibility(self, force_hide=False):
@@ -225,10 +221,7 @@ class Panel(CreatePanel):
             )
 
     def create_left_panel(self):
-        """
-            主页面
-        :return:
-        """
+
         self.labels['devices'] = Gtk.Grid(vexpand=False)
         self.labels['devices'].get_style_context().add_class('heater-grid')
 
@@ -254,11 +247,6 @@ class Panel(CreatePanel):
         return self.left_panel
 
     def hide_numpad(self, widget=None):
-        """
-            隐藏数字键盘
-        :param widget:
-        :return:
-        """
         self.devices[self.active_heater]['name'].get_style_context().remove_class("button_active")
         self.active_heater = None
 
@@ -291,12 +279,6 @@ class Panel(CreatePanel):
                 )
 
     def show_numpad(self, widget, device):
-        """
-            调用数字键盘
-        :param widget:
-        :param device:
-        :return:
-        """
 
         if self.active_heater is not None:
             self.devices[self.active_heater]['name'].get_style_context().remove_class("button_active")

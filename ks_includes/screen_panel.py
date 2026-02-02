@@ -66,7 +66,12 @@ class ScreenPanel:
             panel_args['title'] = item['name']
         if 'extra' in item:
             panel_args['extra'] = item['extra']
+        # self.show_panel("main_menu", remove_all=True, items=self._config.get_menu_items("__home_menu"))
+        items = self._config.get_menu_items("__prompt_message_menu")
+        panel_args['items']=items
         self._screen.show_panel(item['panel'], **panel_args)
+        # self._screen.show_panel(item['panel'],item['panel'],True,item['panel'],items)
+        # self._screen.show_panel(item['panel'], items=self._config.get_menu_items("__home_menu"))
 
     def load_menu(self, widget, name, title=None):
         logging.info(f"loading menu {name}")

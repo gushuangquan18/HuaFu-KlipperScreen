@@ -19,9 +19,6 @@ except ImportError:
 
 
 class BasePanel(ScreenPanel):
-    """
-        左侧控制面板
-    """
     def __init__(self, screen, title=None):
         super().__init__(screen, title)
         self.current_panel = None
@@ -34,12 +31,14 @@ class BasePanel(ScreenPanel):
         self.current_extruder = None
         self.last_usage_report = datetime.now()
         self.usage_report = 0
-        # Action bar buttons 设置图标大小比例
+        # Action bar buttons
         self.abscale = self.bts * 1.1
         self.control['back'] = self._gtk.Button('back', scale=self.abscale)
         self.control['back'].connect("clicked", self.back)
-        self.control['back'].set_no_show_all(True)
-
+        self.control['home'] = self._gtk.Button('main', scale=self.abscale)
+        self.control['home'].connect("clicked", self._screen._menu_go_back, True)
+        for control in self.control:
+            self.set_control_sensitive(False, control)
         self.control['estop'] = self._gtk.Button('emergency', scale=self.abscale)
         self.control['estop'].connect("clicked", self.emergency_stop)
         self.control['estop'].set_no_show_all(True)
@@ -61,53 +60,26 @@ class BasePanel(ScreenPanel):
         self.control['shortcut'].connect("clicked", self.menu_item_clicked, self.shorcut)
         self.control['shortcut'].set_no_show_all(True)
 
-        #新添加的左侧操作栏按钮
-        self.control['home'] = self._gtk.Button('home', scale=self.abscale)
-        self.control['home'].connect("clicked", self._screen._menu_go_back)
-
-        self.control['control'] = self._gtk.Button('control', scale=self.abscale)
-        self.control['control'].connect("clicked", self._screen._menu_go_back)
-
-        # 耗材按钮
-        self.control['consumables'] = self._gtk.Button('consumables', scale=self.abscale)
-
-        self.control['settings'] = self._gtk.Button('settings', scale=self.abscale)
-        # 少个参数 _go_to_submenu
-        self.control['settings'].connect("clicked", self._screen._go_to_submenu)
-
-        self.messages_menu = {
-            "panel": "messages",
-            "icon": "messages_menu",
-        }
-        self.control['messages_menu'] = self._gtk.Button('messages_menu', scale=self.abscale)
-        self.control['messages_menu'].connect("clicked", self.menu_item_clicked,self.messages_menu)
-
         # Any action bar button should close the keyboard
-        #移除键盘
         for item in self.control:
             self.control[item].connect("clicked", self._screen.remove_keyboard)
 
-
         # Action bar
         self.action_bar = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=5)
-        #竖屏还是横屏
         if self._screen.vertical_mode:
             self.action_bar.set_hexpand(True)
             self.action_bar.set_vexpand(False)
         else:
             self.action_bar.set_hexpand(False)
             self.action_bar.set_vexpand(True)
-        #设置左侧操作栏样式
         self.action_bar.get_style_context().add_class('action_bar')
-        #设置左侧操作栏宽高
         self.action_bar.set_size_request(self._gtk.action_bar_width, self._gtk.action_bar_height)
-
-
+        self.action_bar.add(self.control['back'])
         self.action_bar.add(self.control['home'])
-        self.action_bar.add(self.control['control'])
-        self.action_bar.add(self.control['consumables'])
-        self.action_bar.add(self.control['settings'])
-        self.action_bar.add(self.control['messages_menu'])
+        self.action_bar.add(self.control['printer_select'])
+        self.action_bar.add(self.control['shortcut'])
+        self.action_bar.add(self.control['estop'])
+        self.action_bar.add(self.control['shutdown'])
         self.show_printer_select(len(self._config.get_printers()) > 1)
 
         # Titlebar
@@ -151,18 +123,12 @@ class BasePanel(ScreenPanel):
         else:
             self.main_grid.attach(self.action_bar, 0, 0, 1, 2)
             self.action_bar.set_orientation(orientation=Gtk.Orientation.VERTICAL)
-            #最上面显示
-            # self.main_grid.attach(self.titlebar, 1, 0, 1, 1)
-            #右侧功能区
-            # self.main_grid.attach(self.content, 1, 1, 1, 1)
-            self.main_grid.attach(self.content, 1, 0, 1, 1)
-            self.update_time()
+            self.main_grid.attach(self.titlebar, 1, 0, 1, 1)
+            self.main_grid.attach(self.content, 1, 1, 1, 1)
+
+        self.update_time()
 
     def load_battery_icons(self):
-        """
-            加载电池图标
-        :return:
-        """
         img_size = self._gtk.img_scale * self.bts
         return {
             'charging': self._gtk.PixbufFromIcon('battery-charging', img_size, img_size),
@@ -175,10 +141,6 @@ class BasePanel(ScreenPanel):
         }
 
     def reload_icons(self):
-        """
-            重新加载电池图标
-        :return:
-        """
         button: Gtk.Button
         for button in self.action_bar.get_children():
             img = button.get_image()
@@ -196,11 +158,6 @@ class BasePanel(ScreenPanel):
         self.battery_percentage()
 
     def show_heaters(self, show=True):
-        """
-            显示图标
-        :param show:
-        :return:
-        """
         for child in self.control['temp_box'].get_children():
             self.control['temp_box'].remove(child)
         if self._printer is None or not show:
@@ -252,12 +209,6 @@ class BasePanel(ScreenPanel):
             logging.debug(f"Couldn't create heaters box: {e}")
 
     def get_icon(self, device, img_size):
-        """
-            获取图标
-        :param device:
-        :param img_size:
-        :return:
-        """
         if device.startswith("extruder"):
             if self._printer.extrudercount > 1:
                 if device == "extruder":
@@ -277,42 +228,28 @@ class BasePanel(ScreenPanel):
         else:
             return self._gtk.Image("heat-up", img_size, img_size)
 
-    # def activate(self):
-    #     """
-    #         更新时间
-    #     :return:
-    #     """
-    #     if self.time_update is None:
-    #         self.time_update = GLib.timeout_add_seconds(1, self.update_time)
-    #     if self.battery_update is None:
-    #         self.battery_update = GLib.timeout_add_seconds(60, self.battery_percentage)
+    def activate(self):
+        if self.time_update is None:
+            self.time_update = GLib.timeout_add_seconds(1, self.update_time)
+        if self.battery_update is None:
+            self.battery_update = GLib.timeout_add_seconds(60, self.battery_percentage)
 
     def add_content(self, panel):
-        """
-            添加信息
-        :param panel:
-        :return:
-        """
         printing = self._printer and self._printer.state in {"printing", "paused"}
         connected = self._printer and self._printer.state not in {'disconnected', 'startup', 'shutdown', 'error'}
         printer_select = 'printer_select' not in self._screen._cur_panels
         self.control['estop'].set_visible(printing)
-        self.control['shutdown'].set_visible(printing)
+        self.control['shutdown'].set_visible(not printing)
         self.show_shortcut(connected and printer_select)
         self.show_heaters(connected and printer_select)
         self.show_printer_select(len(self._config.get_printers()) > 1)
-        # for control in ('back', 'home'):
-        #     self.set_control_sensitive(len(self._screen._cur_panels) > 1, control=control)
+        for control in ('back', 'home'):
+            self.set_control_sensitive(len(self._screen._cur_panels) > 1, control=control)
         self.current_panel = panel
         self.set_title(panel.title)
         self.content.add(panel.content)
 
     def back(self, widget=None):
-        """
-            返回上一级
-        :param widget:
-        :return:
-        """
         if self.current_panel is None:
             return
         self._screen.remove_keyboard()
@@ -322,12 +259,6 @@ class BasePanel(ScreenPanel):
             self._screen._menu_go_back()
 
     def process_update(self, action, data):
-        """
-            更新进程
-        :param action:
-        :param data:
-        :return:
-        """
         if action == "notify_proc_stat_update":
             cpu = data["system_cpu_usage"]["cpu"]
             memory = (data["system_memory"]["used"] / data["system_memory"]["total"]) * 100
@@ -400,28 +331,12 @@ class BasePanel(ScreenPanel):
         return False
 
     def remove(self, widget):
-        """
-            移除控件
-        :param widget:
-        :return:
-        """
         self.content.remove(widget)
 
     def set_control_sensitive(self, value=True, control='shortcut'):
-        """
-            设置控件是否可操作
-        :param value:
-        :param control:
-        :return:
-        """
         self.control[control].set_sensitive(value)
 
     def show_shortcut(self, show=True):
-        """
-            显示快捷方式
-        :param show:
-        :return:
-        """
         show = (
             show
             and self._config.get_main_config().getboolean('side_macro_shortcut', True)
@@ -438,11 +353,6 @@ class BasePanel(ScreenPanel):
         )
 
     def set_title(self, title):
-        """
-            设置标题
-        :param title:
-        :return:
-        """
         self.titlebar.get_style_context().remove_class("message_popup_error")
         if (
                 self._screen.connecting_to_printer != "Printer"
@@ -465,10 +375,6 @@ class BasePanel(ScreenPanel):
         self.titlelbl.set_label(f"{printer} {title}")
 
     def update_time(self):
-        """
-            更新时间
-        :return:
-        """
         now = datetime.now()
         confopt = self._config.get_main_config().getboolean("24htime", True)
         if now.minute != self.time_min or self.time_format != confopt:
@@ -481,12 +387,6 @@ class BasePanel(ScreenPanel):
         return True
 
     def get_battery_icon(self, charge: float, plugged: bool):
-        """
-            获取电池图标
-        :param charge:
-        :param plugged:
-        :return:
-        """
         if plugged:
             return self.battery_icons['charging']
         elif charge > 75:
@@ -503,10 +403,6 @@ class BasePanel(ScreenPanel):
             return self.battery_icons['unknown']
 
     def battery_percentage(self):
-        """
-            电池百分比
-        :return:
-        """
         if not psutil_available:
             return False
         battery = psutil.sensors_battery()
@@ -523,11 +419,6 @@ class BasePanel(ScreenPanel):
             return False
 
     def set_ks_printer_cfg(self, printer):
-        """
-            设置ks打印机配置
-        :param printer:
-        :return:
-        """
         ScreenPanel.ks_printer_cfg = self._config.get_printer_config(printer)
         if self.ks_printer_cfg is not None:
             self.titlebar_name_type = self.ks_printer_cfg.get("titlebar_name_type", None)
@@ -539,10 +430,6 @@ class BasePanel(ScreenPanel):
                 self.titlebar_items = []
 
     def show_update_dialog(self):
-        """
-            显示更新对话框
-        :return:
-        """
         if self.update_dialog is not None:
             return
         button = [{"name": _("Finish"), "response": Gtk.ResponseType.OK}]
@@ -559,12 +446,6 @@ class BasePanel(ScreenPanel):
         self._screen.updating = True
 
     def finish_updating(self, dialog, response_id):
-        """
-            完成更新
-        :param dialog:
-        :param response_id:
-        :return:
-        """
         if response_id != Gtk.ResponseType.OK:
             return
         logging.info("Finishing update")
@@ -573,11 +454,6 @@ class BasePanel(ScreenPanel):
         self._screen._menu_go_back(home=True)
 
     def close_update_dialog(self, *args):
-        """
-            关闭提示框
-        :param args:
-        :return:
-        """
         logging.info("Closing update dialog")
         if self.update_dialog in self._screen.dialogs:
             self._screen.dialogs.remove(self.update_dialog)

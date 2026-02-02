@@ -1,0 +1,267 @@
+{
+  "father":"menu",    
+  "name":"print",
+  "type":"Grid",
+  "up_box":{
+    "left_up_grid":{
+      "name":"Left Up Grid",
+      "type":"Grid",
+      "children":{
+        "print_file_list":{
+          "name":"Print File List",
+          "type":"Button",
+          "panel":"print_file_list",
+          "connect":"clicked",
+          "method":"TODO",
+          "hbox":{
+            "camera_rec_icon":{
+              "name":"Camear Rec Icon",
+              "type":"Image",
+              "src":"images/camear_rec.png"
+            },
+            "file_label":{
+              "name":"File Label",
+              "type":"Label",
+              "vale":"文件>"           
+            },
+            "modeling_graphics":{
+              "name":"Modeling Graphics",
+              "type":"Image",
+              "src":"images/modeling_graphics.png"
+            }, 
+            "file_name":{
+              "name":"File Name",
+              "type":"Label",
+              "value":"file_name"
+            }
+          }
+        }          
+      }       
+    },
+    "right_up_gird":{
+      "name":"Right Up Grid",
+      "type":"Grid",
+      "children":{
+        "left_box":{
+          "name":"Left Box",
+          "type":"Box",
+          "background":"images/printer_operatin.png",
+          "children":{
+            "chassis_temperature_control":{
+              "name":"Chassis Temperature Control",
+              "type":"Button",
+              "panel":"chassis_temperature_control",
+              "connect":"clicked",
+              "method":"go_to_next_interface",
+              "hbox":{
+                "name":"按钮盒子",
+                "type":"HBox",
+                "chassis_temperature_image":{
+                  "name":"Chassis Temperature Image",
+                  "type":"Image",
+                  "src":"images/chassis_temperature.png"
+                },
+                "chassis_temperature_text":{
+                  "name":"Chassis Temperature Text",
+                  "type":"Label",
+                  "value":"60℃"
+                }
+              }
+            },
+            "hotbed_temperature_control":{
+              "name":"Hotbed Temperature Control",
+              "type":"Button",
+              "panel":"hotbed_temperature_control",
+              "connect":"clicked",
+              "method":"go_to_next_interface",
+              "hbox":{
+                "name":"按钮盒子",
+                "type":"HBox",
+                "hotbed_temperature_image":{
+                  "name":"Hotbed Temperature Image",
+                  "type":"Image",
+                  "src":"images/hotbed_temperature.png"
+                },
+                "hotbed_temperature_text":{
+                  "name":"Hotbed Temperature Text",
+                  "type":"Label",
+                  "value":"60℃"
+                }
+              }
+            }
+          }
+        },
+        "right_box":{
+          "name":"Right Box",
+          "type":"Box",
+          "children":{
+            "nozzle_extruder":{
+              "name":"Nozzle Extruder",
+              "type":"Image",
+              "src":"images/nozzle_extruder"                
+            },
+            "left_nozzle_extruder":{
+              "name":"Left Nozzle Extruder",
+              "type":"Button",
+              "panel":"nozzle_extruder",
+              "connect":"clicked",
+              "method":"go_to_next_interface",
+              "hbox":{
+                "name":"按钮盒子",
+                "type":"HBox",
+                "L_label":{
+                  "name":"L Label",
+                  "type":"Label",
+                  "value":"L"
+                },
+                "nozzle1_icon":{
+                  "name":"Nozzle1 Icon",
+                  "type":"Image",
+                  "src":"images/nozzle.png"
+                },
+                "L_temperature":{
+                  "name":"L Temperature",
+                  "type":"Label",
+                  "value":"320℃"
+                }
+              }
+            },
+            "right_nozzle_extruder":{
+              "name":"Right Nozzle Extruder",
+              "type":"Button",
+              "panel":"nozzle_extruder",
+              "connect":"clicked",
+              "method":"go_to_next_interface",
+              "hbox":{
+                "name":"按钮盒子",
+                "type":"HBox",
+                "R_label":{
+                  "name":"R Label",
+                  "type":"Label",
+                  "value":"R"
+                },
+                "nozzle2_icon":{
+                  "name":"Nozzle2 Icon",
+                  "type":"Image",
+                  "src":"images/nozzle.png"
+                },
+                "R_temperature":{
+                  "name":"R Temperature",
+                  "type":"Label",
+                  "value":"60℃"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "down_gird":{
+    "left_down_grid":{
+      "name":"Left Down Grid",
+      "type":"Grid",
+      "children":{
+        "inner_grid":{
+          "name":"Inner Grid",
+          "type":"Grid",
+          "children":{
+            "percentage_progress":{
+              "name":"Percentage Progress",
+              "type":"Label",
+              "value":"70%"
+            },
+            "floor_height_progress":{
+              "name":"Floor Height Progress",
+              "type":"Label",
+              "value":"70/108"
+            },
+            "remaining_time":{
+              "name":"Remaining Time",
+              "type":"Label",
+              "value":"-1h14m"
+            },
+            "progress bar":{
+              "name":"Progress Bar",
+              "type":"ProgressBar",
+              "value":"70%"
+            },
+            "print_state":{
+              "name":"Print State",
+              "type":"Label",
+              "value":"打印中"
+            }
+          }
+        },
+        "skip_button":{
+          "name":"Skip Button",
+          "type":"Button",
+          "connect":"clicked",
+          "method":"TODO",
+          "hbox":{
+            "name":"按钮盒子",
+            "type":"HBox",
+            "skip_image":{
+              "name":"Skip Icon",
+              "type":"Image",
+              "src":"images/skip.png"
+            },
+            "skip_text":{
+              "name":"Skip Text",
+              "type":"Label",
+              "value":"跳过"
+            }
+          }
+        },
+        "pause_button":{
+          "name":"Pause Button",
+          "type":"Button",
+          "connect":"clicked",
+          "method":"TODO",
+          "hbox":{
+            "name":"按钮盒子",
+            "type":"HBox",
+            "pause_image":{
+              "name":"Pause Icon",
+              "type":"Image",
+              "src":"images/pause.png"
+            },
+            "pause_text":{
+              "name":"Pause Text",
+              "type":"Label",
+              "value":"暂停"
+            }
+          }
+        },
+        "stop_button":{
+          "name":"Stop Button",
+          "type":"Button",
+          "connect":"clicked",
+          "method":"TODO",
+          "hbox":{
+            "name":"按钮盒子",
+            "type":"HBox",
+            "stop_image":{
+              "name":"Stop Icon",
+              "type":"Image",
+              "src":"images/stop.png"
+            },
+            "stop_text":{
+              "name":"Stop Text",
+              "type":"Label",
+              "value":"停止"
+            }
+          }
+        }       
+      }
+    },
+    "messages_assistant":{
+      "name":"Messages Assistant",
+      "type":"Button",
+      "icon":"styles/messages_assistant.svg",
+      "panel":"prompt_message_menu",
+      "connect":"clicked",
+      "method":"go_to_next_interface"
+    }         
+  }
+}

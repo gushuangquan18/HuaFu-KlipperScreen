@@ -1,0 +1,73 @@
+{
+  "father":"home_menu",
+  "name":"print_file_list",    
+  "type":"Grid",
+  "head_box":{
+    "name":"Head Box",
+    "type":"Box",
+    "children":{
+      "go_bcak":{
+        "name":"Go Back",
+        "type":"Button",
+        "src":"images/back.svg",
+        "connect":"clicked",
+        "method":"go_back"
+      },
+      "onboard_storage":{
+        "name":"Onboard Storage",
+        "type":"Button",
+        "value":"机内存储",
+        "connect":"clicked",
+        "method":"TODO"
+      },
+      "USB":{
+        "name":"USB",
+        "type":"Button",
+        "value":"USB",
+        "connect":"clicked",
+        "method":"TODO"
+      }
+    }
+  },
+  "file_list":{
+    "name":"File List",
+    "type":"ScrolledWindow",
+    "children":{
+      "file_grid":{
+        "name":"File Grid",
+        "type":"Grid",
+        "children":{
+          "select_print_file":{
+            "name":"Select Print File",
+            "type":"Button",
+            "connect":"clicked",
+            "method":"TODO",
+            "panel":"select_disc_print_list",
+            "hbox":{
+              "modeling_graphics":{
+                "name":"Modeling Graphics",
+                "type":"Image",
+                "src":"images/modeling_graphics.png"
+              },
+              "file_name":{
+                "name":"File Name",
+                "type":"Label",
+                "value":"file_name"
+              },
+              "print_time":{
+                "name":"Print Time",
+                "type":"Label",
+                "value":"print_time"
+              },
+              "print_weight":{
+                "name":"Print Weight",
+                "type":"Label",
+                "value":"print_weight"
+              }
+            }
+          }            
+        }         
+      }
+    }
+  }
+}

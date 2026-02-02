@@ -1,0 +1,37 @@
+{
+  "father":"menu",    
+  "name":"__prompt_message_menu",
+  "type":"Grid",
+  "children": {
+    "messages_assistant":{
+      "name":"Messages Assistant",
+      "type":"Image",
+      "width": 100,
+      "height": 100,
+      "row":0,
+      "column":0,
+      "rowspan":1,
+      "columnspan":1,
+      "src":"images/messages_assistant.png"
+    },
+    "messages_Grid":{
+      "name":"Messages Grid",
+      "type":"Grid",
+      "row":0,
+      "column":1,
+      "rowspan":1,
+      "columnspan":1,
+      "children":{
+        "notice":{
+          "name":"Notice",
+          "type":"Label",
+          "row":0,
+          "column":0,
+          "rowspan":1,
+          "columnspan":1,
+          "value":"No information available!"
+        }
+      }
+    }
+  }
+}

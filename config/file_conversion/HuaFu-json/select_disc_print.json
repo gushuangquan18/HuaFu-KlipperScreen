@@ -1,0 +1,144 @@
+{
+  "father":"print_file_list",
+  "name":"select_disc_print",
+  "type":"Grid",
+  "head_box":{
+    "name":"Head Box",
+    "type":"Box",
+    "children":{
+      "go_bcak":{
+        "name":"Go Back",
+        "type":"Button",
+        "src":"images/back.svg",
+        "connect":"clicked",
+        "method":"go_back"
+      },
+      "select_disc_print_label":{
+        "name":"Select Disc Print Label",
+        "type":"Label",
+        "value":"要打印的盘"
+      },
+      "next":{
+        "name":"Next",
+        "type":"Button",
+        "panel":"matching_consumables",
+        "connect":"clicked",
+        "method":"TODO"
+      }
+    }
+  },
+  "details":{
+    "name":"Details",
+    "type":"Grid",
+    "children":{
+      "file_grid":{
+        "name":"File Grid",
+        "type":"Grid",
+        "children":{        
+          "modeling_graphics":{
+            "name":"Modeling Graphics",
+            "type":"Image",
+            "src":"images/modeling_graphics.png"
+          },
+          "file_name":{
+            "name":"File Name",
+            "type":"Label",
+            "value":"file_name"
+          },
+          "print_time":{
+            "name":"Print Time",
+            "type":"Label",
+            "value":"print_time"
+          },
+          "print_weight":{
+            "name":"Print Weight",
+            "type":"Label",
+            "value":"print_weight"
+          }          
+        }         
+      },
+      "disc_nozzle":{
+        "name":"Disc Nozzle",
+        "type":"Grid",
+        "children":{
+          "disc":{
+            "name":"Disc",
+            "type":"Grid",
+            "children":{
+              "disc_image":{
+                "name":"Disc Image",
+                "type":"Image",
+                "src":"images/disc_image.png"
+              },
+              "disc_label":{
+                "name":"Disc Label",
+                "type":"Label",
+                "value":"盘"
+              },
+              "disc_type":{
+                "name":"Disc Type",
+                "type":"Label",
+                "value":"纹理PEI打印盘"
+              }         
+            }
+          },
+          "nozzel":{
+            "name":"Nozzel",
+            "type":"Grid",
+            "children":{
+              "nozzel_image":{
+                "name":"Nozzel Image",
+                "type":"Image",
+                "src":"images/nozzel_image.png"
+              },
+              "nozzel_label":{
+                "name":"Nozzel Label",
+                "type":"Label",
+                "value":"喷嘴"
+              },
+              "left_nozzel_type":{
+                "name":"Left Nozzel Type",
+                "type":"Label",
+                "value":"L:0.4mm 标准"
+              },
+              "right_nozzel_type":{
+                "name":"Right Nozzel Type",
+                "type":"Label",
+                "value":"R:0.4mm 标准"
+              }       
+            }
+          }             
+        }         
+      },
+      "other":{
+        "name":"Other",
+        "type":"Grid",
+        "children":{
+          "camera_icon":{
+            "name":"Camera Icon",
+            "type":"Image",
+            "src":"images/camera.svg"
+          },
+          "time_lapse_photography":{
+            "name":"Time Lapse Photography",
+            "type":"Label",
+            "value":"延时摄影"
+          },
+          "time_lapse_photography_control":{
+            "name":"Time Lapse Photography Control",
+            "type":"Switch",
+            "value":"True"
+          },
+          "advanced_options":{
+            "name":"Advanced Options",
+            "type":"Button",
+            "value":"高级选项>",
+            "panel":"advanced_options",
+            "connect":"clicked",
+            "method":"TODO"
+          }       
+        }
+      }        
+    }
+  }  
+}
