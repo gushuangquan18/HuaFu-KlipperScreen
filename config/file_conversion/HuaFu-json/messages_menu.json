@@ -3,24 +3,42 @@
   "name":"messages_menu",
   "type":"Grid",
   "children": {
-    "messages_assistant":{
-      "name":"Messages Assistant",
-      "type":"Image",
-      "width": 100,
-      "height": 100,
+    "messages_assistant_Grid":{
+      "name": "Messages Assistant Grid",
+      "type": "Grid",
       "column":0,
       "row":0,
       "columnspan":1,
       "rowspan":1,
-      "src":"images/messages_assistant.png"
+      "width": 490,
+      "height": 520,
+      "row_homogeneous": "True",
+      "column_homogeneous": "True",
+      "children": {
+        "messages_assistant":{
+          "name":"Messages Assistant",
+          "type":"Image",
+          "width": 150,
+          "height": 150,
+          "column":0,
+          "row":0,
+          "columnspan":1,
+          "rowspan":1,
+          "src":"images/messages_assistant.png"
+        }
+      }
     },
-    "messages_Grid":{
+    "messages_grid":{
       "name":"Messages Grid",
       "type":"Grid",
       "column":1,
       "row":0,
       "columnspan":1,
       "rowspan":1,
+      "width": 490,
+      "height": 520,
+      "column_homogeneous": "True",
+      "row_homogeneous": "True",
       "children":{
         "notice":{
           "name":"Notice",
@@ -30,51 +48,6 @@
           "columnspan":1,
           "rowspan":1,
           "value":"No information available!"
-        }
-      }
-    }
-  },
-  "file_list":{
-    "name":"File List",
-    "type":"Grid",
-    "column":0,
-    "row":0,
-    "columnspan":1,
-    "rowspan":1,
-    "children":{
-      "file_grid":{
-        "name":"File Grid",
-        "type":"Grid",
-        "children":{
-          "select_print_file":{
-            "name":"Select Print File",
-            "type":"Button",
-            "connect":"clicked",
-            "method":"TODO",
-            "panel":"select_disc_print_list",
-            "grid":{
-              "modeling_graphics":{
-                "name":"Modeling Graphics",
-                "type":"Image",
-                "src":"images/modeling_graphics.png"
-              },
-              "file_name":{
-                "name":"File Name",
-                "type":"Label",
-                "value":"file_name"
-              },
-              "print_time":{
-                "name":"Print Time",
-                "type":"Label",
-                "value":"print_time"
-              },
-              "print_weight":{
-                "name":"Print Weight",
-                "type":"Label",
-                "value":"print_weight"
-              }
-            }
-          }
         }
       }
     }

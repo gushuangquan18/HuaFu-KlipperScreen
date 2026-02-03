@@ -17,8 +17,8 @@
 @define-color slider #d81549;
 
 /*设置所有按钮背景颜色,以及点击状态下为透明*/
-button,
-button:active{
+/*button:active,*/
+button{
     background-color: transparent;
     border-color: transparent;
     color: white;
@@ -26,7 +26,8 @@ button:active{
 }
 
 
-button.home_button {
+button.home_menu_button,
+button.settings_menu_button{
     background-color: #808080;
     border-radius: 1em;
     margin: 10px 10px 10px 20px;
@@ -99,8 +100,40 @@ button.home_button {
 
 #consumables_menu {
     padding:10px;
-    background-image: url('images/printer_control_menu_background.jpg');
+    background-image: url('images/consumables_menu_background.jpg');
     background-size: contain; /* cover; 会缩放图片以完全覆盖整个区域，可能会裁剪图片。 contain; 会缩放图片以完整显示在区域内，可能不会填满整个区域。*/
     background-repeat: no-repeat;
 }
 
+#settings_menu {
+    padding:10px;
+}
+
+
+#user_messages_grid{
+    background-color: #808080;
+    border-radius: 1em;
+    padding-top: 130px;
+    padding-left: 110px;
+}
+#settings_right_arrow_icon{
+    padding-left: 70px;
+}
+#settings_wifi_grid,
+#disk_messages_grid,
+#firmware_information_grid{
+    background-color: #808080;
+    border-radius: 1em;
+    padding-top: 30px;
+    padding-left: 25px;
+}
+
+#messages_menu {
+
+}
+
+#messages_grid {
+    background-color: #808080;
+    border-radius: 1em;
+    margin: 20px 10px 20px 0px;
+}

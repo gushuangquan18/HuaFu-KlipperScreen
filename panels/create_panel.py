@@ -46,6 +46,7 @@ class Panel(ScreenPanel):
 
         if(item['type']=="Image"):
             item_control_name = Gtk.Image()
+            item_control_name.set_name(key_child[len(key_child)-1])
             image = self._screen.env.from_string(item['src']).render(self.j2_data) if item['src'] else None
             height = int(self._screen.env.from_string(item['height']).render(self.j2_data) if item['height'] else None)
             width = int(self._screen.env.from_string(item['width']).render(self.j2_data) if item['width'] else None)
@@ -63,6 +64,10 @@ class Panel(ScreenPanel):
                 item_control_name = self._gtk.Button(icon,value,style)
             else:
                 item_control_name = Gtk.Button()
+            if (item['height'] != None and item['width'] != None):
+                height = int(self._screen.env.from_string(item['height']).render(self.j2_data) if item['height'] else None)
+                width = int(self._screen.env.from_string(item['width']).render(self.j2_data) if item['width'] else None)
+                item_control_name.set_size_request(width, height)
             if(item['value'] != None):
                 value = self._screen.env.from_string(item['value']).render(self.j2_data) if item['value'] else None
                 item_control_name.set_label(value)
@@ -123,9 +128,9 @@ class Panel(ScreenPanel):
         elif (item['type'] == "Switch"):
             item_control_name= Gtk.Switch()
             value = self._screen.env.from_string(item['value']).render(self.j2_data) if item['value'] else None
-            height = int(self._screen.env.from_string(item['height']).render(self.j2_data) if item['height'] else None)
-            width = int(self._screen.env.from_string(item['width']).render(self.j2_data) if item['width'] else None)
-            item_control_name.set_size_request(width, height)
+            # height = int(self._screen.env.from_string(item['height']).render(self.j2_data) if item['height'] else None)
+            # width = int(self._screen.env.from_string(item['width']).render(self.j2_data) if item['width'] else None)
+            # item_control_name.set_size_request(width, height)
             item_control_name.set_active(bool(value))
             # self.binary_switch.connect("notify::active", self.on_binary_switch_toggled)
             self.counter += 1
@@ -151,7 +156,7 @@ class Panel(ScreenPanel):
                     int(item['rowspan']))
             i = self.counter
         parent_grid.set_name(panel_name)
-        if(panel_name == "printer_control_menu"):
+        if(panel_name == "printer_control_menu" or panel_name == "messages_menu"):
             parent_grid.set_row_homogeneous(True)
 
         self.labels['parent_grid'] = parent_grid

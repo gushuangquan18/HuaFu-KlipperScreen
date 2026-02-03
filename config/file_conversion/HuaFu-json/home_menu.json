@@ -186,7 +186,7 @@
             "row":0,
             "columnspan":1,
             "rowspan":1,
-            "style":"home_button"
+            "style":"home_menu_button"
           },
           "messages_assistant":{
             "name":"Messages Assistant",
@@ -197,7 +197,7 @@
             "row":0,
             "columnspan":1  ,
             "rowspan":1,
-            "style":"home_button"
+            "style":"home_menu_button"
           }
         }
       }
