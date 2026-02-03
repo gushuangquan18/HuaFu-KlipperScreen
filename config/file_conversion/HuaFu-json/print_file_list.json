@@ -9,6 +9,9 @@
     "row":0,
     "columnspan":1,
     "rowspan":1,
+    "width": 960,
+    "height": 50,
+    "column_homogeneous": "True",
     "children":{
       "go_bcak":{
         "name":"Go Back",
@@ -17,7 +20,9 @@
         "column":0,
         "row":0,
         "columnspan":1,
-        "rowspan":1
+        "rowspan":1,
+        "width": 50,
+        "height": 50
       },
       "onboard_storage":{
         "name":"Onboard Storage",
@@ -25,14 +30,14 @@
         "value":"机内存储",
         "column":1,
         "row":0,
-        "columnspan":2,
+        "columnspan":1,
         "rowspan":1
       },
       "USB":{
         "name":"USB",
         "type":"Button",
         "value":"USB",
-        "column":3,
+        "column":2,
         "row":0,
         "columnspan":1,
         "rowspan":1
@@ -46,6 +51,9 @@
     "row": 1,
     "columnspan": 3,
     "rowspan": 1,
+    "width": 960,
+    "height": 420,
+    "column_homogeneous": "True",
     "children": {
       "select_print_file_one": {
         "name": "Select Print File One",
@@ -58,11 +66,13 @@
           "select_print_file_grid": {
             "name": "Select Print File Grid",
             "type": "Grid",
+            "width":180,
+            "height":210,
             "modeling_graphics": {
               "name": "Modeling Graphics",
               "type": "Image",
-              "width":150,
-              "height":150,
+              "width":180,
+              "height":180,
               "column":0,
               "row":0,
               "columnspan":2,
@@ -110,11 +120,13 @@
           "select_print_file_grid": {
             "name": "Select Print File Grid",
             "type": "Grid",
+            "width":180,
+            "height":210,
             "modeling_graphics": {
               "name": "Modeling Graphics",
               "type": "Image",
-              "width":150,
-              "height":150,
+              "width":180,
+              "height":180,
               "column":0,
               "row":0,
               "columnspan":2,
@@ -162,11 +174,13 @@
           "select_print_file_grid": {
             "name": "Select Print File Grid",
             "type": "Grid",
+            "width":180,
+            "height":210,
             "modeling_graphics": {
               "name": "Modeling Graphics",
               "type": "Image",
-              "width":150,
-              "height":150,
+              "width":180,
+              "height":180,
               "column":0,
               "row":0,
               "columnspan":2,
@@ -214,11 +228,13 @@
           "select_print_file_grid": {
             "name": "Select Print File Grid",
             "type": "Grid",
+            "width":180,
+            "height":210,
             "modeling_graphics": {
               "name": "Modeling Graphics",
               "type": "Image",
-              "width":150,
-              "height":150,
+              "width":180,
+              "height":180,
               "column":0,
               "row":0,
               "columnspan":2,
@@ -229,6 +245,222 @@
               "name": "File Name",
               "type": "Label",
               "value": "文件4",
+              "column":0,
+              "row":3,
+              "columnspan":2,
+              "rowspan":1
+            },
+            "print_time": {
+              "name": "Print Time",
+              "type": "Label",
+              "value": "4h13m",
+              "column":0,
+              "row":4,
+              "columnspan":1,
+              "rowspan":1
+            },
+            "print_weight": {
+              "name": "Print Weight",
+              "type": "Label",
+              "value": "56g",
+              "column":1,
+              "row":4,
+              "columnspan":1,
+              "rowspan":1
+            }
+          }
+        }
+      },
+      "select_print_file_five": {
+        "name": "Select Print File Five",
+        "type": "Button",
+        "column":0,
+        "row":1,
+        "columnspan":1,
+        "rowspan":1,
+        "children": {
+          "select_print_file_grid": {
+            "name": "Select Print File Grid",
+            "type": "Grid",
+            "width":180,
+            "height":210,
+            "modeling_graphics": {
+              "name": "Modeling Graphics",
+              "type": "Image",
+              "width":180,
+              "height":180,
+              "column":0,
+              "row":0,
+              "columnspan":2,
+              "rowspan":2,
+              "src": "images/modeling_graphics.png"
+            },
+            "file_name": {
+              "name": "File Name",
+              "type": "Label",
+              "value": "文件5",
+              "column":0,
+              "row":3,
+              "columnspan":2,
+              "rowspan":1
+            },
+            "print_time": {
+              "name": "Print Time",
+              "type": "Label",
+              "value": "4h13m",
+              "column":0,
+              "row":4,
+              "columnspan":1,
+              "rowspan":1
+            },
+            "print_weight": {
+              "name": "Print Weight",
+              "type": "Label",
+              "value": "56g",
+              "column":1,
+              "row":4,
+              "columnspan":1,
+              "rowspan":1
+            }
+          }
+        }
+      },
+      "select_print_file_six": {
+        "name": "Select Print File Six",
+        "type": "Button",
+        "column":1,
+        "row":1,
+        "columnspan":1,
+        "rowspan":1,
+        "children": {
+          "select_print_file_grid": {
+            "name": "Select Print File Grid",
+            "type": "Grid",
+            "width":180,
+            "height":210,
+            "modeling_graphics": {
+              "name": "Modeling Graphics",
+              "type": "Image",
+              "width":180,
+              "height":180,
+              "column":0,
+              "row":0,
+              "columnspan":2,
+              "rowspan":2,
+              "src": "images/modeling_graphics.png"
+            },
+            "file_name": {
+              "name": "File Name",
+              "type": "Label",
+              "value": "文件6",
+              "column":0,
+              "row":3,
+              "columnspan":2,
+              "rowspan":1
+            },
+            "print_time": {
+              "name": "Print Time",
+              "type": "Label",
+              "value": "4h13m",
+              "column":0,
+              "row":4,
+              "columnspan":1,
+              "rowspan":1
+            },
+            "print_weight": {
+              "name": "Print Weight",
+              "type": "Label",
+              "value": "56g",
+              "column":1,
+              "row":4,
+              "columnspan":1,
+              "rowspan":1
+            }
+          }
+        }
+      },
+      "select_print_file_seven": {
+        "name": "Select Print File Seven",
+        "type": "Button",
+        "column":2,
+        "row":1,
+        "columnspan":1,
+        "rowspan":1,
+        "children": {
+          "select_print_file_grid": {
+            "name": "Select Print File Grid",
+            "type": "Grid",
+            "width":180,
+            "height":210,
+            "modeling_graphics": {
+              "name": "Modeling Graphics",
+              "type": "Image",
+              "width":180,
+              "height":180,
+              "column":0,
+              "row":0,
+              "columnspan":2,
+              "rowspan":2,
+              "src": "images/modeling_graphics.png"
+            },
+            "file_name": {
+              "name": "File Name",
+              "type": "Label",
+              "value": "文件7",
+              "column":0,
+              "row":3,
+              "columnspan":2,
+              "rowspan":1
+            },
+            "print_time": {
+              "name": "Print Time",
+              "type": "Label",
+              "value": "4h13m",
+              "column":0,
+              "row":4,
+              "columnspan":1,
+              "rowspan":1
+            },
+            "print_weight": {
+              "name": "Print Weight",
+              "type": "Label",
+              "value": "56g",
+              "column":1,
+              "row":4,
+              "columnspan":1,
+              "rowspan":1
+            }
+          }
+        }
+      },
+      "select_print_file_eight": {
+        "name": "Select Print File Eight",
+        "type": "Button",
+        "column":3,
+        "row":1,
+        "columnspan":1,
+        "rowspan":1,
+        "children": {
+          "select_print_file_grid": {
+            "name": "Select Print File Grid",
+            "type": "Grid",
+            "width":180,
+            "height":210,
+            "modeling_graphics": {
+              "name": "Modeling Graphics",
+              "type": "Image",
+              "width":180,
+              "height":180,
+              "column":0,
+              "row":0,
+              "columnspan":2,
+              "rowspan":2,
+              "src": "images/modeling_graphics.png"
+            },
+            "file_name": {
+              "name": "File Name",
+              "type": "Label",
+              "value": "文件8",
               "column":0,
               "row":3,
               "columnspan":2,

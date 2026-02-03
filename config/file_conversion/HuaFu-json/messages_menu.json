@@ -3,7 +3,7 @@
   "name":"messages_menu",
   "type":"Grid",
   "children": {
-    "messages_assistant_Grid":{
+    "messages_assistant_grid":{
       "name": "Messages Assistant Grid",
       "type": "Grid",
       "column":0,

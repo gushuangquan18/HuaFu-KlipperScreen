@@ -73,7 +73,7 @@
       "style":"settings_menu_button",
       "children": {
         "settings_wifi_grid": {
-          "name":"Settings Settings WIFI Grid",
+          "name":"Settings WIFI Grid",
           "type":"Grid",
           "width": 450,
           "height": 100,

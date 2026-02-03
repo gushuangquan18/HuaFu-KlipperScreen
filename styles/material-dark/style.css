@@ -132,8 +132,26 @@ button.settings_menu_button{
 
 }
 
+#messages_assistant_grid{
+    background-color: #808080;
+    border-radius: 1em;
+    margin: 20px 10px 20px 0px;
+}
+
 #messages_grid {
     background-color: #808080;
     border-radius: 1em;
     margin: 20px 10px 20px 0px;
+}
+
+#print_file_list{
+    padding: 10px 5px 10px 5px;
+}
+#file_list{
+    padding: 0px 15px 0px 15px;
+}
+#select_print_file_grid{
+    background-color:#000000;
+    border-radius: 1em;
+    margin: 0px 10px 0px 10px;
 }

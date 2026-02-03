@@ -163,7 +163,7 @@ class KlippyGtk:
         stream.close_async(2)
         return pixbuf
 
-    def Button(self, image_name=None, label=None, style=None, scale=None, position=Gtk.PositionType.TOP, lines=2):
+    def Button(self, image_name=None, label=None, style=None,width=None, height=None, scale=None, position=Gtk.PositionType.TOP, lines=2):
         if self.font_size_type == "max" and label is not None:
             image_name = None
         b = Gtk.Button(hexpand=True, vexpand=True, can_focus=False, image_position=position, always_show_image=True)
@@ -175,19 +175,21 @@ class KlippyGtk:
                 scale = self.button_image_scale
             if label is None:
                 scale = scale * 1.4
-            width = height = self.img_scale * scale
+            if(width is None and height is None):
+                width = height = self.img_scale
+            else:
+                width = int(width)
+                height = int(height)
             b.set_image(self.Image(image_name, width, height))
             spinner = Gtk.Spinner(width_request=width, height_request=height, no_show_all=True)
             spinner.hide()
             box = find_widget(b, Gtk.Box)
             if box:
                 box.add(spinner)
-
         if label is not None:
             format_label(b, lines)
         if style is not None:
             b.get_style_context().add_class(style)
-        b.connect("clicked", self.screen.screensaver.reset_timeout)
         return b
 
     @staticmethod

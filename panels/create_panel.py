@@ -61,13 +61,15 @@ class Panel(ScreenPanel):
                 icon = self._screen.env.from_string(item['icon']).render(self.j2_data) if item['icon'] else None
                 value = self._screen.env.from_string(item['value']).render(self.j2_data) if item['value'] else None
                 style = self._screen.env.from_string(item['style']).render(self.j2_data) if item['style'] else None
-                item_control_name = self._gtk.Button(icon,value,style)
+                width = self._screen.env.from_string(item['width']).render(self.j2_data) if item['width'] else None
+                height = self._screen.env.from_string(item['height']).render(self.j2_data) if item['height'] else None
+                item_control_name = self._gtk.Button(icon,value,style,width,height)
             else:
                 item_control_name = Gtk.Button()
-            if (item['height'] != None and item['width'] != None):
-                height = int(self._screen.env.from_string(item['height']).render(self.j2_data) if item['height'] else None)
-                width = int(self._screen.env.from_string(item['width']).render(self.j2_data) if item['width'] else None)
-                item_control_name.set_size_request(width, height)
+                if (item['height'] != None and item['width'] != None):
+                    height = int(self._screen.env.from_string(item['height']).render(self.j2_data) if item['height'] else None)
+                    width = int(self._screen.env.from_string(item['width']).render(self.j2_data) if item['width'] else None)
+                    item_control_name.set_size_request(width, height)
             if(item['value'] != None):
                 value = self._screen.env.from_string(item['value']).render(self.j2_data) if item['value'] else None
                 item_control_name.set_label(value)
