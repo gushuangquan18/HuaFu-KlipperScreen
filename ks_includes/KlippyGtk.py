@@ -190,6 +190,7 @@ class KlippyGtk:
             format_label(b, lines)
         if style is not None:
             b.get_style_context().add_class(style)
+        # b.set_size_request(40, 40)
         return b
 
     @staticmethod

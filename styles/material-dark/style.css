@@ -32,6 +32,28 @@ button.settings_menu_button{
     border-radius: 1em;
     margin: 10px 10px 10px 20px;
 }
+button.next_level{
+    background-color: #0073BD;
+    border-radius: 1em;
+}
+button.select_consumables_type{
+    background-color:#A9A9A9;
+    border-radius: 1em;
+    margin: 5px 5px 5px 5px;
+}
+button.print_menu_button{
+    background-color: #808080;
+    border-radius: 1em;
+}
+button.print_print_list{
+    background-color: #808080;
+    border-radius: 1em;
+    margin: 10px;
+}
+
+#head_grid{
+    margin-top:5px
+}
 
 #up_grid {
     /*background-color: red;*/
@@ -53,7 +75,7 @@ button.settings_menu_button{
     background-color: #808080;
     border-radius: 1em;
     padding-top: 30px;
-    padding-left: 30px;
+    padding-left: 40px;
     margin: 50px 10px 35px 20px;
 }
 
@@ -65,8 +87,7 @@ button.settings_menu_button{
 #nozzle_extruder_grid {
     background-color: #808080;
     border-radius: 1em;
-    padding-top: 30px;
-    padding-left: 25px;
+    padding-top: 15px;
 }
 
 
@@ -98,6 +119,7 @@ button.settings_menu_button{
     padding-left: 20px;
 }
 
+
 #consumables_menu {
     padding:10px;
     background-image: url('images/consumables_menu_background.jpg');
@@ -105,11 +127,10 @@ button.settings_menu_button{
     background-repeat: no-repeat;
 }
 
+
 #settings_menu {
     padding:10px;
 }
-
-
 #user_messages_grid{
     background-color: #808080;
     border-radius: 1em;
@@ -128,10 +149,10 @@ button.settings_menu_button{
     padding-left: 25px;
 }
 
+
 #messages_menu {
 
 }
-
 #messages_assistant_grid{
     background-color: #808080;
     border-radius: 1em;
@@ -154,4 +175,72 @@ button.settings_menu_button{
     background-color:#000000;
     border-radius: 1em;
     margin: 0px 10px 0px 10px;
+}
+
+
+#select_disc_print{
+
+}
+#file_grid,
+#disc_nozzle_grid,
+#other_grid {
+    background-color: #808080;
+    border-radius: 1em;
+    margin: 10px;
+    padding-top: 15px;
+}
+#file_grid{
+    padding:0px 0px 10px 0px;
+}
+
+#disc_nozzle_grid{
+    padding: 20px 0px 0px 40px;
+}
+#print_details_modeling_graphics{
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    /* 可选：显式关闭底部圆角（通常默认为0） */
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+#advanced_options{
+    padding-left: 15px;
+}
+
+
+#matching_consumables{
+
+}
+#left_matching_consumables_grid,
+#right_matching_consumables_grid{
+    background-color: #808080;
+    border-radius: 1em;
+    margin: 10px;
+    padding: 20px 10px 10px 10px;
+}
+
+
+#print_menu{
+    margin: 10px;
+}
+
+#left_up_grid,
+#right_up_gird,
+#left_down_grid,
+button.print_button{
+    background-color: #808080;
+    border-radius: 1em;
+}
+#print_inner_grid{
+    padding: 30px 0px 0px 30px;
+}
+#right_up_gird_left_grid {
+    background-image: url('images/printer_inner.jpg');
+    background-size: contain; /* cover; 会缩放图片以完全覆盖整个区域，可能会裁剪图片。 contain; 会缩放图片以完整显示在区域内，可能不会填满整个区域。*/
+    background-repeat: no-repeat;
+}
+#right_up_gird_right_grid {
+    background-image: url('images/nozzle_extruder.jpg');
+    background-size: contain; /* cover; 会缩放图片以完全覆盖整个区域，可能会裁剪图片。 contain; 会缩放图片以完整显示在区域内，可能不会填满整个区域。*/
+    background-repeat: no-repeat;
 }

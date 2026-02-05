@@ -62,6 +62,7 @@
         "row":0,
         "columnspan":1,
         "rowspan":1,
+        "panel": "select_disc_print",
         "children": {
           "select_print_file_grid": {
             "name": "Select Print File Grid",
@@ -116,6 +117,7 @@
         "row":0,
         "columnspan":1,
         "rowspan":1,
+        "panel": "select_disc_print",
         "children": {
           "select_print_file_grid": {
             "name": "Select Print File Grid",
@@ -170,6 +172,7 @@
         "row":0,
         "columnspan":1,
         "rowspan":1,
+        "panel": "select_disc_print",
         "children": {
           "select_print_file_grid": {
             "name": "Select Print File Grid",
@@ -224,6 +227,7 @@
         "row":0,
         "columnspan":1,
         "rowspan":1,
+        "panel": "select_disc_print",
         "children": {
           "select_print_file_grid": {
             "name": "Select Print File Grid",
@@ -278,6 +282,7 @@
         "row":1,
         "columnspan":1,
         "rowspan":1,
+        "panel": "select_disc_print",
         "children": {
           "select_print_file_grid": {
             "name": "Select Print File Grid",
@@ -332,6 +337,7 @@
         "row":1,
         "columnspan":1,
         "rowspan":1,
+        "panel": "select_disc_print",
         "children": {
           "select_print_file_grid": {
             "name": "Select Print File Grid",
@@ -386,6 +392,7 @@
         "row":1,
         "columnspan":1,
         "rowspan":1,
+        "panel": "select_disc_print",
         "children": {
           "select_print_file_grid": {
             "name": "Select Print File Grid",
@@ -440,6 +447,7 @@
         "row":1,
         "columnspan":1,
         "rowspan":1,
+        "panel": "select_disc_print",
         "children": {
           "select_print_file_grid": {
             "name": "Select Print File Grid",

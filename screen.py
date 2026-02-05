@@ -760,6 +760,8 @@ class KlipperScreen(Gtk.Window):
             menu = "settings_menu"
         elif "messages_menu" in self._cur_panels:
             menu = "messages_menu"
+        elif "print_menu" in self._cur_panels:
+            menu = "print_menu"
 
         logging.info(f"#### Menu {menu}")
         disname = self._config.get_menu_name(menu, name)

@@ -6,7 +6,7 @@
     "consumables_control":{
       "name":"Consumables Control",
       "type":"Button",
-      "icon":"consumables",
+      "icon":"consumables_left",
       "column":0,
       "row":0,
       "columnspan":1,

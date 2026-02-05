@@ -1,0 +1,292 @@
+{
+  "father":"menu",
+  "name":"print_menu",
+  "type":"Grid",
+  "children":{
+    "print_print_file": {
+      "name": "Print Print List",
+      "type": "Button",
+      "panel": "print_file_list",
+      "column":0,
+      "row":0,
+      "columnspan":3,
+      "rowspan":3,
+      "style": "print_print_list",
+      "print_print_list_grid": {
+        "name": "Print Print List Grid",
+        "type": "Grid",
+        "width":100,
+        "height":340,
+        "column_homogeneous": "True",
+        "camera_rec_icon": {
+          "name": "Camear Rec Icon",
+          "type": "Image",
+          "width":30,
+          "height":30,
+          "src": "images/camera_rec.png",
+          "column":0,
+          "row":0,
+          "columnspan":1,
+          "rowspan":1
+        },
+        "file_label": {
+          "name": "File Label",
+          "type": "Label",
+          "vale": "文件",
+          "column":1,
+          "row":0,
+          "columnspan":1,
+          "rowspan":1
+        },
+        "modeling_graphics": {
+          "name": "Modeling Graphics",
+          "type": "Image",
+          "width":320,
+          "height":320,
+          "column":0,
+          "row":1,
+          "columnspan":2,
+          "rowspan":2,
+          "src": "images/modeling_graphics.png"
+        },
+        "file_name": {
+          "name": "File Name",
+          "type": "Label",
+          "value": "文件1",
+          "column":0,
+          "row":3,
+          "columnspan":2,
+          "rowspan":1
+        }
+      }
+    },
+    "right_up_gird":{
+      "name":"Right Up Grid",
+      "type":"Grid",
+      "width":300,
+      "height":390,
+      "column":3,
+      "row":0,
+      "columnspan":4,
+      "rowspan":3,
+      "children":{
+        "right_up_gird_left_grid":{
+          "name":"Right Up Grid Left Grid",
+          "type":"Grid",
+          "width":180,
+          "height":390,
+          "column":0,
+          "row":0,
+          "columnspan":3,
+          "rowspan":3,
+          "children":{
+            "chassis_temperature":{
+              "name":"Chassis Temperature",
+              "type":"Button",
+              "icon":"chassis_temperature",
+              "value": "60℃",
+              "width":30,
+              "height":30,
+              "column":0,
+              "row":0,
+              "columnspan":1,
+              "rowspan":1
+            },
+            "hotbed_temperature":{
+              "name":"Hotbed Temperature",
+              "type":"Button",
+              "icon":"hotbed_temperature",
+              "value": "60℃",
+              "width":30,
+              "height":30,
+              "column":1,
+              "row":0,
+              "columnspan":1,
+              "rowspan":1
+            }
+          }
+        },
+        "tag_white":{
+          "name":"Tag White",
+          "type":"Image",
+          "width":3,
+          "height":300,
+          "column":2,
+          "row":0,
+          "columnspan":1,
+          "rowspan":3,
+          "src":"images/tag_white.png"
+        },
+        "right_up_gird_right_grid":{
+          "name":"Right Up Grid Right Grid",
+          "type":"Grid",
+          "width":130,
+          "height":390,
+          "column":3,
+          "row":0,
+          "columnspan":1,
+          "rowspan":3,
+          "children":{
+            "nozzle_extruder_image":{
+              "name":"Nozzle Extrude Image",
+              "type":"Image",
+              "width":60,
+              "height":90,
+              "column":0,
+              "row":0,
+              "columnspan":1,
+              "rowspan":3,
+              "src":"images/nozzle_extruder.png"
+            },
+            "left_nozzle_extruder":{
+              "name":"Left Nozzle Extruder",
+              "type":"Button",
+              "icon":"nozzle_extruder",
+              "value": "L 60℃",
+              "width":30,
+              "height":30,
+              "column":0,
+              "row":3,
+              "columnspan":1,
+              "rowspan":1
+            },
+            "Right_nozzle_extruder":{
+              "name":"Right Nozzle Extruder",
+              "type":"Button",
+              "icon":"nozzle_extruder",
+              "value": "R 60℃",
+              "width":30,
+              "height":30,
+              "column":0,
+              "row":4,
+              "columnspan":1,
+              "rowspan":1
+            }
+          }
+        }
+      }
+    },
+    "left_down_grid":{
+      "name":"Left Down Grid",
+      "type":"Grid",
+      "width":400,
+      "height":130,
+      "column":0,
+      "row":3,
+      "columnspan":6,
+      "rowspan":1,
+      "children":{
+        "print_inner_grid":{
+          "name":"Print Inner Grid",
+          "type":"Grid",
+          "width":400,
+          "height":130,
+          "column":0,
+          "row":0,
+          "columnspan":3,
+          "rowspan":1,
+          "children":{
+            "percentage_progress":{
+              "name":"Percentage Progress",
+              "type":"Label",
+              "value":"70",
+              "column":0,
+              "row":0,
+              "columnspan":1,
+              "rowspan":1
+            },
+            "floor_height_progress":{
+              "name":"Floor Height Progress",
+              "type":"Label",
+              "value":"\\t\\t\\t70/108 |",
+              "column":3,
+              "row":0,
+              "columnspan":1,
+              "rowspan":1
+            },
+            "remaining_time":{
+              "name":"Remaining Time",
+              "type":"Label",
+              "value":"-1h14m",
+              "column":4,
+              "row":0,
+              "columnspan":1,
+              "rowspan":1
+            },
+            "progress_bar":{
+              "name":"Progress Bar",
+              "type":"ProgressBar",
+              "width":30,
+              "height":30,
+              "column":0,
+              "row":1,
+              "columnspan":5,
+              "rowspan":1
+            },
+            "print_state":{
+              "name":"Print State",
+              "type":"Label",
+              "value":"打印中",
+              "column":0,
+              "row":2,
+              "columnspan":5,
+              "rowspan":1
+            }
+          }
+        },
+        "skip_button":{
+          "name":"Skip Button",
+          "type":"Button",
+          "column":3,
+          "row":0,
+          "columnspan":1,
+          "rowspan":1,
+          "icon":"skip",
+          "value": "跳过",
+          "width": 80,
+          "height": 80,
+          "style":"print_menu_button"
+        },
+        "pause_button":{
+          "name":"Pause Button",
+          "type":"Button",
+          "column":4,
+          "row":0,
+          "columnspan":1,
+          "rowspan":1,
+          "icon":"pause",
+          "value": "暂停",
+          "width": 80,
+          "height": 80,
+          "style":"print_menu_button"
+        },
+        "stop_button":{
+          "name":"Stop Button",
+          "type":"Button",
+          "column":5,
+          "row":0,
+          "columnspan":1,
+          "rowspan":1,
+          "icon":"stop",
+          "value": "停止",
+          "width": 80,
+          "height": 80,
+          "style":"print_menu_button"
+        }
+      }
+    },
+    "messages_assistant":{
+      "name":"Messages Assistant",
+      "type":"Button",
+      "icon":"messages_assistant",
+      "panel":"messages_menu",
+      "width":130,
+      "height":130,
+      "column":6,
+      "row":3,
+      "columnspan":1,
+      "rowspan":1,
+      "style": "print_button"
+    }
+  }
+}

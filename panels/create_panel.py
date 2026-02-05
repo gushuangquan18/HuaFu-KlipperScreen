@@ -37,108 +37,6 @@ class Panel(ScreenPanel):
     def arrangeMenuItems(self, items, columns=None, expand_last=False):
         print("arrangeMenuItems")
 
-    def create_child_items(self,i):
-        self.counter =i
-        key = list(self.items[i])[0]
-        key_child = key.split(' ')
-        item = self.items[i][key]
-        item_control_name = None
-
-        if(item['type']=="Image"):
-            item_control_name = Gtk.Image()
-            item_control_name.set_name(key_child[len(key_child)-1])
-            image = self._screen.env.from_string(item['src']).render(self.j2_data) if item['src'] else None
-            height = int(self._screen.env.from_string(item['height']).render(self.j2_data) if item['height'] else None)
-            width = int(self._screen.env.from_string(item['width']).render(self.j2_data) if item['width'] else None)
-            pixbuf = GdkPixbuf.Pixbuf.new_from_file(image)
-            scaled_pixbuf = pixbuf.scale_simple(width, height, GdkPixbuf.InterpType.BILINEAR)
-            item_control_name.set_from_pixbuf(scaled_pixbuf)
-            self.counter += 1
-
-        elif(item['type']=="Button"):
-            self.counter += 1
-            if(item["icon"] != None):
-                icon = self._screen.env.from_string(item['icon']).render(self.j2_data) if item['icon'] else None
-                value = self._screen.env.from_string(item['value']).render(self.j2_data) if item['value'] else None
-                style = self._screen.env.from_string(item['style']).render(self.j2_data) if item['style'] else None
-                width = self._screen.env.from_string(item['width']).render(self.j2_data) if item['width'] else None
-                height = self._screen.env.from_string(item['height']).render(self.j2_data) if item['height'] else None
-                item_control_name = self._gtk.Button(icon,value,style,width,height)
-            else:
-                item_control_name = Gtk.Button()
-                if (item['height'] != None and item['width'] != None):
-                    height = int(self._screen.env.from_string(item['height']).render(self.j2_data) if item['height'] else None)
-                    width = int(self._screen.env.from_string(item['width']).render(self.j2_data) if item['width'] else None)
-                    item_control_name.set_size_request(width, height)
-            if(item['value'] != None):
-                value = self._screen.env.from_string(item['value']).render(self.j2_data) if item['value'] else None
-                item_control_name.set_label(value)
-            if (item["panel"] != None):
-                parameter_item = {
-                    "panel": item["panel"],
-                    "icon": None,
-                }
-                item_control_name.connect("clicked", self.menu_item_clicked, parameter_item)
-            elif(key_child[len(key_child)-1] == 'go_back'):
-                item_control_name.connect("clicked", self._screen._menu_go_back)
-            elif(item['method'] == 'show_dialog'):
-                item_control_name.connect("clicked", self.show_dialog)
-
-            if(self.counter<len(self.items)):
-                key_child = list(self.items[self.counter])[0]
-                item_child = self.items[self.counter]
-                if (item_child[key_child]['type'] == "Grid" and len(key_child)>len(key)):
-                    item_control_name.add(self.create_child_items(self.counter))
-
-        elif(item['type'] == "Label"):
-            value = self._screen.env.from_string(item['value']).render(self.j2_data) if item['value'] else None
-            item_control_name = Gtk.Label(label=_(value))
-            self.counter += 1
-        elif(item['type'] == "Grid"):#移除默认边框
-            item_control_name = Gtk.Grid(orientation=Gtk.Orientation.HORIZONTAL)
-            item_control_name.set_name(key_child[len(key_child)-1])
-            height = int(self._screen.env.from_string(item['height']).render(self.j2_data) if item['height'] else None)
-            width = int(self._screen.env.from_string(item['width']).render(self.j2_data) if item['width'] else None)
-            item_control_name.set_size_request(width, height)
-            if(item['row_spacing'] != None):
-                row_spacing =int(self._screen.env.from_string(item['row_spacing']).render(self.j2_data) if item['row_spacing'] else None)
-                item_control_name.set_row_spacing(50)
-            if(item['column_spacing'] != None):
-                column_spacing = int(self._screen.env.from_string(item['column_spacing']).render(self.j2_data) if item['column_spacing'] else None)
-                item_control_name.set_column_spacing(50)
-            if (item['column_homogeneous'] == 'True'):
-                item_control_name.set_column_homogeneous(True)
-            if (item['row_homogeneous'] == 'True'):
-                item_control_name.set_row_homogeneous(True)
-
-
-            i+=1
-            while i<len(self.items):
-                key_child = list(self.items[i])[0]
-                key_father = ' '.join(key_child.split()[:-1]) if key_child and key_child.strip() else ''
-                item_child = self.items[i][key_child]
-                if (key_father == key and len((list(self.items[i])[0]).split()) > 1):
-                    item_control_name.attach(self.create_child_items(i),
-                                       int(item_child['column']),
-                                       int(item_child['row']),
-                                       int(item_child['columnspan']),
-                                       int(item_child['rowspan']))
-                    i = self.counter
-                else:
-                    i = self.counter + 1
-                    break
-        elif (item['type'] == "Switch"):
-            item_control_name= Gtk.Switch()
-            value = self._screen.env.from_string(item['value']).render(self.j2_data) if item['value'] else None
-            # height = int(self._screen.env.from_string(item['height']).render(self.j2_data) if item['height'] else None)
-            # width = int(self._screen.env.from_string(item['width']).render(self.j2_data) if item['width'] else None)
-            # item_control_name.set_size_request(width, height)
-            item_control_name.set_active(bool(value))
-            # self.binary_switch.connect("notify::active", self.on_binary_switch_toggled)
-            self.counter += 1
-        return item_control_name
-
-
 
 
     def create_menu_items(self,panel_name):
@@ -163,6 +61,112 @@ class Panel(ScreenPanel):
 
         self.labels['parent_grid'] = parent_grid
         # self.content.add(parent_grid)
+
+    def create_child_items(self,i):
+        self.counter =i
+        key = list(self.items[i])[0]
+        key_array=key.split(' ')
+        item = self.items[i][key]
+        item_control_name = None
+
+        if(item['type']=="Image"):
+            item_control_name = Gtk.Image()
+            item_control_name.set_name(key_array[len(key_array)-1])
+            image = self._screen.env.from_string(item['src']).render(self.j2_data) if item['src'] else None
+            height = int(self._screen.env.from_string(item['height']).render(self.j2_data) if item['height'] else None)
+            width = int(self._screen.env.from_string(item['width']).render(self.j2_data) if item['width'] else None)
+            pixbuf = GdkPixbuf.Pixbuf.new_from_file(image)
+            scaled_pixbuf = pixbuf.scale_simple(width, height, GdkPixbuf.InterpType.BILINEAR)
+            item_control_name.set_from_pixbuf(scaled_pixbuf)
+            self.counter += 1
+
+        elif(item['type']=="Button"):
+            self.counter += 1
+            value = self._screen.env.from_string(item['value']).render(self.j2_data) if item['value'] else None
+            style = self._screen.env.from_string(item['style']).render(self.j2_data) if item['style'] else None
+            icon = self._screen.env.from_string(item['icon']).render(self.j2_data) if item['icon'] else None
+            width = self._screen.env.from_string(item['width']).render(self.j2_data) if item['width'] else None
+            height = self._screen.env.from_string(item['height']).render(self.j2_data) if item['height'] else None
+            item_control_name = self._gtk.Button(icon,value,style,width,height)
+            if (item["panel"] != None):
+                parameter_item = {
+                    "panel": item["panel"],
+                    "icon": None,
+                }
+                item_control_name.connect("clicked", self.menu_item_clicked, parameter_item)
+            elif(key_array[len(key_array)-1] == 'go_back'):
+                item_control_name.connect("clicked", self._screen._menu_go_back)
+            elif(item['method'] == 'show_dialog'):
+                item_control_name.connect("clicked", self.show_dialog)
+
+            if(self.counter<len(self.items)):
+                key_child = list(self.items[self.counter])[0]
+                item_child = self.items[self.counter]
+                if (item_child[key_child]['type'] == "Grid" and len(key_child.split(" "))>len(key.split(" "))):
+                    item_control_name.add(self.create_child_items(self.counter))
+
+        elif(item['type'] == "Label"):
+            value = self._screen.env.from_string(item['value']).render(self.j2_data) if item['value'] else None
+            if(key_array[len(key_array)-1] == "percentage_progress"):
+                self.percentage_progress=int(value)*0.01;
+                value=f"{value}%"
+            item_control_name = Gtk.Label(label=_(value))
+            self.counter += 1
+        elif(item['type'] == "Grid"):#移除默认边框
+            item_control_name = Gtk.Grid(orientation=Gtk.Orientation.HORIZONTAL)
+            item_control_name.set_name(key_array[len(key_array)-1])
+            height = int(self._screen.env.from_string(item['height']).render(self.j2_data) if item['height'] else None)
+            width = int(self._screen.env.from_string(item['width']).render(self.j2_data) if item['width'] else None)
+            item_control_name.set_size_request(width, height)
+            if(item['column_spacing'] != None):
+                column_spacing = int(self._screen.env.from_string(item['column_spacing']).render(self.j2_data) if item['column_spacing'] else None)
+                item_control_name.set_column_spacing(50)
+            if(item['row_spacing'] != None):
+                row_spacing =int(self._screen.env.from_string(item['row_spacing']).render(self.j2_data) if item['row_spacing'] else None)
+                item_control_name.set_row_spacing(50)
+            if (item['column_homogeneous'] == 'True'):
+                item_control_name.set_column_homogeneous(True)
+            if (item['row_homogeneous'] == 'True'):
+                item_control_name.set_row_homogeneous(True)
+
+
+            i+=1
+            while i<len(self.items):
+                key_child = list(self.items[i])[0]
+                key_father = ' '.join(key_child.split()[:-1]) if key_child and key_child.strip() else ''
+                item_child = self.items[i][key_child]
+                if (key_father == key and len((list(self.items[i])[0]).split()) > 1):
+                    item_control_name.attach(self.create_child_items(i),
+                                       int(item_child['column']),
+                                       int(item_child['row']),
+                                       int(item_child['columnspan']),
+                                       int(item_child['rowspan']))
+                    i = self.counter
+                else:
+                    i = self.counter + 1
+                    break
+        elif (item['type'] == "Switch"):
+            item_control_name= Gtk.Switch()
+            value = self._screen.env.from_string(item['value']).render(self.j2_data) if item['value'] else None
+            item_control_name.set_active(bool(value))
+            self.counter += 1
+
+        elif (item['type'] == "ProgressBar"):
+            item_control_name= Gtk.ProgressBar()
+            #设置进度条百分比
+            item_control_name.set_fraction(self.percentage_progress)
+            item_control_name.set_show_text(False)
+            width = int(self._screen.env.from_string(item['width']).render(self.j2_data) if item['width'] else None)
+            height = int(self._screen.env.from_string(item['height']).render(self.j2_data) if item['height'] else None)
+            item_control_name.set_size_request(width, height)
+            self.counter += 1
+
+        return item_control_name
+
+
+
+
+
 
 
 

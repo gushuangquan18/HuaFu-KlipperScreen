@@ -2,87 +2,228 @@
   "father":"select_disc_print",
   "name":"matching_consumables",
   "type":"Grid",
-  "head_box":{
-    "name":"Head Box",
-    "type":"Box",
+  "head_grid":{
+    "name":"Head Grid",
+    "type":"Grid",
+    "column":0,
+    "row":0,
+    "columnspan":1,
+    "rowspan":1,
+    "width": 940,
+    "height": 50,
+    "column_homogeneous": "True",
     "children":{
       "go_bcak":{
         "name":"Go Back",
         "type":"Button",
-        "src":"images/back.svg",
-        "connect":"clicked",
-        "method":"go_back"
+        "icon": "back",
+        "column":0,
+        "row":0,
+        "columnspan":1,
+        "rowspan":1,
+        "width": 50,
+        "height": 50
       },
-      "matching_consumables_label":{
-        "name":"Matching Consumables",
+      "select_disc_print_label":{
+        "name":"Select Disc Print Label",
         "type":"Label",
-        "value":"匹配耗材"
+        "value":"匹配耗材",
+        "column":1,
+        "row":0,
+        "columnspan":1,
+        "rowspan":1
       },
-      "print":{
-        "name":"Print",
+      "print_button":{
+        "name":"Print Button",
         "type":"Button",
-        "panel":"Print",
-        "connect":"clicked",
-        "method":"TODO"
+        "value":"打  印",
+        "panel": "print_menu",
+        "column":2,
+        "row":0,
+        "columnspan":1,
+        "rowspan":1,
+        "style": "next_level"
       }
     }
   },
-  "details":{
-    "name":"Details",
+  "matching_consumables_details":{
+    "name":"Matching Consumables Details",
     "type":"Grid",
+    "column":0,
+    "row":1,
+    "columnspan":1,
+    "rowspan":1,
+    "width": 940,
+    "height": 535,
     "children":{
-      "left_grid":{
-        "name":"Left Grid",
+      "left_matching_consumables_grid":{
+        "name":"Left Matching Consumables Grid",
         "type":"Grid",
-        "children":{
+        "column":0,
+        "row":0,
+        "columnspan":2,
+        "rowspan":1,
+        "width": 400,
+        "height": 535,
+        "column_homogeneous": "True",
+        "row_homogeneous": "True",
+        "children": {
           "disc_name":{
             "name":"Disc Name",
             "type":"Label",
-            "value":"盘1"
-          },        
-          "modeling_graphics":{
-            "name":"Modeling Graphics",
+            "value":"盘1",
+            "column":0,
+            "row":0,
+            "columnspan":3,
+            "rowspan":1
+          },
+          "matching_consumables_modeling_graphics":{
+            "name":"Matching Consumables Modeling Graphics",
             "type":"Image",
+            "column":0,
+            "row":1,
+            "columnspan":3,
+            "rowspan":6,
+            "width": 330,
+            "height": 330,
             "src":"images/modeling_graphics.png"
-          }         
-        }         
+          }
+        }
       },
-      "right_grid":{
-        "name":"Right Grid",
-        "type":"Grid",
-        "children":{
-          "extruder_name":{
-            "name":"Extruder Name",
-            "type":"Label",
-            "value":"右挤出机"
-          },        
-          "consumables_selection":{
-            "name":"Consumables Selection",
-            "type":"Button",
-            "panel":"side_panel",
-            "connect":"clicked",
-            "method":"TODO",
-            "hbox":{
-              "name":"按钮盒子",
-              "type":"HBox",
-              "consumables_type":{
-                "name":"Consumables Type",
-                "type":"Label",
-                "value":"AMS/ASA"
-              },
-                "consumables_image":{
-                "name":"Consumables Image",
-                "type":"Image",
-                "src":"images/consumables_image.png"
-              },
-              "consumables_type_name":{
-                "name":"Consumables Type Name",
-                "type":"Label",
-                "value":"A1 ASA"
-              }
-            }
-          }         
-        }         
+      "right_matching_consumables_grid": {
+        "name": "Right Matching Consumables Grid",
+        "type": "Grid",
+        "column": 2,
+        "row": 0,
+        "columnspan": 3,
+        "rowspan": 1,
+        "width": 540,
+        "height": 535,
+        "column_homogeneous": "True",
+        "children": {
+          "left_extruder_name": {
+            "name": "Left Extruder Name",
+            "type": "Label",
+            "value": "左挤出机",
+            "column": 0,
+            "row": 0,
+            "columnspan": 1,
+            "rowspan": 1
+          },
+          "select_consumables_type_one": {
+            "name": "Select Consumables Type One",
+            "type": "Button",
+            "value": "ASA-A",
+            "icon": "consumables_left",
+            "column": 0,
+            "row": 1,
+            "columnspan": 1,
+            "rowspan": 1,
+            "width": 50,
+            "height": 50,
+            "style": "select_consumables_type"
+          },
+          "select_consumables_type_two": {
+            "name": "Select Consumables Type Two",
+            "type": "Button",
+            "value": "ASA-B",
+            "icon": "consumables_left",
+            "column": 1,
+            "row": 1,
+            "columnspan": 1,
+            "rowspan": 1,
+            "width": 50,
+            "height": 50,
+            "style": "select_consumables_type"
+          },
+          "select_consumables_type_three": {
+            "name": "Select Consumables Type Three",
+            "type": "Button",
+            "value": "PLA",
+            "icon": "consumables_left",
+            "column": 2,
+            "row": 1,
+            "columnspan": 1,
+            "rowspan": 1,
+            "width": 50,
+            "height": 50,
+            "style": "select_consumables_type"
+          },
+          "select_consumables_type_four": {
+            "name": "Select Consumables Type Four",
+            "type": "Button",
+            "value": "PLC",
+            "icon": "consumables_left",
+            "column": 3,
+            "row": 1,
+            "columnspan": 1,
+            "rowspan": 1,
+            "width": 50,
+            "height": 50,
+            "style": "select_consumables_type"
+          },
+          "right_extruder_name": {
+            "name": "Right Extruder Name",
+            "type": "Label",
+            "value": "右挤出机",
+            "column": 0,
+            "row": 2,
+            "columnspan": 1,
+            "rowspan": 1
+          },
+          "select_consumables_type_five": {
+            "name": "Select Consumables Type Five",
+            "type": "Button",
+            "value": "ASA-A",
+            "icon": "consumables_left",
+            "column": 0,
+            "row": 3,
+            "columnspan": 1,
+            "rowspan": 1,
+            "width": 50,
+            "height": 50,
+            "style": "select_consumables_type"
+          },
+          "select_consumables_type_six": {
+            "name": "Select Consumables Type Six",
+            "type": "Button",
+            "value": "ASA-B",
+            "icon": "consumables_left",
+            "column": 1,
+            "row": 3,
+            "columnspan": 1,
+            "rowspan": 1,
+            "width": 50,
+            "height": 50,
+            "style": "select_consumables_type"
+          },
+          "select_consumables_type_seven": {
+            "name": "Select Consumables Type Seven",
+            "type": "Button",
+            "value": "PLA",
+            "icon": "consumables_left",
+            "column": 2,
+            "row": 3,
+            "columnspan": 1,
+            "rowspan": 1,
+            "width": 50,
+            "height": 50,
+            "style": "select_consumables_type"
+          },
+          "select_consumables_type_eight": {
+            "name": "Select Consumables Type Eight",
+            "type": "Button",
+            "value": "PLC",
+            "icon": "consumables_left",
+            "column": 3,
+            "row": 3,
+            "columnspan": 1,
+            "rowspan": 1,
+            "width": 50,
+            "height": 50,
+            "style": "select_consumables_type"
+          }
+        }
       }
     }
   }
