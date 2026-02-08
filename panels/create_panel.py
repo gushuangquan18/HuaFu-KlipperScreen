@@ -208,9 +208,14 @@ class Panel(ScreenPanel):
             item_control_name = Gtk.ComboBoxText()
             combobox_key=key_array[len(key_array)-1]
             combobox_items=STATIC_CONSUMABLES[combobox_key]
-            for item in combobox_items:
-                item_control_name.append_text(item)
+            for combobox_item in combobox_items:
+                item_control_name.append_text(combobox_item)
             item_control_name.set_active(0)
+            width = int(self._screen.env.from_string(item['width']).render(self.j2_data) if item['width'] else None)
+            height = int(self._screen.env.from_string(item['height']).render(self.j2_data) if item['height'] else None)
+            item_control_name.set_size_request(width, height)
+            style = self._screen.env.from_string(item['style']).render(self.j2_data) if item['style'] else None
+            item_control_name.get_style_context().add_class(style)
             self.counter += 1
 
         elif (item['type'] == "TextView"):

@@ -1,20 +1,5 @@
 /* Material-dark theme created by Alfredo Monclus 2021 */
-@define-color text #e2e2e2;
-@define-color bg #0F0B0C;
-@define-color buttons-bg #090909;
-@define-color color1 #d46900;
-@define-color color2 #ed3c63;
-@define-color color3 #849900;
-@define-color color4 #808080;
-
-@define-color echo #006412;
-@define-color warning #EF6C00;
-@define-color error #B71C1C;
-
-@define-color active #d46900;
-@define-color active-dark #282828;
-@define-color lines #a2a2a2;
-@define-color slider #d81549;
+@define-color grid_bg #808080;
 
 /*设置所有按钮背景颜色,以及点击状态下为透明*/
 /*button:active,*/
@@ -27,7 +12,7 @@ button{
 
 button.home_menu_button,
 button.settings_menu_button{
-    background-color: #808080;
+    background-color: @grid_bg;
     border-radius: 1em;
     margin: 10px 10px 10px 20px;
 }
@@ -45,11 +30,11 @@ button.select_consumables_type{
     margin: 5px 5px 5px 5px;
 }
 button.print_menu_button{
-    background-color: #808080;
+    background-color: @grid_bg;
     border-radius: 1em;
 }
 button.print_print_list{
-    background-color: #808080;
+    background-color: @grid_bg;
     border-radius: 1em;
     margin: 10px;
 }
@@ -71,7 +56,7 @@ button.temperature_number{
     border-radius: 1em;
 }
 #nozzle_extruder_dialog{
-    background-color: #808080;
+    background-color: @grid_bg;
 }
 
 /* 设置进度条颜色 */
@@ -83,6 +68,20 @@ progressbar progress {
     border: none;
     background-color: #0073bd; /* 进度条颜色 */
 }
+/* 下拉菜单背景颜色 */
+.consumables_select button{
+    background-color: #A8A8A8;      /* 背景色 */
+    border: 0px solid #FF8A65;      /* 可选：自定义边框 */
+    color: #dbdbdb;             /* 文字颜色 */
+}
+/* 下拉菜单中的选项样式（可选） */
+.consumables_select popup > contents {
+    background-color: white;
+}
+
+
+
+
 
 /* 主页菜单 */
 #head_grid{
@@ -106,7 +105,7 @@ progressbar progress {
 }
 
 #print_file_list_grid {
-    background-color: #808080;
+    background-color: @grid_bg;
     border-radius: 1em;
     padding-top: 30px;
     padding-left: 40px;
@@ -119,7 +118,7 @@ progressbar progress {
 }
 
 #nozzle_extruder_grid {
-    background-color: #808080;
+    background-color: @grid_bg;
     border-radius: 1em;
     padding-top: 15px;
 }
@@ -141,7 +140,7 @@ progressbar progress {
 #file_grid,
 #disc_nozzle_grid,
 #other_grid {
-    background-color: #808080;
+    background-color: @grid_bg;
     border-radius: 1em;
     margin: 10px;
     padding-top: 15px;
@@ -169,7 +168,7 @@ progressbar progress {
 }
 #left_matching_consumables_grid,
 #right_matching_consumables_grid{
-    background-color: #808080;
+    background-color: @grid_bg;
     border-radius: 1em;
     margin: 10px;
     padding: 20px 10px 10px 10px;
@@ -184,7 +183,7 @@ progressbar progress {
 #right_up_gird,
 #left_down_grid,
 button.print_button{
-    background-color: #808080;
+    background-color: @grid_bg;
     border-radius: 1em;
 }
 #print_inner_grid{
@@ -218,13 +217,13 @@ button.print_button{
 #hotbed_temperature_grid ,
 #chassis_temperature_grid,
 #control_nozzle_extruder_grid{
-    background-color: #808080;
+    background-color: @grid_bg;
     border-radius: 1em;
     padding-top: 15px;
     padding-left: 15px;
 }
 #light_system_grid {
-    background-color: #808080;
+    background-color: @grid_bg;
     border-radius: 1em;
     padding-top: 15px;
     padding-left: 20px;
@@ -237,7 +236,7 @@ button.print_button{
     padding-left:50px;
 }
 #air_system_body_grid{
-    background-color: #808080;
+    background-color: @grid_bg;
     border-radius: 1em;
     padding:15px;
     margin: 10px;
@@ -248,7 +247,7 @@ button.print_button{
 
 }
 #speed_control_body_grid{
-    background-color: #808080;
+    background-color: @grid_bg;
     border-radius: 1em;
     padding:25px 25px 15px 25px;
     margin: 10px;
@@ -259,7 +258,7 @@ button.print_button{
 
 }
 #sport_control_body_grid{
-    background-color: #808080;
+    background-color: @grid_bg;
     border-radius: 1em;
     padding:15px;
     margin: 10px;
@@ -294,7 +293,7 @@ button.print_button{
 }
 #nozzle_extruder_left_button_grid,
 #nozzle_extruder_right_button_grid{
-    background-color: #808080;
+    background-color: @grid_bg;
     border-radius: 1em;
 }
 
@@ -313,7 +312,7 @@ button.print_button{
 }
 /* 编辑耗材耗材 */
 #edit_consumables_body_grid{
-    background-color: #808080;
+    background-color: @grid_bg;
     border-radius: 1em;
     margin: 5px 10px 10px 5px ;
     padding: 10px 5px 8px 10px;
@@ -325,13 +324,13 @@ button.print_button{
 
 }
 #messages_assistant_grid{
-    background-color: #808080;
+    background-color: @grid_bg;
     border-radius: 1em;
     margin: 20px 10px 20px 0px;
 }
 
 #messages_grid {
-    background-color: #808080;
+    background-color: @grid_bg;
     border-radius: 1em;
     margin: 20px 10px 20px 0px;
 }
@@ -342,7 +341,7 @@ button.print_button{
     padding:10px;
 }
 #user_messages_grid{
-    background-color: #808080;
+    background-color: @grid_bg;
     border-radius: 1em;
     padding-top: 130px;
     padding-left: 110px;
@@ -350,7 +349,7 @@ button.print_button{
 #settings_wifi_grid,
 #disk_messages_grid,
 #firmware_information_grid{
-    background-color: #808080;
+    background-color: @grid_bg;
     border-radius: 1em;
     padding: 30px 10px 0px 25px;
 }
@@ -366,7 +365,7 @@ button.print_button{
 #nozzle_calibration_grid,
 #camera_calibration_grid,
 #sport_calibration_grid{
-    background-color: #808080;
+    background-color: @grid_bg;
     border-radius: 1em;
     padding: 10px 10px 0px 20px;
 }
@@ -376,7 +375,7 @@ button.print_button{
 
 }
 #print_calibration_body_grid{
-    background-color: #808080;
+    background-color: @grid_bg;
     border-radius: 1em;
     margin: 5px;
     padding: 10px 10px 0px 20px;
@@ -406,7 +405,7 @@ button.print_button{
 #camera_calibration_image_grid,
 #sport_calibration_message_grid,
 #sport_calibration_image_grid{
-    background-color: #808080;
+    background-color: @grid_bg;
     border-radius: 1em;
     padding: 20px 10px 0px 20px;
     margin: 5px;
@@ -424,9 +423,20 @@ button.print_button{
 #lead_screw_lubrication_grid,
 #laser_module_cleaning_grid,
 #nozzle_cold_drawing_maintenance_grid{
-    background-color: #808080;
+    background-color: @grid_bg;
     border-radius: 1em;
     padding: 10px 10px 0px 20px;
+}
+/* 烘干耗材 */
+#drying_consumables{
+
+}
+#drying_consumables_message_grid,
+#drying_consumables_steps_grid{
+    background-color: @grid_bg;
+    border-radius: 1em;
+    padding: 20px 10px 0px 20px;
+    margin: 5px;
 }
 /* XYZ轴清洁 */
 #xyz_axis_cleaning{
@@ -434,7 +444,7 @@ button.print_button{
 }
 #xyz_cleaning_message_grid,
 #xyz_cleaning_steps_grid{
-    background-color: #808080;
+    background-color: @grid_bg;
     border-radius: 1em;
     padding: 20px 10px 0px 20px;
     margin: 5px;
@@ -445,7 +455,7 @@ button.print_button{
 }
 #lead_screw_lubrication_message_grid,
 #lead_screw_lubrication_steps_grid{
-    background-color: #808080;
+    background-color: @grid_bg;
     border-radius: 1em;
     padding: 20px 10px 0px 20px;
     margin: 5px;
@@ -456,7 +466,7 @@ button.print_button{
 }
 #laser_module_cleaning_message_grid,
 #laser_module_cleaning_steps_grid{
-    background-color: #808080;
+    background-color: @grid_bg;
     border-radius: 1em;
     padding: 20px 10px 0px 20px;
     margin: 5px;
@@ -467,7 +477,7 @@ button.print_button{
 }
 #nozzle_cold_drawing_maintenance_message_grid,
 #nozzle_cold_drawing_maintenance_steps_grid{
-    background-color: #808080;
+    background-color: @grid_bg;
     border-radius: 1em;
     padding: 20px 10px 0px 20px;
     margin: 5px;
