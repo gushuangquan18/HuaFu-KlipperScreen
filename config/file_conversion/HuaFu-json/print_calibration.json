@@ -1,0 +1,122 @@
+{
+  "father":"calibration",
+  "name":"print_calibration",
+  "type":"Grid",
+  "head_grid":{
+    "name":"Head Grid",
+    "type":"Grid",
+    "column":0,
+    "row":0,
+    "columnspan":1,
+    "rowspan":1,
+    "width": 970,
+    "height": 50,
+    "children":{
+      "go_bcak":{
+        "name":"Go Back",
+        "type":"Button",
+        "icon": "back",
+        "hexpand": "False",
+        "vexpand": "False",
+        "column":0,
+        "row":0,
+        "columnspan":1,
+        "rowspan":1,
+        "width": 50,
+        "height": 50,
+        "button_width": 150,
+        "button_height": 50
+      },
+      "calibration_label":{
+        "name":"Calibration Label",
+        "type":"Label",
+        "value":"打印校准",
+        "column":1,
+        "row":0,
+        "columnspan":1,
+        "rowspan":1
+      },
+      "space_label":{
+        "name":"Space Label",
+        "type":"Label",
+        "value":"占位符",
+        "column":2,
+        "row":0,
+        "columnspan":1,
+        "rowspan":1
+      },
+      "start_button":{
+        "name":"Next Level",
+        "type":"Button",
+        "value":"开始",
+        "hexpand": "False",
+        "vexpand": "False",
+        "button_width": 150,
+        "button_height": 15,
+        "column":4,
+        "row":0,
+        "columnspan":1,
+        "rowspan":1,
+        "style": "next_level"
+      }
+    }
+  },
+  "print_calibration_body_grid":{
+    "name":"Print Calibration Body grid",
+    "type":"Grid",
+    "column":0,
+    "row":1,
+    "columnspan":1,
+    "rowspan":5,
+    "width": 940,
+    "height": 500,
+    "row_spacing": 1,
+    "children": {
+      "motor_noise_reduction":{
+        "name":"Motor Noise Reduction",
+        "type":"CheckButton",
+        "value":"电机降噪(12分钟)",
+        "column":0,
+        "row":0,
+        "columnspan":1,
+        "rowspan":1
+      },
+      "vibration_compensation":{
+        "name":"Vibration Compensation",
+        "type":"CheckButton",
+        "value":"振动补偿(4分钟)",
+        "column":0,
+        "row":1,
+        "columnspan":1,
+        "rowspan":1
+      },
+      "automatic_hotbed_leveling":{
+        "name":"Automatic Hotbed Leveling",
+        "type":"CheckButton",
+        "value":"自动热床调平(30分钟)",
+        "column":0,
+        "row":2,
+        "columnspan":1,
+        "rowspan":1
+      },
+      "high_temperature_hotbed":{
+        "name":"High Temperature Hotbed",
+        "type":"CheckButton",
+        "value":"高温热床调平(30分钟)",
+        "column":0,
+        "row":3,
+        "columnspan":1,
+        "rowspan":1
+      },
+      "nozzle_offset_calibration":{
+        "name":"Nozzle Offset Calibration",
+        "type":"CheckButton",
+        "value":"喷嘴偏移校准(3分钟)",
+        "column":0,
+        "row":4,
+        "columnspan":1,
+        "rowspan":1
+      }
+  }
+  }  
+}

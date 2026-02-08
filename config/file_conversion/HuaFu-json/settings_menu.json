@@ -6,6 +6,10 @@
     "user_messages": {
       "name":"User Messages",
       "type":"Button",
+      "hexpand": "False",
+      "vexpand": "False",
+      "button_width": 450,
+      "button_height": 300,
       "column":0,
       "row":0,
       "columnspan":3,
@@ -65,6 +69,10 @@
     "settings_wifi":{
       "name":"Settings WIFI",
       "type":"Button",
+      "hexpand": "False",
+      "vexpand": "False",
+      "button_width": 450,
+      "button_height": 100,
       "column":3,
       "row":0,
       "columnspan":3,
@@ -77,12 +85,20 @@
           "type":"Grid",
           "width": 450,
           "height": 100,
-          "column_spacing": 350,
           "children": {
             "settings_wifi_label":{
               "name":"Settings WIFI Label",
               "type":"Label",
               "value":"Wi-Fi",
+              "column":0,
+              "row":0,
+              "columnspan":1,
+              "rowspan":1
+            },
+            "space_label":{
+              "name":"Space Label",
+              "type":"Label",
+              "value":"占位符",
               "column":1,
               "row":0,
               "columnspan":1,
@@ -92,17 +108,17 @@
               "name":"Settings WIFI Name",
               "type":"Label",
               "value":"HuaFu",
-              "column":3,
+              "column":2,
               "row":0,
-              "columnspan":2,
+              "columnspan":1,
               "rowspan":1
             },
             "settings_right_arrow_icon":{
               "name":"Settings Right Arrow Icon",
               "type":"Image",
-              "width":20,
+              "width":30,
               "height":40,
-              "column":5,
+              "column":3,
               "row":0,
               "columnspan":1,
               "rowspan":1,
@@ -115,6 +131,10 @@
     "disk_messages":{
       "name":"Disk Messages",
       "type":"Button",
+      "hexpand": "False",
+      "vexpand": "False",
+      "button_width": 450,
+      "button_height": 100,
       "column":3,
       "row":2,
       "columnspan":3,
@@ -127,7 +147,6 @@
           "type":"Grid",
           "width": 450,
           "height": 100,
-          "column_spacing": 150,
           "children": {
             "disk_messages_type_label":{
               "name":"Disk Messages Type Label",
@@ -138,21 +157,30 @@
               "columnspan":1,
               "rowspan":1
             },
+            "space_label":{
+              "name":"Space Label",
+              "type":"Label",
+              "value":"占位符",
+              "column":1,
+              "row":0,
+              "columnspan":1,
+              "rowspan":1
+            },
             "disk_message":{
               "name":"Disk Messages",
               "type":"Label",
               "value":"17.7GB/32GB",
-              "column":3,
+              "column":2,
               "row":0,
-              "columnspan":2,
+              "columnspan":1,
               "rowspan":1
             },
             "settings_right_arrow_icon":{
               "name":"Settings Right Arrow Icon",
               "type":"Image",
-              "width":20,
+              "width":30,
               "height":40,
-              "column":5,
+              "column":3,
               "row":0,
               "columnspan":1,
               "rowspan":1,
@@ -165,6 +193,10 @@
     "firmware_information": {
       "name":"Firmware Information",
       "type":"Button",
+      "hexpand": "False",
+      "vexpand": "False",
+      "button_width": 450,
+      "button_height": 100,
       "column":3,
       "row":1,
       "columnspan":3,
@@ -177,7 +209,6 @@
           "type":"Grid",
           "width": 450,
           "height": 100,
-          "column_spacing": 150,
           "children": {
             "firmware_information_label":{
               "name":"Firmware Information Label",
@@ -188,21 +219,30 @@
               "columnspan":1,
               "rowspan":1
             },
+            "space_label":{
+              "name":"Space Label",
+              "type":"Label",
+              "value":"占位符",
+              "column":1,
+              "row":0,
+              "columnspan":1,
+              "rowspan":1
+            },
             "firmware_information_version":{
               "name":"Firmware Information Version",
               "type":"Label",
               "value":"01.01.02.02",
-              "column":3,
+              "column":2,
               "row":0,
-              "columnspan":2,
+              "columnspan":1,
               "rowspan":1
             },
             "settings_right_arrow_icon":{
               "name":"Right Arrow Icon",
               "type":"Image",
-              "width":20,
+              "width":30,
               "height":40,
-              "column":5,
+              "column":3,
               "row":0,
               "columnspan":1,
               "rowspan":1,
@@ -222,8 +262,12 @@
       "panel":"calibration",
       "icon":"calibration",
       "value": "校准",
-      "width": 180,
-      "height": 120,
+      "hexpand": "False",
+      "vexpand": "False",
+      "button_width": 300,
+      "button_height": 200,
+      "width": 80,
+      "height": 75,
       "style":"settings_menu_button"
     },
     "toolbox":{
@@ -236,8 +280,12 @@
       "panel":"toolbox",
       "icon":"toolbox",
       "value": "工具箱",
-      "width": 180,
-      "height": 120,
+      "hexpand": "False",
+      "vexpand": "False",
+      "button_width": 300,
+      "button_height": 200,
+      "width": 80,
+      "height": 75,
       "style":"settings_menu_button"
     },
     "system_setting": {
@@ -250,8 +298,12 @@
       "panel":"system_setting",
       "icon":"system_setting",
       "value": "设置",
-      "width": 180,
-      "height": 120,
+      "hexpand": "False",
+      "vexpand": "False",
+      "button_width": 300,
+      "button_height": 200,
+      "width": 80,
+      "height": 75,
       "style":"settings_menu_button"
     }
   }

@@ -212,6 +212,21 @@ class Panel(ScreenPanel):
             item_control_name.set_active(0)
             self.counter += 1
 
+        elif (item['type'] == "TextView"):
+            value = self._screen.env.from_string(item['value']).render(self.j2_data) if item['value'] else None
+            item_control_name = Gtk.TextView()
+            item_control_name.set_editable(False)# 设为只读
+            item_control_name.set_cursor_visible(False)  # 隐藏光标（可选）
+            buffer = item_control_name.get_buffer()
+            buffer.set_text(value)
+            self.counter += 1
+
+        elif (item['type'] == "CheckButton"):
+            value = self._screen.env.from_string(item['value']).render(self.j2_data) if item['value'] else None
+            item_control_name = Gtk.CheckButton(label=_(value))
+            item_control_name.set_active(True)  # 设为选中
+            self.counter += 1
+
         elif (item['type'] == "ColorButton"):
             item_control_name = Gtk.ColorButton()
             value = self._screen.env.from_string(item['value']).render(self.j2_data) if item['value'] else None

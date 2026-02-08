@@ -325,7 +325,7 @@ button.print_button{
 }
 
 
-/* 系统设置按钮 */
+/* 系统设置 菜单界面*/
 #settings_menu {
     padding:10px;
 }
@@ -335,14 +335,67 @@ button.print_button{
     padding-top: 130px;
     padding-left: 110px;
 }
-#settings_right_arrow_icon{
-    padding-left: 70px;
-}
 #settings_wifi_grid,
 #disk_messages_grid,
 #firmware_information_grid{
     background-color: #808080;
     border-radius: 1em;
-    padding-top: 30px;
-    padding-left: 25px;
+    padding: 30px 10px 0px 25px;
+}
+
+/* 校准菜单界面 */
+#calibration {
+
+}
+#calibration_body_grid{
+    margin:10px;
+}
+#print_calibration_grid,
+#nozzle_calibration_grid,
+#camera_calibration_grid,
+#sport_calibration_grid{
+    background-color: #808080;
+    border-radius: 1em;
+    padding: 10px 10px 0px 20px;
+}
+
+/* 打印校准 */
+#print_calibration{
+
+}
+#print_calibration_body_grid{
+    background-color: #808080;
+    border-radius: 1em;
+    margin: 5px;
+    padding: 10px 10px 0px 20px;
+}
+/* 喷嘴校准 */
+
+#nozzle_calibration{
+
+}
+/* 实况相机校准 */
+#camera_calibration{
+
+}
+
+/* 运动精度校准 */
+#sport_calibration{
+
+}
+#nozzle_calibration_body_grid,
+#camera_calibration_body_grid,
+#sport_calibration_body_grid{
+    margin:5px 0px 0px 5px;
+}
+#nozzle_calibration_message_grid,
+#nozzle_calibration_image_grid,
+#camera_calibration_message_grid,
+#camera_calibration_image_grid,
+#sport_calibration_message_grid,
+#sport_calibration_image_grid{
+    background-color: #808080;
+    border-radius: 1em;
+    padding: 20px 10px 0px 20px;
+    margin: 5px;
 }
