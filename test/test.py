@@ -1,54 +1,70 @@
 import gi
+
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk, Gdk
 
-class ComboBoxWindow(Gtk.Window):
+
+class FakeSwitch(Gtk.ToggleButton):
+    def __init__(self, width=80, height=30):
+        super().__init__()
+        self.set_size_request(width, height)
+        self.set_can_focus(False)  # 可选：禁用焦点框
+
+        # 创建两个 Label 模拟开关状态（也可用图标）
+        self.label_on = Gtk.Label(label="● ON")
+        self.label_off = Gtk.Label(label="OFF ○")
+
+        # 初始状态
+        self.update_state()
+        self.connect("toggled", self.on_toggled)
+
+    def on_toggled(self, button):
+        self.update_state()
+
+    def update_state(self):
+        if self.get_active():
+            self.remove(self.get_child()) if self.get_child() else None
+            self.add(self.label_on)
+        else:
+            self.remove(self.get_child()) if self.get_child() else None
+            self.add(self.label_off)
+        self.show_all()
+
+
+# ===== 使用示例 =====
+class MainWindow(Gtk.Window):
     def __init__(self):
-        super().__init__(title="ComboBoxText 背景色修复版")
-        self.set_border_width(15)
-        self.set_default_size(300, 80)
+        super().__init__(title="自定义 Switch")
+        self.set_border_width(20)
+        self.set_default_size(250, 100)
 
-        combo = Gtk.ComboBoxText()
-        combo.append_text("苹果")
-        combo.append_text("香蕉")
-        combo.append_text("橙子")
-        combo.set_active(0)
+        # 创建自定义 switch（宽 100px, 高 40px）
+        fake_switch = FakeSwitch(width=100, height=40)
+        fake_switch.set_active(True)
 
-        # 👇 关键：添加自定义 CSS 类名
-        combo.get_style_context().add_class("my-combo")
-
-        # 设置尺寸（可选）
-        combo.set_size_request(200, 35)
-
-        # === 应用 CSS ===
+        # 可选：添加边框让它更像开关
         css_provider = Gtk.CssProvider()
-        css = """
-        /* 针对不可编辑的 ComboBoxText */
-        .my-combo button {
-            background-color: #FFCCBC;      /* 背景色 */
-            border: 1px solid #FF8A65;      /* 可选：自定义边框 */
-            color: #BF360C;                 /* 文字颜色 */
+        css = b"""
+        togglebutton {
+            border: 2px solid #999;
+            border-radius: 20px;
+            background: white;
         }
-
-        /* 下拉菜单中的选项样式（可选） */
-        .my-combo popup > contents {
-            background-color: white;
+        togglebutton:checked {
+            background: #4CAF50;
+            color: white;
         }
         """
-        css_provider.load_from_data(css.encode('utf-8'))
-
-        # 应用到屏幕
+        css_provider.load_from_data(css)
         screen = Gdk.Screen.get_default()
         Gtk.StyleContext.add_provider_for_screen(
-            screen,
-            css_provider,
-            Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+            screen, css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
         )
 
-        self.add(combo)
+        self.add(fake_switch)
 
-# 启动
-win = ComboBoxWindow()
+
+win = MainWindow()
 win.connect("destroy", Gtk.main_quit)
 win.show_all()
 Gtk.main()

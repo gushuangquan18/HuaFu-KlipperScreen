@@ -168,6 +168,9 @@ class Panel(ScreenPanel):
         elif (item['type'] == "Switch"):
             item_control_name= Gtk.Switch()
             value = self._screen.env.from_string(item['value']).render(self.j2_data) if item['value'] else None
+            # width = int(self._screen.env.from_string(item['width']).render(self.j2_data) if item['width'] else None)
+            # height = int(self._screen.env.from_string(item['height']).render(self.j2_data) if item['height'] else None)
+            # item_control_name.set_size_request(width, height)
             item_control_name.set_active(bool(value))
             self.counter += 1
 

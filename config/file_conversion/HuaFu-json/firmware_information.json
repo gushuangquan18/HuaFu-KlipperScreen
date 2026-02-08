@@ -1,0 +1,176 @@
+{
+  "father":"settings_menu",
+  "name":"firmware_information",
+  "type":"Grid",
+  "head_grid":{
+    "name":"Head Grid",
+    "type":"Grid",
+    "column":0,
+    "row":0,
+    "columnspan":1,
+    "rowspan":1,
+    "width": 970,
+    "height": 50,
+    "children":{
+      "go_bcak":{
+        "name":"Go Back",
+        "type":"Button",
+        "icon": "back",
+        "hexpand": "False",
+        "vexpand": "False",
+        "column":0,
+        "row":0,
+        "columnspan":1,
+        "rowspan":1,
+        "width": 50,
+        "height": 50,
+        "button_width": 150,
+        "button_height": 50
+      },
+      "firmware_information_label":{
+        "name":"Firmware Information Label",
+        "type":"Label",
+        "value":"固件",
+        "column":1,
+        "row":0,
+        "columnspan":1,
+        "rowspan":1
+      },
+      "space_label":{
+        "name":"Space Label",
+        "type":"Label",
+        "value":"占位符",
+        "column":2,
+        "row":0,
+        "columnspan":1,
+        "rowspan":1
+      },
+      "next_level":{
+        "name":"Next Level",
+        "type":"Button",
+        "value":"更新",
+        "hexpand": "False",
+        "vexpand": "False",
+        "button_width": 150,
+        "button_height": 15,
+        "panel": "matching_consumables",
+        "column":4,
+        "row":0,
+        "columnspan":1,
+        "rowspan":1,
+        "style": "next_level"
+      }
+    }
+  },
+  "firmware_information_body_grid":{
+    "name":"Firmware Information Body grid",
+    "type":"Grid",
+    "column":0,
+    "row":1,
+    "columnspan":4,
+    "rowspan":5,
+    "width": 940,
+    "height": 500,
+    "children": {
+      "printer_firmware_information_grid": {
+        "name":"Printer Firmware Information Grid",
+        "type":"Grid",
+        "width": 900,
+        "height": 80,
+        "column":0,
+        "row":0,
+        "columnspan":1,
+        "rowspan":1,
+        "children": {
+          "printer_firmware_information_label": {
+            "name": "Printer Firmware Information Label",
+            "type": "Label",
+            "value": "HUAFU Test1",
+            "column": 0,
+            "row": 0,
+            "columnspan": 1,
+            "rowspan": 1
+          },
+          "space_label":{
+            "name":"Space Label",
+            "type":"Label",
+            "value":"占位符",
+            "column":1,
+            "row":0,
+            "columnspan":1,
+            "rowspan":1
+          },
+          "printer_firmware_information_version": {
+            "name": "Printer Firmware Information Version",
+            "type": "Label",
+            "value": "01.02.02.00",
+            "column": 3,
+            "row": 0,
+            "columnspan": 1,
+            "rowspan": 1
+          }
+        }
+      },
+      "pump_firmware_information_grid": {
+        "name":"Pump Firmware Information Grid",
+        "type":"Grid",
+        "width": 900,
+        "height": 80,
+        "column":0,
+        "row":1,
+        "columnspan":1,
+        "rowspan":1,
+        "children": {
+          "pump_firmware_information_label": {
+            "name": "Pump Firmware Information Label",
+            "type": "Label",
+            "value": "气泵",
+            "column": 0,
+            "row": 0,
+            "columnspan": 1,
+            "rowspan": 1
+          },
+          "space_label":{
+            "name":"Space Label",
+            "type":"Label",
+            "value":"占位符",
+            "column":1,
+            "row":0,
+            "columnspan":1,
+            "rowspan":1
+          },
+          "pump_firmware_information_version": {
+            "name": "Pump Firmware Information Version",
+            "type": "Label",
+            "value": "03.00.21.29",
+            "column": 3,
+            "row": 0,
+            "columnspan": 1,
+            "rowspan": 1
+          }
+        }
+      },
+      "offline_update_firmware_information_grid": {
+        "name":"Offline Update Firmware Information Grid",
+        "type":"Grid",
+        "width": 900,
+        "height": 80,
+        "column":0,
+        "row":2,
+        "columnspan":1,
+        "rowspan":1,
+        "children": {
+          "offline_update_firmware_information_label": {
+            "name": "Offline Update Firmware Information Label",
+            "type": "Label",
+            "value": "离线升级",
+            "column": 0,
+            "row": 0,
+            "columnspan": 1,
+            "rowspan": 1
+          }
+        }
+      }
+    }
+  }  
+}
