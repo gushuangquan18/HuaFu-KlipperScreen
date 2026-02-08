@@ -49,7 +49,7 @@
     "height": 500,
     "children": {
       "nozzle_calibration_message_grid": {
-        "name": "Nozzle Calibration message Grid",
+        "name": "Nozzle Calibration Message Grid",
         "type": "Grid",
         "width": 550,
         "height": 500,
@@ -59,7 +59,7 @@
         "rowspan":7,
         "children": {
           "nozzle_calibration_message": {
-            "name": "Nozzle Calibration message",
+            "name": "Nozzle Calibration Message",
             "type": "TextView",
             "column":0,
             "row":0,
@@ -81,7 +81,7 @@
         "column_homogeneous": "True",
         "row_homogeneous": "True",
         "children": {
-          "nozzle_calibration_images": {
+          "nozzle_calibration_image": {
             "name":"Nozzle Calibration Image",
             "type":"Image",
             "column":0,
@@ -106,8 +106,7 @@
         "column":3,
         "row":6,
         "columnspan":2,
-        "rowspan":1,
-        "src": "iamges/nozzle_calibration.jpg"
+        "rowspan":1
       }
     }
   }  

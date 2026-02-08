@@ -1,6 +1,6 @@
 {
   "father":"calibration",
-  "name":"camera_calibration",
+  "name":"nozzle_cold_drawing_maintenance",
   "type":"Grid",
   "head_grid":{
     "name":"Head Grid",
@@ -27,10 +27,10 @@
         "button_width": 150,
         "button_height": 50
       },
-      "calibration_label":{
-        "name":"Calibration Label",
+      "nozzle_cold_drawing_maintenance_label":{
+        "name":"Nozzle Cold Drawing Maintenance Label",
         "type":"Label",
-        "value":"实况摄像头校准",
+        "value":"喷嘴冷拔维护",
         "column":1,
         "row":0,
         "columnspan":1,
@@ -38,8 +38,8 @@
       }
     }
   },
-  "camera_calibration_body_grid":{
-    "name":"Camera Calibration Body grid",
+  "nozzle_cold_drawing_maintenance_body_grid":{
+    "name":"Nozzle Cold Drawing Maintenance Body grid",
     "type":"Grid",
     "column":0,
     "row":1,
@@ -48,8 +48,8 @@
     "width": 940,
     "height": 500,
     "children": {
-      "camera_calibration_message_grid": {
-        "name": "Camera Calibration Message Grid",
+      "ozzle_cold_drawing_maintenance_message_grid": {
+        "name": "Nozzle Cold Drawing Maintenance Message Grid",
         "type": "Grid",
         "width": 550,
         "height": 500,
@@ -58,19 +58,19 @@
         "columnspan":3,
         "rowspan":7,
         "children": {
-          "camera_calibration_message": {
-            "name": "Camera Calibration Message",
+          "ozzle_cold_drawing_maintenance_message": {
+            "name": "Nozzle Cold Drawing Maintenance Message",
             "type": "TextView",
             "column":0,
             "row":0,
             "columnspan":1,
             "rowspan":1,
-            "value": "实况摄像头校准"
+            "value": "简介\\n冷拔的作用是通过清理喷嘴内的残渣来预防堵头"
           }
         }
       },
-      "camera_calibration_image_grid": {
-        "name":"Camera Calibration Image Grid",
+      "ozzle_cold_drawing_maintenance_image_grid": {
+        "name":"Nozzle Cold Drawing Maintenance Image Grid",
         "type":"Grid",
         "column":3,
         "row":0,
@@ -81,8 +81,8 @@
         "column_homogeneous": "True",
         "row_homogeneous": "True",
         "children": {
-          "camera_calibration_images": {
-            "name":"Camera Calibration Image",
+          "nozzle_calibration_image": {
+            "name":"Nozzle Calibration Image",
             "type":"Image",
             "column":0,
             "row":0,
@@ -90,14 +90,14 @@
             "rowspan":1,
             "width": 360,
             "height": 400,
-            "src": "images/camera_calibration.jpg"
+            "src": "images/nozzle_cold_drawing_maintenance.jpg"
           }
         }
       },
-      "camera_calibration_start_button": {
-        "name":"Camera Calibration Start Button",
+      "nozzle_cold_drawing_maintenance_start_button": {
+        "name":"Nozzle Cold Drawing Maintenance Start Button",
         "type":"Button",
-        "value": "开\\t始",
+        "value": "下一步",
         "hexpand": "False",
         "vexpand": "False",
         "style": "next_level",

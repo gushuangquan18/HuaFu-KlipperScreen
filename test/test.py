@@ -1,45 +1,43 @@
 import gi
-
 gi.require_version("Gtk", "3.0")
-from gi.repository import Gtk
+from gi.repository import Gtk, Gdk
 
-
-class MainWindow(Gtk.Window):
+class ProgressBarWindow(Gtk.Window):
     def __init__(self):
-        super().__init__(title="按钮左右对齐示例")
-        self.set_default_size(400, 100)
+        super().__init__(title="进度条颜色示例")
+        self.set_default_size(400, 50)
         self.set_border_width(10)
 
-        grid = Gtk.Grid()
-        grid.set_column_spacing(10)  # 列间距（可选）
+        # 创建进度条
+        self.progressbar = Gtk.ProgressBar()
+        self.progressbar.set_fraction(0.5)  # 设置初始进度为 50%
 
-        # 左侧按钮
-        left_button = Gtk.Button(label="左按钮")
+        # 添加到窗口
+        self.add(self.progressbar)
 
-        # 右侧按钮
-        right_button = Gtk.Button(label="右按钮")
+        # 应用自定义 CSS 样式
+        css_provider = Gtk.CssProvider()
 
-        # 将左按钮放在第 0 列
-        grid.attach(left_button, 0, 0, 1, 1)
+        # 定义 CSS 样式
+        css = """
+        progressbar trough {
+            background-color: #EDEDED; /* 背景颜色 */
+        }
+        progressbar progress {
+            background-color: red; /* 进度条颜色 */
+        }
+        """
 
-        # 将右按钮放在第 2 列（跳过第 1 列）
-        grid.attach(right_button, 2, 0, 1, 1)
+        # 加载 CSS 样式
+        css_provider.load_from_data(css.encode('utf-8'))
 
-        # 关键：让中间的第 1 列自动拉伸填充空白
-        grid.set_column_homogeneous(False)
-        # 设置第 1 列为“可扩展”——通过给它分配权重
-        grid.set_column_spacing(0)
-        # 实际上 Grid 本身不直接支持“弹性列”，但可以通过添加一个占位 widget 并让它 hexpand=True 来实现
+        # 获取当前屏幕并添加样式提供器
+        screen = Gdk.Screen.get_default()
+        style_context = self.get_style_context()
+        style_context.add_provider_for_screen(screen, css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
 
-        # 更可靠的做法：显式添加一个空的、可扩展的占位标签
-        spacer = Gtk.Label()  # 或 Gtk.Box(), 任意 widget
-        spacer.set_hexpand(True)  # 水平方向自动拉伸
-        grid.attach(spacer, 1, 0, 1, 1)
-
-        self.add(grid)
-
-
-win = MainWindow()
+# 启动应用
+win = ProgressBarWindow()
 win.connect("destroy", Gtk.main_quit)
 win.show_all()
 Gtk.main()

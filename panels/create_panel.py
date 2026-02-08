@@ -54,6 +54,7 @@ class Panel(ScreenPanel):
         self.create_radionButton = False
         self.radioButton = {}
         self.entry = {}
+        self.percentage_progress = 0.5;
         while i<len(self.items):
             key = list(self.items[i])[0]
             item = self.items[i][key]

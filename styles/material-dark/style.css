@@ -25,7 +25,6 @@ button{
     box-shadow: none;
 }
 
-
 button.home_menu_button,
 button.settings_menu_button{
     background-color: #808080;
@@ -34,6 +33,10 @@ button.settings_menu_button{
 }
 button.next_level{
     background-color: #0073BD;
+    border-radius: 1em;
+}
+button.later_button{
+    background-color: #A8A8A8;
     border-radius: 1em;
 }
 button.select_consumables_type{
@@ -71,6 +74,15 @@ button.temperature_number{
     background-color: #808080;
 }
 
+/* 设置进度条颜色 */
+progressbar trough {
+    border: none;
+    background-color: #EDEDED; /* 背景颜色 */
+}
+progressbar progress {
+    border: none;
+    background-color: #0073bd; /* 进度条颜色 */
+}
 
 /* 主页菜单 */
 #head_grid{
@@ -394,6 +406,67 @@ button.print_button{
 #camera_calibration_image_grid,
 #sport_calibration_message_grid,
 #sport_calibration_image_grid{
+    background-color: #808080;
+    border-radius: 1em;
+    padding: 20px 10px 0px 20px;
+    margin: 5px;
+}
+
+/* 工具箱菜单界面 */
+#toolbox {
+
+}
+#toolbox_body_grid{
+    margin:10px;
+}
+#drying_consumables_grid,
+#xyz_axis_cleaning_grid,
+#lead_screw_lubrication_grid,
+#laser_module_cleaning_grid,
+#nozzle_cold_drawing_maintenance_grid{
+    background-color: #808080;
+    border-radius: 1em;
+    padding: 10px 10px 0px 20px;
+}
+/* XYZ轴清洁 */
+#xyz_axis_cleaning{
+
+}
+#xyz_cleaning_message_grid,
+#xyz_cleaning_steps_grid{
+    background-color: #808080;
+    border-radius: 1em;
+    padding: 20px 10px 0px 20px;
+    margin: 5px;
+}
+/* 丝杆清洁 */
+#lead_screw_lubrication{
+
+}
+#lead_screw_lubrication_message_grid,
+#lead_screw_lubrication_steps_grid{
+    background-color: #808080;
+    border-radius: 1em;
+    padding: 20px 10px 0px 20px;
+    margin: 5px;
+}
+/* 激光模组清洁 */
+#laser_module_cleaning{
+
+}
+#laser_module_cleaning_message_grid,
+#laser_module_cleaning_steps_grid{
+    background-color: #808080;
+    border-radius: 1em;
+    padding: 20px 10px 0px 20px;
+    margin: 5px;
+}
+/* 喷嘴冷拔维护 */
+#nozzle_cold_drawing_maintenance{
+
+}
+#nozzle_cold_drawing_maintenance_message_grid,
+#nozzle_cold_drawing_maintenance_steps_grid{
     background-color: #808080;
     border-radius: 1em;
     padding: 20px 10px 0px 20px;

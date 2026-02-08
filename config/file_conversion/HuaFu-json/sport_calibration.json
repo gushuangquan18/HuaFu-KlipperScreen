@@ -49,7 +49,7 @@
     "height": 500,
     "children": {
       "sport_calibration_message_grid": {
-        "name": "Sport Calibration message Grid",
+        "name": "Sport Calibration Message Grid",
         "type": "Grid",
         "width": 550,
         "height": 500,
@@ -59,7 +59,7 @@
         "rowspan":7,
         "children": {
           "sport_calibration_message": {
-            "name": "Sport Calibration message",
+            "name": "Sport Calibration Message",
             "type": "TextView",
             "column":0,
             "row":0,
@@ -81,7 +81,7 @@
         "column_homogeneous": "True",
         "row_homogeneous": "True",
         "children": {
-          "sport_calibration_images": {
+          "sport_calibration_image": {
             "name":"Sport Calibration Image",
             "type":"Image",
             "column":0,
@@ -106,8 +106,7 @@
         "column":3,
         "row":6,
         "columnspan":2,
-        "rowspan":1,
-        "src": "iamges/sport_calibration.jpg"
+        "rowspan":1
       }
     }
   }  

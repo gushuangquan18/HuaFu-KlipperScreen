@@ -1,0 +1,153 @@
+{
+  "father":"toolbox",
+  "name":"lead_screw_lubrication",
+  "type":"Grid",
+  "head_grid":{
+    "name":"Head Grid",
+    "type":"Grid",
+    "column":0,
+    "row":0,
+    "columnspan":1,
+    "rowspan":1,
+    "width": 970,
+    "height": 50,
+    "children":{
+      "go_bcak":{
+        "name":"Go Back",
+        "type":"Button",
+        "icon": "back",
+        "hexpand": "False",
+        "vexpand": "False",
+        "column":0,
+        "row":0,
+        "columnspan":1,
+        "rowspan":1,
+        "width": 50,
+        "height": 50,
+        "button_width": 150,
+        "button_height": 50
+      },
+      "lead_screw_lubrication_label":{
+        "name":"Lead Screw Lubrication Label",
+        "type":"Label",
+        "value":"丝杆清洁",
+        "column":1,
+        "row":0,
+        "columnspan":1,
+        "rowspan":1
+      }
+    }
+  },
+  "lead_screw_lubrication_body_grid":{
+    "name":"Lead Screw Lubrication Body grid",
+    "type":"Grid",
+    "column":0,
+    "row":1,
+    "columnspan":4,
+    "rowspan":5,
+    "width": 940,
+    "height": 500,
+    "children": {
+      "lead_screw_lubrication_message_grid": {
+        "name": "Lead Screw Lubrication Message Grid",
+        "type": "Grid",
+        "width": 550,
+        "height": 500,
+        "column":0,
+        "row":0,
+        "columnspan":3,
+        "rowspan":7,
+        "children": {
+          "lead_screw_lubrication_message_title": {
+            "name": "Lead Screw Lubrication Message Title",
+            "type": "Label",
+            "column":0,
+            "row":0,
+            "columnspan":1,
+            "rowspan":1,
+            "value": "无需丝杆清洁"
+          },
+          "lead_screw_lubrication_progress_bar":{
+            "name":"Lead Screw Lubrication Progress Bar",
+            "type":"ProgressBar",
+            "width":500,
+            "height":30,
+            "column":0,
+            "row":1,
+            "columnspan":1,
+            "rowspan":1
+          },
+          "lead_screw_lubrication_message": {
+            "name": "Lead Screw Lubrication Message",
+            "type": "TextView",
+            "column":0,
+            "row":2,
+            "columnspan":1,
+            "rowspan":1,
+            "value": "简介\\nZ轴丝杆用于驱动热床沿Z轴上下移动"
+          }
+        }
+      },
+      "lead_screw_lubrication_steps_grid": {
+        "name":"Lead Screw Lubrication Steps Grid",
+        "type":"Grid",
+        "column":3,
+        "row":0,
+        "columnspan":2,
+        "rowspan":6,
+        "width": 400,
+        "height": 420,
+        "children": {
+          "cleaning_steps": {
+            "name": "Cleaning Steps",
+            "type": "Label",
+            "column":0,
+            "row":0,
+            "columnspan":1,
+            "rowspan":1,
+            "value": "清洁步骤"
+          },
+          "cleaning_steps_qr_code": {
+            "name":"Cleaning Steps QR Code",
+            "type":"Image",
+            "column":0,
+            "row":1,
+            "columnspan":1,
+            "rowspan":1,
+            "width": 360,
+            "height": 360,
+            "src": "images/cleaning_steps_qr_code.jpg"
+          }
+        }
+      },
+      "lead_screw_lubrication_complete_button": {
+        "name":" Lead Screw Lubrication Complete Button",
+        "type":"Button",
+        "value": "完成",
+        "hexpand": "False",
+        "vexpand": "False",
+        "style": "next_level",
+        "button_width": 200,
+        "button_height": 60,
+        "column":3,
+        "row":6,
+        "columnspan":1,
+        "rowspan":1
+      },
+      "lead_screw_lubrication_later_button": {
+        "name":"Lead Screw Lubrication Later Button",
+        "type":"Button",
+        "value": "稍后",
+        "hexpand": "False",
+        "vexpand": "False",
+        "style": "later_button",
+        "button_width": 200,
+        "button_height": 60,
+        "column":4,
+        "row":6,
+        "columnspan":1,
+        "rowspan":1
+      }
+    }
+  }  
+}
