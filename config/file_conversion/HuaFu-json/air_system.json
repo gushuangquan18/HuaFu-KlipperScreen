@@ -9,20 +9,23 @@
     "row":0,
     "columnspan":1,
     "rowspan":1,
-    "width": 870,
+    "width": 970,
     "height": 50,
-    "column_homogeneous": "True",
     "children":{
       "go_bcak":{
         "name":"Go Back",
         "type":"Button",
         "icon": "back",
+        "hexpand": "False",
+        "vexpand": "False",
         "column":0,
         "row":0,
         "columnspan":1,
         "rowspan":1,
         "width": 50,
-        "height": 50
+        "height": 50,
+        "button_width": 150,
+        "button_height": 50
       },
       "air_system_label":{
         "name":"Air System Label",
@@ -35,15 +38,15 @@
       }
     }
   },
-  "air_system_settings_grid": {
-    "name": "Air System Settings Grid",
+  "air_system_body_grid": {
+    "name": "Air System Body Grid",
     "type": "Grid",
     "column": 0,
     "row": 1,
     "columnspan": 2,
     "rowspan": 5,
-    "width": 870,
-    "height": 350,
+    "width": 970,
+    "height": 530,
     "column_homogeneous": "True",
     "children": {
       "air_system_model": {
@@ -101,6 +104,8 @@
                 "name":"Component Button",
                 "type":"Button",
                 "panel":"component_button",
+                "hexpand": "False",
+                "vexpand": "False",
                 "column":0,
                 "row":0,
                 "columnspan":1,
@@ -158,6 +163,8 @@
                 "name":"Assistant Button",
                 "type":"Button",
                 "panel":"assistant_button",
+                "hexpand": "False",
+                "vexpand": "False",
                 "column":0,
                 "row":1,
                 "columnspan":1,
@@ -228,6 +235,8 @@
             "name":"Outbound Button",
             "type":"Button",
             "panel":"outbound_button",
+            "hexpand": "False",
+            "vexpand": "False",
             "column":2,
             "row":0,
             "columnspan":1,
@@ -285,6 +294,8 @@
             "name":"Heat Button",
             "type":"Button",
             "panel":"heat_button",
+            "hexpand": "False",
+            "vexpand": "False",
             "column":2,
             "row":1,
             "columnspan":1,
@@ -342,6 +353,8 @@
             "name":"Chassis Button",
             "type":"Button",
             "panel":"chassis_button",
+            "hexpand": "False",
+            "vexpand": "False",
             "column":2,
             "row":2,
             "columnspan":1,

@@ -163,7 +163,7 @@ class KlippyGtk:
         stream.close_async(2)
         return pixbuf
 
-    def Button(self, image_name=None, label=None, style=None,width=None, height=None, hexpand=True,vexpand=True, position=None, scale=None,lines=2):
+    def Button(self, image_name=None, label=None, style=None,width=None, height=None, hexpand=None,vexpand=None, button_width=None, button_height=None,position=None, scale=None,lines=1):
         if self.font_size_type == "max" and label is not None:
             image_name = None
         if(position == 'BOTTOM'):
@@ -174,16 +174,25 @@ class KlippyGtk:
             position = Gtk.PositionType.RIGHT
         else:
             position = Gtk.PositionType.TOP
+        if hexpand == "True":
+            hexpand = True
+        else:
+            hexpand = False
+        if vexpand == "True":
+            vexpand = True
+        else:
+            vexpand = False
         b = Gtk.Button(hexpand=hexpand, vexpand=vexpand, can_focus=False, image_position=position, always_show_image=True)
-        b.set_size_request(50, 50)
+        if button_width is not None and button_height is not None:
+            b.set_size_request(int(button_width), int(button_height))
         if label is not None:
             b.set_label(label.replace("\n", " "))
         if image_name is not None:
             b.set_name(image_name)
             if scale is None:
                 scale = self.button_image_scale
-            if label is None:
-                scale = scale * 1.4
+            # if label is None:
+            #     scale = scale * 1.4
             if(width is None and height is None):
                 width = height = self.img_scale
             else:
@@ -195,11 +204,10 @@ class KlippyGtk:
             box = find_widget(b, Gtk.Box)
             if box:
                 box.add(spinner)
-        if label is not None:
-            format_label(b, lines)
+        # if label is not None:
+        #     format_label(b, lines)
         if style is not None:
             b.get_style_context().add_class(style)
-        # b.set_size_request(40, 40)
         return b
 
     @staticmethod

@@ -98,9 +98,9 @@ class Panel(ScreenPanel):
             position = self._screen.env.from_string(item['position']).render(self.j2_data) if item['position'] else None
             button_width = self._screen.env.from_string(item['button_width']).render(self.j2_data) if item['button_width'] else None
             button_height = self._screen.env.from_string(item['button_height']).render(self.j2_data) if item['button_height'] else None
-            hexpand = self._screen.env.from_string(item['button_hexpand']).render(self.j2_data) if item['button_hexpand'] else None
-            vexpand = self._screen.env.from_string(item['button_vexpand']).render(self.j2_data) if item['button_vexpand'] else None
-            item_control_name = self._gtk.Button(icon,value,style,width,height,hexpand,vexpand,position)
+            hexpand = self._screen.env.from_string(item['hexpand']).render(self.j2_data) if item['hexpand'] else None
+            vexpand = self._screen.env.from_string(item['vexpand']).render(self.j2_data) if item['vexpand'] else None
+            item_control_name = self._gtk.Button(icon,value,style,width,height,hexpand,vexpand,button_width,button_height,position)
             if (item["panel"] != None):
                 parameter_item = {
                     "panel": item["panel"],
@@ -127,7 +127,11 @@ class Panel(ScreenPanel):
             if(key_array[len(key_array)-1] == "percentage_progress"):
                 self.percentage_progress=int(value)*0.01;
                 value=f"{value}%"
-            item_control_name = Gtk.Label(label=_(value))
+            if (key_array[len(key_array) - 1] == "space_label"):
+                item_control_name = Gtk.Label()
+                item_control_name.set_hexpand(True)
+            else:
+                item_control_name = Gtk.Label(label=_(value))
             self.counter += 1
         elif(item['type'] == "Grid"):#移除默认边框
             item_control_name = Gtk.Grid(orientation=Gtk.Orientation.HORIZONTAL)
@@ -195,6 +199,7 @@ class Panel(ScreenPanel):
             item_control_name.set_text("℃")  # 初始带单位
             item_control_name.set_position(0)  # 光标在最前
             item_control_name.set_alignment(0.5) #文本居中
+            item_control_name.set_size_request(400,100)
             self.entry[key_array[len(key_array)-2]] = item_control_name
             self.counter += 1
 

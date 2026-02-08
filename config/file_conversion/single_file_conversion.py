@@ -48,7 +48,7 @@ def convert_json_to_config(input_file: str, output_file: str) -> None:
         # 2. 处理节点属性（严格按目标顺序，同时清除值前后空格）
         attr_order = ['name', 'type', 'width', 'height', 'icon', 'background','row_homogeneous','column_homogeneous',
                       'panel', 'row', 'column', 'rowspan', 'columnspan','row_spacing','column_spacing',
-                      'button_hexpand','button_vexpand','button_height','button_width','position',
+                      'hexpand','vexpand','button_height','button_width','position',
                       'connect', 'method',  'src', 'value','style']
         for attr in attr_order:
             if attr not in node:
@@ -77,7 +77,7 @@ def convert_json_to_config(input_file: str, output_file: str) -> None:
         for key, value in node.items():
             if key in ['name', 'type', 'background', 'connect', 'method','row_homogeneous','column_homogeneous',
                        'panel', 'row', 'column', 'rowspan', 'columnspan','row_spacing','column_spacing',
-                       'button_hexpand','button_vexpand','button_height','button_width','position',
+                       'hexpand','vexpand','button_height','button_width','position',
                        'src', 'value', 'children','width','height','icon','style']:
                 continue
             if isinstance(value, dict) and 'name' in value:
@@ -95,6 +95,6 @@ def convert_json_to_config(input_file: str, output_file: str) -> None:
 
 if __name__ == "__main__":
     # 配置输入输出文件路径
-    INPUT_FILE = "HuaFu-json/edit_consumables.json"
-    OUTPUT_FILE = "../edit_consumables.conf"
+    INPUT_FILE = "HuaFu-json/print_menu.json"
+    OUTPUT_FILE = "../print_menu.conf"
     convert_json_to_config(INPUT_FILE, OUTPUT_FILE)

@@ -71,6 +71,8 @@ button.temperature_number{
     background-color: #808080;
 }
 
+
+/* 主页菜单 */
 #head_grid{
     margin-top:5px
 }
@@ -110,66 +112,19 @@ button.temperature_number{
     padding-top: 15px;
 }
 
-#consumables_menu {
-    padding:10px;
-    background-image: url('images/consumables_menu_background.jpg');
-    background-size: contain; /* cover; 会缩放图片以完全覆盖整个区域，可能会裁剪图片。 contain; 会缩放图片以完整显示在区域内，可能不会填满整个区域。*/
-    background-repeat: no-repeat;
-}
 
-
-#settings_menu {
-    padding:10px;
-}
-#user_messages_grid{
-    background-color: #808080;
-    border-radius: 1em;
-    padding-top: 130px;
-    padding-left: 110px;
-}
-#settings_right_arrow_icon{
-    padding-left: 70px;
-}
-#settings_wifi_grid,
-#disk_messages_grid,
-#firmware_information_grid{
-    background-color: #808080;
-    border-radius: 1em;
-    padding-top: 30px;
-    padding-left: 25px;
-}
-
-
-#messages_menu {
-
-}
-#messages_assistant_grid{
-    background-color: #808080;
-    border-radius: 1em;
-    margin: 20px 10px 20px 0px;
-}
-
-#messages_grid {
-    background-color: #808080;
-    border-radius: 1em;
-    margin: 20px 10px 20px 0px;
-}
-
+/* 选择打印文件 页面 */
 #print_file_list{
-    padding: 10px 5px 10px 5px;
+
 }
-#file_list{
-    padding: 0px 15px 0px 15px;
-}
-#select_print_file_grid{
-    background-color:#000000;
-    border-radius: 1em;
-    margin: 0px 10px 0px 10px;
+#file_list_body_grid{
+    padding:0px 0px 0px 50px;
 }
 
 
+/* 要打印的盘 页面 */
 #select_disc_print{
-
+    margin:5px;
 }
 #file_grid,
 #disc_nozzle_grid,
@@ -189,7 +144,6 @@ button.temperature_number{
 #print_details_modeling_graphics{
     border-top-left-radius: 12px;
     border-top-right-radius: 12px;
-    /* 可选：显式关闭底部圆角（通常默认为0） */
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
 }
@@ -197,9 +151,9 @@ button.temperature_number{
     padding-left: 15px;
 }
 
-
+/* 匹配耗材页面 */
 #matching_consumables{
-
+    margin:5px;
 }
 #left_matching_consumables_grid,
 #right_matching_consumables_grid{
@@ -209,7 +163,7 @@ button.temperature_number{
     padding: 20px 10px 10px 10px;
 }
 
-
+/* 打印界面管理 */
 #print_menu{
     margin: 10px;
 }
@@ -234,15 +188,15 @@ button.print_button{
     background-size: contain; /* cover; 会缩放图片以完全覆盖整个区域，可能会裁剪图片。 contain; 会缩放图片以完整显示在区域内，可能不会填满整个区域。*/
     background-repeat: no-repeat;
 }
-
-
-
 #printer_control_menu {
     padding:10px;
     background-image: url('images/printer_control_menu_background.jpg');
     background-size: contain; /* cover; 会缩放图片以完全覆盖整个区域，可能会裁剪图片。 contain; 会缩放图片以完整显示在区域内，可能不会填满整个区域。*/
     background-repeat: no-repeat;
 }
+
+
+/* 3D打印机系统控制管理 */
 /*#printer_control_menu.button{    */
 /*    opacity: 0.6;*/
 /*}*/
@@ -263,42 +217,63 @@ button.print_button{
     padding-top: 15px;
     padding-left: 20px;
 }
+/* 空调系统 */
 #air_system_model{
     padding-left:50px;
 }
 #air_system_down_left_grid{
     padding-left:50px;
 }
-#air_system_settings_grid{
-    margin: 10px;
-}
-#air_system_settings_grid{
+#air_system_body_grid{
     background-color: #808080;
     border-radius: 1em;
     padding:15px;
+    margin: 10px;
 }
 
+/* 速度控制 */
 #speed_control{
-    margin: 20px;
+
+}
+#speed_control_body_grid{
+    background-color: #808080;
+    border-radius: 1em;
+    padding:25px 25px 15px 25px;
+    margin: 10px;
 }
 
+/* 运动控制*/
 #sport_control{
-    margin: 0px 20px 10px 20px;
+
 }
 #sport_control_body_grid{
     background-color: #808080;
     border-radius: 1em;
-    padding: 20px 15px 20px 15px;
+    padding:15px;
+    margin: 10px;
 }
+
+/* 腔温管理 */
 #chassis_temperature{
-    margin: 0px 10px 10px 10px;
+    margin: 10px 10px 10px 10px;
 }
 
 #chassis_temperature_body_grid{
     padding: 20px 15px 20px 15px;
+    margin: 10px;
 }
 
+/* 热床温度管理 */
+#hotbed_temperature{
+    margin: 10px 10px 10px 10px;
+}
 
+#hotbed_temperature_body_grid{
+    padding: 20px 15px 20px 15px;
+    margin: 10px;
+}
+
+/* 喷嘴和挤出机 */
 #nozzle_extruder{
 
 }
@@ -311,12 +286,63 @@ button.print_button{
     border-radius: 1em;
 }
 
-#consumables_menu{
 
+
+
+
+
+
+/* 耗材管理 菜单页面 */
+#consumables_menu {
+    padding:10px;
+    background-image: url('images/consumables_menu_background.jpg');
+    background-size: contain; /* cover; 会缩放图片以完全覆盖整个区域，可能会裁剪图片。 contain; 会缩放图片以完整显示在区域内，可能不会填满整个区域。*/
+    background-repeat: no-repeat;
 }
+/* 编辑耗材耗材 */
 #edit_consumables_body_grid{
     background-color: #808080;
     border-radius: 1em;
     margin: 5px 10px 10px 5px ;
     padding: 10px 5px 8px 10px;
+}
+
+
+/* 通知信息菜单*/
+#messages_menu {
+
+}
+#messages_assistant_grid{
+    background-color: #808080;
+    border-radius: 1em;
+    margin: 20px 10px 20px 0px;
+}
+
+#messages_grid {
+    background-color: #808080;
+    border-radius: 1em;
+    margin: 20px 10px 20px 0px;
+}
+
+
+/* 系统设置按钮 */
+#settings_menu {
+    padding:10px;
+}
+#user_messages_grid{
+    background-color: #808080;
+    border-radius: 1em;
+    padding-top: 130px;
+    padding-left: 110px;
+}
+#settings_right_arrow_icon{
+    padding-left: 70px;
+}
+#settings_wifi_grid,
+#disk_messages_grid,
+#firmware_information_grid{
+    background-color: #808080;
+    border-radius: 1em;
+    padding-top: 30px;
+    padding-left: 25px;
 }

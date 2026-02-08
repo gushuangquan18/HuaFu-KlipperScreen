@@ -4,25 +4,29 @@
   "type":"Grid",
   "head_grid":{
     "name":"Head Grid",
+    "name":"Head Grid",
     "type":"Grid",
     "column":0,
     "row":0,
     "columnspan":1,
     "rowspan":1,
-    "width": 870,
+    "width": 970,
     "height": 50,
-    "column_homogeneous": "True",
     "children":{
       "go_bcak":{
         "name":"Go Back",
         "type":"Button",
         "icon": "back",
+        "hexpand": "False",
+        "vexpand": "False",
         "column":0,
         "row":0,
         "columnspan":1,
         "rowspan":1,
         "width": 50,
-        "height": 50
+        "height": 50,
+        "button_width": 150,
+        "button_height": 50
       },
       "nozzle_extruder_label":{
         "name":"Nozzle Extruder Label",
@@ -42,9 +46,8 @@
     "row": 1,
     "columnspan": 4,
     "rowspan": 7,
-    "width": 870,
-    "height": 350,
-    "column_homogeneous": "True",
+    "width": 970,
+    "height": 530,
     "children": {
       "nozzle_extruder_image":{
         "name":"Nozzle Extrude Image",
@@ -62,10 +65,10 @@
         "type": "Grid",
         "column": 0,
         "row": 0,
-        "columnspan": 4,
+        "columnspan": 3,
         "rowspan": 1,
-        "width": 300,
-        "height": 20,
+        "width": 200,
+        "height": 25,
         "children": {
           "left_nozzle":{
             "name":"Left Nozzle",
@@ -131,10 +134,10 @@
         "type": "Grid",
         "column": 5,
         "row":0,
-        "columnspan": 4,
+        "columnspan": 3,
         "rowspan": 1,
-        "width": 300,
-        "height": 20,
+        "width": 200,
+        "height": 25,
         "children": {
           "right_nozzle":{
             "name":"Right Nozzle",

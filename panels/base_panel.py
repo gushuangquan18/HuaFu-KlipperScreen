@@ -66,7 +66,7 @@ class BasePanel(ScreenPanel):
             "panel": "home_menu",
             "icon": "home_menu_icon",
         }
-        self.control['home_menu'] = self._gtk.Button('home_menu_icon', scale=self.abscale)
+        self.control['home_menu'] = self._gtk.Button('home_menu_icon',hexpand="True",vexpand="True", scale=self.abscale)
         self.control['home_menu'].connect("clicked", self.menu_item_clicked,self.home_menu)
         # self.control['home_menu'].connect("clicked", self._screen._menu_go_back)
 
@@ -74,7 +74,7 @@ class BasePanel(ScreenPanel):
             "panel": "printer_control_menu",
             "icon": "printer_control_menu_icon",
         }
-        self.control['printer_control_menu'] = self._gtk.Button('printer_control_menu_icon', scale=self.abscale)
+        self.control['printer_control_menu'] = self._gtk.Button('printer_control_menu_icon',hexpand="True",vexpand="True", scale=self.abscale)
         self.control['printer_control_menu'].connect("clicked", self.menu_item_clicked,self.printer_control_menu)
 
         # 耗材按钮
@@ -82,14 +82,14 @@ class BasePanel(ScreenPanel):
             "panel": "consumables_menu",
             "icon": "consumables_menu_icon",
         }
-        self.control['consumables_menu'] = self._gtk.Button('consumables_menu_icon', scale=self.abscale)
+        self.control['consumables_menu'] = self._gtk.Button('consumables_menu_icon', hexpand="True",vexpand="True",scale=self.abscale)
         self.control['consumables_menu'].connect("clicked", self.menu_item_clicked,self.consumables_menu)
 
         self.settings_menu = {
             "panel": "settings_menu",
             "icon": "settings_menu_icon",
         }
-        self.control['settings_menu'] = self._gtk.Button('settings_menu_icon', scale=self.abscale)
+        self.control['settings_menu'] = self._gtk.Button('settings_menu_icon', hexpand="True",vexpand="True",scale=self.abscale)
         self.control['settings_menu'].connect("clicked", self.menu_item_clicked,self.settings_menu)
 
         # 少个参数 _go_to_submenu
@@ -99,7 +99,7 @@ class BasePanel(ScreenPanel):
             "panel": "messages_menu",
             "icon": "messages_menu_icon",
         }
-        self.control['messages_menu'] = self._gtk.Button('messages_menu_icon', scale=self.abscale)
+        self.control['messages_menu'] = self._gtk.Button('messages_menu_icon', hexpand="True",vexpand="True",scale=self.abscale)
         self.control['messages_menu'].connect("clicked", self.menu_item_clicked,self.messages_menu)
 
         # Any action bar button should close the keyboard

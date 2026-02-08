@@ -11,18 +11,21 @@
     "rowspan":1,
     "width": 870,
     "height": 50,
-    "column_homogeneous": "True",
     "children":{
       "go_bcak":{
         "name":"Go Back",
         "type":"Button",
         "icon": "back",
+        "hexpand": "False",
+        "vexpand": "False",
         "column":0,
         "row":0,
         "columnspan":1,
         "rowspan":1,
         "width": 50,
-        "height": 50
+        "height": 50,
+        "button_width": 150,
+        "button_height": 50
       },
       "hotbed_temperature_label":{
         "name":"Hotbed Temperature Label",
@@ -33,12 +36,25 @@
         "columnspan":1,
         "rowspan":1
       },
+      "space_label":{
+        "name":"Space Label",
+        "type":"Label",
+        "value":"占位符",
+        "column":2,
+        "row":0,
+        "columnspan":1,
+        "rowspan":1
+      },
       "confirm":{
         "name":"Confirm",
         "type":"Button",
         "value":"确认",
+        "hexpand": "False",
+        "vexpand": "False",
+        "button_width": 150,
+        "button_height": 15,
         "panel": "printer_control_menu",
-        "column":2,
+        "column":4,
         "row":0,
         "columnspan":1,
         "rowspan":1,
@@ -53,15 +69,14 @@
     "row": 1,
     "columnspan": 2,
     "rowspan": 5,
-    "width": 850,
-    "height": 350,
-    "column_homogeneous": "True",
+    "width": 870,
+    "height": 520,
     "children": {
       "hotbed_temperature_image":{
         "name": "Hotbed Temperature Image",
         "type":"Image",
-        "width":300,
-        "height":320,
+        "width":350,
+        "height":280,
         "column":0,
         "row":0,
         "columnspan":3,

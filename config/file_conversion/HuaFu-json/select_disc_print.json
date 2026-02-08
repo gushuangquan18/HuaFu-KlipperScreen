@@ -9,20 +9,23 @@
     "row":0,
     "columnspan":1,
     "rowspan":1,
-    "width": 960,
+    "width": 970,
     "height": 50,
-    "column_homogeneous": "True",
     "children":{
       "go_bcak":{
         "name":"Go Back",
         "type":"Button",
         "icon": "back",
+        "hexpand": "False",
+        "vexpand": "False",
         "column":0,
         "row":0,
         "columnspan":1,
         "rowspan":1,
         "width": 50,
-        "height": 50
+        "height": 50,
+        "button_width": 150,
+        "button_height": 50
       },
       "select_disc_print_label":{
         "name":"Select Disc Print Label",
@@ -33,12 +36,25 @@
         "columnspan":1,
         "rowspan":1
       },
+      "space_label":{
+        "name":"Space Label",
+        "type":"Label",
+        "value":"占位符",
+        "column":2,
+        "row":0,
+        "columnspan":1,
+        "rowspan":1
+      },
       "next_level":{
         "name":"Next Level",
         "type":"Button",
         "value":"下一步",
+        "hexpand": "False",
+        "vexpand": "False",
+        "button_width": 150,
+        "button_height": 15,
         "panel": "matching_consumables",
-        "column":2,
+        "column":4,
         "row":0,
         "columnspan":1,
         "rowspan":1,
