@@ -310,3 +310,13 @@ button.print_button{
     background-color: #808080;
     border-radius: 1em;
 }
+
+#consumables_menu{
+
+}
+#edit_consumables_body_grid{
+    background-color: #808080;
+    border-radius: 1em;
+    margin: 5px 10px 10px 5px ;
+    padding: 10px 5px 8px 10px;
+}

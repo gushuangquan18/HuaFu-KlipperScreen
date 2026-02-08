@@ -69,6 +69,10 @@ class ScreenPanel:
         panel_args['items']=self._config.get_menu_items(item['panel'])
         self._screen.show_panel(item['panel'], **panel_args)
 
+    def on_color_chosen(self, color_button):
+        rgba = color_button.get_rgba()
+        print(f"选中的颜色 RGBA: {rgba.to_string()}")
+
     def set_nozzle_type(self,widget):
         # 创建自定义对话框
         dialog = Gtk.Dialog(title="喷嘴类型")
@@ -155,6 +159,11 @@ class ScreenPanel:
         # A按钮
         button_a = Gtk.Button(label="编辑")
         button_a.set_size_request(80, 40)
+        parameter_item = {
+            "panel": 'edit_consumables',
+            "icon": None,
+        }
+        button_a.connect("clicked", self.menu_item_clicked, parameter_item)
         button_a.connect("clicked", self.on_page_selected, dialog)
 
         # B按钮

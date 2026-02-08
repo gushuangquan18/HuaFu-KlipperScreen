@@ -95,6 +95,6 @@ def convert_json_to_config(input_file: str, output_file: str) -> None:
 
 if __name__ == "__main__":
     # 配置输入输出文件路径
-    INPUT_FILE = "HuaFu-json/nozzle_extruder.json"
-    OUTPUT_FILE = "../nozzle_extruder.conf"
+    INPUT_FILE = "HuaFu-json/edit_consumables.json"
+    OUTPUT_FILE = "../edit_consumables.conf"
     convert_json_to_config(INPUT_FILE, OUTPUT_FILE)

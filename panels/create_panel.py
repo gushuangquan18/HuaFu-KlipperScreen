@@ -5,11 +5,16 @@ from xxlimited_35 import Null
 import gi
 
 gi.require_version("Gtk", "3.0")
-from gi.repository import Gtk, GLib, GdkPixbuf
+from gi.repository import Gtk, GLib, GdkPixbuf, Gdk
 from jinja2 import Template
 from ks_includes.screen_panel import ScreenPanel
 from ks_includes.widgets.autogrid import AutoGrid
 
+STATIC_CONSUMABLES = {
+    'supplier_select': ('Bambu Lab', 'Generic', 'Polymaker', 'Overture', 'eSUN'),  # 元组不可修改
+    'consumables_select': ('PLA', 'PETH', 'TPU'),
+    'dynamic_pressure_control_select': ('Default','Other')
+}
 
 class Panel(ScreenPanel):
 
@@ -191,6 +196,24 @@ class Panel(ScreenPanel):
             item_control_name.set_position(0)  # 光标在最前
             item_control_name.set_alignment(0.5) #文本居中
             self.entry[key_array[len(key_array)-2]] = item_control_name
+            self.counter += 1
+
+        elif (item['type'] == "ComboBoxText"):
+            item_control_name = Gtk.ComboBoxText()
+            combobox_key=key_array[len(key_array)-1]
+            combobox_items=STATIC_CONSUMABLES[combobox_key]
+            for item in combobox_items:
+                item_control_name.append_text(item)
+            item_control_name.set_active(0)
+            self.counter += 1
+
+        elif (item['type'] == "ColorButton"):
+            item_control_name = Gtk.ColorButton()
+            value = self._screen.env.from_string(item['value']).render(self.j2_data) if item['value'] else None
+            rgba = Gdk.RGBA()
+            rgba.parse(value)  # 可以是 "blue", "#ff0000", "rgb(255,0,0)" 等
+            item_control_name.set_rgba(rgba)
+            item_control_name.connect("color-set", self.on_color_chosen)
             self.counter += 1
 
         return item_control_name
