@@ -27,19 +27,19 @@ class RadioButtonApp:
         self.radio_auto = Gtk.RadioButton.new_with_label_from_widget(radio_group, "自动")
         self.radio_auto.connect("toggled", self.on_radio_toggled, "自动")
         # 设置为普通按钮样式
-        self.radio_auto.set_mode(False)
+        # self.radio_auto.set_mode(False)
 
         # 开始选项
         self.radio_start = Gtk.RadioButton.new_with_label_from_widget(self.radio_auto, "开始")
         self.radio_start.connect("toggled", self.on_radio_toggled, "开始")
         # 设置为普通按钮样式
-        self.radio_start.set_mode(False)
+        # self.radio_start.set_mode(False)
 
         # 关闭选项
         self.radio_stop = Gtk.RadioButton.new_with_label_from_widget(self.radio_auto, "关闭")
         self.radio_stop.connect("toggled", self.on_radio_toggled, "关闭")
         # 设置为普通按钮样式
-        self.radio_stop.set_mode(False)
+        # self.radio_stop.set_mode(False)
 
         # 状态显示标签
         self.status_label = Gtk.Label()

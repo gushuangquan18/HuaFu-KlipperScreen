@@ -192,7 +192,8 @@ class KlipperScreenConfig:
             elif section.startswith('menu '):
                 strs = ('name', 'type', 'value', 'icon', 'src', 'str', 'panel',
                         'row_spacing','column_spacing','row_homogeneous','column_homogeneous',
-                        'width' ,'height', 'row', 'column', 'rowspan', 'columnspan',
+                        'width' ,'height', 'row', 'column', 'rowspan', 'columnspan','position',
+                        'button_hexpand','button_vexpand','button_height','button_width',
                         'connect', 'method', 'params', 'enable', 'confirm', 'style')
             elif section.startswith('graph')\
                     or section.startswith('displayed_macros')\
@@ -622,6 +623,11 @@ class KlipperScreenConfig:
             "columnspan": cfg.get("columnspan", None),
             "src": cfg.get("src", None),
             "str": cfg.get("str", None),
+            "button_hexpand": cfg.get("button_hexpand", "False"),
+            "button_vexpand": cfg.get("button_vexpand", "False"),
+            "button_height": cfg.get("button_height", None),
+            "button_width": cfg.get("button_width", None),
+            "position": cfg.get("position", None),
             "connect": cfg.get("connect", None),
             "icon": cfg.get("icon", None),
             "panel": cfg.get("panel", None),

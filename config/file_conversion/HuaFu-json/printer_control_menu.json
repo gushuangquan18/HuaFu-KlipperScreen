@@ -74,8 +74,6 @@
       "row":0,
       "columnspan":2,
       "rowspan":1,
-      "connect":"clicked",
-      "method":"go_to_next_interface",
       "panel":"speed_control",
       "speed_control_grid":{
         "name":"Speed Control Grid",
@@ -138,8 +136,6 @@
       "row":0,
       "columnspan":2,
       "rowspan":1,
-      "connect":"clicked",
-      "method":"go_to_next_interface",
       "panel":"sport_control",
       "sport_control_grid":{
         "name":"Sport Control Grid",
@@ -204,8 +200,6 @@
       "rowspan":2,
       "width":10,
       "height":5,
-      "connect":"clicked",
-      "method":"go_to_next_interface",
       "panel":"nozzle_extruder",
       "control_nozzle_extruder_grid":{
         "name":"Control Nozzle Extruder Grid",
@@ -285,8 +279,6 @@
       "row":3,
       "columnspan":3,
       "rowspan":1,
-      "connect":"clicked",
-      "method":"go_to_next_interface",
       "panel":"chassis_temperature",
       "chassis_temperature_grid":{
         "name":"Chassis Temperature Grid",
@@ -350,8 +342,6 @@
       "row":4,
       "columnspan":3,
       "rowspan":1,
-      "connect":"clicked",
-      "method":"go_to_next_interface",
       "panel":"hotbed_temperature",
       "hotbed_temperature_grid":{
         "name":"Hotbed Temperature Grid",

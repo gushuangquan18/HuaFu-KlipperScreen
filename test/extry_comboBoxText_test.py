@@ -1,90 +1,102 @@
-# !/usr/bin/env python3
 import gi
+gi.require_version("Gtk", "3.0")
+from gi.repository import Gtk
 
-gi.require_version('Gtk', '3.0')
-from gi.repository import Gtk, Gdk
-
-
-class InputWindow(Gtk.Window):
+class TemperatureEntryWindow(Gtk.Window):
     def __init__(self):
-        Gtk.Window.__init__(self, title="GTK输入组件示例")
-        self.set_border_width(10)
-        self.set_default_size(400, 200)
+        super().__init__(title="温度输入（℃ 内嵌）")
+        self.set_default_size(300, 200)
+        self.set_resizable(False)
 
-        # 创建主垂直布局
-        main_vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
-        self.add(main_vbox)
+        vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=15)
+        vbox.set_margin_start(15)
+        vbox.set_margin_end(15)
+        vbox.set_margin_top(15)
+        vbox.set_margin_bottom(15)
+        self.add(vbox)
 
-        # 创建文本输入框
-        self.create_text_entry(main_vbox)
-
-        # 创建下拉选择框（非隐藏式）
-        self.create_combo_box(main_vbox)
-
-        # 添加状态标签
-        self.status_label = Gtk.Label()
-        self.status_label.set_text("请选择选项或输入文本")
-        main_vbox.pack_start(self.status_label, False, False, 0)
-
-    def create_text_entry(self, container):
-        """创建文本输入框"""
-        # 文本框标签
-        label = Gtk.Label()
-        label.set_text("文本输入框:")
-        label.set_halign(Gtk.Align.START)
-        container.pack_start(label, False, False, 0)
-
-        # 文本输入框
+        # === 输入框 ===
         self.entry = Gtk.Entry()
-        self.entry.set_placeholder_text("请输入文本...")
+        self.entry.set_placeholder_text("输入温度值")
+        self.entry.set_text("℃")  # 初始带单位
+        self.entry.set_position(0)  # 光标在最前
+        self.entry.set_alignment(0.5)
+
+        # 监听内容变化
         self.entry.connect("changed", self.on_entry_changed)
-        container.pack_start(self.entry, False, False, 0)
+        # 监听按键（防止删除 ℃）
+        self.entry.connect("key-press-event", self.on_key_press)
 
-    def create_combo_box(self, container):
-        """创建下拉选择框（非隐藏式）"""
-        # 下拉框标签
-        label = Gtk.Label()
-        label.set_text("下拉选择框（常显）:")
-        label.set_halign(Gtk.Align.START)
-        container.pack_start(label, False, False, 0)
+        vbox.pack_start(self.entry, False, False, 0)
 
-        # 创建下拉选项列表
-        combo_list = ["选项 1", "选项 2", "选项 3", "选项 4", "选项 5"]
+        # === 数字键盘 ===
+        grid = Gtk.Grid()
+        grid.set_row_spacing(5)
+        grid.set_column_spacing(5)
+        grid.set_halign(Gtk.Align.CENTER)
 
-        # 创建ComboBoxText并添加选项
-        self.combo = Gtk.ComboBoxText()
-        for item in combo_list:
-            self.combo.append_text(item)
+        buttons = [
+            (1, 0, 0), (2, 0, 1), (3, 0, 2),
+            (4, 1, 0), (5, 1, 1), (6, 1, 2),
+            (7, 2, 0), (8, 2, 1), (9, 2, 2),
+            (0, 3, 1),
+        ]
 
-        # 设置默认选中第一项
-        self.combo.set_active(0)
+        for num, row, col in buttons:
+            btn = Gtk.Button(label=str(num))
+            btn.set_size_request(60, 50)
+            btn.connect("clicked", self.on_digit_clicked, num)
+            grid.attach(btn, col, row, 1, 1)
 
-        # 连接选择变化事件
-        self.combo.connect("changed", self.on_combo_changed)
+        vbox.pack_start(grid, True, True, 0)
 
-        # 设置下拉框样式使其选项常显
-        container.pack_start(self.combo, False, False, 0)
+    def on_digit_clicked(self, button, digit):
+        current = self.entry.get_text()
+        if current.endswith("℃"):
+            # 插入数字到 ℃ 前
+            new_text = current[:-1] + str(digit) + "℃"
+        else:
+            new_text = current + str(digit) + "℃"
+        self.entry.set_text(new_text)
+        self.entry.set_position(len(new_text) - 1)  # 光标停在数字末尾（℃前）
 
     def on_entry_changed(self, entry):
-        """文本输入框内容变化事件"""
         text = entry.get_text()
-        self.status_label.set_text(f"输入文本: {text}")
+        if not text.endswith("℃"):
+            # 自动补上 ℃
+            if "℃" in text:
+                # 如果中间有 ℃，清理掉（只保留末尾）
+                text = text.replace("℃", "") + "℃"
+            else:
+                text = text + "℃"
+            entry.set_text(text)
+            entry.set_position(len(text) - 1)
 
-    def on_combo_changed(self, combo):
-        """下拉框选择变化事件"""
-        tree_iter = combo.get_active_iter()
-        if tree_iter is not None:
-            model = combo.get_model()
-            selected = combo.get_active_text()
-            self.status_label.set_text(f"选择选项: {selected}")
+    def on_key_press(self, entry, event):
+        # 获取当前光标位置
+        pos = entry.get_position()
+        text = entry.get_text()
+        length = len(text)
 
-    def run(self):
-        """运行应用程序"""
-        self.connect("destroy", Gtk.main_quit)
-        self.show_all()
-        Gtk.main()
+        # 如果光标在最后（即 ℃ 后面），禁止输入（因为 ℃ 是固定的）
+        if pos == length:
+            # 不允许在 ℃ 后输入
+            return True  # 阻止事件
 
+        # 如果选中了 ℃ 并按删除，阻止
+        start, end = entry.get_selection_bounds() if entry.get_has_selection() else (pos, pos)
+        if start < length and end >= length - 1:  # 选中了 ℃
+            return True  # 阻止删除单位
+
+        return False  # 允许其他操作
+
+
+# === 运行 ===
+def main():
+    win = TemperatureEntryWindow()
+    win.connect("destroy", Gtk.main_quit)
+    win.show_all()
+    Gtk.main()
 
 if __name__ == "__main__":
-    app = InputWindow()
-    app.run()
+    main()

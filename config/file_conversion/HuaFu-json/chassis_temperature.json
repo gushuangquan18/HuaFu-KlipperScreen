@@ -1,0 +1,223 @@
+{
+  "father":"printer_control_menu",
+  "name":"chassis_temperature",
+  "type":"Grid",
+  "head_grid":{
+    "name":"Head Grid",
+    "type":"Grid",
+    "column":0,
+    "row":0,
+    "columnspan":1,
+    "rowspan":1,
+    "width": 870,
+    "height": 50,
+    "column_homogeneous": "True",
+    "children":{
+      "go_bcak":{
+        "name":"Go Back",
+        "type":"Button",
+        "icon": "back",
+        "column":0,
+        "row":0,
+        "columnspan":1,
+        "rowspan":1,
+        "width": 50,
+        "height": 50
+      },
+      "chassis_temperature_label":{
+        "name":"Chassis Temperature Label",
+        "type":"Label",
+        "value":"腔温",
+        "column":1,
+        "row":0,
+        "columnspan":1,
+        "rowspan":1
+      },
+      "confirm":{
+        "name":"Confirm",
+        "type":"Button",
+        "value":"确认",
+        "panel": "printer_control_menu",
+        "column":2,
+        "row":0,
+        "columnspan":1,
+        "rowspan":1,
+        "style": "next_level"
+      }
+    }
+  },
+  "chassis_temperature_body_grid": {
+    "name": "Chassis Temperature Body Grid",
+    "type": "Grid",
+    "column": 0,
+    "row": 1,
+    "columnspan": 2,
+    "rowspan": 5,
+    "width": 850,
+    "height": 350,
+    "column_homogeneous": "True",
+    "children": {
+      "chassis_temperature_image":{
+        "name": "Chassis Temperature Image",
+        "type":"Image",
+        "width":300,
+        "height":320,
+        "column":0,
+        "row":0,
+        "columnspan":3,
+        "rowspan": 4,
+        "src":"images/chassis_temperature_inner.jpg"
+      },
+      "chassis_temperature_message":{
+        "name":"Chassis Temperature Message",
+        "type":"Label",
+        "column":0,
+        "row":4,
+        "columnspan":3,
+        "rowspan":1,
+        "value":"低腔温适合打印PLA、PETG材料。\\n高腔温适合打印诸如ABS/ASA/\\nPC/PA等易翘曲材料"
+      },
+      "chassis_temperature_entry": {
+        "name": "Chassis Temperature Entry",
+        "type": "Entry",
+        "column": 3,
+        "row": 0,
+        "columnspan": 3,
+        "rowspan": 1
+      },
+      "number_grid": {
+        "name": "Number Grid",
+        "type": "Grid",
+        "column": 3,
+        "row": 1,
+        "columnspan": 3,
+        "rowspan": 4,
+        "width": 350,
+        "height": 350,
+        "children": {
+          "one": {
+            "name": "One",
+            "type": "Button",
+            "value": "1",
+            "column": 0,
+            "row": 0,
+            "columnspan": 1,
+            "rowspan": 1,
+            "method": "on_digit_clicked",
+            "style": "temperature_number"
+          },
+          "two": {
+            "name": "Two",
+            "type": "Button",
+            "value": "2",
+            "column": 1,
+            "row": 0,
+            "columnspan": 1,
+            "rowspan": 1,
+            "method": "on_digit_clicked",
+            "style": "temperature_number"
+          },
+          "three": {
+            "name": "Three",
+            "type": "Button",
+            "value": "3",
+            "column": 2,
+            "row": 0,
+            "columnspan": 1,
+            "rowspan": 1,
+            "method": "on_digit_clicked",
+            "style": "temperature_number"
+          },
+          "four": {
+            "name": "Four",
+            "type": "Button",
+            "value": "4",
+            "column": 0,
+            "row": 1,
+            "columnspan": 1,
+            "rowspan": 1,
+            "method": "on_digit_clicked",
+            "style": "temperature_number"
+          },
+          "five": {
+            "name": "Five",
+            "type": "Button",
+            "value": "5",
+            "column": 1,
+            "row": 1,
+            "columnspan": 1,
+            "rowspan": 1,
+            "method": "on_digit_clicked",
+            "style": "temperature_number"
+          },
+          "six": {
+            "name": "Six",
+            "type": "Button",
+            "value": "6",
+            "column": 2,
+            "row": 1,
+            "columnspan": 1,
+            "rowspan": 1,
+            "method": "on_digit_clicked",
+            "style": "temperature_number"
+          },
+          "seven": {
+            "name": "Seven",
+            "type": "Button",
+            "value": "7",
+            "column":0,
+            "row": 2,
+            "columnspan": 1,
+            "rowspan": 1,
+            "method": "on_digit_clicked",
+            "style": "temperature_number"
+          },
+          "eight": {
+            "name": "Eight",
+            "type": "Button",
+            "value": "8",
+            "column": 1,
+            "row": 2,
+            "columnspan": 1,
+            "rowspan": 1,
+            "method": "on_digit_clicked",
+            "style": "temperature_number"
+          },
+          "nine": {
+            "name": "Nine",
+            "type": "Button",
+            "value": "9",
+            "column": 2,
+            "row": 2,
+            "columnspan": 1,
+            "rowspan": 1,
+            "method": "on_digit_clicked",
+            "style": "temperature_number"
+          },
+          "zero": {
+            "name": "Zero",
+            "type": "Button",
+            "value": "0",
+            "column": 0,
+            "row": 3,
+            "columnspan": 2,
+            "rowspan": 1,
+            "method": "on_digit_clicked",
+            "style": "temperature_number"
+          },
+          "clear": {
+            "name": "Clear",
+            "type": "Button",
+            "value": "X",
+            "column": 2,
+            "row": 3,
+            "columnspan": 1,
+            "rowspan": 1,
+            "method": "on_digit_clicked",
+            "style": "temperature_number"
+          }
+        }
+      }
+    }
+  }
+}

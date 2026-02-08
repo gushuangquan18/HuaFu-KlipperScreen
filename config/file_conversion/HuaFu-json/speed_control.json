@@ -1,0 +1,111 @@
+{
+  "father":"printer_control_menu",
+  "name":"speed_control",
+  "type":"Grid",
+  "head_grid":{
+    "name":"Head Grid",
+    "type":"Grid",
+    "column":0,
+    "row":0,
+    "columnspan":1,
+    "rowspan":1,
+    "width": 870,
+    "height": 50,
+    "column_homogeneous": "True",
+    "children":{
+      "go_bcak":{
+        "name":"Go Back",
+        "type":"Button",
+        "icon": "back",
+        "column":0,
+        "row":0,
+        "columnspan":1,
+        "rowspan":1,
+        "width": 50,
+        "height": 50
+      },
+      "speed_label":{
+        "name":"Speed Label",
+        "type":"Label",
+        "value":"速度",
+        "column":1,
+        "row":0,
+        "columnspan":1,
+        "rowspan":1
+      }
+    }
+  },
+  "speed_control_body_grid": {
+    "name": "Speed Control Body Grid",
+    "type": "Grid",
+    "column": 0,
+    "row": 1,
+    "columnspan": 2,
+    "rowspan": 5,
+    "width": 870,
+    "height": 350,
+    "column_homogeneous": "True",
+    "children": {
+       "speed_nozzle_image":{
+          "name": "Speed Nozzle Image",
+          "type":"Image",
+          "width":200,
+          "height":300,
+          "column":0,
+          "row":0,
+          "columnspan":1,
+          "rowspan": 5,
+          "src":"images/speed_nozzle.png"
+        },
+      "speed_control_message":{
+        "name":"Speed Control Message",
+        "type":"Label",
+        "column":0,
+        "row":5,
+        "columnspan":1,
+        "rowspan":1,
+        "value":"推荐使用标准模式，使用运动模式、狂暴模式\\n能提升打印速度，但可能影响打印质量"
+      },
+      "furious_model": {
+        "name": "furious Model",
+        "type": "Button",
+        "value": "狂暴(166%%)",
+        "column": 1,
+        "row": 0,
+        "columnspan": 1,
+        "rowspan": 1,
+        "style": "speed_control_button"
+      },
+      "sport_model": {
+        "name": "Sport Model",
+        "type": "Button",
+        "value": "运动(124%%)",
+        "column": 1,
+        "row": 1,
+        "columnspan": 1,
+        "rowspan": 1,
+        "style": "speed_control_button"
+      },
+      "standard_model": {
+        "name": "Standard Model",
+        "type": "Button",
+        "value": "标准(100%%)",
+        "column": 1,
+        "row": 2,
+        "columnspan": 1,
+        "rowspan": 1,
+        "style": "speed_control_button"
+      },
+      "mute_model": {
+        "name": "Mute Model",
+        "type": "Button",
+        "value": "静音(50%%)",
+        "column": 1,
+        "row": 3,
+        "columnspan": 1,
+        "rowspan": 1,
+        "style": "speed_control_button"
+      }
+    }
+  }
+}

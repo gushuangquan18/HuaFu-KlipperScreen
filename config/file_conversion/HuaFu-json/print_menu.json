@@ -99,8 +99,8 @@
               "value": "60℃",
               "width":30,
               "height":30,
-              "column":1,
-              "row":0,
+              "column":0,
+              "row":1,
               "columnspan":1,
               "rowspan":1
             }
@@ -141,7 +141,7 @@
             "left_nozzle_extruder":{
               "name":"Left Nozzle Extruder",
               "type":"Button",
-              "icon":"nozzle_extruder",
+              "icon":"nozzle_temperature",
               "value": "L 60℃",
               "width":30,
               "height":30,
@@ -153,7 +153,7 @@
             "Right_nozzle_extruder":{
               "name":"Right Nozzle Extruder",
               "type":"Button",
-              "icon":"nozzle_extruder",
+              "icon":"nozzle_temperature",
               "value": "R 60℃",
               "width":30,
               "height":30,

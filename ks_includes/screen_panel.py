@@ -69,6 +69,18 @@ class ScreenPanel:
         panel_args['items']=self._config.get_menu_items(item['panel'])
         self._screen.show_panel(item['panel'], **panel_args)
 
+    def on_digit_clicked(self, button, num,key):
+        if(num != 'X'):
+            current = self.entry[key].get_text()
+            if current.endswith("℃"):
+                # 插入数字到 ℃ 前
+                new_text = current[:-1] + str(num) + "℃"
+            else:
+                new_text = current + str(num) + "℃"
+            self.entry[key].set_text(new_text)
+            self.entry[key].set_position(len(new_text) - 1)  # 光标停在数字末尾（℃前）
+        else:
+            self.entry[key].set_text("℃")
 
     def show_dialog(self, widget):
         """显示无标题选择对话框"""

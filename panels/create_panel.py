@@ -46,6 +46,8 @@ class Panel(ScreenPanel):
         """
         parent_grid = Gtk.Grid()
         self.counter = i = 0
+        self.radioButton = {}
+        self.entry = {}
         while i<len(self.items):
             key = list(self.items[i])[0]
             item = self.items[i][key]
@@ -87,7 +89,12 @@ class Panel(ScreenPanel):
             icon = self._screen.env.from_string(item['icon']).render(self.j2_data) if item['icon'] else None
             width = self._screen.env.from_string(item['width']).render(self.j2_data) if item['width'] else None
             height = self._screen.env.from_string(item['height']).render(self.j2_data) if item['height'] else None
-            item_control_name = self._gtk.Button(icon,value,style,width,height)
+            position = self._screen.env.from_string(item['position']).render(self.j2_data) if item['position'] else None
+            button_width = self._screen.env.from_string(item['button_width']).render(self.j2_data) if item['button_width'] else None
+            button_height = self._screen.env.from_string(item['button_height']).render(self.j2_data) if item['button_height'] else None
+            hexpand = self._screen.env.from_string(item['button_hexpand']).render(self.j2_data) if item['button_hexpand'] else None
+            vexpand = self._screen.env.from_string(item['button_vexpand']).render(self.j2_data) if item['button_vexpand'] else None
+            item_control_name = self._gtk.Button(icon,value,style,width,height,hexpand,vexpand,position)
             if (item["panel"] != None):
                 parameter_item = {
                     "panel": item["panel"],
@@ -98,6 +105,8 @@ class Panel(ScreenPanel):
                 item_control_name.connect("clicked", self._screen._menu_go_back)
             elif(item['method'] == 'show_dialog'):
                 item_control_name.connect("clicked", self.show_dialog)
+            elif(item['method'] == 'on_digit_clicked'):
+                item_control_name.connect("clicked", self.on_digit_clicked ,value,key_array[len(key_array)-3])
 
             if(self.counter<len(self.items)):
                 key_child = list(self.items[self.counter])[0]
@@ -128,8 +137,6 @@ class Panel(ScreenPanel):
                 item_control_name.set_column_homogeneous(True)
             if (item['row_homogeneous'] == 'True'):
                 item_control_name.set_row_homogeneous(True)
-
-
             i+=1
             while i<len(self.items):
                 key_child = list(self.items[i])[0]
@@ -161,13 +168,28 @@ class Panel(ScreenPanel):
             item_control_name.set_size_request(width, height)
             self.counter += 1
 
+        elif (item['type'] == "RadioButton"):
+            value = self._screen.env.from_string(item['value']).render(self.j2_data) if item['value'] else None
+            if(key_array[len(key_array)-1] == 'cooling_mode'):
+                self.radioButton[key_array[len(key_array)-1]] =  Gtk.RadioButton.new_with_label_from_widget(None, value)
+                item_control_name = self.radioButton[key_array[len(key_array)-1]]
+            else:
+                item_control_name = Gtk.RadioButton.new_with_label_from_widget(self.radioButton['cooling_mode'], value)
+                # self.radioButton[key].connect("toggled", self.on_radio_toggled, value)
+                # 创建单选按钮组（普通样式，无圆形图标）
+                # self.radioButton[key].set_mode(False)
+            self.counter += 1
+
+        elif (item['type'] == "Entry"):
+            value = self._screen.env.from_string(item['value']).render(self.j2_data) if item['value'] else None
+            item_control_name = Gtk.Entry()
+            item_control_name.set_text("℃")  # 初始带单位
+            item_control_name.set_position(0)  # 光标在最前
+            item_control_name.set_alignment(0.5) #文本居中
+            self.entry[key_array[len(key_array)-2]] = item_control_name
+            self.counter += 1
+
         return item_control_name
-
-
-
-
-
-
 
 
     def evaluate_enable(self, enable):

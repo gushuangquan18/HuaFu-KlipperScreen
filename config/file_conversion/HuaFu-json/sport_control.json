@@ -1,0 +1,220 @@
+{
+  "father":"printer_control_menu",
+  "name":"sport_control",
+  "type":"Grid",
+  "head_grid":{
+    "name":"Head Grid",
+    "type":"Grid",
+    "column":0,
+    "row":0,
+    "columnspan":1,
+    "rowspan":1,
+    "width": 870,
+    "height": 50,
+    "column_homogeneous": "True",
+    "children":{
+      "go_bcak":{
+        "name":"Go Back",
+        "type":"Button",
+        "icon": "back",
+        "column":0,
+        "row":0,
+        "columnspan":1,
+        "rowspan":1,
+        "width": 50,
+        "height": 50
+      },
+      "sport_label":{
+        "name":"Sport Label",
+        "type":"Label",
+        "value":"运动:XYZ",
+        "column":1,
+        "row":0,
+        "columnspan":1,
+        "rowspan":1
+      }
+    }
+  },
+  "sport_control_body_grid": {
+    "name": "Sport Control Body Grid",
+    "type": "Grid",
+    "column": 0,
+    "row": 1,
+    "columnspan": 2,
+    "rowspan": 5,
+    "width": 870,
+    "height": 350,
+    "children": {
+      "tool_head_control": {
+        "name": "Tool Head Control",
+        "type": "Label",
+        "value": "工具头",
+        "column": 0,
+        "row": 0,
+        "columnspan": 1,
+        "rowspan": 1
+      },
+      "distance_grid": {
+        "name": "Distance Grid",
+        "type": "Grid",
+        "column": 0,
+        "row": 1,
+        "columnspan": 1,
+        "rowspan": 1,
+        "width": 100,
+        "height": 30,
+        "children": {
+          "distance_one": {
+            "name": "Distance One",
+            "type": "Button",
+            "value": "1mm",
+            "icon": "distance_one",
+            "column": 0,
+            "row": 1,
+            "columnspan": 1,
+            "rowspan": 1,
+            "style": "distance_button"
+          },
+          "distance_ten": {
+            "name": "Distance Ten",
+            "type": "Button",
+            "value": "10mm",
+            "icon": "distance_ten",
+            "column": 1,
+            "row": 1,
+            "columnspan": 1,
+            "rowspan": 1,
+            "style": "distance_button"
+          },
+          "distance_thirty": {
+            "name": "Distance Thirty",
+            "type": "Button",
+            "value": "30mm",
+            "icon": "distance_thirty",
+            "column": 2,
+            "row": 1,
+            "columnspan": 1,
+            "rowspan": 1,
+            "style": "distance_button"
+          }
+        }
+      },
+      "direction_control_grid": {
+        "name": "Direction Control Grid",
+        "type": "Grid",
+        "column": 0,
+        "row": 2,
+        "columnspan": 1,
+        "rowspan": 3,
+        "width": 100,
+        "height": 350,
+        "children": {
+          "distance_home": {
+            "name": "Distance Home",
+            "type": "Button",
+            "icon": "distance_home",
+            "column": 1,
+            "row": 1,
+            "columnspan": 1,
+            "rowspan": 1,
+            "width": 50,
+            "height": 50
+          },
+          "distance_up": {
+            "name": "Distance Up",
+            "type": "Button",
+            "value": "Y",
+            "column": 1,
+            "row": 0,
+            "columnspan": 1,
+            "rowspan": 1
+          },
+          "distance_left": {
+            "name": "Distance Left",
+            "type": "Button",
+            "value": "-X",
+            "column": 0,
+            "row": 1,
+            "columnspan": 1,
+            "rowspan": 1
+          },
+          "distance_right": {
+            "name": "Distance Right",
+            "type": "Button",
+            "value": "X",
+            "column": 2,
+            "row": 1,
+            "columnspan": 1,
+            "rowspan": 1
+          },
+          "distance_bottom": {
+            "name": "Distance Bottom",
+            "type": "Button",
+            "value": "-Y",
+            "column": 1,
+            "row": 2,
+            "columnspan": 1,
+            "rowspan": 1
+          }
+        }
+      },
+      "hot_bed_control": {
+        "name": "Hot Bed Control",
+        "type": "Label",
+        "value": "热床",
+        "column": 1,
+        "row": 0,
+        "columnspan": 1,
+        "rowspan": 1
+      },
+      "up_ten": {
+        "name": "Up Ten",
+        "type": "Button",
+        "value": "10",
+        "icon": "up_ten",
+        "column": 1,
+        "row": 1,
+        "columnspan": 1,
+        "rowspan": 1,
+        "position": "LEFT",
+        "style": "ten_button"
+      },
+      "up_one": {
+        "name": "Up One",
+        "type": "Button",
+        "value": "1",
+        "icon": "up_one",
+        "column": 1,
+        "row": 2,
+        "columnspan": 1,
+        "rowspan": 1,
+        "position": "LEFT",
+        "style": "one_button"
+      },
+      "down_one": {
+        "name": "Down One",
+        "type": "Button",
+        "value": "1",
+        "icon": "down_one",
+        "column": 1,
+        "row": 3,
+        "columnspan": 1,
+        "rowspan": 1,
+        "position": "LEFT",
+        "style": "one_button"
+      },
+      "down_ten": {
+        "name": "Down Ten",
+        "type": "Button",
+        "value": "10",
+        "icon": "down_ten",
+        "column": 1,
+        "row": 4,
+        "columnspan": 1,
+        "rowspan": 1,
+        "position": "LEFT",
+        "style": "ten_button"
+      }
+    }
+  }
+}

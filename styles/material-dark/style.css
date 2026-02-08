@@ -50,6 +50,23 @@ button.print_print_list{
     border-radius: 1em;
     margin: 10px;
 }
+button.speed_control_button,
+button.ten_button{
+    background-color: #606060;
+    border-radius: 1em;
+}
+button.one_button{
+    background-color: #909090;
+    border-radius: 1em;
+}
+button.distance_button{
+    background-color: #4e4f4f;
+    border-radius: 1em;
+}
+button.temperature_number{
+    background-color: #4e4f4f;
+    border-radius: 1em;
+}
 
 #head_grid{
     margin-top:5px
@@ -89,36 +106,6 @@ button.print_print_list{
     border-radius: 1em;
     padding-top: 15px;
 }
-
-
-
-#printer_control_menu {
-    padding:10px;
-    background-image: url('images/printer_control_menu_background.jpg');
-    background-size: contain; /* cover; 会缩放图片以完全覆盖整个区域，可能会裁剪图片。 contain; 会缩放图片以完整显示在区域内，可能不会填满整个区域。*/
-    background-repeat: no-repeat;
-}
-/*#printer_control_menu.button{    */
-/*    opacity: 0.6;*/
-/*}*/
-#air_system_grid ,
-#speed_control_grid ,
-#sport_control_grid,
-#hotbed_temperature_grid ,
-#chassis_temperature_grid,
-#control_nozzle_extruder_grid{
-    background-color: #808080;
-    border-radius: 1em;
-    padding-top: 15px;
-    padding-left: 15px;
-}
-#light_system_grid {
-    background-color: #808080;
-    border-radius: 1em;
-    padding-top: 15px;
-    padding-left: 20px;
-}
-
 
 #consumables_menu {
     padding:10px;
@@ -240,7 +227,70 @@ button.print_button{
     background-repeat: no-repeat;
 }
 #right_up_gird_right_grid {
-    background-image: url('images/nozzle_extruder.jpg');
+    background-image: url('images/nozzle_extruder.png');
     background-size: contain; /* cover; 会缩放图片以完全覆盖整个区域，可能会裁剪图片。 contain; 会缩放图片以完整显示在区域内，可能不会填满整个区域。*/
     background-repeat: no-repeat;
+}
+
+
+
+#printer_control_menu {
+    padding:10px;
+    background-image: url('images/printer_control_menu_background.jpg');
+    background-size: contain; /* cover; 会缩放图片以完全覆盖整个区域，可能会裁剪图片。 contain; 会缩放图片以完整显示在区域内，可能不会填满整个区域。*/
+    background-repeat: no-repeat;
+}
+/*#printer_control_menu.button{    */
+/*    opacity: 0.6;*/
+/*}*/
+#air_system_grid ,
+#speed_control_grid ,
+#sport_control_grid,
+#hotbed_temperature_grid ,
+#chassis_temperature_grid,
+#control_nozzle_extruder_grid{
+    background-color: #808080;
+    border-radius: 1em;
+    padding-top: 15px;
+    padding-left: 15px;
+}
+#light_system_grid {
+    background-color: #808080;
+    border-radius: 1em;
+    padding-top: 15px;
+    padding-left: 20px;
+}
+#air_system_model{
+    padding-left:50px;
+}
+#air_system_down_left_grid{
+    padding-left:50px;
+}
+#air_system_settings_grid{
+    margin: 10px;
+}
+#air_system_settings_grid{
+    background-color: #808080;
+    border-radius: 1em;
+    padding:15px;
+}
+
+#speed_control{
+    margin: 20px;
+}
+
+#sport_control{
+    margin: 0px 20px 10px 20px;
+}
+#sport_control_body_grid{
+    background-color: #808080;
+    border-radius: 1em;
+    padding: 20px 15px 20px 15px;
+}
+#chassis_temperature{
+    margin: 0px 10px 10px 10px;
+}
+
+#chassis_temperature_body_grid{
+    padding: 20px 15px 20px 15px;
 }

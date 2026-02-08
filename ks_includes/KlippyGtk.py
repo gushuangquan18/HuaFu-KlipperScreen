@@ -163,10 +163,19 @@ class KlippyGtk:
         stream.close_async(2)
         return pixbuf
 
-    def Button(self, image_name=None, label=None, style=None,width=None, height=None, scale=None, position=Gtk.PositionType.TOP, lines=2):
+    def Button(self, image_name=None, label=None, style=None,width=None, height=None, hexpand=True,vexpand=True, position=None, scale=None,lines=2):
         if self.font_size_type == "max" and label is not None:
             image_name = None
-        b = Gtk.Button(hexpand=True, vexpand=True, can_focus=False, image_position=position, always_show_image=True)
+        if(position == 'BOTTOM'):
+            position = Gtk.PositionType.BOTTOM
+        elif(position == 'LEFT'):
+            position = Gtk.PositionType.LEFT
+        elif(position == 'RIGHT'):
+            position = Gtk.PositionType.RIGHT
+        else:
+            position = Gtk.PositionType.TOP
+        b = Gtk.Button(hexpand=hexpand, vexpand=vexpand, can_focus=False, image_position=position, always_show_image=True)
+        b.set_size_request(50, 50)
         if label is not None:
             b.set_label(label.replace("\n", " "))
         if image_name is not None:
