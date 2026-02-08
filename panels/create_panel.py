@@ -46,6 +46,7 @@ class Panel(ScreenPanel):
         """
         parent_grid = Gtk.Grid()
         self.counter = i = 0
+        self.create_radionButton = False
         self.radioButton = {}
         self.entry = {}
         while i<len(self.items):
@@ -107,6 +108,8 @@ class Panel(ScreenPanel):
                 item_control_name.connect("clicked", self.show_dialog)
             elif(item['method'] == 'on_digit_clicked'):
                 item_control_name.connect("clicked", self.on_digit_clicked ,value,key_array[len(key_array)-3])
+            elif(item['method'] == 'set_nozzle_type'):
+                item_control_name.connect("clicked", self.set_nozzle_type)
 
             if(self.counter<len(self.items)):
                 key_child = list(self.items[self.counter])[0]
@@ -170,11 +173,12 @@ class Panel(ScreenPanel):
 
         elif (item['type'] == "RadioButton"):
             value = self._screen.env.from_string(item['value']).render(self.j2_data) if item['value'] else None
-            if(key_array[len(key_array)-1] == 'cooling_mode'):
-                self.radioButton[key_array[len(key_array)-1]] =  Gtk.RadioButton.new_with_label_from_widget(None, value)
-                item_control_name = self.radioButton[key_array[len(key_array)-1]]
+            if(not self.create_radionButton):
+                self.radioButton['radio_button_group'] =  Gtk.RadioButton.new_with_label_from_widget(None, value)
+                item_control_name = self.radioButton['radio_button_group']
+                self.create_radionButton = True
             else:
-                item_control_name = Gtk.RadioButton.new_with_label_from_widget(self.radioButton['cooling_mode'], value)
+                item_control_name = Gtk.RadioButton.new_with_label_from_widget(self.radioButton['radio_button_group'], value)
                 # self.radioButton[key].connect("toggled", self.on_radio_toggled, value)
                 # 创建单选按钮组（普通样式，无圆形图标）
                 # self.radioButton[key].set_mode(False)

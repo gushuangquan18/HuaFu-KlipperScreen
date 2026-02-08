@@ -67,6 +67,9 @@ button.temperature_number{
     background-color: #4e4f4f;
     border-radius: 1em;
 }
+#nozzle_extruder_dialog{
+    background-color: #808080;
+}
 
 #head_grid{
     margin-top:5px
@@ -293,4 +296,17 @@ button.print_button{
 
 #chassis_temperature_body_grid{
     padding: 20px 15px 20px 15px;
+}
+
+
+#nozzle_extruder{
+
+}
+#nozzle_extruder_body_grid{
+    padding: 20px 15px 20px 15px;
+}
+#nozzle_extruder_left_button_grid,
+#nozzle_extruder_right_button_grid{
+    background-color: #808080;
+    border-radius: 1em;
 }

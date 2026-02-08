@@ -4,7 +4,7 @@ import logging
 import gi
 
 gi.require_version("Gtk", "3.0")
-from gi.repository import Gtk, Pango
+from gi.repository import Gtk, Pango, Gdk
 from ks_includes.KlippyGtk import find_widget
 
 
@@ -68,6 +68,59 @@ class ScreenPanel:
             panel_args['extra'] = item['extra']
         panel_args['items']=self._config.get_menu_items(item['panel'])
         self._screen.show_panel(item['panel'], **panel_args)
+
+    def set_nozzle_type(self,widget):
+        # 创建自定义对话框
+        dialog = Gtk.Dialog(title="喷嘴类型")
+        # dialog.set_decorated(False)
+        dialog.set_name('nozzle_extruder_dialog')
+        dialog.set_default_size(800, 400)
+
+        # 设置对话框初始位置（屏幕右侧外）
+        screen = Gdk.Screen.get_default()
+        screen_width = screen.get_width()
+        dialog.move(screen_width, 100)  # x坐标设为屏幕宽度（右侧外），y坐标100
+        # 添加内容
+        # 创建水平盒子布局
+        grid = Gtk.Grid()
+        grid.set_column_homogeneous(True)
+        confirm = Gtk.Button("确认")
+        confirm.connect("clicked", self.close_dialog,dialog)
+        grid.attach(confirm, 2,0,1,1)
+
+        traffic = Gtk.Label("标准")
+        material = Gtk.Label("硬化钢")
+        diameter = Gtk.Label("0.4mm")
+        grid.attach(traffic, 0,1,1,1)
+        grid.attach(material, 1,1,1,1)
+        grid.attach(diameter, 2,1,1,1)
+        # 第一个下拉菜单
+        traffic_btn1 = Gtk.Button("高流量")
+        traffic_btn2 = Gtk.Button("标准")
+        grid.attach(traffic_btn1, 0, 2, 1, 1)
+        grid.attach(traffic_btn2, 0, 3, 1, 1)
+
+        material_btn1 = Gtk.Button("硬化钢")
+        material_btn2 = Gtk.Button("不锈钢")
+        material_btn3 = Gtk.Button("碳化钨")
+        grid.attach(material_btn1, 1, 2, 1, 1)
+        grid.attach(material_btn2, 1, 3, 1, 1)
+        grid.attach(material_btn3, 1, 4, 1, 1)
+        diameter_btn1 = Gtk.Button("0.4mm")
+        diameter_btn2 = Gtk.Button("0.6mm")
+        diameter_btn3 = Gtk.Button("0.8mm")
+        grid.attach(diameter_btn1, 2, 2, 1, 1)
+        grid.attach(diameter_btn2, 2, 3, 1, 1)
+        grid.attach(diameter_btn3, 2, 4, 1, 1)
+        dialog.get_content_area().pack_start(grid, True, True, 10)
+        dialog.show_all()
+        # 运行对话框
+        dialog.run()
+        dialog.destroy()
+
+    def close_dialog(self,button, dialog):
+        print("close dialog")  # 控制台输出信息
+        dialog.destroy()  # 关闭对话框
 
     def on_digit_clicked(self, button, num,key):
         if(num != 'X'):

@@ -24,10 +24,10 @@
         "width": 50,
         "height": 50
       },
-      "sport_label":{
-        "name":"Sport Label",
+      "nozzle_extruder_label":{
+        "name":"Nozzle Extruder Label",
         "type":"Label",
-        "value":"运动:XYZ",
+        "value":"喷嘴和挤出机",
         "column":1,
         "row":0,
         "columnspan":1,
@@ -35,185 +35,165 @@
       }
     }
   },
-  "sport_control_body_grid": {
-    "name": "Sport Control Body Grid",
+  "nozzle_extruder_body_grid": {
+    "name": "Nozzle Extruder Body Grid",
     "type": "Grid",
     "column": 0,
     "row": 1,
-    "columnspan": 2,
-    "rowspan": 5,
+    "columnspan": 4,
+    "rowspan": 7,
     "width": 870,
     "height": 350,
+    "column_homogeneous": "True",
     "children": {
-      "tool_head_control": {
-        "name": "Tool Head Control",
-        "type": "Label",
-        "value": "工具头",
-        "column": 0,
-        "row": 0,
-        "columnspan": 1,
-        "rowspan": 1
+      "nozzle_extruder_image":{
+        "name":"Nozzle Extrude Image",
+        "type":"Image",
+        "width":100,
+        "height":150,
+        "column":3,
+        "row":1,
+        "columnspan":2,
+        "rowspan":5,
+        "src":"images/nozzle_extruder.png"
       },
-      "distance_grid": {
-        "name": "Distance Grid",
+      "nozzle_extruder_left_button_grid": {
+        "name": "Nozzle Extruder Left Button Grid",
         "type": "Grid",
         "column": 0,
-        "row": 1,
-        "columnspan": 1,
+        "row": 0,
+        "columnspan": 4,
         "rowspan": 1,
-        "width": 100,
-        "height": 30,
+        "width": 300,
+        "height": 20,
         "children": {
-          "distance_one": {
-            "name": "Distance One",
-            "type": "Button",
-            "value": "1mm",
-            "icon": "distance_one",
-            "column": 0,
-            "row": 1,
-            "columnspan": 1,
-            "rowspan": 1,
-            "style": "distance_button"
-          },
-          "distance_ten": {
-            "name": "Distance Ten",
-            "type": "Button",
-            "value": "10mm",
-            "icon": "distance_ten",
-            "column": 1,
-            "row": 1,
-            "columnspan": 1,
-            "rowspan": 1,
-            "style": "distance_button"
-          },
-          "distance_thirty": {
-            "name": "Distance Thirty",
-            "type": "Button",
-            "value": "30mm",
-            "icon": "distance_thirty",
-            "column": 2,
-            "row": 1,
-            "columnspan": 1,
-            "rowspan": 1,
-            "style": "distance_button"
+          "left_nozzle":{
+            "name":"Left Nozzle",
+            "type":"RadioButton",
+            "value":"左边",
+            "column":0,
+            "row":0,
+            "columnspan":1,
+            "rowspan":1
           }
         }
       },
-      "direction_control_grid": {
-        "name": "Direction Control Grid",
+      "left_nozzle_label": {
+        "name":"Left Nozzle Label",
+        "type":"Label",
+        "value":"左喷嘴",
+        "column":0,
+        "row":2,
+        "columnspan":1,
+        "rowspan":1
+      },
+      "left_nozzle_temperature":{
+        "name":"Left Nozzle Temperature",
+        "type":"Button",
+        "value": "65/65℃",
+        "column":0,
+        "row":3,
+        "columnspan":2,
+        "rowspan":1
+      },
+      "left_nozzle_type":{
+        "name":"Left Nozzle Type",
+        "type":"Button",
+        "value": "标准\\n硬化钢\\n0.4mm",
+        "icon": "nozzle_edit",
+        "position": "RIGHT",
+        "column":1,
+        "row":4,
+        "columnspan":2,
+        "rowspan":2,
+        "method": "set_nozzle_type"
+      },
+      "left_nozzle_up":{
+        "name":"Left Nozzle Up",
+        "type":"Button",
+        "icon": "nozzle_up",
+        "column":2,
+        "row":2,
+        "columnspan":1,
+        "rowspan":1
+      },
+      "left_nozzle_down":{
+        "name":"Left Nozzle Down",
+        "type":"Button",
+        "icon": "nozzle_down",
+        "column":2,
+        "row":3,
+        "columnspan":1,
+        "rowspan":1
+      },
+      "nozzle_extruder_right_button_grid": {
+        "name": "Nozzle Extruder Right Button Grid",
         "type": "Grid",
-        "column": 0,
-        "row": 2,
-        "columnspan": 1,
-        "rowspan": 3,
-        "width": 100,
-        "height": 350,
+        "column": 5,
+        "row":0,
+        "columnspan": 4,
+        "rowspan": 1,
+        "width": 300,
+        "height": 20,
         "children": {
-          "distance_home": {
-            "name": "Distance Home",
-            "type": "Button",
-            "icon": "distance_home",
-            "column": 1,
-            "row": 1,
-            "columnspan": 1,
-            "rowspan": 1,
-            "width": 50,
-            "height": 50
-          },
-          "distance_up": {
-            "name": "Distance Up",
-            "type": "Button",
-            "value": "Y",
-            "column": 1,
-            "row": 0,
-            "columnspan": 1,
-            "rowspan": 1
-          },
-          "distance_left": {
-            "name": "Distance Left",
-            "type": "Button",
-            "value": "-X",
-            "column": 0,
-            "row": 1,
-            "columnspan": 1,
-            "rowspan": 1
-          },
-          "distance_right": {
-            "name": "Distance Right",
-            "type": "Button",
-            "value": "X",
-            "column": 2,
-            "row": 1,
-            "columnspan": 1,
-            "rowspan": 1
-          },
-          "distance_bottom": {
-            "name": "Distance Bottom",
-            "type": "Button",
-            "value": "-Y",
-            "column": 1,
-            "row": 2,
-            "columnspan": 1,
-            "rowspan": 1
+          "right_nozzle":{
+            "name":"Right Nozzle",
+            "type":"RadioButton",
+            "value":"右边",
+            "column":5,
+            "row":0,
+            "columnspan":1,
+            "rowspan":1
           }
         }
       },
-      "hot_bed_control": {
-        "name": "Hot Bed Control",
-        "type": "Label",
-        "value": "热床",
-        "column": 1,
-        "row": 0,
-        "columnspan": 1,
-        "rowspan": 1
+      "right_nozzle_label": {
+        "name":"Right Nozzle Label",
+        "type":"Label",
+        "value":"右喷嘴",
+        "column":7,
+        "row":2,
+        "columnspan":1,
+        "rowspan":1
       },
-      "up_ten": {
-        "name": "Up Ten",
-        "type": "Button",
-        "value": "10",
-        "icon": "up_ten",
-        "column": 1,
-        "row": 1,
-        "columnspan": 1,
-        "rowspan": 1,
-        "position": "LEFT",
-        "style": "ten_button"
+      "right_nozzle_temperature":{
+        "name":"Right Nozzle Temperature",
+        "type":"Button",
+        "value": "65/65℃",
+        "column":6,
+        "row":3,
+        "columnspan":2,
+        "rowspan":1
       },
-      "up_one": {
-        "name": "Up One",
-        "type": "Button",
-        "value": "1",
-        "icon": "up_one",
-        "column": 1,
-        "row": 2,
-        "columnspan": 1,
-        "rowspan": 1,
-        "position": "LEFT",
-        "style": "one_button"
+      "right_nozzle_type":{
+        "name":"Right Nozzle Type",
+        "type":"Button",
+        "value": "标准\\n硬化钢\\n0.4mm",
+        "icon": "nozzle_edit",
+        "position": "RIGHT",
+        "column":6,
+        "row":4,
+        "columnspan":2,
+        "rowspan":2,
+        "method": "set_nozzle_type"
       },
-      "down_one": {
-        "name": "Down One",
-        "type": "Button",
-        "value": "1",
-        "icon": "down_one",
-        "column": 1,
-        "row": 3,
-        "columnspan": 1,
-        "rowspan": 1,
-        "position": "LEFT",
-        "style": "one_button"
+      "right_nozzle_up":{
+        "name":"Right Nozzle Up",
+        "type":"Button",
+        "icon": "nozzle_up",
+        "column":5,
+        "row":2,
+        "columnspan":1,
+        "rowspan":1
       },
-      "down_ten": {
-        "name": "Down Ten",
-        "type": "Button",
-        "value": "10",
-        "icon": "down_ten",
-        "column": 1,
-        "row": 4,
-        "columnspan": 1,
-        "rowspan": 1,
-        "position": "LEFT",
-        "style": "ten_button"
+      "right_nozzle_down":{
+        "name":"Right Nozzle Down",
+        "type":"Button",
+        "icon": "nozzle_down",
+        "column":5,
+        "row":3,
+        "columnspan":1,
+        "rowspan":1
       }
     }
   }
