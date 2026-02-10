@@ -1,70 +1,38 @@
 import gi
-
 gi.require_version("Gtk", "3.0")
-from gi.repository import Gtk, Gdk
+from gi.repository import Gtk
 
-
-class FakeSwitch(Gtk.ToggleButton):
-    def __init__(self, width=80, height=30):
-        super().__init__()
-        self.set_size_request(width, height)
-        self.set_can_focus(False)  # 可选：禁用焦点框
-
-        # 创建两个 Label 模拟开关状态（也可用图标）
-        self.label_on = Gtk.Label(label="● ON")
-        self.label_off = Gtk.Label(label="OFF ○")
-
-        # 初始状态
-        self.update_state()
-        self.connect("toggled", self.on_toggled)
-
-    def on_toggled(self, button):
-        self.update_state()
-
-    def update_state(self):
-        if self.get_active():
-            self.remove(self.get_child()) if self.get_child() else None
-            self.add(self.label_on)
-        else:
-            self.remove(self.get_child()) if self.get_child() else None
-            self.add(self.label_off)
-        self.show_all()
-
-
-# ===== 使用示例 =====
-class MainWindow(Gtk.Window):
+class ScrolledWindowExample(Gtk.Window):
     def __init__(self):
-        super().__init__(title="自定义 Switch")
-        self.set_border_width(20)
-        self.set_default_size(250, 100)
+        super().__init__(title="ScrolledWindow 示例")
+        self.set_default_size(1000, 600)  # 窗口稍大一点，方便查看
+        self.set_border_width(10)
 
-        # 创建自定义 switch（宽 100px, 高 40px）
-        fake_switch = FakeSwitch(width=100, height=40)
-        fake_switch.set_active(True)
-
-        # 可选：添加边框让它更像开关
-        css_provider = Gtk.CssProvider()
-        css = b"""
-        togglebutton {
-            border: 2px solid #999;
-            border-radius: 20px;
-            background: white;
-        }
-        togglebutton:checked {
-            background: #4CAF50;
-            color: white;
-        }
-        """
-        css_provider.load_from_data(css)
-        screen = Gdk.Screen.get_default()
-        Gtk.StyleContext.add_provider_for_screen(
-            screen, css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+        # 创建 ScrolledWindow
+        scrolled_window = Gtk.ScrolledWindow()
+        scrolled_window.set_size_request(970, 520)  # 设置 ScrolledWindow 自身宽高
+        scrolled_window.set_policy(
+            Gtk.PolicyType.NEVER,      # 水平滚动条：从不显示
+            Gtk.PolicyType.AUTOMATIC   # 垂直滚动条：内容超出时自动显示
         )
 
-        self.add(fake_switch)
+        # 创建一个高内容区域（例如一个垂直 Box，里面放很多标签）
+        content_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=5)
 
+        # 添加大量行以触发垂直滚动
+        for i in range(100):
+            label = Gtk.Label(label=f"这是第 {i+1} 行内容 —— 用于测试滚动功能")
+            label.set_xalign(0)  # 左对齐
+            content_box.pack_start(label, False, False, 0)
 
-win = MainWindow()
+        # 将内容添加到 ScrolledWindow
+        scrolled_window.add(content_box)
+
+        # 将 ScrolledWindow 添加到主窗口
+        self.add(scrolled_window)
+
+# 启动应用
+win = ScrolledWindowExample()
 win.connect("destroy", Gtk.main_quit)
 win.show_all()
 Gtk.main()

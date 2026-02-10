@@ -79,6 +79,7 @@ class Panel(ScreenPanel):
         item_control_name = None
 
         if(item['type']=="Image"):
+            self.counter += 1
             item_control_name = Gtk.Image()
             item_control_name.set_name(key_array[len(key_array)-1])
             image = self._screen.env.from_string(item['src']).render(self.j2_data) if item['src'] else None
@@ -87,7 +88,6 @@ class Panel(ScreenPanel):
             pixbuf = GdkPixbuf.Pixbuf.new_from_file(image)
             scaled_pixbuf = pixbuf.scale_simple(width, height, GdkPixbuf.InterpType.BILINEAR)
             item_control_name.set_from_pixbuf(scaled_pixbuf)
-            self.counter += 1
 
         elif(item['type']=="Button"):
             self.counter += 1
@@ -124,6 +124,7 @@ class Panel(ScreenPanel):
                     item_control_name.add(self.create_child_items(self.counter))
 
         elif(item['type'] == "Label"):
+            self.counter += 1
             value = self._screen.env.from_string(item['value']).render(self.j2_data) if item['value'] else None
             if(key_array[len(key_array)-1] == "percentage_progress"):
                 self.percentage_progress=int(value)*0.01;
@@ -133,7 +134,6 @@ class Panel(ScreenPanel):
                 item_control_name.set_hexpand(True)
             else:
                 item_control_name = Gtk.Label(label=_(value))
-            self.counter += 1
         elif(item['type'] == "Grid"):#移除默认边框
             item_control_name = Gtk.Grid(orientation=Gtk.Orientation.HORIZONTAL)
             item_control_name.set_name(key_array[len(key_array)-1])
@@ -166,15 +166,16 @@ class Panel(ScreenPanel):
                     i = self.counter + 1
                     break
         elif (item['type'] == "Switch"):
+            self.counter += 1
             item_control_name= Gtk.Switch()
             value = self._screen.env.from_string(item['value']).render(self.j2_data) if item['value'] else None
             # width = int(self._screen.env.from_string(item['width']).render(self.j2_data) if item['width'] else None)
             # height = int(self._screen.env.from_string(item['height']).render(self.j2_data) if item['height'] else None)
             # item_control_name.set_size_request(width, height)
             item_control_name.set_active(bool(value))
-            self.counter += 1
 
         elif (item['type'] == "ProgressBar"):
+            self.counter += 1
             item_control_name= Gtk.ProgressBar()
             #设置进度条百分比
             item_control_name.set_fraction(self.percentage_progress)
@@ -182,9 +183,9 @@ class Panel(ScreenPanel):
             width = int(self._screen.env.from_string(item['width']).render(self.j2_data) if item['width'] else None)
             height = int(self._screen.env.from_string(item['height']).render(self.j2_data) if item['height'] else None)
             item_control_name.set_size_request(width, height)
-            self.counter += 1
 
         elif (item['type'] == "RadioButton"):
+            self.counter += 1
             value = self._screen.env.from_string(item['value']).render(self.j2_data) if item['value'] else None
             if(not self.create_radionButton):
                 self.radioButton['radio_button_group'] =  Gtk.RadioButton.new_with_label_from_widget(None, value)
@@ -195,9 +196,9 @@ class Panel(ScreenPanel):
                 # self.radioButton[key].connect("toggled", self.on_radio_toggled, value)
                 # 创建单选按钮组（普通样式，无圆形图标）
                 # self.radioButton[key].set_mode(False)
-            self.counter += 1
 
         elif (item['type'] == "Entry"):
+            self.counter += 1
             value = self._screen.env.from_string(item['value']).render(self.j2_data) if item['value'] else None
             item_control_name = Gtk.Entry()
             item_control_name.set_text("℃")  # 初始带单位
@@ -205,9 +206,9 @@ class Panel(ScreenPanel):
             item_control_name.set_alignment(0.5) #文本居中
             item_control_name.set_size_request(400,100)
             self.entry[key_array[len(key_array)-2]] = item_control_name
-            self.counter += 1
 
         elif (item['type'] == "ComboBoxText"):
+            self.counter += 1
             item_control_name = Gtk.ComboBoxText()
             combobox_key=key_array[len(key_array)-1]
             combobox_items=STATIC_CONSUMABLES[combobox_key]
@@ -219,31 +220,32 @@ class Panel(ScreenPanel):
             item_control_name.set_size_request(width, height)
             style = self._screen.env.from_string(item['style']).render(self.j2_data) if item['style'] else None
             item_control_name.get_style_context().add_class(style)
-            self.counter += 1
+
+
 
         elif (item['type'] == "TextView"):
+            self.counter += 1
             value = self._screen.env.from_string(item['value']).render(self.j2_data) if item['value'] else None
             item_control_name = Gtk.TextView()
             item_control_name.set_editable(False)# 设为只读
             item_control_name.set_cursor_visible(False)  # 隐藏光标（可选）
             buffer = item_control_name.get_buffer()
             buffer.set_text(value)
-            self.counter += 1
 
         elif (item['type'] == "CheckButton"):
+            self.counter += 1
             value = self._screen.env.from_string(item['value']).render(self.j2_data) if item['value'] else None
             item_control_name = Gtk.CheckButton(label=_(value))
             item_control_name.set_active(True)  # 设为选中
-            self.counter += 1
 
         elif (item['type'] == "ColorButton"):
+            self.counter += 1
             item_control_name = Gtk.ColorButton()
             value = self._screen.env.from_string(item['value']).render(self.j2_data) if item['value'] else None
             rgba = Gdk.RGBA()
             rgba.parse(value)  # 可以是 "blue", "#ff0000", "rgb(255,0,0)" 等
             item_control_name.set_rgba(rgba)
             item_control_name.connect("color-set", self.on_color_chosen)
-            self.counter += 1
 
         return item_control_name
 

@@ -288,15 +288,15 @@
       "height": 75,
       "style":"settings_menu_button"
     },
-    "system_setting": {
-      "name":"System Setting",
+    "system_settings": {
+      "name":"System Settings",
       "type":"Button",
       "column":4,
       "row":3,
       "columnspan":2,
       "rowspan":2,
-      "panel":"system_setting",
-      "icon":"system_setting",
+      "panel":"system_settings",
+      "icon":"system_settings",
       "value": "设置",
       "hexpand": "False",
       "vexpand": "False",

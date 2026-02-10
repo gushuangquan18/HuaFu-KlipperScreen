@@ -1,0 +1,691 @@
+{
+  "father":"settings_menu",
+  "name":"system_settings",
+  "type":"Grid",
+  "head_grid":{
+    "name":"Head Grid",
+    "type":"Grid",
+    "column":0,
+    "row":0,
+    "columnspan":1,
+    "rowspan":1,
+    "width": 880,
+    "height": 50,
+    "children":{
+      "go_bcak":{
+        "name":"Go Back",
+        "type":"Button",
+        "icon": "back",
+        "hexpand": "False",
+        "vexpand": "False",
+        "column":0,
+        "row":0,
+        "columnspan":1,
+        "rowspan":1,
+        "width": 50,
+        "height": 50,
+        "button_width": 150,
+        "button_height": 50
+      },
+      "system_settings_label":{
+        "name":"System Settings Label",
+        "type":"Label",
+        "value":"设置",
+        "column":1,
+        "row":0,
+        "columnspan":1,
+        "rowspan":1
+      }
+    }
+  },
+  "system_settings_body_grid":{
+    "name":"System Settings Body grid",
+    "type":"Grid",
+    "column":0,
+    "row":1,
+    "columnspan":4,
+    "rowspan":5,
+    "width": 880,
+    "height": 500,
+    "children": {
+      "print_options": {
+        "name":"Print Options",
+        "type":"Button",
+        "hexpand": "False",
+        "vexpand": "False",
+        "button_width": 880,
+        "button_height": 60,
+        "column":0,
+        "row":0,
+        "columnspan":1,
+        "rowspan":1,
+        "panel":"print_options",
+        "children": {
+          "print_options_grid": {
+            "name":"Print Options Grid",
+            "type":"Grid",
+            "width": 880,
+            "height": 60,
+            "children": {
+              "print_options_label":{
+                "name":"Print Options Label",
+                "type":"Label",
+                "value":"打印选项",
+                "column":0,
+                "row":0,
+                "columnspan":1,
+                "rowspan":1
+              },
+              "space_label":{
+                "name":"Space Label",
+                "type":"Label",
+                "value":"占位符",
+                "column":1,
+                "row":0,
+                "columnspan":1,
+                "rowspan":1
+              },
+              "settings_right_arrow_icon":{
+                "name":"Right Arrow Icon",
+                "type":"Image",
+                "width":30,
+                "height":40,
+                "column":2,
+                "row":0,
+                "columnspan":1,
+                "rowspan":1,
+                "src":"images/right_arrow.png"
+              }
+            }
+          }
+        }
+      },
+      "ams_options": {
+        "name":"AMS Options",
+        "type":"Button",
+        "hexpand": "False",
+        "vexpand": "False",
+        "button_width": 880,
+        "button_height": 60,
+        "column":0,
+        "row":1,
+        "columnspan":1,
+        "rowspan":1,
+        "panel":"ams_options",
+        "children": {
+          "ams_options_grid": {
+            "name":"AMS Options Grid",
+            "type":"Grid",
+            "width": 880,
+            "height": 60,
+            "children": {
+              "ams_options_label":{
+                "name":"AMS Options Label",
+                "type":"Label",
+                "value":"AMS选项",
+                "column":0,
+                "row":0,
+                "columnspan":1,
+                "rowspan":1
+              },
+              "space_label":{
+                "name":"Space Label",
+                "type":"Label",
+                "value":"占位符",
+                "column":1,
+                "row":0,
+                "columnspan":1,
+                "rowspan":1
+              },
+              "settings_right_arrow_icon":{
+                "name":"Right Arrow Icon",
+                "type":"Image",
+                "width":30,
+                "height":40,
+                "column":2,
+                "row":0,
+                "columnspan":1,
+                "rowspan":1,
+                "src":"images/right_arrow.png"
+              }
+            }
+          }
+        }
+      },
+      "video_tape": {
+        "name":"Video Tape",
+        "type":"Button",
+        "hexpand": "False",
+        "vexpand": "False",
+        "button_width": 880,
+        "button_height": 60,
+        "column":0,
+        "row":2,
+        "columnspan":1,
+        "rowspan":1,
+        "panel":"video_tape",
+        "children": {
+          "video_tape_grid": {
+            "name":"Video Tape Grid",
+            "type":"Grid",
+            "width": 880,
+            "height": 60,
+            "children": {
+              "video_tape_label":{
+                "name":"Video Tape Label",
+                "type":"Label",
+                "value":"录像",
+                "column":0,
+                "row":0,
+                "columnspan":1,
+                "rowspan":1
+              },
+              "space_label":{
+                "name":"Space Label",
+                "type":"Label",
+                "value":"占位符",
+                "column":1,
+                "row":0,
+                "columnspan":1,
+                "rowspan":1
+              },
+              "video_tape_resolution_label":{
+                "name":"Video Tape Resolution Label",
+                "type":"Label",
+                "value":"1080P",
+                "column":2,
+                "row":0,
+                "columnspan":1,
+                "rowspan":1
+              },
+              "settings_right_arrow_icon":{
+                "name":"Right Arrow Icon",
+                "type":"Image",
+                "width":30,
+                "height":40,
+                "column":3,
+                "row":0,
+                "columnspan":1,
+                "rowspan":1,
+                "src":"images/right_arrow.png"
+              }
+            }
+          }
+        }
+      },
+      "auto_sleep": {
+        "name":"Auto Sleep",
+        "type":"Button",
+        "hexpand": "False",
+        "vexpand": "False",
+        "button_width": 880,
+        "button_height": 60,
+        "column":0,
+        "row":3,
+        "columnspan":1,
+        "rowspan":1,
+        "panel":"auto_sleep",
+        "children": {
+          "auto_sleep_grid": {
+            "name":"Auto Sleep Grid",
+            "type":"Grid",
+            "width": 880,
+            "height": 60,
+            "children": {
+              "auto_sleep_label":{
+                "name":"Auto Sleep Label",
+                "type":"Label",
+                "value":"自动休眠",
+                "column":0,
+                "row":0,
+                "columnspan":1,
+                "rowspan":1
+              },
+              "space_label":{
+                "name":"Space Label",
+                "type":"Label",
+                "value":"占位符",
+                "column":1,
+                "row":0,
+                "columnspan":1,
+                "rowspan":1
+              },
+              "auto_sleep_time_label":{
+                "name":"Auto Sleep Time Label",
+                "type":"Label",
+                "value":"10分钟",
+                "column":2,
+                "row":0,
+                "columnspan":1,
+                "rowspan":1
+              },
+              "settings_right_arrow_icon":{
+                "name":"Right Arrow Icon",
+                "type":"Image",
+                "width":30,
+                "height":40,
+                "column":3,
+                "row":0,
+                "columnspan":1,
+                "rowspan":1,
+                "src":"images/right_arrow.png"
+              }
+            }
+          }
+        }
+      },
+      "sound": {
+        "name":"Sound",
+        "type":"Button",
+        "hexpand": "False",
+        "vexpand": "False",
+        "button_width": 880,
+        "button_height": 60,
+        "column":0,
+        "row":4,
+        "columnspan":1,
+        "rowspan":1,
+        "panel":"sound",
+        "children": {
+          "sound_grid": {
+            "name":"Sound Grid",
+            "type":"Grid",
+            "width": 880,
+            "height": 60,
+            "children": {
+              "sound_label":{
+                "name":"Sound Label",
+                "type":"Label",
+                "value":"声音",
+                "column":0,
+                "row":0,
+                "columnspan":1,
+                "rowspan":1
+              },
+              "space_label":{
+                "name":"Space Label",
+                "type":"Label",
+                "value":"占位符",
+                "column":1,
+                "row":0,
+                "columnspan":1,
+                "rowspan":1
+              },
+              "sound_switch":{
+                "name":"Sound Switch",
+                "type":"Switch",
+                "column":2,
+                "row":0,
+                "columnspan":1,
+                "rowspan":1,
+                "value":"True",
+                "width":5,
+                "height":2
+              }
+            }
+          }
+        }
+      },
+      "status_light": {
+        "name":"Status Light",
+        "type":"Button",
+        "hexpand": "False",
+        "vexpand": "False",
+        "button_width": 880,
+        "button_height": 60,
+        "column":0,
+        "row":5,
+        "columnspan":1,
+        "rowspan":1,
+        "panel":"status_light",
+        "children": {
+          "status_light_grid": {
+            "name":"Status Light Grid",
+            "type":"Grid",
+            "width": 880,
+            "height": 60,
+            "children": {
+              "status_light_label":{
+                "name":"Status Light Label",
+                "type":"Label",
+                "value":"状态指示灯",
+                "column":0,
+                "row":0,
+                "columnspan":1,
+                "rowspan":1
+              },
+              "space_label":{
+                "name":"Space Label",
+                "type":"Label",
+                "value":"占位符",
+                "column":1,
+                "row":0,
+                "columnspan":1,
+                "rowspan":1
+              },
+              "status_light_switch":{
+                "name":"Status Light Switch",
+                "type":"Switch",
+                "column":2,
+                "row":0,
+                "columnspan":1,
+                "rowspan":1,
+                "value":"True",
+                "width":5,
+                "height":2
+              }
+            }
+          }
+        }
+      },
+      "chassis_light": {
+        "name":"Chassis Light",
+        "type":"Button",
+        "hexpand": "False",
+        "vexpand": "False",
+        "button_width": 880,
+        "button_height": 60,
+        "column":0,
+        "row":6,
+        "columnspan":1,
+        "rowspan":1,
+        "panel":"chassis_light",
+        "children": {
+          "chassis_light_grid": {
+            "name":"Chassis Light Grid",
+            "type":"Grid",
+            "width": 880,
+            "height": 60,
+            "children": {
+              "chassis_light_label":{
+                "name":"Chassis Light Label",
+                "type":"Label",
+                "value":"机箱灯模式",
+                "column":0,
+                "row":0,
+                "columnspan":1,
+                "rowspan":1
+              },
+              "space_label":{
+                "name":"Space Label",
+                "type":"Label",
+                "value":"占位符",
+                "column":1,
+                "row":0,
+                "columnspan":1,
+                "rowspan":1
+              },
+              "chassis_light_mode_label":{
+                "name":"Chassis Light Mode Label",
+                "type":"Label",
+                "value":"节能模式",
+                "column":2,
+                "row":0,
+                "columnspan":1,
+                "rowspan":1
+              },
+              "settings_right_arrow_icon":{
+                "name":"Right Arrow Icon",
+                "type":"Image",
+                "width":30,
+                "height":40,
+                "column":3,
+                "row":0,
+                "columnspan":1,
+                "rowspan":1,
+                "src":"images/right_arrow.png"
+              }
+            }
+          }
+        }
+      },
+      "language": {
+        "name":"Language",
+        "type":"Button",
+        "hexpand": "False",
+        "vexpand": "False",
+        "button_width": 880,
+        "button_height": 60,
+        "column":0,
+        "row":7,
+        "columnspan":1,
+        "rowspan":1,
+        "panel":"language",
+        "children": {
+          "language_grid": {
+            "name":"Language Grid",
+            "type":"Grid",
+            "width": 880,
+            "height": 60,
+            "children": {
+              "language_label":{
+                "name":"Language Label",
+                "type":"Label",
+                "value":"语言",
+                "column":0,
+                "row":0,
+                "columnspan":1,
+                "rowspan":1
+              },
+              "space_label":{
+                "name":"Space Label",
+                "type":"Label",
+                "value":"占位符",
+                "column":1,
+                "row":0,
+                "columnspan":1,
+                "rowspan":1
+              },
+              "language_mode_label":{
+                "name":"Language Mode Label",
+                "type":"Label",
+                "value":"中文",
+                "column":2,
+                "row":0,
+                "columnspan":1,
+                "rowspan":1
+              },
+              "settings_right_arrow_icon":{
+                "name":"Right Arrow Icon",
+                "type":"Image",
+                "width":30,
+                "height":40,
+                "column":3,
+                "row":0,
+                "columnspan":1,
+                "rowspan":1,
+                "src":"images/right_arrow.png"
+              }
+            }
+          }
+        }
+      },
+      "equipment_serial_number": {
+        "name":"Equipment Serial Number",
+        "type":"Button",
+        "hexpand": "False",
+        "vexpand": "False",
+        "button_width": 880,
+        "button_height": 60,
+        "column":0,
+        "row":8,
+        "columnspan":1,
+        "rowspan":1,
+        "panel":"equipment_serial_number",
+        "children": {
+          "equipment_serial_number_grid": {
+            "name":"Equipment Serial Number Grid",
+            "type":"Grid",
+            "width": 880,
+            "height": 60,
+            "children": {
+              "equipment_serial_number_label":{
+                "name":"Equipment Serial Number Label",
+                "type":"Label",
+                "value":"设备和序列号",
+                "column":0,
+                "row":0,
+                "columnspan":1,
+                "rowspan":1
+              },
+              "space_label":{
+                "name":"Space Label",
+                "type":"Label",
+                "value":"占位符",
+                "column":1,
+                "row":0,
+                "columnspan":1,
+                "rowspan":1
+              },
+              "equipment_serial_number_message_label":{
+                "name":"Equipment Serial Number Message Label",
+                "type":"Label",
+                "value":"华复1号",
+                "column":2,
+                "row":0,
+                "columnspan":1,
+                "rowspan":1
+              },
+              "settings_right_arrow_icon":{
+                "name":"Right Arrow Icon",
+                "type":"Image",
+                "width":30,
+                "height":40,
+                "column":3,
+                "row":0,
+                "columnspan":1,
+                "rowspan":1,
+                "src":"images/right_arrow.png"
+              }
+            }
+          }
+        }
+      },
+      "only_lan": {
+        "name":"Only LAN",
+        "type":"Button",
+        "hexpand": "False",
+        "vexpand": "False",
+        "button_width": 880,
+        "button_height": 60,
+        "column":0,
+        "row":9,
+        "columnspan":1,
+        "rowspan":1,
+        "panel":"only_lan",
+        "children": {
+          "only_lan_grid": {
+            "name":"Only LAN Grid",
+            "type":"Grid",
+            "width": 880,
+            "height": 60,
+            "children": {
+              "only_lan_label":{
+                "name":"Only LAN Label",
+                "type":"Label",
+                "value":"仅局域网模式",
+                "column":0,
+                "row":0,
+                "columnspan":1,
+                "rowspan":1
+              },
+              "space_label":{
+                "name":"Space Label",
+                "type":"Label",
+                "value":"占位符",
+                "column":1,
+                "row":0,
+                "columnspan":1,
+                "rowspan":1
+              },
+              "only_lan_switch_label":{
+                "name":"Only LAN Switch Label",
+                "type":"Label",
+                "value":"开启",
+                "column":2,
+                "row":0,
+                "columnspan":1,
+                "rowspan":1
+              },
+              "settings_right_arrow_icon":{
+                "name":"Right Arrow Icon",
+                "type":"Image",
+                "width":30,
+                "height":40,
+                "column":3,
+                "row":0,
+                "columnspan":1,
+                "rowspan":1,
+                "src":"images/right_arrow.png"
+              }
+            }
+          }
+        }
+      },
+      "export_logs_external": {
+        "name":"Export Logs External",
+        "type":"Button",
+        "hexpand": "False",
+        "vexpand": "False",
+        "button_width": 880,
+        "button_height": 60,
+        "column":0,
+        "row":10,
+        "columnspan":1,
+        "rowspan":1,
+        "panel":"export_logs_external",
+        "children": {
+          "export_logs_external_grid": {
+            "name":"Export Logs External Grid",
+            "type":"Grid",
+            "width": 880,
+            "height": 60,
+            "children": {
+              "export_logs_external_label":{
+                "name":"Export Logs External Label",
+                "type":"Label",
+                "value":"导出日志到外部存储",
+                "column":0,
+                "row":0,
+                "columnspan":1,
+                "rowspan":1
+              }
+            }
+          }
+        }
+      },
+      "restore_factory_settings": {
+        "name":"Restore Factory Settings",
+        "type":"Button",
+        "hexpand": "False",
+        "vexpand": "False",
+        "button_width": 880,
+        "button_height": 60,
+        "column":0,
+        "row":11,
+        "columnspan":1,
+        "rowspan":1,
+        "panel":"restore_factory_settings",
+        "children": {
+          "restore_factory_settings_grid": {
+            "name":"Restore Factory Settings Grid",
+            "type":"Grid",
+            "width": 880,
+            "height": 60,
+            "children": {
+              "restore_factory_settings_label":{
+                "name":"Restore Factory Settings Label",
+                "type":"Label",
+                "value":"恢复出厂设置",
+                "column":0,
+                "row":0,
+                "columnspan":1,
+                "rowspan":1
+              }
+            }
+          }
+        }
+      }
+    }
+  }  
+}

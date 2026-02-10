@@ -68,8 +68,8 @@
         "rowspan":1,
         "value":"推荐使用标准模式，使用运动模式、狂暴模式\\n能提升打印速度，但可能影响打印质量"
       },
-      "furious_model": {
-        "name": "furious Model",
+      "furious_mode": {
+        "name": "furious Mode",
         "type": "Button",
         "value": "狂暴(166%%)",
         "hexpand": "False",
@@ -82,8 +82,8 @@
         "rowspan": 1,
         "style": "speed_control_button"
       },
-      "sport_model": {
-        "name": "Sport Model",
+      "sport_mode": {
+        "name": "Sport Mode",
         "type": "Button",
         "value": "运动(124%%)",
         "hexpand": "False",
@@ -96,8 +96,8 @@
         "rowspan": 1,
         "style": "speed_control_button"
       },
-      "standard_model": {
-        "name": "Standard Model",
+      "standard_mode": {
+        "name": "Standard Mode",
         "type": "Button",
         "value": "标准(100%%)",
         "hexpand": "False",
@@ -110,8 +110,8 @@
         "rowspan": 1,
         "style": "speed_control_button"
       },
-      "mute_model": {
-        "name": "Mute Model",
+      "mute_mode": {
+        "name": "Mute Mode",
         "type": "Button",
         "value": "静音(50%%)",
         "hexpand": "False",

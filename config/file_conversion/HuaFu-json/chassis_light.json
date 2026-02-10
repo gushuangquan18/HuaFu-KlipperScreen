@@ -1,0 +1,91 @@
+{
+  "father":"system_settings",
+  "name":"chassis_light",
+  "type":"Grid",
+  "head_grid":{
+    "name":"Head Grid",
+    "type":"Grid",
+    "column":0,
+    "row":0,
+    "columnspan":1,
+    "rowspan":1,
+    "width": 970,
+    "height": 50,
+    "children":{
+      "go_bcak":{
+        "name":"Go Back",
+        "type":"Button",
+        "icon": "back",
+        "hexpand": "False",
+        "vexpand": "False",
+        "column":0,
+        "row":0,
+        "columnspan":1,
+        "rowspan":1,
+        "width": 50,
+        "height": 50,
+        "button_width": 150,
+        "button_height": 50
+      },
+      "chassis_light_label":{
+        "name":"Chassis Light Label",
+        "type":"Label",
+        "value":"机箱灯模式",
+        "column":1,
+        "row":0,
+        "columnspan":1,
+        "rowspan":1
+      }
+    }
+  },
+  "chassis_light_body_grid": {
+    "name": "Chassis Light Body Grid",
+    "type": "Grid",
+    "column": 0,
+    "row": 1,
+    "columnspan": 4,
+    "rowspan": 5,
+    "width": 930,
+    "height": 500,
+    "row_spacing": 1,
+    "children": {
+      "chassis_light_message":{
+        "name":"Chassis Light Message",
+        "type":"Label",
+        "column":0,
+        "row":0,
+        "columnspan":1,
+        "rowspan":4,
+        "value":"手动模式\\n打印机仅在AI检测需要灯光时自动开启机箱灯\\n节能模式"
+      },
+      "manual_mode": {
+        "name": "Manual Mode",
+        "type": "Button",
+        "value": "手动模式",
+        "hexpand": "False",
+        "vexpand": "False",
+        "button_width": 420,
+        "button_height": 110,
+        "column": 1,
+        "row": 1,
+        "columnspan": 1,
+        "rowspan": 1,
+        "style": "speed_control_button"
+      },
+      "power_saving_mode": {
+        "name": "Power Saving Mode",
+        "type": "Button",
+        "value": "节能模式",
+        "hexpand": "False",
+        "vexpand": "False",
+        "button_width": 420,
+        "button_height": 110,
+        "column": 1,
+        "row": 2,
+        "columnspan": 1,
+        "rowspan": 1,
+        "style": "speed_control_button"
+      }
+    }
+  }
+}

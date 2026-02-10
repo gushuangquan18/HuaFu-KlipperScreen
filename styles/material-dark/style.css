@@ -525,3 +525,76 @@ button.print_button{
     padding: 20px 10px 0px 20px;
     margin: 5px;
 }
+
+/* 系统设置界面 */
+#system_settings{
+
+}
+#system_settings_body_grid{
+
+}
+#print_options_grid,
+#ams_options_grid,
+#video_tape_grid,
+#auto_sleep_grid,
+#sound_grid,
+#status_light_grid,
+#chassis_light_grid,
+#language_grid,
+#equipment_serial_number_grid,
+#only_lan_grid,
+#export_logs_external_grid,
+#restore_factory_settings_grid{
+    background-color: @grid_bg;
+    border-radius: 1em;
+    padding: 10px 10px 0px 20px;
+}
+
+/* 机箱灯模式*/
+#chassis_light{
+    margin:10px 0px 0px 10px
+ }
+#chassis_light_body_grid{
+    padding: 40px 0px 0px 30px;
+}
+
+/* 设备和序列号信息*/
+#equipment_serial_number{
+
+}
+#equipment_name_grid,
+#printer_usage_time_grid,
+#printer_type_grid,
+#air_pump_type_grid{
+    background-color: @grid_bg;
+    border-radius: 1em;
+    margin:10px 10px 10px 10px;
+}
+
+#equipment_name_grid,
+#air_pump_type_grid{
+    padding: 10px 20px 0px 20px;
+}
+#printer_usage_time_grid{
+    padding: 15px 20px 0px 20px;
+}
+#printer_type_grid{
+    padding: 15px 20px 0px 20px;
+}
+/* 设备和序列号信息*/
+#only_lan{
+
+}
+#only_lan_body_grid{
+    margin:10px;
+}
+#only_lan_switch_grid,
+#ip_message_grid,
+#access_code_grid,
+#lan_live_broadcast_switch_grid,
+#developer_mode_grid{
+    background-color: @grid_bg;
+    border-radius: 1em;
+    padding: 3px 20px 0px 20px;
+    margin:0px 0px 10px 0px;
+}
