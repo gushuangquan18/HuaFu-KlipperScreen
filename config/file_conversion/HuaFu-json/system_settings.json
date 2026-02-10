@@ -274,105 +274,85 @@
           }
         }
       },
-      "sound": {
-        "name":"Sound",
-        "type":"Button",
-        "hexpand": "False",
-        "vexpand": "False",
-        "button_width": 880,
-        "button_height": 60,
+      "sound_switch_grid": {
+        "name":"Sound Switch Grid",
+        "type":"Grid",
+        "width": 870,
+        "height": 60,
         "column":0,
         "row":4,
         "columnspan":1,
         "rowspan":1,
         "children": {
-          "sound_grid": {
-            "name":"Sound Grid",
-            "type":"Grid",
-            "width": 880,
-            "height": 60,
-            "children": {
-              "sound_label":{
-                "name":"Sound Label",
-                "type":"Label",
-                "value":"声音",
-                "column":0,
-                "row":0,
-                "columnspan":1,
-                "rowspan":1
-              },
-              "space_label":{
-                "name":"Space Label",
-                "type":"Label",
-                "value":"占位符",
-                "column":1,
-                "row":0,
-                "columnspan":1,
-                "rowspan":1
-              },
-              "sound_switch":{
-                "name":"Sound Switch",
-                "type":"Switch",
-                "column":2,
-                "row":0,
-                "columnspan":1,
-                "rowspan":1,
-                "value":"True",
-                "width":5,
-                "height":2
-              }
-            }
+          "sound_label":{
+            "name":"Sound Label",
+            "type":"Label",
+            "value":"声音",
+            "column":0,
+            "row":0,
+            "columnspan":1,
+            "rowspan":1
+          },
+          "space_label":{
+            "name":"Space Label",
+            "type":"Label",
+            "value":"占位符",
+            "column":1,
+            "row":0,
+            "columnspan":1,
+            "rowspan":1
+          },
+          "sound_switch":{
+            "name":"Sound Switch",
+            "type":"Switch",
+            "column":2,
+            "row":0,
+            "columnspan":1,
+            "rowspan":1,
+            "value":"True",
+            "width":5,
+            "height":2
           }
         }
       },
-      "status_light": {
-        "name":"Status Light",
-        "type":"Button",
-        "hexpand": "False",
-        "vexpand": "False",
-        "button_width": 880,
-        "button_height": 60,
+      "status_light_switch_grid": {
+        "name":"Status Light Switch Grid",
+        "type":"Grid",
+        "width": 870,
+        "height": 60,
         "column":0,
         "row":5,
         "columnspan":1,
         "rowspan":1,
         "children": {
-          "status_light_grid": {
-            "name":"Status Light Grid",
-            "type":"Grid",
-            "width": 880,
-            "height": 60,
-            "children": {
-              "status_light_label":{
-                "name":"Status Light Label",
-                "type":"Label",
-                "value":"状态指示灯",
-                "column":0,
-                "row":0,
-                "columnspan":1,
-                "rowspan":1
-              },
-              "space_label":{
-                "name":"Space Label",
-                "type":"Label",
-                "value":"占位符",
-                "column":1,
-                "row":0,
-                "columnspan":1,
-                "rowspan":1
-              },
-              "status_light_switch":{
-                "name":"Status Light Switch",
-                "type":"Switch",
-                "column":2,
-                "row":0,
-                "columnspan":1,
-                "rowspan":1,
-                "value":"True",
-                "width":5,
-                "height":2
-              }
-            }
+          "status_light_label":{
+            "name":"Status Light Label",
+            "type":"Label",
+            "value":"状态指示灯",
+            "column":0,
+            "row":0,
+            "columnspan":1,
+            "rowspan":1
+          },
+          "space_label":{
+            "name":"Space Label",
+            "type":"Label",
+            "value":"占位符",
+            "column":1,
+            "row":0,
+            "columnspan":1,
+            "rowspan":1
+          },
+          "status_light_switch":{
+            "name":"Status Light Switch",
+            "type":"Switch",
+            "column":2,
+            "row":0,
+            "columnspan":1,
+            "rowspan":1,
+            "value":"True",
+            "width":5,
+            "height":2
           }
         }
       },

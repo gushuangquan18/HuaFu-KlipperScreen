@@ -9,7 +9,7 @@
     "row":0,
     "columnspan":1,
     "rowspan":1,
-    "width": 970,
+    "width": 930,
     "height": 50,
     "children":{
       "go_bcak":{
@@ -43,9 +43,9 @@
     "type": "Grid",
     "column": 0,
     "row": 1,
-    "columnspan": 2,
+    "columnspan": 1,
     "rowspan": 5,
-    "width": 970,
+    "width": 930,
     "height": 530,
     "children": {
       "tool_head_label": {
@@ -60,18 +60,18 @@
       "distance_grid": {
         "name": "Distance Grid",
         "type": "Grid",
+        "column_homogeneous": "True",
         "column": 0,
         "row": 1,
         "columnspan": 1,
         "rowspan": 1,
-        "width": 450,
-        "height": 50,
+        "width": 465,
+        "height": 30,
         "children": {
           "distance_one": {
             "name": "Distance One",
             "type": "Button",
             "value": "1mm",
-            "icon": "distance_one",
             "hexpand": "False",
             "vexpand": "False",
             "button_width": 150,
@@ -86,7 +86,6 @@
             "name": "Distance Ten",
             "type": "Button",
             "value": "10mm",
-            "icon": "distance_ten",
             "hexpand": "False",
             "vexpand": "False",
             "button_width": 150,
@@ -101,7 +100,6 @@
             "name": "Distance Thirty",
             "type": "Button",
             "value": "30mm",
-            "icon": "distance_thirty",
             "hexpand": "False",
             "vexpand": "False",
             "button_width": 150,
@@ -117,17 +115,19 @@
       "direction_control_grid": {
         "name": "Direction Control Grid",
         "type": "Grid",
+        "column_homogeneous": "True",
         "column": 0,
         "row": 2,
         "columnspan": 1,
-        "rowspan": 3,
-        "width": 450,
-        "height": 375,
+        "rowspan": 12,
+        "width": 465,
+        "height": 360,
         "children": {
           "distance_home": {
             "name": "Distance Home",
             "type": "Button",
             "icon": "distance_home",
+            "style": "direction_home",
             "hexpand": "False",
             "vexpand": "False",
             "button_width": 130,
@@ -150,7 +150,8 @@
             "column": 1,
             "row": 0,
             "columnspan": 1,
-            "rowspan": 1
+            "rowspan": 1,
+            "style": "direction_button"
           },
           "distance_left": {
             "name": "Distance Left",
@@ -163,7 +164,8 @@
             "column": 0,
             "row": 1,
             "columnspan": 1,
-            "rowspan": 1
+            "rowspan": 1,
+            "style": "direction_button"
           },
           "distance_right": {
             "name": "Distance Right",
@@ -176,7 +178,8 @@
             "column": 2,
             "row": 1,
             "columnspan": 1,
-            "rowspan": 1
+            "rowspan": 1,
+            "style": "direction_button"
           },
           "distance_bottom": {
             "name": "Distance Bottom",
@@ -189,7 +192,8 @@
             "column": 1,
             "row": 2,
             "columnspan": 1,
-            "rowspan": 1
+            "rowspan": 1,
+            "style": "direction_button"
           }
         }
       },
@@ -205,12 +209,14 @@
       "hot_bed_control_grid": {
         "name": "Hot Bed Control Grid",
         "type": "Grid",
+        "column_homogeneous": "True",
+        "row_homogeneous": "True",
         "column": 1,
         "row": 1,
         "columnspan": 1,
-        "rowspan": 4,
-        "width": 450,
-        "height": 480,
+        "rowspan": 13,
+        "width": 465,
+        "height": 390,
         "children": {
           "up_ten": {
             "name": "Up Ten",

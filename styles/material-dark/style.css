@@ -51,11 +51,19 @@ button.one_button{
     border-radius: 1em;
 }
 button.distance_button{
-    background-color: #4e4f4f;
+    background-color: #4E4F4F;
+    border-radius: 1em;
+}
+button.direction_home{
+    background-color: #F5F5F5;
+    border-radius: 2em;
+}
+button.direction_button{
+    background-color: #909090;
     border-radius: 1em;
 }
 button.temperature_number{
-    background-color: #4e4f4f;
+    background-color: #4E4F4F;
     border-radius: 1em;
 }
 
@@ -276,8 +284,15 @@ button.print_menu_button{
 #sport_control_body_grid{
     background-color: @grid_bg;
     border-radius: 1em;
-    padding:15px;
-    margin: 10px;
+    padding: 20px 10px 10px 10px;
+    margin: 0px 10px 0px 10px;
+}
+#distance_grid{
+    padding: 18px 0px 0px 0px;
+}
+#direction_control_grid{
+}
+#hot_bed_control_grid{
 }
 
 /* 腔温管理 */
@@ -555,8 +570,6 @@ button.print_menu_button{
 #ams_options_grid,
 #video_tape_grid,
 #auto_sleep_grid,
-#sound_grid,
-#status_light_grid,
 #chassis_light_grid,
 #language_grid,
 #equipment_serial_number_grid,
@@ -566,6 +579,13 @@ button.print_menu_button{
     background-color: @grid_bg;
     border-radius: 1em;
     padding: 10px 10px 0px 20px;
+}
+#sound_switch_grid,
+#status_light_switch_grid{
+    background-color: @grid_bg;
+    border-radius: 1em;
+    padding: 0px 0px 0px 20px;
+    margin:5px 0px 5px 0px;
 }
 
 /* 机箱灯模式*/
