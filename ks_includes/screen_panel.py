@@ -69,20 +69,21 @@ class ScreenPanel:
         return None
 
     def menu_item_clicked(self, widget, item):
-        i=0
-        while i<len(MENU_NAME):
-            image = Gtk.Image()
-            image_name = ''
-            a=MENU_NAME[i]
-            if (item['panel'] == MENU_NAME[i]):
-                image_name = f'images/{item['panel']}_blue_icon.png'
-            else:
-                image_name =  f'images/{MENU_NAME[i]}_icon.png'
-            pixbuf = GdkPixbuf.Pixbuf.new_from_file(image_name)
-            scaled_pixbuf = pixbuf.scale_simple(50, 50, GdkPixbuf.InterpType.BILINEAR)
-            image.set_from_pixbuf(scaled_pixbuf)
-            self.control[MENU_NAME[i]].set_image(image)
-            i += 1
+        if (item['panel'].endswith("_menu") and item['panel'] != 'print_menu'):
+            i=0
+            while i<len(MENU_NAME):
+                image = Gtk.Image()
+                image_name = ''
+                a=MENU_NAME[i]
+                if (item['panel'] == MENU_NAME[i]):
+                    image_name = f'images/{item['panel']}_blue_icon.png'
+                else:
+                    image_name =  f'images/{MENU_NAME[i]}_icon.png'
+                pixbuf = GdkPixbuf.Pixbuf.new_from_file(image_name)
+                scaled_pixbuf = pixbuf.scale_simple(50, 50, GdkPixbuf.InterpType.BILINEAR)
+                image.set_from_pixbuf(scaled_pixbuf)
+                self.control[MENU_NAME[i]].set_image(image)
+                i += 1
         panel_args = {}
         if 'name' in item:
             panel_args['title'] = item['name']
