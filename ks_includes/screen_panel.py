@@ -7,6 +7,12 @@ gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk, Pango, Gdk
 from ks_includes.KlippyGtk import find_widget
 
+DIALOG_MESSAGES = {
+    'consumables_control': ('编辑', '进料', '退料'),
+    'video_tape': ('1080P', '4K'),
+    'auto_sleep': ('10分钟','20分钟','30分钟'),
+    'language': ('中文','英文','日文','汉文')
+}
 
 class ScreenPanel:
     _screen = None
@@ -89,7 +95,7 @@ class ScreenPanel:
         grid = Gtk.Grid()
         grid.set_column_homogeneous(True)
         confirm = Gtk.Button("确认")
-        confirm.connect("clicked", self.close_dialog,dialog)
+        confirm.connect("clicked", self.dialog_button,dialog)
         grid.attach(confirm, 2,0,1,1)
 
         traffic = Gtk.Label("标准")
@@ -122,10 +128,6 @@ class ScreenPanel:
         dialog.run()
         dialog.destroy()
 
-    def close_dialog(self,button, dialog):
-        print("close dialog")  # 控制台输出信息
-        dialog.destroy()  # 关闭对话框
-
     def on_digit_clicked(self, button, num,key):
         if(num != 'X'):
             current = self.entry[key].get_text()
@@ -139,56 +141,39 @@ class ScreenPanel:
         else:
             self.entry[key].set_text("℃")
 
-    def show_dialog(self, widget):
-        """显示无标题选择对话框"""
-        # 创建无装饰的对话框
+    def show_dialog(self, widget,key):
         dialog = Gtk.Dialog()
         dialog.set_decorated(False)  # 移除窗口装饰（标题栏和关闭按钮）
-        dialog.set_default_size(50, 80)
         dialog.set_modal(True)
         dialog.set_position(Gtk.WindowPosition.CENTER_ON_PARENT)
-
         # 设置对话框样式
         content_area = dialog.get_content_area()
         content_area.set_border_width(15)
         content_area.set_spacing(15)
+        box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+        items = DIALOG_MESSAGES[key]
 
-        # 创建按钮区域
-        grid = Gtk.Grid()
+        height=len(items) * 25
+        dialog.set_default_size(50, height)
+        for item in items:
+            button = Gtk.Button(label=item)
+            button.set_size_request(80, 40)
+            button.connect("clicked", self.dialog_button, dialog)
+            box.pack_start(button, True, True, 0)
 
-        # A按钮
-        button_a = Gtk.Button(label="编辑")
-        button_a.set_size_request(80, 40)
-        parameter_item = {
-            "panel": 'edit_consumables',
-            "icon": None,
-        }
-        button_a.connect("clicked", self.menu_item_clicked, parameter_item)
-        button_a.connect("clicked", self.on_page_selected, dialog)
-
-        # B按钮
-        button_b = Gtk.Button(label="进料")
-        button_b.set_size_request(80, 40)
-        button_b.connect("clicked", self.on_page_selected, dialog)
-
-        # C按钮
-        button_c = Gtk.Button(label="退料")
-        button_c.set_size_request(80, 40)
-        button_c.connect("clicked", self.on_page_selected, dialog)
-
-        # 添加按钮到布局
-        grid.attach(button_a, 0,0,1,1)
-        grid.attach(button_b, 0,1,1,1)
-        grid.attach(button_c, 0,2,1,1)
-
-        content_area.pack_start(grid, False, False, 0)
-
+        content_area.pack_start(box, False, False, 0)
         # 显示对话框
         dialog.show_all()
 
-    def on_page_selected(self, button, dialog):
-        """页面选择事件"""
-        dialog.destroy()
+    def dialog_button(self,button, dialog):
+        text = button.get_label()
+        if (text == '编辑'):
+            parameter_item = {
+                "panel": 'edit_consumables',
+                "icon": None,
+            }
+            self.menu_item_clicked(button,parameter_item)
+        dialog.destroy()  # 关闭对话框
 
     def load_menu(self, widget, name, title=None):
         logging.info(f"loading menu {name}")

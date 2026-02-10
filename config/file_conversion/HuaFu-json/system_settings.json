@@ -155,6 +155,7 @@
       "video_tape": {
         "name":"Video Tape",
         "type":"Button",
+        "method": "show_dialog",
         "hexpand": "False",
         "vexpand": "False",
         "button_width": 880,
@@ -163,7 +164,6 @@
         "row":2,
         "columnspan":1,
         "rowspan":1,
-        "panel":"video_tape",
         "children": {
           "video_tape_grid": {
             "name":"Video Tape Grid",
@@ -216,6 +216,7 @@
       "auto_sleep": {
         "name":"Auto Sleep",
         "type":"Button",
+        "method": "show_dialog",
         "hexpand": "False",
         "vexpand": "False",
         "button_width": 880,
@@ -224,7 +225,6 @@
         "row":3,
         "columnspan":1,
         "rowspan":1,
-        "panel":"auto_sleep",
         "children": {
           "auto_sleep_grid": {
             "name":"Auto Sleep Grid",
@@ -285,7 +285,6 @@
         "row":4,
         "columnspan":1,
         "rowspan":1,
-        "panel":"sound",
         "children": {
           "sound_grid": {
             "name":"Sound Grid",
@@ -337,7 +336,6 @@
         "row":5,
         "columnspan":1,
         "rowspan":1,
-        "panel":"status_light",
         "children": {
           "status_light_grid": {
             "name":"Status Light Grid",
@@ -383,13 +381,13 @@
         "type":"Button",
         "hexpand": "False",
         "vexpand": "False",
+        "panel": "chassis_light",
         "button_width": 880,
         "button_height": 60,
         "column":0,
         "row":6,
         "columnspan":1,
         "rowspan":1,
-        "panel":"chassis_light",
         "children": {
           "chassis_light_grid": {
             "name":"Chassis Light Grid",
@@ -442,6 +440,7 @@
       "language": {
         "name":"Language",
         "type":"Button",
+        "method": "show_dialog",
         "hexpand": "False",
         "vexpand": "False",
         "button_width": 880,
@@ -450,7 +449,6 @@
         "row":7,
         "columnspan":1,
         "rowspan":1,
-        "panel":"language",
         "children": {
           "language_grid": {
             "name":"Language Grid",
@@ -625,6 +623,7 @@
       "export_logs_external": {
         "name":"Export Logs External",
         "type":"Button",
+        "method": "show_dialog",
         "hexpand": "False",
         "vexpand": "False",
         "button_width": 880,
@@ -633,7 +632,6 @@
         "row":10,
         "columnspan":1,
         "rowspan":1,
-        "panel":"export_logs_external",
         "children": {
           "export_logs_external_grid": {
             "name":"Export Logs External Grid",
@@ -657,6 +655,7 @@
       "restore_factory_settings": {
         "name":"Restore Factory Settings",
         "type":"Button",
+        "method": "show_dialog",
         "hexpand": "False",
         "vexpand": "False",
         "button_width": 880,
@@ -665,7 +664,6 @@
         "row":11,
         "columnspan":1,
         "rowspan":1,
-        "panel":"restore_factory_settings",
         "children": {
           "restore_factory_settings_grid": {
             "name":"Restore Factory Settings Grid",

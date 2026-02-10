@@ -5,7 +5,6 @@
   "children":{
     "up_grid":{
       "name":"Up Grid",
-      "name":"Up Grid",
       "type":"Grid",
       "width":900,
       "height":310,

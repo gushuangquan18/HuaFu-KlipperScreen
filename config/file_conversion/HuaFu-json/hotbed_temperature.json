@@ -71,6 +71,7 @@
     "rowspan": 5,
     "width": 870,
     "height": 520,
+    "column_spacing": 1,
     "children": {
       "hotbed_temperature_image":{
         "name": "Hotbed Temperature Image",

@@ -1,5 +1,8 @@
 /* Material-dark theme created by Alfredo Monclus 2021 */
 @define-color grid_bg #808080;
+@define-color next_level #0073BD;
+
+
 
 /*设置所有按钮背景颜色,以及点击状态下为透明*/
 /*button:active,*/
@@ -17,7 +20,7 @@ button.settings_menu_button{
     margin: 10px 10px 10px 20px;
 }
 button.next_level{
-    background-color: #0073BD;
+    background-color: @next_level;
     border-radius: 1em;
 }
 button.later_button{
@@ -33,11 +36,11 @@ button.print_menu_button{
     background-color: @grid_bg;
     border-radius: 1em;
 }
-button.print_print_list{
-    background-color: @grid_bg;
-    border-radius: 1em;
-    margin: 10px;
-}
+/*button.print_print_list{*/
+/*    background-color: @grid_bg;*/
+/*    border-radius: 1em;*/
+/*    margin: 10px;*/
+/*}*/
 button.speed_control_button,
 button.ten_button{
     background-color: #606060;
@@ -55,6 +58,7 @@ button.temperature_number{
     background-color: #4e4f4f;
     border-radius: 1em;
 }
+
 #nozzle_extruder_dialog{
     background-color: @grid_bg;
 }
@@ -78,10 +82,16 @@ progressbar progress {
 .consumables_select popup > contents {
     background-color: white;
 }
+/* 下拉菜单背景颜色 */
+.eidt_consumables_select button{
+    background-color: black;      /* 背景色 */
+    border: 0px solid black;      /* 可选：自定义边框 */
+    color: black;             /* 文字颜色 */
+}
 
-
-
-
+.entry_temperature{
+    background-color: @next_level;
+}
 
 /* 主页菜单 */
 #head_grid{
@@ -179,31 +189,31 @@ progressbar progress {
     margin: 10px;
 }
 
-#left_up_grid,
-#right_up_gird,
-#left_down_grid,
-button.print_button{
+#print_file_list_button_grid,
+#temperature_grid,
+#messages_control_grid{
     background-color: @grid_bg;
-    border-radius: 1em;
+    padding: 10px;
+    border-radius: 0.5em;
 }
-#print_inner_grid{
-    padding: 30px 0px 0px 30px;
+#print_file_list_button_grid{
+    margin: 10px 10px 10px 0px;
 }
-#right_up_gird_left_grid {
+#temperature_grid{
+    margin: 10px 0px 10px 10px;
+}
+
+#nozzle_extruder_temperature_grid{
+    padding: 100px 0px 0px 0px;
+}
+#printer_temperature_grid{
     background-image: url('images/printer_inner.jpg');
     background-size: contain; /* cover; 会缩放图片以完全覆盖整个区域，可能会裁剪图片。 contain; 会缩放图片以完整显示在区域内，可能不会填满整个区域。*/
     background-repeat: no-repeat;
 }
-#right_up_gird_right_grid {
-    background-image: url('images/nozzle_extruder.png');
-    background-size: contain; /* cover; 会缩放图片以完全覆盖整个区域，可能会裁剪图片。 contain; 会缩放图片以完整显示在区域内，可能不会填满整个区域。*/
-    background-repeat: no-repeat;
-}
-#printer_control_menu {
-    padding:10px;
-    background-image: url('images/printer_control_menu_background.jpg');
-    background-size: contain; /* cover; 会缩放图片以完全覆盖整个区域，可能会裁剪图片。 contain; 会缩放图片以完整显示在区域内，可能不会填满整个区域。*/
-    background-repeat: no-repeat;
+button.print_menu_button{
+    background-color: @grid_bg;
+    border-radius: 0.5em;
 }
 
 
@@ -211,6 +221,14 @@ button.print_button{
 /*#printer_control_menu.button{    */
 /*    opacity: 0.6;*/
 /*}*/
+
+#printer_control_menu {
+    padding:10px;
+    background-image: url('images/printer_control_menu_background.jpg');
+    background-size: contain; /* cover; 会缩放图片以完全覆盖整个区域，可能会裁剪图片。 contain; 会缩放图片以完整显示在区域内，可能不会填满整个区域。*/
+    background-repeat: no-repeat;
+}
+
 #air_system_grid ,
 #speed_control_grid ,
 #sport_control_grid,
@@ -223,8 +241,6 @@ button.print_button{
     padding-left: 15px;
 }
 #light_system_grid {
-    background-color: @grid_bg;
-    border-radius: 1em;
     padding-top: 15px;
     padding-left: 20px;
 }
@@ -315,7 +331,7 @@ button.print_button{
     background-color: @grid_bg;
     border-radius: 1em;
     margin: 5px 10px 10px 5px ;
-    padding: 10px 5px 8px 10px;
+    padding: 20px 20px 20px 10px;
 }
 
 
@@ -365,11 +381,13 @@ button.print_button{
     border-radius: 0.5em;
     margin: 7px 20px 7px 20px;
 }
-#wifi_switch_grid,
+#wifi_switch_grid{
+    padding: 0px 25px 0px 20px;
+}
 #test_network_grid,
 #current_network_grid,
 #other_network_grid{
-    padding: 20px 25px 25px 20px;
+    padding: 30px 25px 25px 20px;
 }
 /* 内存信息 菜单界面*/
 #disk_messages{
@@ -595,6 +613,16 @@ button.print_button{
 #developer_mode_grid{
     background-color: @grid_bg;
     border-radius: 1em;
-    padding: 3px 20px 0px 20px;
     margin:0px 0px 10px 0px;
+}
+#only_lan_switch_grid,
+#lan_live_broadcast_switch_grid,
+#developer_mode_grid{
+    padding: 3px 20px 0px 20px;
+}
+#ip_message_grid{
+    padding: 28px 20px 0px 20px;
+}
+#access_code_grid{
+    padding: 10px 20px 0px 20px;
 }

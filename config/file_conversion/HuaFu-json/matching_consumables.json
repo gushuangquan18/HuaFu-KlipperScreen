@@ -62,8 +62,8 @@
       }
     }
   },
-  "matching_consumables_details":{
-    "name":"Matching Consumables Details",
+  "matching_consumables_body_grid":{
+    "name":"Matching Consumables Body Grid",
     "type":"Grid",
     "column":0,
     "row":1,

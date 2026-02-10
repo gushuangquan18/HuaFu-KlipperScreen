@@ -11,7 +11,7 @@ from ks_includes.screen_panel import ScreenPanel
 from ks_includes.widgets.autogrid import AutoGrid
 
 STATIC_CONSUMABLES = {
-    'supplier_select': ('Bambu Lab', 'Generic', 'Polymaker', 'Overture', 'eSUN'),  # 元组不可修改
+    'supplier_select': ('Bambu Lab', 'Generic', 'Polymaker', 'Overture', 'eSUN'),
     'consumables_select': ('PLA', 'PETH', 'TPU'),
     'dynamic_pressure_control_select': ('Default','Other')
 }
@@ -111,7 +111,7 @@ class Panel(ScreenPanel):
             elif(key_array[len(key_array)-1] == 'go_back'):
                 item_control_name.connect("clicked", self._screen._menu_go_back)
             elif(item['method'] == 'show_dialog'):
-                item_control_name.connect("clicked", self.show_dialog)
+                item_control_name.connect("clicked", self.show_dialog,key_array[len(key_array)-1])
             elif(item['method'] == 'on_digit_clicked'):
                 item_control_name.connect("clicked", self.on_digit_clicked ,value,key_array[len(key_array)-3])
             elif(item['method'] == 'set_nozzle_type'):
@@ -205,6 +205,7 @@ class Panel(ScreenPanel):
             item_control_name.set_position(0)  # 光标在最前
             item_control_name.set_alignment(0.5) #文本居中
             item_control_name.set_size_request(400,100)
+            item_control_name.get_style_context().add_class("entry_temperature")
             self.entry[key_array[len(key_array)-2]] = item_control_name
 
         elif (item['type'] == "ComboBoxText"):

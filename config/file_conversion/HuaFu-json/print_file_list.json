@@ -64,6 +64,7 @@
     "rowspan": 1,
     "width": 970,
     "height": 530,
+    "column_homogeneous": "True",
     "children": {
       "select_print_file_one": {
         "name": "Select Print File One",

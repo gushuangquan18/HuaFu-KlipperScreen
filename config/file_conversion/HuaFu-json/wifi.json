@@ -74,7 +74,7 @@
         "name":"WIFI Switch Grid",
         "type":"Grid",
         "width": 940,
-        "height": 60,
+        "height": 30,
         "column":0,
         "row":0,
         "columnspan":1,
@@ -105,9 +105,7 @@
             "row":0,
             "columnspan":1,
             "rowspan":1,
-            "value":"True",
-            "width":5,
-            "height":2
+            "value":"True"
           }
         }
       },
@@ -115,7 +113,7 @@
         "name":"Test Network Grid",
         "type":"Grid",
         "width": 900,
-        "height": 80,
+        "height": 100,
         "column":0,
         "row":1,
         "columnspan":1,
@@ -165,7 +163,7 @@
         "name":"Current Network Grid",
         "type":"Grid",
         "width": 900,
-        "height": 80,
+        "height": 100,
         "column":0,
         "row":3,
         "columnspan":1,
@@ -238,7 +236,7 @@
         "name":"Other Network Grid",
         "type":"Grid",
         "width": 900,
-        "height": 80,
+        "height": 100,
         "column":0,
         "row":5,
         "columnspan":1,

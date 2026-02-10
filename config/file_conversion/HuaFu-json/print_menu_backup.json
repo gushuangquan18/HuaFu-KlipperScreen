@@ -7,10 +7,6 @@
       "name": "Print File List Button",
       "type": "Button",
       "panel": "print_file_list",
-      "hexpand": "False",
-      "vexpand": "False",
-      "button_width": 390,
-      "button_height": 360,
       "column":0,
       "row":0,
       "columnspan":3,
@@ -19,8 +15,9 @@
       "print_file_list_button_grid": {
         "name": "Print File List Button Grid",
         "type": "Grid",
-        "width":390,
-        "height":360,
+        "width":400,
+        "height":340,
+        "column_homogeneous": "True",
         "camera_rec_icon": {
           "name": "Camear Rec Icon",
           "type": "Image",
@@ -32,34 +29,14 @@
           "columnspan":1,
           "rowspan":1
         },
-        "space_label":{
-          "name":"Space Label",
-          "type":"Label",
-          "value":"占位符",
+        "file_label": {
+          "name": "File Label",
+          "type": "Label",
+          "vale": "文件",
           "column":1,
           "row":0,
           "columnspan":1,
           "rowspan":1
-        },
-        "file_label": {
-          "name": "File Label",
-          "type": "Label",
-          "value": "文件",
-          "column":2,
-          "row":0,
-          "columnspan":1,
-          "rowspan":1
-        },
-        "settings_right_arrow_icon":{
-          "name":"Right Arrow Icon",
-          "type":"Image",
-          "width":20,
-          "height":30,
-          "column":3,
-          "row":0,
-          "columnspan":1,
-          "rowspan":1,
-          "src":"images/right_arrow.png"
         },
         "modeling_graphics": {
           "name": "Modeling Graphics",
@@ -68,36 +45,36 @@
           "height":320,
           "column":0,
           "row":1,
-          "columnspan":4,
-          "rowspan":4,
+          "columnspan":2,
+          "rowspan":2,
           "src": "images/modeling_graphics.png"
         },
         "file_name": {
           "name": "File Name",
           "type": "Label",
-          "value": "3D打印模型文件名1",
+          "value": "文件1",
           "column":0,
-          "row":5,
-          "columnspan":4,
+          "row":3,
+          "columnspan":2,
           "rowspan":1
         }
       }
     },
-    "temperature_grid":{
-      "name":"Temperature Grid",
+    "right_up_gird":{
+      "name":"Right Up Grid",
       "type":"Grid",
-      "width":520,
-      "height":360,
+      "width":300,
+      "height":390,
       "column":3,
       "row":0,
       "columnspan":4,
       "rowspan":3,
       "children":{
-        "printer_temperature_grid":{
-          "name":"Printer Temperature Grid",
+        "right_up_gird_left_grid":{
+          "name":"Right Up Grid Left Grid",
           "type":"Grid",
-          "width":320,
-          "height":360,
+          "width":180,
+          "height":390,
           "column":0,
           "row":0,
           "columnspan":3,
@@ -140,19 +117,18 @@
           "type":"Image",
           "width":3,
           "height":300,
-          "column":3,
+          "column":2,
           "row":0,
           "columnspan":1,
           "rowspan":3,
           "src":"images/tag_white.png"
         },
-        "nozzle_extruder_temperature_grid":{
-          "name":"Nozzle Extruder Temperature Grid",
+        "right_up_gird_right_grid":{
+          "name":"Right Up Grid Right Grid",
           "type":"Grid",
-          "width":160,
-          "height":360,
-          "column_homogeneous": "True",
-          "column":4,
+          "width":130,
+          "height":390,
+          "column":3,
           "row":0,
           "columnspan":1,
           "rowspan":3,
@@ -183,7 +159,7 @@
               "columnspan":1,
               "rowspan":1
             },
-            "right_nozzle_extruder":{
+            "Right_nozzle_extruder":{
               "name":"Right Nozzle Extruder",
               "type":"Button",
               "icon":"nozzle_temperature",
@@ -202,11 +178,11 @@
         }
       }
     },
-    "messages_control_grid":{
-      "name":"Messages Control Grid",
+    "left_down_grid":{
+      "name":"Left Down Grid",
       "type":"Grid",
-      "width":800,
-      "height":120,
+      "width":400,
+      "height":130,
       "column":0,
       "row":3,
       "columnspan":6,
@@ -215,8 +191,8 @@
         "print_inner_grid":{
           "name":"Print Inner Grid",
           "type":"Grid",
-          "width":300,
-          "height":120,
+          "width":400,
+          "height":130,
           "column":0,
           "row":0,
           "columnspan":3,
@@ -231,20 +207,11 @@
               "columnspan":1,
               "rowspan":1
             },
-            "space_label":{
-              "name":"Space Label",
-              "type":"Label",
-              "value":"占位符",
-              "column":1,
-              "row":0,
-              "columnspan":1,
-              "rowspan":1
-            },
             "floor_height_progress":{
               "name":"Floor Height Progress",
               "type":"Label",
-              "value":"70/108 |",
-              "column":2,
+              "value":"\\t\\t\\t70/108 |",
+              "column":3,
               "row":0,
               "columnspan":1,
               "rowspan":1
@@ -253,7 +220,7 @@
               "name":"Remaining Time",
               "type":"Label",
               "value":"-1h14m",
-              "column":3,
+              "column":4,
               "row":0,
               "columnspan":1,
               "rowspan":1
@@ -274,7 +241,7 @@
               "value":"打印中",
               "column":0,
               "row":2,
-              "columnspan":1,
+              "columnspan":5,
               "rowspan":1
             }
           }
@@ -282,52 +249,40 @@
         "skip_button":{
           "name":"Skip Button",
           "type":"Button",
-          "hexpand": "False",
-          "vexpand": "False",
-          "button_width": 100,
-          "button_height": 100,
-          "column":4,
+          "column":3,
           "row":0,
           "columnspan":1,
           "rowspan":1,
           "icon":"skip",
           "value": "跳过",
-          "width": 50,
-          "height": 50,
-          "style": "print_menu_button"
+          "width": 80,
+          "height": 80,
+          "style":"print_menu_button"
         },
         "pause_button":{
           "name":"Pause Button",
           "type":"Button",
-          "hexpand": "False",
-          "vexpand": "False",
-          "button_width": 100,
-          "button_height": 100,
-          "column":5,
+          "column":4,
           "row":0,
           "columnspan":1,
           "rowspan":1,
           "icon":"pause",
           "value": "暂停",
-          "width": 50,
-          "height": 50,
+          "width": 80,
+          "height": 80,
           "style":"print_menu_button"
         },
         "stop_button":{
           "name":"Stop Button",
           "type":"Button",
-          "hexpand": "False",
-          "vexpand": "False",
-          "button_width": 100,
-          "button_height": 100,
-          "column":6,
+          "column":5,
           "row":0,
           "columnspan":1,
           "rowspan":1,
           "icon":"stop",
           "value": "停止",
-          "width": 50,
-          "height": 50,
+          "width": 80,
+          "height": 80,
           "style":"print_menu_button"
         }
       }
@@ -339,15 +294,15 @@
       "panel":"messages_menu",
       "hexpand": "False",
       "vexpand": "False",
-      "button_width": 130,
-      "button_height": 120,
+      "button_width": 150,
+      "button_height": 150,
       "width":80,
       "height":80,
       "column":6,
       "row":3,
       "columnspan":1,
       "rowspan":1,
-      "style": "print_menu_button"
+      "style": "print_button"
     }
   }
 }

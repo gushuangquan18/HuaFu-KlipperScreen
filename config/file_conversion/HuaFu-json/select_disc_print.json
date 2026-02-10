@@ -62,8 +62,8 @@
       }
     }
   },
-  "details":{
-    "name":"Details",
+  "select_disc_print_body_grid":{
+    "name":"Select Disc Print Body Grid",
     "type":"Grid",
     "column":0,
     "row":1,
@@ -80,17 +80,17 @@
         "columnspan":3,
         "rowspan":7,
         "width": 530,
-        "height": 440,
+        "height": 450,
         "children":{        
           "print_details_modeling_graphics":{
             "name":"Print Details Modeling Graphics",
             "type":"Image",
             "column":0,
             "row":0,
-            "columnspan":3,
+            "columnspan":4,
             "rowspan":5,
-            "width": 530,
-            "height": 380,
+            "width": 380,
+            "height": 370,
             "src":"images/modeling_graphics.png"
           },
           "file_name":{
@@ -99,24 +99,55 @@
             "value":"文件1",
             "column":0,
             "row":5,
-            "columnspan":1,
+            "columnspan":4,
             "rowspan":1
+          },
+          "space_label":{
+            "name":"Space Label",
+            "type":"Label",
+            "value":"占位符",
+            "column":0,
+            "row":6,
+            "columnspan":4,
+            "rowspan":1
+          },
+          "clock_icon":{
+            "name":"Clock Icon",
+            "type":"Image",
+            "column":0,
+            "row":7,
+            "columnspan":1,
+            "rowspan":1,
+            "width": 40,
+            "height": 40,
+            "src":"images/clock.png"
           },
           "print_time":{
             "name":"Print Time",
             "type":"Label",
             "value":"4h30m",
-            "column":0,
-            "row":6,
+            "column":1,
+            "row":7,
             "columnspan":1,
             "rowspan":1
+          },
+          "weight_icon":{
+            "name":"Weight Icon",
+            "type":"Image",
+            "column":2,
+            "row":7,
+            "columnspan":1,
+            "rowspan":1,
+            "width": 40,
+            "height": 40,
+            "src":"images/weight.png"
           },
           "print_weight":{
             "name":"Print Weight",
             "type":"Label",
             "value":"56g",
-            "column":1,
-            "row":6,
+            "column":3,
+            "row":7,
             "columnspan":1,
             "rowspan":1
           }          
