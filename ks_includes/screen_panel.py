@@ -1,10 +1,11 @@
 import datetime
 import logging
+from tkinter import image_names
 
 import gi
 
 gi.require_version("Gtk", "3.0")
-from gi.repository import Gtk, Pango, Gdk
+from gi.repository import Gtk, Pango, Gdk, GdkPixbuf
 from ks_includes.KlippyGtk import find_widget
 
 DIALOG_MESSAGES = {
@@ -13,6 +14,7 @@ DIALOG_MESSAGES = {
     'auto_sleep': ('10分钟','20分钟','30分钟'),
     'language': ('中文','英文','日文','汉文')
 }
+MENU_NAME=['home_menu','printer_control_menu','consumables_menu','settings_menu','messages_menu']
 
 class ScreenPanel:
     _screen = None
@@ -67,6 +69,20 @@ class ScreenPanel:
         return None
 
     def menu_item_clicked(self, widget, item):
+        i=0
+        while i<len(MENU_NAME):
+            image = Gtk.Image()
+            image_name = ''
+            a=MENU_NAME[i]
+            if (item['panel'] == MENU_NAME[i]):
+                image_name = f'images/{item['panel']}_blue_icon.png'
+            else:
+                image_name =  f'images/{MENU_NAME[i]}_icon.png'
+            pixbuf = GdkPixbuf.Pixbuf.new_from_file(image_name)
+            scaled_pixbuf = pixbuf.scale_simple(50, 50, GdkPixbuf.InterpType.BILINEAR)
+            image.set_from_pixbuf(scaled_pixbuf)
+            self.control[MENU_NAME[i]].set_image(image)
+            i += 1
         panel_args = {}
         if 'name' in item:
             panel_args['title'] = item['name']
