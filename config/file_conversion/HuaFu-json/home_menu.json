@@ -132,8 +132,8 @@
                 "height": 190,
                 "column_homogeneous": "True",
                 "children": {
-                  "nozzle1_icon":{
-                    "name":"Nozzle1 Icon",
+                  "left_extruder_icon":{
+                    "name":"Left Extruder Icon",
                     "type":"Image",
                     "width":50,
                     "height":50,
@@ -143,8 +143,8 @@
                     "rowspan":1,
                     "src":"images/nozzle.png"
                   },
-                  "nozzle1_temperature_label":{
-                    "name":"Nozzle1 Temperature",
+                  "left_extruder_temperature":{
+                    "name":"Left Extruder Temperature",
                     "type":"Label",
                     "value":"25℃",
                     "column":0,
@@ -152,8 +152,8 @@
                     "columnspan":1,
                     "rowspan":1
                   },
-                    "nozzle2_icon":{
-                    "name":"Nozzle2 Icon",
+                    "right_extruder_icon":{
+                    "name":" Right Extruder Icon",
                     "type":"Image",
                     "width":50,
                     "height":50,
@@ -163,8 +163,8 @@
                     "columnspan":1,
                     "rowspan":1
                   },
-                  "nozzle2_temperature_label":{
-                    "name":"Nozzle2 Temperature",
+                  "right_extruder_temperature":{
+                    "name":"Right Extruder Temperature",
                     "type":"Label",
                     "value":"25℃",
                     "column":0,

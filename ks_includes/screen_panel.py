@@ -12,7 +12,7 @@ DIALOG_MESSAGES = {
     'consumables_control': ('编辑', '进料', '退料'),
     'video_tape': ('1080P', '4K'),
     'auto_sleep': ('10分钟','20分钟','30分钟'),
-    'language': ('中文','英文','日文','汉文')
+    'language': ('中文','英文','日文','韩文')
 }
 MENU_NAME=['home_menu','printer_control_menu','consumables_menu','settings_menu','messages_menu']
 
@@ -80,7 +80,7 @@ class ScreenPanel:
                 else:
                     image_name =  f'images/{MENU_NAME[i]}_icon.png'
                 pixbuf = GdkPixbuf.Pixbuf.new_from_file(image_name)
-                scaled_pixbuf = pixbuf.scale_simple(50, 50, GdkPixbuf.InterpType.BILINEAR)
+                scaled_pixbuf = pixbuf.scale_simple(40, 40, GdkPixbuf.InterpType.BILINEAR)
                 image.set_from_pixbuf(scaled_pixbuf)
                 self.control[MENU_NAME[i]].set_image(image)
                 i += 1
@@ -313,7 +313,7 @@ class ScreenPanel:
             name = name.title()
         return name
 
-    def update_temp(self, dev, temp, target, power, lines=1, digits=1):
+    def update_temp(self, dev, temp, target, power, name,lines=1, digits=1):
         new_label_text = f"{temp or 0:.{digits}f}"
         if self._printer.device_has_target(dev) and target:
             new_label_text += f"/{target:.0f}"
@@ -330,6 +330,8 @@ class ScreenPanel:
         elif dev in self.devices:
             # Temperature and Main_Menu
             find_widget(self.devices[dev]["temp"], Gtk.Label).set_text(new_label_text)
+        if name.endswith("extruder_temperature"):
+            find_widget(self.labels[name], Gtk.Label).set_text(new_label_text)
 
     def add_option(self, boxname, opt_array, opt_name, option):
         if option['type'] is None:

@@ -126,14 +126,22 @@ class Panel(ScreenPanel):
         elif(item['type'] == "Label"):
             self.counter += 1
             value = self._screen.env.from_string(item['value']).render(self.j2_data) if item['value'] else None
+            if (key_array[len(key_array) - 1] == "nozzle1_temperature"):
+                value=self._printer.get_stat('extruder', "temperature")
             if(key_array[len(key_array)-1] == "percentage_progress"):
                 self.percentage_progress=int(value)*0.01;
                 value=f"{value}%"
+
             if (key_array[len(key_array) - 1] == "space_label"):
                 item_control_name = Gtk.Label()
                 item_control_name.set_hexpand(True)
             else:
                 item_control_name = Gtk.Label(label=_(value))
+
+            if (key_array[len(key_array) - 1].endswith("extruder_temperature") ):
+                self.labels[key_array[len(key_array) - 1]] = item_control_name
+                return self.labels[key_array[len(key_array) - 1]]
+
         elif(item['type'] == "Grid"):#移除默认边框
             item_control_name = Gtk.Grid(orientation=Gtk.Orientation.HORIZONTAL)
             item_control_name.set_name(key_array[len(key_array)-1])
@@ -266,3 +274,14 @@ class Panel(ScreenPanel):
         except Exception as e:
             logging.debug(f"Error evaluating enable statement: {enable}\n{e}")
             return False
+
+    def process_update(self, action, data):
+        for dev in self.labels:
+            if dev.endswith("extruder_temperature"):
+                self.update_temp(
+                    'extruder',
+                    self._printer.get_stat('extruder', "temperature"),
+                    self._printer.get_stat('extruder', "target"),
+                    self._printer.get_stat('extruder', "power"),
+                    name=dev
+                )
