@@ -69,6 +69,8 @@ class ScreenPanel:
         return None
 
     def menu_item_clicked(self, widget, item):
+        # if item['panel'] == 'messages_menu':
+        #     find_widget(self.labels[name], Gtk.Label).set_text(new_label_text)
         if (item['panel'].endswith("_menu") and item['panel'] != 'print_menu'):
             i=0
             while i<len(MENU_NAME):

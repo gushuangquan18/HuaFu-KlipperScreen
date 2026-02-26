@@ -1,14 +1,17 @@
 import json
 import logging
 from xxlimited_35 import Null
+import os
 
 import gi
 
 gi.require_version("Gtk", "3.0")
-from gi.repository import Gtk, GLib, GdkPixbuf, Gdk
+from gi.repository import Gtk, GLib, GdkPixbuf, Gdk, Pango
 from jinja2 import Template
+from datetime import datetime
 from ks_includes.screen_panel import ScreenPanel
-from ks_includes.widgets.autogrid import AutoGrid
+from ks_includes.KlippyGtk import find_widget
+from ks_includes.widgets.flowboxchild_extended import PrintListItem
 
 STATIC_CONSUMABLES = {
     'supplier_select': ('Bambu Lab', 'Generic', 'Polymaker', 'Overture', 'eSUN'),
@@ -16,16 +19,28 @@ STATIC_CONSUMABLES = {
     'dynamic_pressure_control_select': ('Default','Other')
 }
 
+def format_label(widget):
+    label = find_widget(widget, Gtk.Label)
+    if label is not None:
+        label.set_line_wrap_mode(Pango.WrapMode.CHAR)
+        label.set_line_wrap(True)
+        label.set_ellipsize(Pango.EllipsizeMode.END)
+        label.set_lines(3)
+
+
 class Panel(ScreenPanel):
 
     def __init__(self, screen, title, items=None):
         super().__init__(screen, title)
         self.items = items
+        self.loading_msg = _('Loading...')
         self.j2_data = self._printer.get_printer_status_data()
         self.create_menu_items(title)
         self.scroll = self._gtk.ScrolledWindow()
         self.scroll.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
-        # self.autogrid = AutoGrid()
+        if "flowbox" in self.labels:
+            self._screen._ws.klippy.get_dir_info(self.load_files, self.cur_directory)
+
 
     def activate(self):
         self.j2_data = self._printer.get_printer_status_data()
@@ -55,6 +70,11 @@ class Panel(ScreenPanel):
         self.radioButton = {}
         self.entry = {}
         self.percentage_progress = 0.5;
+        self.cur_directory = 'gcodes'
+        self.list_mode = True
+        self.time_24 = self._config.get_main_config().getboolean("24htime", True)
+        self.list_button_size = self._gtk.img_scale * self.bts
+        self.thumbsize = self._gtk.img_scale * self._gtk.button_image_scale * 2.5
         while i<len(self.items):
             key = list(self.items[i])[0]
             item = self.items[i][key]
@@ -67,7 +87,8 @@ class Panel(ScreenPanel):
         parent_grid.set_name(panel_name)
         if(panel_name == "printer_control_menu" or panel_name == "messages_menu"):
             parent_grid.set_row_homogeneous(True)
-
+        if panel_name == "print_file_list":
+            self._screen._ws.klippy.get_dir_info(self.load_files, self.cur_directory)
         self.labels['parent_grid'] = parent_grid
         # self.content.add(parent_grid)
 
@@ -116,6 +137,8 @@ class Panel(ScreenPanel):
                 item_control_name.connect("clicked", self.on_digit_clicked ,value,key_array[len(key_array)-3])
             elif(item['method'] == 'set_nozzle_type'):
                 item_control_name.connect("clicked", self.set_nozzle_type)
+            elif (item['method'] == 'refresh_loading'):
+                item_control_name.connect("clicked", self.refresh_loading)
 
             if(self.counter<len(self.items)):
                 key_child = list(self.items[self.counter])[0]
@@ -159,6 +182,10 @@ class Panel(ScreenPanel):
             if (item['row_homogeneous'] == 'True'):
                 item_control_name.set_row_homogeneous(True)
             i+=1
+            if (key_array[len(key_array) - 1] == "file_list_body_grid"):
+                self.labels['flowbox']= item_control_name
+                self.counter=i
+                return self.labels['flowbox']
             while i<len(self.items):
                 key_child = list(self.items[i])[0]
                 key_father = ' '.join(key_child.split()[:-1]) if key_child and key_child.strip() else ''
@@ -285,3 +312,116 @@ class Panel(ScreenPanel):
                     self._printer.get_stat('extruder', "power"),
                     name=dev
                 )
+
+    def refresh_loading(self,*args):
+        self.set_loading(True)
+        for child in self.labels['flowbox'].get_children():
+            self.labels['flowbox'].remove(child)
+        self._screen._ws.klippy.get_dir_info(self.load_files, self.cur_directory)
+        
+    def load_files(self, result, method, params):
+        self.set_loading(True)
+        items = [self.create_print_file_list_item(item) for item in [*result["result"]["dirs"], *result["result"]["files"]]]
+        i = column = row = 0
+        for item in filter(None, items):
+            self.labels['flowbox'].attach(item,column,row,1,1)
+            i+=1
+            if i%4==0:
+                row += 1
+                column = 0
+            else:
+                column += 1
+        self.set_loading(False)
+
+    def create_print_file_list_item(self, item):
+        name = path = ''
+        if 'dirname' in item:
+            if item['dirname'].startswith("."):
+                return
+            name = item['dirname']
+            path = f"{self.cur_directory}/{name}"
+        elif 'filename' in item:
+            if (item['filename'].startswith(".") or
+                    os.path.splitext(item['filename'])[1] not in {'.gcode', '.gco', '.g'}):
+                return
+            name = item['filename']
+            path = f"{self.cur_directory}/{name}"
+            path = path.replace('gcodes/', '')
+        else:
+            logging.error(f"Unknown item {item}")
+            return
+        basename = os.path.splitext(name)[0]
+        print_file=Gtk.Button()
+        fileinfo = self._screen.files.get_file_info(path)
+        # 暂时不用选择打印的盘 select_disc_print
+        parameter_item = {
+            "panel": 'matching_consumables',
+            "fileinfo":fileinfo,
+            "icon": None,
+        }
+        print_file.connect("clicked", self.menu_item_clicked, parameter_item)
+        button_grid = Gtk.Grid(hexpand=True, vexpand=False, valign=Gtk.Align.CENTER)
+        print_file.add(button_grid)
+        fileinfo = self._screen.files.get_file_info(path)
+        if self.list_mode:
+            itemname = Gtk.Label(hexpand=True, halign=Gtk.Align.START, ellipsize=Pango.EllipsizeMode.END)
+            itemname.set_markup(f"<b>{basename}</b>")
+            estimated_time = Gtk.Label(
+                hexpand=True, halign=Gtk.Align.START, xalign=0,
+                wrap=True, wrap_mode=Pango.WrapMode.WORD_CHAR,
+            )
+            if "estimated_time" in fileinfo:
+                text = ''
+                if fileinfo["estimated_time"]<3600:
+                    text = f'<b>T</b>:{int(fileinfo["estimated_time"]/60)}m'
+                    estimated_time.set_markup(text)
+                else:
+                    hours = int(fileinfo["estimated_time"]/3600)
+                    minutes = int((fileinfo["estimated_time"]-hours*3600) / 60)
+                    estimated_time.set_markup(f'<b>T</b>:{hours}h{minutes}m')
+            filament_weight_total = Gtk.Label(
+                hexpand=True, halign=Gtk.Align.START, xalign=0,
+                wrap=True, wrap_mode=Pango.WrapMode.WORD_CHAR,
+            )
+            if "filament_weight_total" in fileinfo:
+                filament_weight_total.set_markup(f'<b>W</b>:{fileinfo["filament_weight_total"]}g')
+
+            icon = Gtk.Button()
+            button_grid.attach(icon, 0, 0, 4, 4)
+            button_grid.attach(itemname, 0, 4, 4, 1)
+            button_grid.attach(estimated_time, 1, 5, 1, 1)
+            button_grid.attach(filament_weight_total, 3, 5, 1, 1)
+            image_args = (path, icon, self.thumbsize / 2, True, "file")
+
+        else:  # Thumbnail view
+            icon = self._gtk.Button(label=basename)
+            if 'filename' in item:
+                image_args = (path, icon, self.thumbsize, False, "file")
+            elif 'dirname' in item:
+                image_args = (None, icon, self.thumbsize, False, "folder")
+            else:
+                return
+        self.image_load(*image_args)
+        return print_file
+
+    def image_load(self, filepath, widget, size=-1, small=True, iconname=None):
+        pixbuf = self.get_file_image(filepath, 170, 150, small)
+        if pixbuf is not None:
+            widget.set_image(Gtk.Image.new_from_pixbuf(pixbuf))
+        elif iconname is not None:
+            widget.set_image(self._gtk.Image(iconname, 170, 150))
+        format_label(widget)
+
+    #判断加载显示完所有文件信息后显示页面
+    def set_loading(self, loading):
+        self.loading = loading
+        for child in self.labels['flowbox'].get_children():
+            child.set_sensitive(not loading)
+        if loading:
+            self.labels['flowbox'].show()
+            return
+        if self.cur_directory == 'gcodes':
+            self.labels['flowbox'].hide()
+        else:
+            self.labels['flowbox'].show()
+        self.content.show_all()
