@@ -209,7 +209,7 @@ progressbar progress {
     margin: 10px 10px 10px 0px;
 }
 #temperature_grid{
-    margin: 10px 0px 10px 10px;
+    margin: 10px 0px 10px 0px;
 }
 
 #nozzle_extruder_temperature_grid{

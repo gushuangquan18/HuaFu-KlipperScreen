@@ -30,12 +30,12 @@ def format_label(widget):
 
 class Panel(ScreenPanel):
 
-    def __init__(self, screen, title, items=None):
+    def __init__(self, screen, title, items=None, fileinfo=None):
         super().__init__(screen, title)
         self.items = items
         self.loading_msg = _('Loading...')
         self.j2_data = self._printer.get_printer_status_data()
-        self.create_menu_items(title)
+        self.create_menu_items(title,fileinfo)
         self.scroll = self._gtk.ScrolledWindow()
         self.scroll.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
         if "flowbox" in self.labels:
@@ -59,7 +59,7 @@ class Panel(ScreenPanel):
 
 
 
-    def create_menu_items(self,panel_name):
+    def create_menu_items(self,panel_name,fileinfo=None):
         """
             创建主界面 下半部分元素
         :return:
@@ -78,7 +78,7 @@ class Panel(ScreenPanel):
         while i<len(self.items):
             key = list(self.items[i])[0]
             item = self.items[i][key]
-            parent_grid.attach(self.create_child_items(i),
+            parent_grid.attach(self.create_child_items(i,fileinfo),
                     int(item['column']),
                     int(item['row']),
                     int(item['columnspan']),
@@ -92,7 +92,7 @@ class Panel(ScreenPanel):
         self.labels['parent_grid'] = parent_grid
         # self.content.add(parent_grid)
 
-    def create_child_items(self,i):
+    def create_child_items(self,i,fileinfo=None):
         self.counter =i
         key = list(self.items[i])[0]
         key_array=key.split(' ')
@@ -106,9 +106,13 @@ class Panel(ScreenPanel):
             image = self._screen.env.from_string(item['src']).render(self.j2_data) if item['src'] else None
             height = int(self._screen.env.from_string(item['height']).render(self.j2_data) if item['height'] else None)
             width = int(self._screen.env.from_string(item['width']).render(self.j2_data) if item['width'] else None)
-            pixbuf = GdkPixbuf.Pixbuf.new_from_file(image)
-            scaled_pixbuf = pixbuf.scale_simple(width, height, GdkPixbuf.InterpType.BILINEAR)
-            item_control_name.set_from_pixbuf(scaled_pixbuf)
+            if fileinfo is not None and key_array[len(key_array)-1] == 'print_modeling_graphics':
+                pixbuf = self.get_file_image(fileinfo["path"], height, width, True)
+                item_control_name.set_from_pixbuf(pixbuf)
+            else:
+                pixbuf = GdkPixbuf.Pixbuf.new_from_file(image)
+                scaled_pixbuf = pixbuf.scale_simple(width, height, GdkPixbuf.InterpType.BILINEAR)
+                item_control_name.set_from_pixbuf(scaled_pixbuf)
 
         elif(item['type']=="Button"):
             self.counter += 1
@@ -123,11 +127,14 @@ class Panel(ScreenPanel):
             hexpand = self._screen.env.from_string(item['hexpand']).render(self.j2_data) if item['hexpand'] else None
             vexpand = self._screen.env.from_string(item['vexpand']).render(self.j2_data) if item['vexpand'] else None
             item_control_name = self._gtk.Button(icon,value,style,width,height,hexpand,vexpand,button_width,button_height,position)
+            parameter_item = {
+                "panel": item["panel"],
+                "fileinfo": fileinfo,
+                "icon": None
+            }
+            if (item["panel"] != None and item["panel"] == 'print_menu'):
+                item_control_name.connect("clicked", self.print_start, parameter_item)
             if (item["panel"] != None):
-                parameter_item = {
-                    "panel": item["panel"],
-                    "icon": None,
-                }
                 item_control_name.connect("clicked", self.menu_item_clicked, parameter_item)
             elif(key_array[len(key_array)-1] == 'go_back'):
                 item_control_name.connect("clicked", self._screen._menu_go_back)
@@ -144,13 +151,20 @@ class Panel(ScreenPanel):
                 key_child = list(self.items[self.counter])[0]
                 item_child = self.items[self.counter]
                 if (item_child[key_child]['type'] == "Grid" and len(key_child.split(" "))>len(key.split(" "))):
-                    item_control_name.add(self.create_child_items(self.counter))
+                    item_control_name.add(self.create_child_items(self.counter,fileinfo))
 
         elif(item['type'] == "Label"):
             self.counter += 1
-            value = self._screen.env.from_string(item['value']).render(self.j2_data) if item['value'] else None
+            if fileinfo is not None and 'filename' in fileinfo and key_array[len(key_array)-1]=='file_name':
+                item_control_name = Gtk.Label(hexpand=True, halign=Gtk.Align.START, ellipsize=Pango.EllipsizeMode.END)
+                value=fileinfo['filename'].replace('.gcode', '')
+                item_control_name.set_markup(f"<b>{value}</b>")
+                return item_control_name
+            else:
+                value = self._screen.env.from_string(item['value']).render(self.j2_data) if item['value'] else None
             if (key_array[len(key_array) - 1] == "nozzle1_temperature"):
                 value=self._printer.get_stat('extruder', "temperature")
+
             if(key_array[len(key_array)-1] == "percentage_progress"):
                 self.percentage_progress=int(value)*0.01;
                 value=f"{value}%"
@@ -191,7 +205,7 @@ class Panel(ScreenPanel):
                 key_father = ' '.join(key_child.split()[:-1]) if key_child and key_child.strip() else ''
                 item_child = self.items[i][key_child]
                 if (key_father == key and len((list(self.items[i])[0]).split()) > 1):
-                    item_control_name.attach(self.create_child_items(i),
+                    item_control_name.attach(self.create_child_items(i,fileinfo),
                                        int(item_child['column']),
                                        int(item_child['row']),
                                        int(item_child['columnspan']),
@@ -357,12 +371,11 @@ class Panel(ScreenPanel):
         parameter_item = {
             "panel": 'matching_consumables',
             "fileinfo":fileinfo,
-            "icon": None,
+            "icon": None
         }
         print_file.connect("clicked", self.menu_item_clicked, parameter_item)
         button_grid = Gtk.Grid(hexpand=True, vexpand=False, valign=Gtk.Align.CENTER)
         print_file.add(button_grid)
-        fileinfo = self._screen.files.get_file_info(path)
         if self.list_mode:
             itemname = Gtk.Label(hexpand=True, halign=Gtk.Align.START, ellipsize=Pango.EllipsizeMode.END)
             itemname.set_markup(f"<b>{basename}</b>")
@@ -425,3 +438,9 @@ class Panel(ScreenPanel):
         else:
             self.labels['flowbox'].show()
         self.content.show_all()
+
+    def print_start(self,widget,parameter_item):
+        print(1)
+        fileinfo=parameter_item['fileinfo']
+        # self._screen._ws.klippy.print_start(fileinfo['filename'])
+        self.menu_item_clicked(parameter_item,1)

@@ -398,7 +398,7 @@ class KlipperScreen(Gtk.Window):
             raise FileNotFoundError(os.strerror(2), "\n" + panel_path)
         return import_module(f"panels.{panel}")
 
-    def show_panel(self, panel, title=None, remove_all=False, panel_name=None, **kwargs):
+    def show_panel(self, panel, title=None, remove_all=False, panel_name=None,  **kwargs):
         """
             显示面板
         :param panel:
@@ -424,15 +424,14 @@ class KlipperScreen(Gtk.Window):
                         self.gtk.remove_dialog(dialog)
             else:
                 self._remove_current_panel()
-            if panel_name not in self.panels:
-                try:
-                    if(panel != "splash_screen"):
-                        panel="general_create"
-                    self.panels[panel_name] = self._load_panel(panel).Panel(self, panel_name, **kwargs)
-                except Exception as e:
-                    self.show_error_modal(f"Unable to load panel {panel}", f"{e}\n\n{traceback.format_exc()}")
-                    return
-            elif panel_name in self.panels_reinit:
+            try:
+                if(panel != "splash_screen"):
+                    panel="general_create"
+                self.panels[panel_name] = self._load_panel(panel).Panel(self, panel_name,**kwargs)
+            except Exception as e:
+                self.show_error_modal(f"Unable to load panel {panel}", f"{e}\n\n{traceback.format_exc()}")
+                return
+            if panel_name in self.panels_reinit:
                 logging.info(f"Reinitializing panel {panel}")
                 self.panels[panel_name].__init__(self, title, **kwargs)
                 self.panels_reinit.remove(panel_name)

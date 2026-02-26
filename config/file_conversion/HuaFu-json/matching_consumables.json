@@ -84,25 +84,15 @@
         "column_homogeneous": "True",
         "row_homogeneous": "True",
         "children": {
-          "disc_name":{
-            "name":"Disc Name",
-            "type":"Label",
-            "value":"盘1",
-            "column":0,
-            "row":0,
-            "columnspan":3,
-            "rowspan":1
-          },
-          "matching_consumables_modeling_graphics":{
-            "name":"Matching Consumables Modeling Graphics",
+          "print_modeling_graphics":{
+            "name":"Print Modeling Graphics",
             "type":"Image",
             "column":0,
             "row":1,
             "columnspan":3,
-            "rowspan":6,
+            "rowspan":7,
             "width": 330,
-            "height": 330,
-            "src":"images/modeling_graphics.png"
+            "height": 330
           }
         }
       },

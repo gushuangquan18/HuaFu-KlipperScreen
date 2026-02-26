@@ -61,8 +61,8 @@
           "rowspan":1,
           "src":"images/right_arrow.png"
         },
-        "modeling_graphics": {
-          "name": "Modeling Graphics",
+        "print_modeling_graphics": {
+          "name": "Print Modeling Graphics",
           "type": "Image",
           "width":320,
           "height":320,
