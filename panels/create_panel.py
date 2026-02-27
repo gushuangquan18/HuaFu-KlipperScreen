@@ -12,7 +12,6 @@ from datetime import datetime
 from ks_includes.screen_panel import ScreenPanel
 from ks_includes.KlippyGtk import find_widget
 from ks_includes.widgets.flowboxchild_extended import PrintListItem
-
 STATIC_CONSUMABLES = {
     'supplier_select': ('Bambu Lab', 'Generic', 'Polymaker', 'Overture', 'eSUN'),
     'consumables_select': ('PLA', 'PETH', 'TPU'),
@@ -75,7 +74,10 @@ class Panel(ScreenPanel):
         self.time_24 = self._config.get_main_config().getboolean("24htime", True)
         self.list_button_size = self._gtk.img_scale * self.bts
         self.thumbsize = self._gtk.img_scale * self._gtk.button_image_scale * 2.5
-        while i<len(self.items):
+        self.change_item = ['chassis_temperature', 'hotbed_temperature', 'left_nozzle_extruder', 'right_nozzle_extruder',
+                            'percentage_progress', 'floor_height_progress', 'remaining_time',
+                            'print_modeling_graphics', 'print_file_name', 'print_state']
+        while i< len(self.items):
             key = list(self.items[i])[0]
             item = self.items[i][key]
             parent_grid.attach(self.create_child_items(i,fileinfo),
@@ -96,19 +98,20 @@ class Panel(ScreenPanel):
         self.counter =i
         key = list(self.items[i])[0]
         key_array=key.split(' ')
+        current_key=key_array[len(key_array)-1]
         item = self.items[i][key]
         item_control_name = None
 
         if(item['type']=="Image"):
             self.counter += 1
             item_control_name = Gtk.Image()
-            item_control_name.set_name(key_array[len(key_array)-1])
+            item_control_name.set_name(current_key)
             image = self._screen.env.from_string(item['src']).render(self.j2_data) if item['src'] else None
             height = int(self._screen.env.from_string(item['height']).render(self.j2_data) if item['height'] else None)
             width = int(self._screen.env.from_string(item['width']).render(self.j2_data) if item['width'] else None)
-            if fileinfo is not None and key_array[len(key_array)-1] == 'print_modeling_graphics':
-                pixbuf = self.get_file_image(fileinfo["path"], height, width, True)
-                item_control_name.set_from_pixbuf(pixbuf)
+            if fileinfo is not None and current_key == 'print_modeling_graphics':
+                pixbuf = self.get_file_image(fileinfo["path"], height, width, False)
+                item_control_name = Gtk.Image.new_from_pixbuf(pixbuf)
             else:
                 pixbuf = GdkPixbuf.Pixbuf.new_from_file(image)
                 scaled_pixbuf = pixbuf.scale_simple(width, height, GdkPixbuf.InterpType.BILINEAR)
@@ -136,16 +139,20 @@ class Panel(ScreenPanel):
                 item_control_name.connect("clicked", self.print_start, parameter_item)
             if (item["panel"] != None):
                 item_control_name.connect("clicked", self.menu_item_clicked, parameter_item)
-            elif(key_array[len(key_array)-1] == 'go_back'):
+            elif(current_key == 'go_back'):
                 item_control_name.connect("clicked", self._screen._menu_go_back)
             elif(item['method'] == 'show_dialog'):
-                item_control_name.connect("clicked", self.show_dialog,key_array[len(key_array)-1])
+                item_control_name.connect("clicked", self.show_dialog,current_key)
             elif(item['method'] == 'on_digit_clicked'):
                 item_control_name.connect("clicked", self.on_digit_clicked ,value,key_array[len(key_array)-3])
             elif(item['method'] == 'set_nozzle_type'):
                 item_control_name.connect("clicked", self.set_nozzle_type)
             elif (item['method'] == 'refresh_loading'):
                 item_control_name.connect("clicked", self.refresh_loading)
+            elif (item['method'] == 'cancel_confirm'):
+                item_control_name.connect("clicked", self.cancel_confirm)
+            elif (item['method'] == 'pause_confirm'):
+                item_control_name.connect("clicked", self.pause_confirm)
 
             if(self.counter<len(self.items)):
                 key_child = list(self.items[self.counter])[0]
@@ -153,19 +160,24 @@ class Panel(ScreenPanel):
                 if (item_child[key_child]['type'] == "Grid" and len(key_child.split(" "))>len(key.split(" "))):
                     item_control_name.add(self.create_child_items(self.counter,fileinfo))
 
+            if current_key in self.change_item:
+                self.labels[current_key]=item_control_name
+                return self.labels[current_key]
+
         elif(item['type'] == "Label"):
             self.counter += 1
-            if fileinfo is not None and 'filename' in fileinfo and key_array[len(key_array)-1]=='file_name':
+            if current_key in {'file_name', 'print_file_name','print_modeling_graphics'} and fileinfo is not None:
                 item_control_name = Gtk.Label(hexpand=True, halign=Gtk.Align.START, ellipsize=Pango.EllipsizeMode.END)
                 value=fileinfo['filename'].replace('.gcode', '')
                 item_control_name.set_markup(f"<b>{value}</b>")
                 return item_control_name
             else:
                 value = self._screen.env.from_string(item['value']).render(self.j2_data) if item['value'] else None
+
             if (key_array[len(key_array) - 1] == "nozzle1_temperature"):
                 value=self._printer.get_stat('extruder', "temperature")
 
-            if(key_array[len(key_array)-1] == "percentage_progress"):
+            if(current_key == "percentage_progress"):
                 self.percentage_progress=int(value)*0.01;
                 value=f"{value}%"
 
@@ -175,13 +187,18 @@ class Panel(ScreenPanel):
             else:
                 item_control_name = Gtk.Label(label=_(value))
 
-            if (key_array[len(key_array) - 1].endswith("extruder_temperature") ):
+
+            if current_key in self.change_item:
+                self.labels[current_key]=item_control_name
+                return self.labels[current_key]
+
+            if key_array[len(key_array) - 1].endswith("extruder_temperature") :
                 self.labels[key_array[len(key_array) - 1]] = item_control_name
                 return self.labels[key_array[len(key_array) - 1]]
 
         elif(item['type'] == "Grid"):#移除默认边框
             item_control_name = Gtk.Grid(orientation=Gtk.Orientation.HORIZONTAL)
-            item_control_name.set_name(key_array[len(key_array)-1])
+            item_control_name.set_name(current_key)
             height = int(self._screen.env.from_string(item['height']).render(self.j2_data) if item['height'] else None)
             width = int(self._screen.env.from_string(item['width']).render(self.j2_data) if item['width'] else None)
             item_control_name.set_size_request(width, height)
@@ -260,7 +277,7 @@ class Panel(ScreenPanel):
         elif (item['type'] == "ComboBoxText"):
             self.counter += 1
             item_control_name = Gtk.ComboBoxText()
-            combobox_key=key_array[len(key_array)-1]
+            combobox_key=current_key
             combobox_items=STATIC_CONSUMABLES[combobox_key]
             for combobox_item in combobox_items:
                 item_control_name.append_text(combobox_item)
@@ -316,23 +333,103 @@ class Panel(ScreenPanel):
             logging.debug(f"Error evaluating enable statement: {enable}\n{e}")
             return False
 
-    def process_update(self, action, data):
-        for dev in self.labels:
-            if dev.endswith("extruder_temperature"):
-                self.update_temp(
-                    'extruder',
-                    self._printer.get_stat('extruder', "temperature"),
-                    self._printer.get_stat('extruder', "target"),
-                    self._printer.get_stat('extruder', "power"),
-                    name=dev
-                )
+    def process_update(self, panel_name,action,data):
+        if panel_name == "home_menu":
+            for dev in self.labels:
+                if dev.endswith("extruder_temperature"):
+                    self.update_temp(
+                        'extruder',
+                        self._printer.get_stat('extruder', "temperature"),
+                        self._printer.get_stat('extruder', "target"),
+                        self._printer.get_stat('extruder', "power"),
+                        name=dev
+                    )
+        elif panel_name == "print_menu" and action == 'notify_status_update':
+            self.update_time_left(data)
 
-    def refresh_loading(self,*args):
-        self.set_loading(True)
-        for child in self.labels['flowbox'].get_children():
-            self.labels['flowbox'].remove(child)
-        self._screen._ws.klippy.get_dir_info(self.load_files, self.cur_directory)
-        
+    def update_time_left(self,data):
+
+        a=0
+
+        if ('virtual_sdcard' in data) and ('file_path' in data['virtual_sdcard']):
+            #'/home/orangepi/printer_data/gcodes/Rabbit.gcode'
+            path=data['virtual_sdcard']['file_path']
+            name = os.path.splitext(os.path.basename(path))[0]
+            self.labels["print_file_name"].set_label(name)
+            # 设置缩放后的图片到Image控件 'Box.gcode'
+            path=f'{name}.gcode'
+            # pixbuf = self.get_file_image(path, 320, 320, False)
+            # self.labels["print_modeling_graphics"] = Gtk.Image.new_from_pixbuf(pixbuf)
+
+
+        if ('heater_bed' in data) and ('temperature' in data['heater_bed']):
+            self.labels["hotbed_temperature"].set_label(f'{int(data['heater_bed']['temperature'])}℃')
+
+        if ('heater_bed' in data) and ('temperature' in data['heater_bed']):
+            self.labels["chassis_temperature"].set_label(f'{int(data['heater_bed']['temperature'])}℃')
+
+        if ('extruder' in data) and ('temperature' in data['extruder']):
+            self.labels["left_nozzle_extruder"].set_label(f'{int(data['extruder']['temperature'])}℃')
+            self.labels["right_nozzle_extruder"].set_label(f'{int(data['extruder']['temperature'])}℃')
+        if ('toolhead' in data) and ('estimated_print_time' in data['toolhead']):
+            estimated_print_time=int(data['toolhead']['estimated_print_time'])
+            self.labels["remaining_time"].set_label(f' - {self.print_time_format(estimated_print_time)}')
+        if ('virtual_sdcard' in data) and ('progress' in data['virtual_sdcard']):
+            self.percentage_progress = int(data['virtual_sdcard']['progress'])
+            self.labels["percentage_progress"].set_label(f'{self.percentage_progress}%')
+
+    # 'floor_height_progress'
+
+    def pause_confirm(self, widget):
+        logging.debug("Pauseing print")
+        if self.labels['print_state'].get_label() == "打印中":
+            self._screen._ws.klippy.print_pause()
+            self.labels['print_state'].set_label("暂停")
+            pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_scale(
+                filename="images/start.png",
+                width=50,
+                height=50,
+                preserve_aspect_ratio=True  # 设为False则强制50x50（可能拉伸）
+            )
+            # 设置缩放后的图片到Image控件
+            image = Gtk.Image.new_from_pixbuf(pixbuf)
+            widget.set_image(image)
+        else:
+            self._screen._ws.klippy.print_resume()
+            self.labels['print_state'].set_label("打印中")
+            pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_scale(
+                filename="images/pause.png",
+                width=50,
+                height=50,
+                preserve_aspect_ratio=True
+            )
+            # 设置缩放后的图片到Image控件
+            image = Gtk.Image.new_from_pixbuf(pixbuf)
+            widget.set_image(image)
+
+
+
+    def cancel_confirm(self,widget):
+        logging.debug("Canceling print")
+        self._screen._ws.klippy.print_cancel()
+        parameter_item = {
+            "panel": "home_menu",
+            "icon": "home_menu_icon",
+        }
+        self.menu_item_clicked(widget,parameter_item)
+
+
+
+
+
+    def print_time_format(self,time):
+        if time< 3600:
+            return  f'{int(time / 60)}m'
+        else:
+            hours = int(time/ 3600)
+            minutes = int((time - hours * 3600) / 60)
+            return f'{hours}h{minutes}m'
+
     def load_files(self, result, method, params):
         self.set_loading(True)
         items = [self.create_print_file_list_item(item) for item in [*result["result"]["dirs"], *result["result"]["files"]]]
@@ -384,14 +481,7 @@ class Panel(ScreenPanel):
                 wrap=True, wrap_mode=Pango.WrapMode.WORD_CHAR,
             )
             if "estimated_time" in fileinfo:
-                text = ''
-                if fileinfo["estimated_time"]<3600:
-                    text = f'<b>T</b>:{int(fileinfo["estimated_time"]/60)}m'
-                    estimated_time.set_markup(text)
-                else:
-                    hours = int(fileinfo["estimated_time"]/3600)
-                    minutes = int((fileinfo["estimated_time"]-hours*3600) / 60)
-                    estimated_time.set_markup(f'<b>T</b>:{hours}h{minutes}m')
+                estimated_time.set_markup(f'<b>T:</b>{self.print_time_format(fileinfo["estimated_time"])}')
             filament_weight_total = Gtk.Label(
                 hexpand=True, halign=Gtk.Align.START, xalign=0,
                 wrap=True, wrap_mode=Pango.WrapMode.WORD_CHAR,
@@ -417,8 +507,8 @@ class Panel(ScreenPanel):
         self.image_load(*image_args)
         return print_file
 
-    def image_load(self, filepath, widget, size=-1, small=True, iconname=None):
-        pixbuf = self.get_file_image(filepath, 170, 150, small)
+    def image_load(self, filepath, widget, size=-1, small=False, iconname=None):
+        pixbuf = self.get_file_image(filepath, 170, 150, False)
         if pixbuf is not None:
             widget.set_image(Gtk.Image.new_from_pixbuf(pixbuf))
         elif iconname is not None:
@@ -439,8 +529,15 @@ class Panel(ScreenPanel):
             self.labels['flowbox'].show()
         self.content.show_all()
 
+    def refresh_loading(self,*args):
+        self.set_loading(True)
+        for child in self.labels['flowbox'].get_children():
+            self.labels['flowbox'].remove(child)
+        self._screen._ws.klippy.get_dir_info(self.load_files, self.cur_directory)
+
+
     def print_start(self,widget,parameter_item):
         print(1)
         fileinfo=parameter_item['fileinfo']
-        # self._screen._ws.klippy.print_start(fileinfo['filename'])
-        self.menu_item_clicked(parameter_item,1)
+        self._screen._ws.klippy.print_start(fileinfo['filename'])
+        self.menu_item_clicked(widget,parameter_item)

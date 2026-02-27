@@ -1012,15 +1012,15 @@ class KlipperScreen(Gtk.Window):
         :return:
         """
         self.state_printing()
-        if self._config.get_main_config().getboolean("auto_open_extrude", fallback=True):
-            self.show_panel("extrude")
+        # if self._config.get_main_config().getboolean("auto_open_extrude", fallback=True):
+            # self.show_panel("extrude")
 
     def state_printing(self):
         """
             正常显示
         :return:
         """
-        self.show_panel("job_status", remove_all=True)
+        self.show_panel("print_menu", remove_all=True, items=self._config.get_menu_items("print_menu"))
 
     def state_ready(self, wait=True):
         """
@@ -1103,7 +1103,7 @@ class KlipperScreen(Gtk.Window):
 
     def _websocket_callback(self, action, data):
         """
-            回调Websocket
+            Websocket回调
         :param action:
         :param data:
         :return:
@@ -1223,7 +1223,7 @@ class KlipperScreen(Gtk.Window):
         """
         self.base_panel.process_update(*args)
         if self._cur_panels and hasattr(self.panels[self._cur_panels[-1]], "process_update"):
-            self.panels[self._cur_panels[-1]].process_update(*args)
+            self.panels[self._cur_panels[-1]].process_update(self._cur_panels[-1],*args)
 
     def confirm_save(self, widget):
         """

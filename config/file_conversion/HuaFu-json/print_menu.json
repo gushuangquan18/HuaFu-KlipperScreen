@@ -72,10 +72,10 @@
           "rowspan":4,
           "src": "images/modeling_graphics.png"
         },
-        "file_name": {
-          "name": "File Name",
+        "print_file_name": {
+          "name": "Print File Name",
           "type": "Label",
-          "value": "3D打印模型文件名1",
+          "value": "3D打印模型文件名",
           "column":0,
           "row":5,
           "columnspan":4,
@@ -311,10 +311,11 @@
           "value": "暂停",
           "width": 50,
           "height": 50,
+          "method": "pause_confirm",
           "style":"print_menu_button"
         },
-        "stop_button":{
-          "name":"Stop Button",
+        "cancel_button":{
+          "name":"Cancel Button",
           "type":"Button",
           "hexpand": "False",
           "vexpand": "False",
@@ -328,6 +329,7 @@
           "value": "停止",
           "width": 50,
           "height": 50,
+          "method": "cancel_confirm",
           "style":"print_menu_button"
         }
       }
