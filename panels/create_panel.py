@@ -29,12 +29,12 @@ def format_label(widget):
 
 class Panel(ScreenPanel):
 
-    def __init__(self, screen, title, items=None, fileinfo=None):
+    def __init__(self, screen, title, items=None, fileinfo=None,father=None):
         super().__init__(screen, title)
         self.items = items
         self.loading_msg = _('Loading...')
         self.j2_data = self._printer.get_printer_status_data()
-        self.create_menu_items(title,fileinfo)
+        self.create_menu_items(title,fileinfo,father)
         self.scroll = self._gtk.ScrolledWindow()
         self.scroll.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
         if "flowbox" in self.labels:
@@ -58,7 +58,7 @@ class Panel(ScreenPanel):
 
 
 
-    def create_menu_items(self,panel_name,fileinfo=None):
+    def create_menu_items(self,panel_name,fileinfo=None,father=None):
         """
             创建主界面 下半部分元素
         :return:
@@ -74,13 +74,14 @@ class Panel(ScreenPanel):
         self.time_24 = self._config.get_main_config().getboolean("24htime", True)
         self.list_button_size = self._gtk.img_scale * self.bts
         self.thumbsize = self._gtk.img_scale * self._gtk.button_image_scale * 2.5
-        self.change_item = ['chassis_temperature', 'hotbed_temperature', 'left_nozzle_extruder', 'right_nozzle_extruder',
+        self.change_item = ['print_busy',
+                            'chassis_temperature', 'hotbed_temperature', 'left_nozzle_extruder', 'right_nozzle_extruder',
                             'percentage_progress', 'floor_height_progress', 'remaining_time','floor_height_progress',
                             'print_modeling_graphics', 'print_file_name', 'print_state','pause_button']
         while i< len(self.items):
             key = list(self.items[i])[0]
             item = self.items[i][key]
-            parent_grid.attach(self.create_child_items(i,fileinfo),
+            parent_grid.attach(self.create_child_items(i,panel_name,fileinfo,father),
                     int(item['column']),
                     int(item['row']),
                     int(item['columnspan']),
@@ -94,7 +95,7 @@ class Panel(ScreenPanel):
         self.labels['parent_grid'] = parent_grid
         # self.content.add(parent_grid)
 
-    def create_child_items(self,i,fileinfo=None):
+    def create_child_items(self,i,panel_name,fileinfo=None,father=None):
         self.counter =i
         key = list(self.items[i])[0]
         key_array=key.split(' ')
@@ -138,11 +139,12 @@ class Panel(ScreenPanel):
             parameter_item = {
                 "panel": item["panel"],
                 "fileinfo": fileinfo,
+                "father":panel_name,
                 "icon": None
             }
-            if (item["panel"] != None and item["panel"] == 'print_menu'):
+            if (item["panel"] != None and item["panel"] == 'print_menu') and father !='print_menu':
                 item_control_name.connect("clicked", self.print_start, parameter_item)
-            if (item["panel"] != None):
+            if item["panel"] != None:
                 item_control_name.connect("clicked", self.menu_item_clicked, parameter_item)
             elif(current_key == 'go_back'):
                 item_control_name.connect("clicked", self._screen._menu_go_back)
@@ -155,15 +157,21 @@ class Panel(ScreenPanel):
             elif (item['method'] == 'refresh_loading'):
                 item_control_name.connect("clicked", self.refresh_loading)
             elif (item['method'] == 'cancel_confirm'):
-                item_control_name.connect("clicked", self.cancel_confirm)
+                item_control_name.connect("clicked", self.cancel)
             elif (item['method'] == 'pause_confirm'):
                 item_control_name.connect("clicked", self.pause_confirm)
+
+            if current_key=='print_busy':
+                if  father == 'print_menu':
+                    item_control_name.set_no_show_all(False)
+                else:
+                    item_control_name.set_no_show_all(True)
 
             if(self.counter<len(self.items)):
                 key_child = list(self.items[self.counter])[0]
                 item_child = self.items[self.counter]
                 if (item_child[key_child]['type'] == "Grid" and len(key_child.split(" "))>len(key.split(" "))):
-                    item_control_name.add(self.create_child_items(self.counter,fileinfo))
+                    item_control_name.add(self.create_child_items(self.counter,panel_name,fileinfo,father))
 
             if current_key in self.change_item:
                 self.labels[current_key]=item_control_name
@@ -227,7 +235,7 @@ class Panel(ScreenPanel):
                 key_father = ' '.join(key_child.split()[:-1]) if key_child and key_child.strip() else ''
                 item_child = self.items[i][key_child]
                 if (key_father == key and len((list(self.items[i])[0]).split()) > 1):
-                    item_control_name.attach(self.create_child_items(i,fileinfo),
+                    item_control_name.attach(self.create_child_items(i,panel_name,fileinfo,father),
                                        int(item_child['column']),
                                        int(item_child['row']),
                                        int(item_child['columnspan']),
@@ -433,14 +441,35 @@ class Panel(ScreenPanel):
         image = Gtk.Image.new_from_pixbuf(pixbuf)
         self.labels['pause_button'].set_image(image)
 
-    def cancel_confirm(self,widget):
-        logging.debug("Canceling print")
-        self._screen._ws.klippy.print_cancel()
-        parameter_item = {
-            "panel": "home_menu",
-            "icon": "home_menu_icon",
-        }
-        self.menu_item_clicked(widget,parameter_item)
+
+    def cancel(self, widget):
+        buttons = [
+            {"name": _("确定"), "response": Gtk.ResponseType.OK, "style": 'waring_button'},
+            {"name": _("返回"), "response": Gtk.ResponseType.CANCEL, "style": 'dialog-cancel'}
+        ]
+        if len(self._printer.get_stat("exclude_object", "objects")) > 1:
+            buttons.insert(0, {"name": _("Exclude Object"), "response": Gtk.ResponseType.APPLY})
+        label = Gtk.Label(hexpand=True, vexpand=True, wrap=True)
+        label.set_markup(_("您确定要取消此打印吗？"))
+        self._gtk.Dialog(_("Cancel"), buttons, label, self.cancel_confirm)
+
+    def cancel_confirm(self,dialog,response_id):
+        self._gtk.remove_dialog(dialog)
+        if response_id == Gtk.ResponseType.OK:
+            logging.debug("Canceling print")
+            if self._screen._ws.klippy.print_cancel():
+                parameter_item = {
+                    "panel": "home_menu",
+                    "icon": "home_menu_icon",
+                }
+                self.menu_item_clicked(dialog, parameter_item)
+            return
+        #Cancel_dialog
+        if response_id == Gtk.ResponseType.CANCEL:
+            return
+
+
+
 
 
 
@@ -456,7 +485,6 @@ class Panel(ScreenPanel):
 
     def load_files(self, result, method, params):
         self.set_loading(True)
-
         items = [self.create_print_file_list_item(item) for item in [*result["result"]["dirs"], *result["result"]["files"]]]
         i = column = row = 0
         for item in filter(None, items):

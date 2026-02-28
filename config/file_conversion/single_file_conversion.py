@@ -49,7 +49,7 @@ def convert_json_to_config(input_file: str, output_file: str) -> None:
         attr_order = ['name', 'type', 'width', 'height', 'icon', 'background','row_homogeneous','column_homogeneous',
                       'panel', 'row', 'column', 'rowspan', 'columnspan','row_spacing','column_spacing',
                       'hexpand','vexpand','button_height','button_width','position',
-                      'connect', 'method',  'src', 'value','style']
+                      'connect', 'method',  'src', 'value','style','visible']
         for attr in attr_order:
             if attr not in node:
                 continue
@@ -78,7 +78,7 @@ def convert_json_to_config(input_file: str, output_file: str) -> None:
             if key in ['name', 'type', 'background', 'connect', 'method','row_homogeneous','column_homogeneous',
                        'panel', 'row', 'column', 'rowspan', 'columnspan','row_spacing','column_spacing',
                        'hexpand','vexpand','button_height','button_width','position',
-                       'src', 'value', 'children','width','height','icon','style']:
+                       'src', 'value', 'children','width','height','icon','style','visible']:
                 continue
             if isinstance(value, dict) and 'name' in value:
                 process_node(value, current_menu_path)
@@ -95,7 +95,7 @@ def convert_json_to_config(input_file: str, output_file: str) -> None:
 
 if __name__ == "__main__":
     # 配置输入输出文件路径
-    name="print_menu"
+    name="print_file_list"
     INPUT_FILE = f"HuaFu-json/{name}.json"
     OUTPUT_FILE = f"../{name}.conf"
     convert_json_to_config(INPUT_FILE, OUTPUT_FILE)

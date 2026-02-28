@@ -94,6 +94,8 @@ class ScreenPanel:
             panel_args['extra'] = item['extra']
         if 'fileinfo' in item:
             panel_args['fileinfo'] = item['fileinfo']
+        if 'father' in item:
+            panel_args['father'] = item['father']
         panel_args['items']=self._config.get_menu_items(item['panel'])
         self._screen.show_panel(item['panel'], **panel_args)
 

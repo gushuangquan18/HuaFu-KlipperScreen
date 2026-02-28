@@ -216,6 +216,14 @@ progressbar progress {
     margin: 0px 15px 0px 0px;
     padding: 10px 0px 10px 10px;
 }
+button.waring_button{
+    background-color: red;
+    border-radius: 0.5em;
+}
+button.dialog-cancel{
+    background-color: @next_level;
+    border-radius: 0.5em;
+}
 
 
 

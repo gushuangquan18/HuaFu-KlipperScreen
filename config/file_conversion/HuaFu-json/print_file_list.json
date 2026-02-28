@@ -66,6 +66,21 @@
         "columnspan":1,
         "rowspan":1,
         "method": "refresh_loading"
+      },
+      "print_busy":{
+        "name":"Print Busy",
+        "type":"Button",
+        "value": "打印机正忙",
+        "hexpand": "False",
+        "vexpand": "False",
+        "button_width": 150,
+        "button_height": 50,
+        "visible": "False",
+        "column":4,
+        "row":0,
+        "columnspan":1,
+        "rowspan":1,
+        "style": "waring_button"
       }
     }
   },

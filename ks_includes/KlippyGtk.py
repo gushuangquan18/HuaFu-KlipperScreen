@@ -235,9 +235,24 @@ class KlippyGtk:
         self.remove_dialog(dialog)
 
     def Dialog(self, title, buttons, content, callback=None, *args):
-        dialog = Gtk.Dialog(title=title, modal=True, transient_for=self.screen,
+        #设置打印界面中关闭弹出框的宽高和按钮宽高
+        self.width=650
+        self.height=250
+        button_width=200
+        button_height=10
+
+        dialog = Gtk.Dialog(title='', modal=True, transient_for=self.screen,
                             default_width=self.width, default_height=self.height)
         dialog.set_size_request(self.width, self.height)
+        custom_header = Gtk.HeaderBar()
+        # 1. 设置标题栏高度（关键：通过set_size_request指定最小高度）
+        # -1 表示宽度自适应
+        custom_header.set_size_request(-1, 40)
+        custom_header.set_title("Cancel")
+        # 可选：设置副标题
+        # custom_header.set_subtitle("标题栏高度80px")
+        dialog.set_titlebar(custom_header)
+
         if not self.screen.windowed:
             dialog.fullscreen()
 
@@ -254,7 +269,7 @@ class KlippyGtk:
                 style = button['style'] if 'style' in button else 'dialog-default'
                 dialog.add_button(button['name'], button['response'])
                 button = dialog.get_widget_for_response(button['response'])
-                button.set_size_request(button_hsize, self.dialog_buttons_height)
+                button.set_size_request(button_width,button_height)
                 button.get_style_context().add_class(style)
                 format_label(button, 2)
         else:
