@@ -75,8 +75,8 @@ class Panel(ScreenPanel):
         self.list_button_size = self._gtk.img_scale * self.bts
         self.thumbsize = self._gtk.img_scale * self._gtk.button_image_scale * 2.5
         self.change_item = ['chassis_temperature', 'hotbed_temperature', 'left_nozzle_extruder', 'right_nozzle_extruder',
-                            'percentage_progress', 'floor_height_progress', 'remaining_time',
-                            'print_modeling_graphics', 'print_file_name', 'print_state']
+                            'percentage_progress', 'floor_height_progress', 'remaining_time','floor_height_progress',
+                            'print_modeling_graphics', 'print_file_name', 'print_state','pause_button']
         while i< len(self.items):
             key = list(self.items[i])[0]
             item = self.items[i][key]
@@ -109,13 +109,18 @@ class Panel(ScreenPanel):
             image = self._screen.env.from_string(item['src']).render(self.j2_data) if item['src'] else None
             height = int(self._screen.env.from_string(item['height']).render(self.j2_data) if item['height'] else None)
             width = int(self._screen.env.from_string(item['width']).render(self.j2_data) if item['width'] else None)
-            if fileinfo is not None and current_key == 'print_modeling_graphics':
+            pixbuf = ''
+            if fileinfo is not None and current_key in self.change_item:
                 pixbuf = self.get_file_image(fileinfo["path"], height, width, False)
                 item_control_name = Gtk.Image.new_from_pixbuf(pixbuf)
             else:
                 pixbuf = GdkPixbuf.Pixbuf.new_from_file(image)
                 scaled_pixbuf = pixbuf.scale_simple(width, height, GdkPixbuf.InterpType.BILINEAR)
                 item_control_name.set_from_pixbuf(scaled_pixbuf)
+
+            if current_key == 'print_modeling_graphics':
+                self.labels[current_key]=item_control_name
+                return self.labels[current_key]
 
         elif(item['type']=="Button"):
             self.counter += 1
@@ -249,6 +254,7 @@ class Panel(ScreenPanel):
             width = int(self._screen.env.from_string(item['width']).render(self.j2_data) if item['width'] else None)
             height = int(self._screen.env.from_string(item['height']).render(self.j2_data) if item['height'] else None)
             item_control_name.set_size_request(width, height)
+            self.labels['progressBar']=item_control_name
 
         elif (item['type'] == "RadioButton"):
             self.counter += 1
@@ -353,13 +359,22 @@ class Panel(ScreenPanel):
 
         if ('virtual_sdcard' in data) and ('file_path' in data['virtual_sdcard']):
             #'/home/orangepi/printer_data/gcodes/Rabbit.gcode'
-            path=data['virtual_sdcard']['file_path']
-            name = os.path.splitext(os.path.basename(path))[0]
-            self.labels["print_file_name"].set_label(name)
-            # 设置缩放后的图片到Image控件 'Box.gcode'
-            path=f'{name}.gcode'
-            # pixbuf = self.get_file_image(path, 320, 320, False)
-            # self.labels["print_modeling_graphics"] = Gtk.Image.new_from_pixbuf(pixbuf)
+            if data['virtual_sdcard']['file_path'] is not None:
+                path=data['virtual_sdcard']['file_path']
+                name = os.path.splitext(os.path.basename(path))[0]
+                self.labels["print_file_name"].set_label(name)
+                # 设置缩放后的图片到Image控件 'Box.gcode'
+
+                # pixbuf = self.get_file_image(path, 320, 320, False)
+                # ['http', '.thumbs/Box-300x300.png']
+                path = f'.thumbs/{name}-300x300.png'
+                pixbuf=self._gtk.PixbufFromHttp(path, 300, 300)
+                self.labels["print_modeling_graphics"].set_from_pixbuf(pixbuf)
+
+            if 'progress' in data['virtual_sdcard']:
+                percentage_progress = data['virtual_sdcard']['progress']
+                self.labels["percentage_progress"].set_label(f' {int(percentage_progress*100)}%')
+                self.labels['progressBar'].set_fraction(percentage_progress)
 
 
         if ('heater_bed' in data) and ('temperature' in data['heater_bed']):
@@ -374,40 +389,49 @@ class Panel(ScreenPanel):
         if ('toolhead' in data) and ('estimated_print_time' in data['toolhead']):
             estimated_print_time=int(data['toolhead']['estimated_print_time'])
             self.labels["remaining_time"].set_label(f' - {self.print_time_format(estimated_print_time)}')
-        if ('virtual_sdcard' in data) and ('progress' in data['virtual_sdcard']):
-            self.percentage_progress = int(data['virtual_sdcard']['progress'])
-            self.labels["percentage_progress"].set_label(f'{self.percentage_progress}%')
+        if ('print_stats' in data) and ('state' in data['print_stats']):
+            if data['print_stats']['state'] == 'paused':
+                self.change_pause_button_state(data['print_stats']['state'])
+        if ('webhooks' in data) and ('state' in data['webhooks']):
+            #  打印层数 数据未实时更新
+            self.labels["floor_height_progress"].set_label(f' 2/30 |')
 
     # 'floor_height_progress'
 
     def pause_confirm(self, widget):
         logging.debug("Pauseing print")
+        state = ''
         if self.labels['print_state'].get_label() == "打印中":
-            self._screen._ws.klippy.print_pause()
-            self.labels['print_state'].set_label("暂停")
-            pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_scale(
-                filename="images/start.png",
-                width=50,
-                height=50,
-                preserve_aspect_ratio=True  # 设为False则强制50x50（可能拉伸）
-            )
-            # 设置缩放后的图片到Image控件
-            image = Gtk.Image.new_from_pixbuf(pixbuf)
-            widget.set_image(image)
-        else:
+            state = 'paused'
+        elif self.labels['print_state'].get_label() == " 暂 停":
+            state = 'printing'
+        self.change_pause_button_state(state)
+
+    def change_pause_button_state(self,state):
+        pixbuf = ''
+        state_text = ''
+        filename = ''
+        # printing 打印中 paused暂停
+        if state == "printing":
             self._screen._ws.klippy.print_resume()
-            self.labels['print_state'].set_label("打印中")
-            pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_scale(
-                filename="images/pause.png",
-                width=50,
-                height=50,
-                preserve_aspect_ratio=True
-            )
-            # 设置缩放后的图片到Image控件
-            image = Gtk.Image.new_from_pixbuf(pixbuf)
-            widget.set_image(image)
+            state_text = "打印中"
+            filename="images/pause.png"
 
+        elif state == "paused":
+            self._screen._ws.klippy.print_pause()
+            state_text = " 暂 停"
+            filename = "images/start.png"
 
+        self.labels['print_state'].set_label(state_text)
+        pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_scale(
+            filename=filename,
+            width=50,
+            height=50,
+            preserve_aspect_ratio=True  # 设为False则强制50x50（可能拉伸）
+        )
+        # 设置缩放后的图片到Image控件
+        image = Gtk.Image.new_from_pixbuf(pixbuf)
+        self.labels['pause_button'].set_image(image)
 
     def cancel_confirm(self,widget):
         logging.debug("Canceling print")
@@ -432,6 +456,7 @@ class Panel(ScreenPanel):
 
     def load_files(self, result, method, params):
         self.set_loading(True)
+
         items = [self.create_print_file_list_item(item) for item in [*result["result"]["dirs"], *result["result"]["files"]]]
         i = column = row = 0
         for item in filter(None, items):

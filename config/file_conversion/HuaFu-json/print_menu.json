@@ -3,90 +3,103 @@
   "name":"print_menu",
   "type":"Grid",
   "children":{
-    "print_file_list_button": {
-      "name": "Print File List Button",
-      "type": "Button",
-      "panel": "print_file_list",
-      "hexpand": "False",
-      "vexpand": "False",
-      "button_width": 390,
-      "button_height": 360,
+    "left_up_grid": {
+      "name": "Left Up Grid",
+      "type": "Grid",
+      "width":360,
+      "height":360,
       "column":0,
       "row":0,
       "columnspan":3,
       "rowspan":3,
-      "style": "print_file_list_button",
-      "print_file_list_button_grid": {
-        "name": "Print File List Button Grid",
-        "type": "Grid",
-        "width":390,
-        "height":360,
-        "camera_rec_icon": {
-          "name": "Camear Rec Icon",
-          "type": "Image",
-          "width":30,
-          "height":30,
-          "src": "images/camera_rec.png",
+      "column_homogeneous": "True",
+      "children": {
+        "print_file_list_button": {
+          "name": "Print File List Button",
+          "type": "Button",
+          "panel": "print_file_list",
+          "hexpand": "False",
+          "vexpand": "False",
+          "button_width": 330,
+          "button_height": 330,
           "column":0,
-          "row":0,
-          "columnspan":1,
-          "rowspan":1
-        },
-        "space_label":{
-          "name":"Space Label",
-          "type":"Label",
-          "value":"占位符",
-          "column":1,
-          "row":0,
-          "columnspan":1,
-          "rowspan":1
-        },
-        "file_label": {
-          "name": "File Label",
-          "type": "Label",
-          "value": "文件",
-          "column":2,
-          "row":0,
-          "columnspan":1,
-          "rowspan":1
-        },
-        "settings_right_arrow_icon":{
-          "name":"Right Arrow Icon",
-          "type":"Image",
-          "width":20,
-          "height":30,
-          "column":3,
           "row":0,
           "columnspan":1,
           "rowspan":1,
-          "src":"images/right_arrow.png"
-        },
-        "print_modeling_graphics": {
-          "name": "Print Modeling Graphics",
-          "type": "Image",
-          "width":320,
-          "height":320,
-          "column":0,
-          "row":1,
-          "columnspan":4,
-          "rowspan":4,
-          "src": "images/modeling_graphics.png"
-        },
-        "print_file_name": {
-          "name": "Print File Name",
-          "type": "Label",
-          "value": "3D打印模型文件名",
-          "column":0,
-          "row":5,
-          "columnspan":4,
-          "rowspan":1
+          "style": "print_file_list_button",
+          "print_file_list_button_grid": {
+            "name": "Print File List Button Grid",
+            "type": "Grid",
+            "width":330,
+            "height":330,
+            "camera_rec_icon": {
+              "name": "Camear Rec Icon",
+              "type": "Image",
+              "width":30,
+              "height":30,
+              "src": "images/camera_rec.png",
+              "column":0,
+              "row":0,
+              "columnspan":1,
+              "rowspan":1
+            },
+            "space_label":{
+              "name":"Space Label",
+              "type":"Label",
+              "value":"占位符",
+              "column":1,
+              "row":0,
+              "columnspan":1,
+              "rowspan":1
+            },
+            "file_label": {
+              "name": "File Label",
+              "type": "Label",
+              "value": "文件",
+              "column":2,
+              "row":0,
+              "columnspan":1,
+              "rowspan":1
+            },
+            "settings_right_arrow_icon":{
+              "name":"Right Arrow Icon",
+              "type":"Image",
+              "width":20,
+              "height":30,
+              "column":3,
+              "row":0,
+              "columnspan":1,
+              "rowspan":1,
+              "src":"images/right_arrow.png"
+            },
+            "print_modeling_graphics": {
+              "name": "Print Modeling Graphics",
+              "type": "Image",
+              "width":300,
+              "height":300,
+              "column":0,
+              "row":1,
+              "columnspan":4,
+              "rowspan":4,
+              "src": "images/modeling_graphics.png"
+            },
+            "print_file_name": {
+              "name": "Print File Name",
+              "type": "Label",
+              "value": "3D打印模型文件名",
+              "column":0,
+              "row":5,
+              "columnspan":4,
+              "rowspan":1
+            }
+          }
         }
       }
     },
     "temperature_grid":{
       "name":"Temperature Grid",
       "type":"Grid",
-      "width":520,
+      "width":480,
       "height":360,
       "column":3,
       "row":0,
@@ -205,7 +218,7 @@
     "messages_control_grid":{
       "name":"Messages Control Grid",
       "type":"Grid",
-      "width":800,
+      "width":720,
       "height":120,
       "column":0,
       "row":3,
@@ -215,7 +228,7 @@
         "print_inner_grid":{
           "name":"Print Inner Grid",
           "type":"Grid",
-          "width":300,
+          "width":280,
           "height":120,
           "column":0,
           "row":0,
@@ -334,22 +347,31 @@
         }
       }
     },
-    "messages_assistant":{
-      "name":"Messages Assistant",
-      "type":"Button",
-      "icon":"messages_assistant",
-      "panel":"messages_menu",
-      "hexpand": "False",
-      "vexpand": "False",
-      "button_width": 130,
-      "button_height": 120,
-      "width":80,
-      "height":80,
-      "column":6,
-      "row":3,
-      "columnspan":1,
-      "rowspan":1,
-      "style": "print_menu_button"
-    }
+     "right_down_grid": {
+       "name": "Right Down Grid",
+       "type": "Grid",
+       "width": 120,
+       "height": 120,
+       "column": 6,
+       "row": 3,
+       "columnspan": 1,
+       "rowspan": 1,
+       "children": {
+         "messages_assistant": {
+           "name": "Messages Assistant",
+           "type": "Button",
+           "icon": "messages_assistant",
+           "panel": "messages_menu",
+           "button_width": 100,
+           "button_height": 100,
+           "width": 100,
+           "height": 100,
+           "column": 0,
+           "row": 0,
+           "columnspan": 1,
+           "rowspan": 1
+         }
+       }
+     }
   }
 }
