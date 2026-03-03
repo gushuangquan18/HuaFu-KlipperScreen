@@ -30,7 +30,7 @@
       "onboard_storage":{
         "name":"Onboard Storage",
         "type":"Button",
-        "value":"机内存储",
+        "value":"Onboard Storage",
         "hexpand": "False",
         "vexpand": "False",
         "button_width": 150,
@@ -70,7 +70,7 @@
       "print_busy":{
         "name":"Print Busy",
         "type":"Button",
-        "value": "打印机正忙",
+        "value": "Printer is busy",
         "hexpand": "False",
         "vexpand": "False",
         "button_width": 150,

@@ -360,6 +360,10 @@ class Panel(ScreenPanel):
                     )
         elif panel_name == "print_menu" and action == 'notify_status_update':
             self.update_time_left(data)
+        #   删除文件后刷新页面
+        elif "action" in data and data["action"] == "delete_file":
+            self.refresh_loading()
+
 
     def update_time_left(self,data):
 
@@ -409,9 +413,9 @@ class Panel(ScreenPanel):
     def pause_confirm(self, widget):
         logging.debug("Pauseing print")
         state = ''
-        if self.labels['print_state'].get_label() == "打印中":
+        if self.labels['print_state'].get_label() == _("Printing"):
             state = 'paused'
-        elif self.labels['print_state'].get_label() == " 暂 停":
+        elif self.labels['print_state'].get_label() == _("Paused"):
             state = 'printing'
         self.change_pause_button_state(state)
 
@@ -419,16 +423,19 @@ class Panel(ScreenPanel):
         pixbuf = ''
         state_text = ''
         filename = ''
+        button_text=''
         # printing 打印中 paused暂停
         if state == "printing":
             self._screen._ws.klippy.print_resume()
-            state_text = "打印中"
+            state_text = _("Printing")
             filename="images/pause.png"
+            button_text=_("Pause")
 
         elif state == "paused":
             self._screen._ws.klippy.print_pause()
-            state_text = " 暂 停"
+            state_text = _("Paused")
             filename = "images/start.png"
+            button_text=_("Start")
 
         self.labels['print_state'].set_label(state_text)
         pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_scale(
@@ -437,6 +444,7 @@ class Panel(ScreenPanel):
             height=50,
             preserve_aspect_ratio=True  # 设为False则强制50x50（可能拉伸）
         )
+        self.labels['pause_button'].set_label(button_text)
         # 设置缩放后的图片到Image控件
         image = Gtk.Image.new_from_pixbuf(pixbuf)
         self.labels['pause_button'].set_image(image)
@@ -444,13 +452,13 @@ class Panel(ScreenPanel):
 
     def cancel(self, widget):
         buttons = [
-            {"name": _("确定"), "response": Gtk.ResponseType.OK, "style": 'waring_button'},
-            {"name": _("返回"), "response": Gtk.ResponseType.CANCEL, "style": 'dialog-cancel'}
+            {"name": _("Confirm"), "response": Gtk.ResponseType.OK, "style": 'waring_button'},
+            {"name": _("Back"), "response": Gtk.ResponseType.CANCEL, "style": 'dialog_cancel'}
         ]
         if len(self._printer.get_stat("exclude_object", "objects")) > 1:
             buttons.insert(0, {"name": _("Exclude Object"), "response": Gtk.ResponseType.APPLY})
         label = Gtk.Label(hexpand=True, vexpand=True, wrap=True)
-        label.set_markup(_("您确定要取消此打印吗？"))
+        label.set_markup(_("Are you sure you wish to cancel this print?"))
         self._gtk.Dialog(_("Cancel"), buttons, label, self.cancel_confirm)
 
     def cancel_confirm(self,dialog,response_id):
@@ -517,13 +525,14 @@ class Panel(ScreenPanel):
         basename = os.path.splitext(name)[0]
         print_file=Gtk.Button()
         fileinfo = self._screen.files.get_file_info(path)
-        # 暂时不用选择打印的盘 select_disc_print
-        parameter_item = {
-            "panel": 'matching_consumables',
-            "fileinfo":fileinfo,
-            "icon": None
-        }
-        print_file.connect("clicked", self.menu_item_clicked, parameter_item)
+        # 暂时不用选择打印的盘和选择和选择耗材 select_disc_print matching_consumables
+        # parameter_item = {
+        #     "panel": 'matching_consumables',
+        #     "fileinfo":fileinfo,
+        #     "icon": None
+        # }
+        # print_file.connect("clicked", self.menu_item_clicked, parameter_item)
+        print_file.connect("clicked", self.confirm_print, path)
         button_grid = Gtk.Grid(hexpand=True, vexpand=False, valign=Gtk.Align.CENTER)
         print_file.add(button_grid)
         if self.list_mode:
@@ -589,8 +598,119 @@ class Panel(ScreenPanel):
         self._screen._ws.klippy.get_dir_info(self.load_files, self.cur_directory)
 
 
-    def print_start(self,widget,parameter_item):
-        print(1)
-        fileinfo=parameter_item['fileinfo']
+
+
+
+
+    # 删除对应文件
+    def confirm_delete_file(self, widget, filepath):
+        logging.debug(f"Sending delete_file {filepath}")
+        params = {"path": f"{filepath}"}
+        self._screen._confirm_send_action(
+            None,
+            _("Delete File?") + "\n\n" + filepath,
+            "server.files.delete_file",
+            params
+        )
+
+    #callback 回滚 确认打印事件 或者取消 或者删除文件
+
+    def confirm_print_response(self, dialog, response_id, fileinfo):
+        self._gtk.remove_dialog(dialog)
+        if response_id == Gtk.ResponseType.CANCEL:
+            return
+        elif response_id == Gtk.ResponseType.OK:
+            self.print_start(dialog,fileinfo)
+        elif response_id == Gtk.ResponseType.REJECT:
+            self.confirm_delete_file(None, f"gcodes/{fileinfo["filename"]}")
+
+    #开始打印文件
+    def print_start(self,widget,fileinfo):
+        logging.info(f"Starting print: {fileinfo['filename']}")
         self._screen._ws.klippy.print_start(fileinfo['filename'])
+        parameter_item = {
+            "panel": 'print_menu',
+            "fileinfo":fileinfo,
+            "icon": None
+        }
         self.menu_item_clicked(widget,parameter_item)
+
+    # 获取该文件的所有信息
+    def get_file_info_extended(self, fileinfo):
+
+        info = ""
+        if "modified" in fileinfo:
+            info += _("Modified")
+            if self.time_24:
+                info += f':<b> {datetime.fromtimestamp(fileinfo["modified"]):%Y/%m/%d %H:%M}</b>\n'
+            else:
+                info += f':<b> {datetime.fromtimestamp(fileinfo["modified"]):%Y/%m/%d %I:%M %p}</b>\n'
+        if "layer_height" in fileinfo:
+            info += _("Layer Height") + f': <b>{fileinfo["layer_height"]}</b> ' + _("mm") + '\n'
+
+        if "filament_type" in fileinfo:
+            info +=_("Filament Type")+ f': <b>{fileinfo["filament_type"]}</b>\n'
+        # if "filament_name" in fileinfo:
+        #     info += f'    <b>{fileinfo["filament_name"]}</b>\n'
+        if "filament_weight_total" in fileinfo:
+            info +=  _("Weight") + f': <b>{fileinfo["filament_weight_total"]:.2f}</b> ' + _("g") + '\n'
+        if "nozzle_diameter" in fileinfo:
+            info += _("Nozzle diameter") + f': <b>{fileinfo["nozzle_diameter"]}</b> ' + _("mm") + '\n'
+        if "slicer" in fileinfo:
+            info += (
+                    _("Slicer") +
+                    f': <b>{fileinfo["slicer"]} '
+                    f'{fileinfo["slicer_version"] if "slicer_version" in fileinfo else ""}</b>\n'
+            )
+        if "size" in fileinfo:
+            info += _("Size") + f': <b>{self.format_size(fileinfo["size"])}</b>\n'
+        if "estimated_time" in fileinfo:
+            info += _("Print Time") + f': <b>{self.format_time(fileinfo["estimated_time"])}</b>\n'
+        if "job_id" in fileinfo:
+            history = self._screen.apiclient.send_request(f"server/history/job?uid={fileinfo['job_id']}")
+            if history and history['job']['status'] == "completed":
+                info += _("Last Duration") + f": <b>{self.format_time(history['job']['print_duration'])}</b>"
+        return info
+
+    def confirm_print(self, widget, filename):
+        action = _("Print") if self._printer.extrudercount > 0 else _("Start")
+
+        buttons = [
+            {"name": _("Delete"), "response": Gtk.ResponseType.REJECT, "style": 'waring_button'},
+            {"name": action, "response": Gtk.ResponseType.OK, "style": 'print_button'},
+            {"name": _("Cancel"), "response": Gtk.ResponseType.CANCEL, "style": 'dialog_cancel'}
+        ]
+
+        main_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, vexpand=True)
+
+        orientation = Gtk.Orientation.VERTICAL if self._screen.vertical_mode else Gtk.Orientation.HORIZONTAL
+        inside_box = Gtk.Box(orientation=orientation, vexpand=True)
+
+        if self._screen.vertical_mode:
+            width = self._screen.width * .9
+            height = (self._screen.height - self._gtk.dialog_buttons_height - self._gtk.font_size * 5) * .45
+        else:
+            width = self._screen.width * .5
+            height = (self._screen.height - self._gtk.dialog_buttons_height - self._gtk.font_size * 6)
+
+        pixbuf = self.get_file_image(filename, 200, 200)
+        if pixbuf is not None:
+            image = Gtk.Image.new_from_pixbuf(pixbuf)
+            inside_box.pack_start(image, True, True, 0)
+
+        info_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, vexpand=True)
+        fileinfo = self._screen.files.get_file_info(filename)
+        format_fileinfo = Gtk.Label(
+            label=self.get_file_info_extended(fileinfo), use_markup=True, ellipsize=Pango.EllipsizeMode.END
+        )
+        info_box.pack_start(format_fileinfo, True, True, 0)
+        info_box.get_style_context().add_class("dialog_info_box")
+        inside_box.pack_start(info_box, True, True, 0)
+        main_box.pack_start(inside_box, True, True, 0)
+        self._gtk.Dialog(f'{filename}', buttons, main_box, self.confirm_print_response, fileinfo)
+
+
+
+
+
+

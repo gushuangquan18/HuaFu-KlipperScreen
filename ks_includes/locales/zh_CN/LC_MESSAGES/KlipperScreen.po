@@ -67,6 +67,9 @@ msgstr "已存档"
 msgid "Are you sure do you want to exclude the object?"
 msgstr "您确定要排除该对象吗？"
 
+msgid "Are you sure you want to cancel this print file?"
+msgstr "您确定要删除该打印文件吗？"
+
 msgid "Are you sure you want to run Emergency Stop?"
 msgstr "您确定要紧急停止吗？"
 
@@ -358,7 +361,7 @@ msgstr "g代码"
 msgid "Getting IP address"
 msgstr "获取IP地址中"
 
-msgid "Go Back"
+msgid "Back"
 msgstr "返回"
 
 msgid "Height:"
@@ -646,8 +649,6 @@ msgstr "密码"
 msgid "Password saved"
 msgstr "密码已保存"
 
-msgid "Pause"
-msgstr "暂停"
 
 msgid "Paused"
 msgstr "已暂停"
@@ -693,9 +694,6 @@ msgstr "已连接的打印机"
 
 msgid "Printer Select"
 msgstr "打印机选择"
-
-msgid "Printing"
-msgstr "打印中"
 
 msgid "Probe Offset"
 msgstr "探针偏移"
@@ -1009,6 +1007,51 @@ msgid "second"
 msgid_plural "seconds"
 msgstr[0] "秒"
 
+msgid "h"
+msgstr "时"
+
+msgid "m"
+msgstr "分"
+
+msgid "Print File"
+msgstr "打印文件"
+
+msgid "Today is another wonderful day!"
+msgstr "今天又是美好的一天！"
+
+msgid "Printer is busy"
+msgstr "打印机正忙"
+
+msgid "Onboard Storage"
+msgstr "机内存储"
+
+msgid "Printing"
+msgstr "打印中"
+
+msgid "Skip"
+msgstr "跳过"
+
+msgid "Pause"
+msgstr "暂停"
+
+msgid "Stop"
+msgstr "停止"
+
+msgid "Confirm"
+msgstr "确认"
+
+msgid "Filament Type"
+msgstr "耗材类型"
+
+msgid "Weight"
+msgstr "重量"
+
+msgid "Print Time"
+msgstr "打印用时"
+
+
+
+
 #~ msgid "Hide temp."
 #~ msgstr "隐藏温度"
 
@@ -1038,9 +1081,6 @@ msgstr[0] "秒"
 
 #~ msgid "KlipperScreen will drop support in June 2024"
 #~ msgstr "KlipperScreen将于2024 年6月停止适配"
-
-#~ msgid "Print Time"
-#~ msgstr "打印用时"
 
 #~ msgid "Starting WiFi Association"
 #~ msgstr "开始WiFi连接"

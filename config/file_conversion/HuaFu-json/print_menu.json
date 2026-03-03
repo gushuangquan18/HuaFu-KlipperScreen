@@ -6,8 +6,8 @@
     "left_up_grid": {
       "name": "Left Up Grid",
       "type": "Grid",
-      "width":360,
-      "height":360,
+      "width":330,
+      "height":330,
       "column":0,
       "row":0,
       "columnspan":3,
@@ -20,8 +20,8 @@
           "panel": "print_file_list",
           "hexpand": "False",
           "vexpand": "False",
-          "button_width": 330,
-          "button_height": 330,
+          "button_width": 300,
+          "button_height": 300,
           "column":0,
           "row":0,
           "columnspan":1,
@@ -30,8 +30,8 @@
           "print_file_list_button_grid": {
             "name": "Print File List Button Grid",
             "type": "Grid",
-            "width":330,
-            "height":330,
+            "width":300,
+            "height":300,
             "camera_rec_icon": {
               "name": "Camear Rec Icon",
               "type": "Image",
@@ -55,7 +55,7 @@
             "file_label": {
               "name": "File Label",
               "type": "Label",
-              "value": "文件",
+              "value": "File",
               "column":2,
               "row":0,
               "columnspan":1,
@@ -99,7 +99,7 @@
     "temperature_grid":{
       "name":"Temperature Grid",
       "type":"Grid",
-      "width":480,
+      "width":440,
       "height":360,
       "column":3,
       "row":0,
@@ -109,7 +109,7 @@
         "printer_temperature_grid":{
           "name":"Printer Temperature Grid",
           "type":"Grid",
-          "width":320,
+          "width":310,
           "height":360,
           "column":0,
           "row":0,
@@ -162,7 +162,7 @@
         "nozzle_extruder_temperature_grid":{
           "name":"Nozzle Extruder Temperature Grid",
           "type":"Grid",
-          "width":160,
+          "width":140,
           "height":360,
           "column_homogeneous": "True",
           "column":4,
@@ -218,7 +218,7 @@
     "messages_control_grid":{
       "name":"Messages Control Grid",
       "type":"Grid",
-      "width":720,
+      "width":660,
       "height":120,
       "column":0,
       "row":3,
@@ -228,7 +228,7 @@
         "print_inner_grid":{
           "name":"Print Inner Grid",
           "type":"Grid",
-          "width":280,
+          "width":330,
           "height":120,
           "column":0,
           "row":0,
@@ -284,7 +284,7 @@
             "print_state":{
               "name":"Print State",
               "type":"Label",
-              "value":"打印中",
+              "value":"Printing",
               "column":0,
               "row":2,
               "columnspan":1,
@@ -304,7 +304,7 @@
           "columnspan":1,
           "rowspan":1,
           "icon":"skip",
-          "value": "跳过",
+          "value": "Skip",
           "width": 50,
           "height": 50,
           "style": "print_menu_button"
@@ -321,7 +321,7 @@
           "columnspan":1,
           "rowspan":1,
           "icon":"pause",
-          "value": "暂停",
+          "value": "Pause",
           "width": 50,
           "height": 50,
           "method": "pause_confirm",
@@ -339,7 +339,7 @@
           "columnspan":1,
           "rowspan":1,
           "icon":"stop",
-          "value": "停止",
+          "value": "Stop",
           "width": 50,
           "height": 50,
           "method": "cancel_confirm",
@@ -350,8 +350,8 @@
      "right_down_grid": {
        "name": "Right Down Grid",
        "type": "Grid",
-       "width": 120,
-       "height": 120,
+       "width": 110,
+       "height": 110,
        "column": 6,
        "row": 3,
        "columnspan": 1,

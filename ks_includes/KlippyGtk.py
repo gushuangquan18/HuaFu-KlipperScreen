@@ -248,7 +248,7 @@ class KlippyGtk:
         # 1. 设置标题栏高度（关键：通过set_size_request指定最小高度）
         # -1 表示宽度自适应
         custom_header.set_size_request(-1, 40)
-        custom_header.set_title("Cancel")
+        custom_header.set_title(_(title))
         # 可选：设置副标题
         # custom_header.set_subtitle("标题栏高度80px")
         dialog.set_titlebar(custom_header)

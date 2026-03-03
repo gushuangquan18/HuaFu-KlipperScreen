@@ -149,7 +149,21 @@ progressbar progress {
 #file_list_body_grid{
 
 }
-
+#dialog_info_box{
+    margin: 10px 10px 10px 10px;
+}
+button.waring_button{
+    background-color: red;
+    border-radius: 0.5em;
+}
+button.print_button{
+    background-color: @next_level;
+    border-radius: 0.5em;
+}
+button.dialog_cancel{
+    background-color: #D0D0D0;
+    border-radius: 0.5em;
+}
 
 /* 要打印的盘 页面 */
 #select_disc_print{
@@ -194,7 +208,7 @@ progressbar progress {
 
 /* 打印界面管理 */
 #print_menu{
-    margin: 20px 20px 20px 20px;
+    margin: 15px 15px 15px 15px;
 }
 
 #left_up_grid,
@@ -214,16 +228,9 @@ progressbar progress {
 }
 #messages_control_grid{
     margin: 0px 15px 0px 0px;
-    padding: 10px 0px 10px 10px;
+    padding: 25px 0px 10px 15px;
 }
-button.waring_button{
-    background-color: red;
-    border-radius: 0.5em;
-}
-button.dialog-cancel{
-    background-color: @next_level;
-    border-radius: 0.5em;
-}
+
 
 
 

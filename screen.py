@@ -1133,8 +1133,9 @@ class KlipperScreen(Gtk.Window):
                     and 'bed_level' not in self._cur_panels):
                 self.show_panel("bed_level")
         elif action == "notify_filelist_changed":
-            if self.files is not None:
-                self.files.process_update(data)
+            # if self.files is not None:
+            #     self.files.process_update(data)
+            self.process_update(action, data)
             return
         elif action == "notify_metadata_update":
             self.files.request_metadata(data['filename'])
@@ -1293,8 +1294,8 @@ class KlipperScreen(Gtk.Window):
         :return:
         """
         buttons = [
-            {"name": _("Accept"), "response": Gtk.ResponseType.OK, "style": 'dialog-info'},
-            {"name": _("Cancel"), "response": Gtk.ResponseType.CANCEL, "style": 'dialog-error'}
+            {"name": _("Accept"), "response": Gtk.ResponseType.OK, "style": 'waring_button'},
+            {"name": _("Cancel"), "response": Gtk.ResponseType.CANCEL, "style": 'dialog_cancel'}
         ]
 
         try:
@@ -1305,12 +1306,12 @@ class KlipperScreen(Gtk.Window):
 
         label = Gtk.Label(hexpand=True, vexpand=True, halign=Gtk.Align.CENTER, valign=Gtk.Align.CENTER,
                           wrap=True, wrap_mode=Pango.WrapMode.WORD_CHAR)
-        label.set_markup(text)
-
+        label.set_markup(_("Are you sure you want to cancel this print file?"))
         if self.confirm is not None:
             self.gtk.remove_dialog(self.confirm)
+
         self.confirm = self.gtk.Dialog(
-            "KlipperScreen", buttons, label, self._confirm_send_action_response, method, params
+            "Delete", buttons, label, self._confirm_send_action_response, method, params
         )
 
     def _confirm_send_action_response(self, dialog, response_id, method, params):
