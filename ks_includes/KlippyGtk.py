@@ -280,7 +280,7 @@ class KlippyGtk:
             dialog.connect("button-release-event", self.remove_dialog)
 
         dialog.connect("response", self.screen.screensaver.reset_timeout)
-        dialog.connect("response", callback, *args)
+        dialog.connect("response", callback, self,*args)
         dialog.get_style_context().add_class("dialog")
 
         content_area = dialog.get_content_area()

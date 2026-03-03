@@ -1311,10 +1311,10 @@ class KlipperScreen(Gtk.Window):
             self.gtk.remove_dialog(self.confirm)
 
         self.confirm = self.gtk.Dialog(
-            "Delete", buttons, label, self._confirm_send_action_response, method, params
+            "Delete", buttons, label, self._confirm_send_action_response, method,params
         )
 
-    def _confirm_send_action_response(self, dialog, response_id, method, params):
+    def _confirm_send_action_response(self, dialog, response_id, klippy_gtk,method, params):
         """
             确认发送事件响应
         :param dialog:
