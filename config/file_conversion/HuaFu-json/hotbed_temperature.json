@@ -30,7 +30,7 @@
       "hotbed_temperature_label":{
         "name":"Hotbed Temperature Label",
         "type":"Label",
-        "value":"热床温度",
+        "value":"Hotbed Temperature",
         "column":1,
         "row":0,
         "columnspan":1,
@@ -48,7 +48,7 @@
       "confirm":{
         "name":"Confirm",
         "type":"Button",
-        "value":"确认",
+        "value":"Confirm",
         "hexpand": "False",
         "vexpand": "False",
         "button_width": 150,
@@ -91,7 +91,7 @@
         "row":4,
         "columnspan":3,
         "rowspan":1,
-        "value":"热床打印时会保持一定的温度，\\n帮助材料更好的附着在打印板上"
+        "value":"During hot bed printing, a certain \\ntemperature is maintained to help the \\nmaterial adhere better to the \\nprinting board"
       },
       "hotbed_temperature_entry": {
         "name": "Hotbed Temperature Entry",
@@ -224,7 +224,9 @@
           "clear": {
             "name": "Clear",
             "type": "Button",
-            "value": "X",
+            "icon": "delete",
+            "width": 100,
+            "height": 50,
             "column": 2,
             "row": 3,
             "columnspan": 1,

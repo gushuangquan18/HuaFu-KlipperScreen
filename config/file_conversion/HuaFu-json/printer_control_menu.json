@@ -42,7 +42,7 @@
             "row":0,
             "columnspan":3,
             "rowspan":1,
-            "value":"空调系统"
+            "value":"Air System"
           },
           "air_system_model":{
             "name":"Air System Model",
@@ -104,7 +104,7 @@
             "row":0,
             "columnspan":3,
             "rowspan":1,
-            "value":"速度"
+            "value":"Speed"
           },
           "speed_control_model":{
             "name":"Speed Control Model",
@@ -113,7 +113,7 @@
             "row":1,
             "columnspan":3,
             "rowspan":1,
-            "value":"标准"
+            "value":"Standard"
           },
           "right_arrow_icon":{
             "name":"Right Arrow Icon",
@@ -166,7 +166,7 @@
             "row":0,
             "columnspan":3,
             "rowspan":1,
-            "value":"运动"
+            "value":"Sport"
           },
           "sport_control_model":{
             "name":"Sport Control Model",
@@ -227,7 +227,7 @@
               "row":0,
               "columnspan":4,
               "rowspan":1,
-              "value":"喷嘴和挤出机"
+              "value":"Nozzle Extruder"
             },
             "right_arrow_icon":{
               "name":"Right Arrow Icon",
@@ -309,7 +309,7 @@
             "row":0,
             "columnspan":3,
             "rowspan":1,
-            "value":"机箱"
+            "value":"Chassis"
           },
           "chassis_temperature_model":{
             "name":"Chassis Temperature Model",
@@ -372,7 +372,7 @@
             "row":0,
             "columnspan":3,
             "rowspan":1,
-            "value":"热床"
+            "value":"Hotbed"
           },
           "hotbed_temperature_model":{
             "name":"Chassis Temperature Model",
@@ -426,7 +426,7 @@
           "row":0,
           "columnspan":1,
           "rowspan":1,
-          "value":"照明"
+          "value":"Light"
         },
         "light_switch":{
           "name":"Light Switch",

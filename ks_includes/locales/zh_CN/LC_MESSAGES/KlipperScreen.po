@@ -1046,8 +1046,56 @@ msgstr "耗材类型"
 msgid "Weight"
 msgstr "重量"
 
-msgid "Print Time"
-msgstr "打印用时"
+msgid "Sport"
+msgstr "运动"
+
+msgid "Sprot:XYZ"
+msgstr "运动:XYZ"
+
+msgid "Speed"
+msgstr "速度"
+
+msgid "Standard"
+msgstr "标准"
+
+msgid "Air System"
+msgstr "空调系统"
+
+msgid "Nozzle Extruder"
+msgstr "喷嘴和挤出机"
+
+msgid "Chassis"
+msgstr "机箱"
+
+msgid "Hotbed"
+msgstr "热床"
+
+msgid "Light"
+msgstr "照明"
+
+msgid "Recommend using standard mode!"
+msgstr "推荐使用标准模式!"
+
+msgid "Furious"
+msgstr "狂暴"
+
+msgid "Mute"
+msgstr "静音"
+
+msgid "Tool Head"
+msgstr "工具头"
+
+msgid "Chassis Temperature"
+msgstr "腔温"
+
+msgid "Low chamber temperature is suitable \\nfor printing PLA and PETG materials."
+msgstr "低腔温适合打印PLA、PETG材料。"
+
+msgid "Hotbed Temperature"
+msgstr "热床温度"
+
+msgid "During hot bed printing, a certain \\ntemperature is maintained to help the \\nmaterial adhere better to the \\nprinting board"
+msgstr "热床打印时会保持一定的温度，\\n帮助材料更好的附着在打印板上"
 
 
 

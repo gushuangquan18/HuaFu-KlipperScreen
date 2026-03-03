@@ -30,7 +30,7 @@
       "sport_label":{
         "name":"Sport Label",
         "type":"Label",
-        "value":"运动:XYZ",
+        "value":"Sprot:XYZ",
         "column":1,
         "row":0,
         "columnspan":1,
@@ -51,7 +51,7 @@
       "tool_head_label": {
         "name": "Tool Head Label",
         "type": "Label",
-        "value": "工具头",
+        "value": "Tool Head",
         "column": 0,
         "row": 0,
         "columnspan": 1,
@@ -197,10 +197,10 @@
           }
         }
       },
-      "hot_bed_control": {
-        "name": "Hot Bed Control",
+      "hotbed_control": {
+        "name": "Hotbed Control",
         "type": "Label",
-        "value": "热床",
+        "value": "Hotbed",
         "column": 1,
         "row": 0,
         "columnspan": 1,
