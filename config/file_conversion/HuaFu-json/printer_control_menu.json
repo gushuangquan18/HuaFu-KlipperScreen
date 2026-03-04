@@ -240,8 +240,8 @@
               "rowspan":1,
               "src":"images/right_arrow.png"
             },
-            "left_nozzle_temperature":{
-              "name":"Left Nozzle Temperature",
+            "left_extruder_temperature":{
+              "name":"Left Extruder Temperature",
               "type":"Label",
               "column":0,
               "row":1,
@@ -260,8 +260,8 @@
               "rowspan":2,
               "src":"images/nozzle_extruder.png"
             },
-            "Right_nozzle_temperature":{
-              "name":"Right Nozzle Temperature",
+            "right_extruder_temperature":{
+              "name":"Right Extruder Temperature",
               "type":"Label",
               "column":4,
               "row":1,
@@ -335,16 +335,16 @@
 
       }
     },
-    "hotbed_temperature":{
-      "name":"Hotbed Temperature",
+    "heater_bed_temperature_button":{
+      "name":"Heater Bed Temperature Button",
       "type":"Button",
       "column":0,
       "row":4,
       "columnspan":3,
       "rowspan":1,
-      "panel":"hotbed_temperature",
-      "hotbed_temperature_grid":{
-        "name":"Hotbed Temperature Grid",
+      "panel":"heater_bed_temperature",
+      "heater_bed_temperature_grid":{
+        "name":"Heater Bed Temperature Grid",
         "type":"Grid",
         "column":0,
         "row":0,
@@ -354,8 +354,8 @@
         "height":100,
         "column_homogeneous": "True",
         "children": {
-          "hotbed_temperature_icon":{
-            "name":"Hotbed Temperature Icon",
+          "heater_bed_temperature_icon":{
+            "name":"Heater Bed Temperature Icon",
             "type":"Image",
             "width":40,
             "height":40,
@@ -363,19 +363,19 @@
             "row":0,
             "columnspan":1,
             "rowspan":2,
-            "src":"images/hotbed_temperature.png"
+            "src":"images/heater_bed_temperature.png"
           },
-          "hotbed_temperature_label":{
-            "name":"Hotbed Temperature Label",
+          "heater_bed_temperature_label":{
+            "name":"Heater Bed Temperature Label",
             "type":"Label",
             "column":1,
             "row":0,
             "columnspan":3,
             "rowspan":1,
-            "value":"Hotbed"
+            "value":"Heater Bed"
           },
-          "hotbed_temperature_model":{
-            "name":"Chassis Temperature Model",
+          "heater_bed_temperature":{
+            "name":"Heater Bed Temperature",
             "type":"Label",
             "column":1,
             "row":1,

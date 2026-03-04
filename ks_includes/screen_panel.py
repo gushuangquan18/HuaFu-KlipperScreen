@@ -320,16 +320,19 @@ class ScreenPanel:
             name = name.title()
         return name
 
+    #格式化展示温度
     def update_temp(self, dev, temp, target, power, name,lines=1, digits=1):
         new_label_text = f"{temp or 0:.{digits}f}"
-        if self._printer.device_has_target(dev) and target:
-            new_label_text += f"/{target:.0f}"
+        # if self._printer.device_has_target(dev) and target:
+        #         new_label_text += f"/{target}"
+                # new_label_text += f"/{target:.0f}"
         if dev not in self.devices:
-            new_label_text += "°"
+            new_label_text += "℃"
 
-        show_power = self._show_heater_power and power
-        if show_power:
-            new_label_text += f" {power * 100:3.0f}%"
+        #显示功率
+        # show_power = self._show_heater_power and power
+        # if show_power:
+        #     new_label_text += f" {power * 100:3.0f}%"
 
         if dev in self.labels:
             # Job_Status
@@ -337,7 +340,7 @@ class ScreenPanel:
         elif dev in self.devices:
             # Temperature and Main_Menu
             find_widget(self.devices[dev]["temp"], Gtk.Label).set_text(new_label_text)
-        if name.endswith("extruder_temperature"):
+        if name.endswith("extruder_temperature") or name.endswith("heater_bed_temperature"):
             find_widget(self.labels[name], Gtk.Label).set_text(new_label_text)
 
     def add_option(self, boxname, opt_array, opt_name, option):

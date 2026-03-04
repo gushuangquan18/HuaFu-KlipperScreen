@@ -267,7 +267,7 @@ button.print_menu_button{
 #air_system_grid ,
 #speed_control_grid ,
 #sport_control_grid,
-#hotbed_temperature_grid ,
+#heater_bed_temperature_grid ,
 #chassis_temperature_grid,
 #control_nozzle_extruder_grid{
     background-color: @grid_bg;

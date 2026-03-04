@@ -24,9 +24,11 @@ from panels.print import (refresh_loading,
                                     pause_confirm,
                                     update_time_left,
                                     create_print_file_list_item)
-from panels.print_control import (move,
+from panels.printer_control import (move,
                                   direction_home,
-                                  change_sprot_speed)
+                                  on_digit_clicked,
+                                  change_sprot_speed,
+                                  change_target_temp)
 
 class Panel(ScreenPanel):
 
@@ -78,7 +80,8 @@ class Panel(ScreenPanel):
         self.change_item = ['print_busy',
                             'chassis_temperature', 'hotbed_temperature', 'left_nozzle_extruder', 'right_nozzle_extruder',
                             'percentage_progress', 'floor_height_progress', 'remaining_time','floor_height_progress',
-                            'print_modeling_graphics', 'print_file_name', 'print_state','pause_button']
+                            'print_modeling_graphics', 'print_file_name', 'print_state','pause_button',
+                            'heater_bed_temperature']
         if panel_name == "sport_control":
             self.labels["sport_distance"]=10
             self.labels['distance_button']=[]
@@ -155,7 +158,7 @@ class Panel(ScreenPanel):
             elif(item['method'] == 'show_dialog'):
                 item_control_name.connect("clicked", self.show_dialog,current_key)
             elif(item['method'] == 'on_digit_clicked'):
-                item_control_name.connect("clicked", self.on_digit_clicked ,value,key_array[len(key_array)-3])
+                item_control_name.connect("clicked", on_digit_clicked, self, value, key_array[len(key_array)-3])
             elif(item['method'] == 'set_nozzle_type'):
                 item_control_name.connect("clicked", self.set_nozzle_type)
             elif (item['method'] == 'refresh_loading'):
@@ -164,6 +167,8 @@ class Panel(ScreenPanel):
                 item_control_name.connect("clicked", cancel,self)
             elif (item['method'] == 'pause_confirm'):
                 item_control_name.connect("clicked", pause_confirm,self)
+            elif (item['method'] == 'change_target_temp'):
+                item_control_name.connect("clicked", change_target_temp,self,"heater_bed")
             elif (item['method'] == 'move'):
                 item_control_name.connect("clicked", move,self,value)
             elif (item['method'] == 'direction_home'):
@@ -360,16 +365,17 @@ class Panel(ScreenPanel):
             return False
 
     def process_update(self, panel_name,action,data):
-        if panel_name == "home_menu":
+        if panel_name == "home_menu" or panel_name == "printer_control_menu":
             for dev in self.labels:
-                if dev.endswith("extruder_temperature"):
-                    self.update_temp(
-                        'extruder',
-                        self._printer.get_stat('extruder', "temperature"),
-                        self._printer.get_stat('extruder', "target"),
-                        self._printer.get_stat('extruder', "power"),
-                        name=dev
-                    )
+                for type in ('extruder', 'heater_bed'):
+                    if dev.endswith(f'{type}_temperature'):
+                        self.update_temp(
+                            type,
+                            self._printer.get_stat(type, "temperature"),
+                            self._printer.get_stat(type, "target"),
+                            self._printer.get_stat(type, "power"),
+                            name=dev
+                        )
         elif panel_name == "print_menu" and action == 'notify_status_update':
             update_time_left(self,data)
         #   删除文件后刷新页面

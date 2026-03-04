@@ -1070,7 +1070,7 @@ msgstr "喷嘴和挤出机"
 msgid "Chassis"
 msgstr "机箱"
 
-msgid "Hotbed"
+msgid "Heater Bed"
 msgstr "热床"
 
 msgid "Light"

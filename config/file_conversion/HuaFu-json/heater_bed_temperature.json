@@ -1,6 +1,6 @@
 {
   "father":"printer_control_menu",
-  "name":"hotbed_temperature",
+  "name":"heater_bed_temperature",
   "type":"Grid",
   "head_grid":{
     "name":"Head Grid",
@@ -27,8 +27,8 @@
         "button_width": 150,
         "button_height": 50
       },
-      "hotbed_temperature_label":{
-        "name":"Hotbed Temperature Label",
+      "heater_bed_temperature_label":{
+        "name":"Heater Bed Temperature Label",
         "type":"Label",
         "value":"Hotbed Temperature",
         "column":1,
@@ -53,17 +53,17 @@
         "vexpand": "False",
         "button_width": 150,
         "button_height": 15,
-        "panel": "printer_control_menu",
         "column":4,
         "row":0,
         "columnspan":1,
         "rowspan":1,
-        "style": "next_level"
+        "style": "next_level",
+        "method": "change_target_temp"
       }
     }
   },
-  "hotbed_temperature_body_grid": {
-    "name": "Hotbed Temperature Body Grid",
+  "heater_bed": {
+    "name": "Heater Bed",
     "type": "Grid",
     "column": 0,
     "row": 1,
@@ -73,8 +73,8 @@
     "height": 520,
     "column_spacing": 1,
     "children": {
-      "hotbed_temperature_image":{
-        "name": "Hotbed Temperature Image",
+      "heater_bed_temperature_image":{
+        "name": "Heater Bed Temperature Image",
         "type":"Image",
         "width":350,
         "height":280,
@@ -82,10 +82,10 @@
         "row":0,
         "columnspan":3,
         "rowspan": 4,
-        "src":"images/hotbed_temperature_inner.jpg"
+        "src":"images/heater_bed_temperature_inner.jpg"
       },
-      "hotbed_temperature_message":{
-        "name":"Hotbed Temperature Message",
+      "heater_bed_temperature_message":{
+        "name":"Heater_bed Temperature Message",
         "type":"Label",
         "column":0,
         "row":4,
@@ -93,8 +93,8 @@
         "rowspan":1,
         "value":"During hot bed printing, a certain \\ntemperature is maintained to help the \\nmaterial adhere better to the \\nprinting board"
       },
-      "hotbed_temperature_entry": {
-        "name": "Hotbed Temperature Entry",
+      "heater_bed_temperature_entry": {
+        "name": "Heater Bed Temperature Entry",
         "type": "Entry",
         "column": 3,
         "row": 0,

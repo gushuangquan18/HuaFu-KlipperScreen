@@ -67,7 +67,7 @@ def change_sprot_speed(widget, self, value):
             distance_button.get_style_context().remove_class('select_distance_button')
             distance_button.get_style_context().add_class('distance_button')
 
-#将XY轴归位
+#将X Y Z轴归位
 def direction_home(widget, self, value=None):
     #{'script': 'G28 X Y'}
     # {'script': 'G28 X'}
@@ -79,3 +79,57 @@ def direction_home(widget, self, value=None):
         value=value.replace("轴归位","")
     script = f'G28 {value}'
     self._screen._send_action(widget, "printer.gcode.script", {"script": script})
+
+#更改喷嘴 腔温 热床温度
+def change_target_temp(widget,self, name):
+    # temp = self.verify_max_temp(name,temp)
+    temp_text = self.entry[name].get_text()
+    match= re.search(r'(\d+\.?\d*)',temp_text)
+    temp = int(match.group(0))
+    temp = True
+    if temp is False:
+        return
+    if name.startswith('extruder'):
+        self._screen._ws.klippy.set_tool_temp(self._printer.get_tool_number(name), temp)
+    elif name == "heater_bed":
+        self._screen._ws.klippy.set_bed_temp(temp)
+    elif name.startswith('heater_generic '):
+        self._screen._ws.klippy.set_heater_temp(name, temp)
+    elif name.startswith('temperature_fan '):
+        self._screen._ws.klippy.set_temp_fan_temp(name, temp)
+    else:
+        logging.info(f"Unknown heater: {name}")
+        self._screen.show_popup_message(_("Unknown Heater") + " " + name)
+    self._printer.set_stat(name, {"target": temp})
+    if self.numpad_visible:
+        self.hide_numpad()
+
+    parameter_item = {
+        "panel": "printer_control_menu",
+        "icon": None
+    }
+    self.menu_item_clicked(widget, parameter_item)
+
+#判断需要更改的温度是否超出限制
+def verify_max_temp(self, name,temp):
+    temp = int(temp)
+    max_temp = int(float(self._printer.get_config_section(name)['max_temp']))
+    logging.debug(f"{temp}/{max_temp}")
+    if temp > max_temp:
+        self._screen.show_popup_message(_("Can't set above the maximum:") + f' {max_temp}')
+        return False
+    return max(temp, 0)
+
+#输入框清空
+def on_digit_clicked(widget,self, num,key):
+    if(num != None):
+        current = self.entry[key].get_text()
+        if current.endswith("℃"):
+            # 插入数字到 ℃ 前
+            new_text = current[:-1] + str(num) + "℃"
+        else:
+            new_text = current + str(num) + "℃"
+        self.entry[key].set_text(new_text)
+        self.entry[key].set_position(len(new_text) - 1)  # 光标停在数字末尾（℃前）
+    else:
+        self.entry[key].set_text("℃")

@@ -95,7 +95,7 @@ def convert_json_to_config(input_file: str, output_file: str) -> None:
 
 if __name__ == "__main__":
     # 配置输入输出文件路径
-    name="sport_control"
+    name="heater_bed_temperature"
     INPUT_FILE = f"HuaFu-json/{name}.json"
     OUTPUT_FILE = f"../{name}.conf"
     convert_json_to_config(INPUT_FILE, OUTPUT_FILE)
