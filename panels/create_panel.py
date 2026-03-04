@@ -19,11 +19,14 @@ STATIC_CONSUMABLES = {
 }
 
 from panels.print import (refresh_loading,
-                                    update_time_left,
+                                    cancel,
                                     set_loading,
-                                    create_print_file_list_item,
                                     pause_confirm,
-                                    cancel)
+                                    update_time_left,
+                                    create_print_file_list_item)
+from panels.print_control import (move,
+                                  direction_home,
+                                  change_sprot_speed)
 
 class Panel(ScreenPanel):
 
@@ -76,6 +79,9 @@ class Panel(ScreenPanel):
                             'chassis_temperature', 'hotbed_temperature', 'left_nozzle_extruder', 'right_nozzle_extruder',
                             'percentage_progress', 'floor_height_progress', 'remaining_time','floor_height_progress',
                             'print_modeling_graphics', 'print_file_name', 'print_state','pause_button']
+        if panel_name == "sport_control":
+            self.labels["sport_distance"]=10
+            self.labels['distance_button']=[]
         while i< len(self.items):
             key = list(self.items[i])[0]
             item = self.items[i][key]
@@ -158,7 +164,15 @@ class Panel(ScreenPanel):
                 item_control_name.connect("clicked", cancel,self)
             elif (item['method'] == 'pause_confirm'):
                 item_control_name.connect("clicked", pause_confirm,self)
+            elif (item['method'] == 'move'):
+                item_control_name.connect("clicked", move,self,value)
+            elif (item['method'] == 'direction_home'):
+                item_control_name.connect("clicked", direction_home,self,value)
+            elif (item['method'] == 'change_sprot_speed'):
+                item_control_name.connect("clicked", change_sprot_speed,self,value)
 
+            if current_key.startswith('distance'):
+                self.labels['distance_button'].append(item_control_name)
             if current_key=='print_busy':
                 if  father == 'print_menu':
                     item_control_name.set_no_show_all(False)

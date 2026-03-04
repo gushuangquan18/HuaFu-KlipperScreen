@@ -51,7 +51,11 @@ button.one_button{
     border-radius: 1em;
 }
 button.distance_button{
-    background-color: #4E4F4F;
+    background-color: #CCCCCC;
+    border-radius: 1em;
+}
+button.select_distance_button{
+    background-color: @next_level;
     border-radius: 1em;
 }
 button.direction_home{
@@ -59,7 +63,7 @@ button.direction_home{
     border-radius: 2em;
 }
 button.direction_button{
-    background-color: #909090;
+    background-color: #BFBFBF;
     border-radius: 1em;
 }
 button.temperature_number{

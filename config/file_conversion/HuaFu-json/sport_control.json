@@ -68,8 +68,8 @@
         "width": 465,
         "height": 30,
         "children": {
-          "distance_one": {
-            "name": "Distance One",
+          "distance1": {
+            "name": "Distance1",
             "type": "Button",
             "value": "1mm",
             "hexpand": "False",
@@ -80,10 +80,11 @@
             "row": 1,
             "columnspan": 1,
             "rowspan": 1,
-            "style": "distance_button"
+            "style": "distance_button",
+            "method": "change_sprot_speed"
           },
-          "distance_ten": {
-            "name": "Distance Ten",
+          "distance10": {
+            "name": "Distance10",
             "type": "Button",
             "value": "10mm",
             "hexpand": "False",
@@ -94,10 +95,11 @@
             "row": 1,
             "columnspan": 1,
             "rowspan": 1,
-            "style": "distance_button"
+            "style": "select_distance_button",
+            "method": "change_sprot_speed"
           },
-          "distance_thirty": {
-            "name": "Distance Thirty",
+          "distance30": {
+            "name": "Distance30",
             "type": "Button",
             "value": "30mm",
             "hexpand": "False",
@@ -108,7 +110,8 @@
             "row": 1,
             "columnspan": 1,
             "rowspan": 1,
-            "style": "distance_button"
+            "style": "distance_button",
+            "method": "change_sprot_speed"
           }
         }
       },
@@ -123,10 +126,10 @@
         "width": 465,
         "height": 360,
         "children": {
-          "distance_home": {
-            "name": "Distance Home",
+          "direction_home": {
+            "name": "Direction Home",
             "type": "Button",
-            "icon": "distance_home",
+            "icon": "direction_home",
             "style": "direction_home",
             "hexpand": "False",
             "vexpand": "False",
@@ -137,12 +140,28 @@
             "columnspan": 1,
             "rowspan": 1,
             "width": 50,
-            "height": 50
+            "height": 50,
+            "method": "direction_home"
           },
-          "distance_up": {
-            "name": "Distance Up",
+          "direction_up": {
+            "name": "Direction Up",
             "type": "Button",
-            "value": "Y",
+            "value": "Z+",
+            "hexpand": "False",
+            "vexpand": "False",
+            "button_width": 130,
+            "button_height": 110,
+            "column": 0,
+            "row": 0,
+            "columnspan": 1,
+            "rowspan": 1,
+            "style": "direction_button",
+            "method": "move"
+          },
+          "direction_front": {
+            "name": "Direction Front",
+            "type": "Button",
+            "value": "Y+",
             "hexpand": "False",
             "vexpand": "False",
             "button_width": 130,
@@ -151,12 +170,13 @@
             "row": 0,
             "columnspan": 1,
             "rowspan": 1,
-            "style": "direction_button"
+            "style": "direction_button",
+            "method": "move"
           },
-          "distance_left": {
-            "name": "Distance Left",
+          "direction_left": {
+            "name": "Direction Left",
             "type": "Button",
-            "value": "-X",
+            "value": "X-",
             "hexpand": "False",
             "vexpand": "False",
             "button_width": 130,
@@ -165,12 +185,13 @@
             "row": 1,
             "columnspan": 1,
             "rowspan": 1,
-            "style": "direction_button"
+            "style": "direction_button",
+            "method": "move"
           },
-          "distance_right": {
-            "name": "Distance Right",
+          "direction_right": {
+            "name": "Direction Right",
             "type": "Button",
-            "value": "X",
+            "value": "X+",
             "hexpand": "False",
             "vexpand": "False",
             "button_width": 130,
@@ -179,12 +200,13 @@
             "row": 1,
             "columnspan": 1,
             "rowspan": 1,
-            "style": "direction_button"
+            "style": "direction_button",
+            "method": "move"
           },
-          "distance_bottom": {
-            "name": "Distance Bottom",
+          "direction_after": {
+            "name": "Direction After",
             "type": "Button",
-            "value": "-Y",
+            "value": "Y-",
             "hexpand": "False",
             "vexpand": "False",
             "button_width": 130,
@@ -193,21 +215,28 @@
             "row": 2,
             "columnspan": 1,
             "rowspan": 1,
-            "style": "direction_button"
+            "style": "direction_button",
+            "method": "move"
+          },
+          "direction_down": {
+            "name": "Direction Down",
+            "type": "Button",
+            "value": "Z-",
+            "hexpand": "False",
+            "vexpand": "False",
+            "button_width": 130,
+            "button_height": 110,
+            "column": 2,
+            "row": 2,
+            "columnspan": 1,
+            "rowspan": 1,
+            "style": "direction_button",
+            "method": "move"
           }
         }
       },
-      "hotbed_control": {
-        "name": "Hotbed Control",
-        "type": "Label",
-        "value": "Hotbed",
-        "column": 1,
-        "row": 0,
-        "columnspan": 1,
-        "rowspan": 1
-      },
-      "hot_bed_control_grid": {
-        "name": "Hot Bed Control Grid",
+      "home_position_control_grid": {
+        "name": "Home Position Control Grid",
         "type": "Grid",
         "column_homogeneous": "True",
         "row_homogeneous": "True",
@@ -218,11 +247,10 @@
         "width": 465,
         "height": 390,
         "children": {
-          "up_ten": {
-            "name": "Up Ten",
+          "home_x_position": {
+            "name": "Home X Position",
             "type": "Button",
-            "value": "10",
-            "icon": "up_ten",
+            "value": "X",
             "hexpand": "False",
             "vexpand": "False",
             "button_width": 400,
@@ -231,14 +259,13 @@
             "row": 0,
             "columnspan": 1,
             "rowspan": 1,
-            "position": "LEFT",
-            "style": "ten_button"
+            "style": "direction_button",
+            "method": "direction_home"
           },
-          "up_one": {
-            "name": "Up One",
+          "home_y_position": {
+            "name": "Home Y Position",
             "type": "Button",
-            "value": "1",
-            "icon": "up_one",
+            "value": "Y",
             "hexpand": "False",
             "vexpand": "False",
             "button_width": 400,
@@ -247,14 +274,13 @@
             "row": 1,
             "columnspan": 1,
             "rowspan": 1,
-            "position": "LEFT",
-            "style": "one_button"
+            "style": "direction_button",
+            "method": "direction_home"
           },
-          "down_one": {
-            "name": "Down One",
+          "home_z_position": {
+            "name": "Home Z Position",
             "type": "Button",
-            "value": "1",
-            "icon": "down_one",
+            "value": "Z",
             "hexpand": "False",
             "vexpand": "False",
             "button_width": 400,
@@ -263,14 +289,13 @@
             "row": 2,
             "columnspan": 1,
             "rowspan": 1,
-            "position": "LEFT",
-            "style": "one_button"
+            "style": "direction_button",
+            "method": "direction_home"
           },
-          "down_ten": {
-            "name": "Down Ten",
+          "home_xy_position": {
+            "name": "Home XY Position",
             "type": "Button",
-            "value": "10",
-            "icon": "down_ten",
+            "value": "X Y",
             "hexpand": "False",
             "vexpand": "False",
             "button_width": 400,
@@ -279,8 +304,8 @@
             "row": 3,
             "columnspan": 1,
             "rowspan": 1,
-            "position": "LEFT",
-            "style": "ten_button"
+            "style": "direction_button",
+            "method": "direction_home"
           }
         }
       }

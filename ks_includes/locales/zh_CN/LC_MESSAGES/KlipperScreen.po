@@ -379,17 +379,20 @@ msgstr "归位"
 msgid "Home All"
 msgstr "全部归位"
 
-msgid "Home X"
+msgid "X"
 msgstr "X轴归位"
 
-msgid "Home XY"
-msgstr "XY轴归位"
+msgid "X Y"
+msgstr "X Y轴归位"
 
-msgid "Home Y"
+msgid "Y"
 msgstr "Y轴归位"
 
-msgid "Home Z"
+msgid "Z"
 msgstr "Z轴归位"
+
+msgid "Home Position"
+msgstr "归  位"
 
 msgid "Host"
 msgstr "主机"
