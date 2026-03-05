@@ -131,8 +131,8 @@
               "columnspan":1,
               "rowspan":1
             },
-            "hotbed_temperature":{
-              "name":"Hotbed Temperature",
+            "heater_bedtemperature":{
+              "name":"Heater Bed Temperature",
               "type":"Button",
               "icon":"hotbed_temperature",
               "position": "LEFT",
@@ -181,8 +181,8 @@
               "rowspan":3,
               "src":"images/nozzle_extruder.png"
             },
-            "left_nozzle_extruder":{
-              "name":"Left Nozzle Extruder",
+            "extruder_temperature":{
+              "name":"Extruder Temperature",
               "type":"Button",
               "icon":"nozzle_temperature",
               "position": "LEFT",
@@ -196,8 +196,8 @@
               "columnspan":1,
               "rowspan":1
             },
-            "right_nozzle_extruder":{
-              "name":"Right Nozzle Extruder",
+            "extruder1_temperature":{
+              "name":" Extruder1 Temperature",
               "type":"Button",
               "icon":"nozzle_temperature",
               "position": "LEFT",

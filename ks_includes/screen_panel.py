@@ -64,6 +64,7 @@ class ScreenPanel:
         height = height if height is not None else self._gtk.img_height
         if loc[0] == "file":
             return self._gtk.PixbufFromFile(loc[1], width, height)
+        # '.thumbs/b-300x300.png'
         if loc[0] == "http":
             return self._gtk.PixbufFromHttp(loc[1], width, height)
         return None
@@ -340,8 +341,7 @@ class ScreenPanel:
         elif dev in self.devices:
             # Temperature and Main_Menu
             find_widget(self.devices[dev]["temp"], Gtk.Label).set_text(new_label_text)
-        if name.endswith("extruder_temperature") or name.endswith("heater_bed_temperature"):
-            find_widget(self.labels[name], Gtk.Label).set_text(new_label_text)
+        find_widget(self.labels[name], Gtk.Label).set_text(new_label_text)
 
     def add_option(self, boxname, opt_array, opt_name, option):
         if option['type'] is None:

@@ -1073,6 +1073,9 @@ msgstr "机箱"
 msgid "Heater Bed"
 msgstr "热床"
 
+msgid "Print Time"
+msgstr "打印用时"
+
 msgid "Light"
 msgstr "照明"
 

@@ -44,7 +44,7 @@ def refresh_loading(widget,self,*args):
         self.labels['flowbox'].remove(child)
     self._screen._ws.klippy.get_dir_info(self.load_files, self.cur_directory)
 
-#创建打印文件格子，里面有图片模型，文件名 打印时间，打印重量
+#创建打印文件显示格子，里面有图片模型，文件名 打印时间，打印重量
 def create_print_file_list_item(self, item):
     name = path = ''
     if 'dirname' in item:
@@ -243,19 +243,23 @@ def confirm_delete_file(self, widget, filepath):
 #Print_menu界面使用的方法
 
 #改变按钮控件状态 暂停 开始
-def change_pause_button_state(self, state):
+def change_pause_button_state(self, state, *args):
     pixbuf = ''
     state_text = ''
     filename = ''
     button_text = ''
     # printing 打印中 paused暂停
     if state == "printing":
+        if len(args) == 1:
+            self._gtk.Button_busy(args[0], True)
         self._screen._ws.klippy.print_resume()
         state_text = _("Printing")
         filename = "images/pause.png"
         button_text = _("Pause")
 
     elif state == "paused":
+        if len(args) == 1:
+            self._gtk.Button_busy(args[0], True)
         self._screen._ws.klippy.print_pause()
         state_text = _("Paused")
         filename = "images/start.png"
@@ -280,13 +284,16 @@ def update_time_left(self, data):
         if data['virtual_sdcard']['file_path'] is not None:
             path = data['virtual_sdcard']['file_path']
             name = os.path.splitext(os.path.basename(path))[0]
+            # 'a.gcode'
+            filename=f'{name}.gcode'
             self.labels["print_file_name"].set_label(name)
             # 设置缩放后的图片到Image控件 'Box.gcode'
 
             # pixbuf = self.get_file_image(path, 320, 320, False)
             # ['http', '.thumbs/Box-300x300.png']
-            path = f'.thumbs/{name}-300x300.png'
-            pixbuf = self._gtk.PixbufFromHttp(path, 300, 300)
+            # '.thumbs/a-320x320.png'
+            path = f'.thumbs/{name}-320x320.png'
+            pixbuf = self._gtk.PixbufFromHttp(path, 320, 320)
             self.labels["print_modeling_graphics"].set_from_pixbuf(pixbuf)
 
         if 'progress' in data['virtual_sdcard']:
@@ -295,14 +302,15 @@ def update_time_left(self, data):
             self.labels['progressBar'].set_fraction(percentage_progress)
 
     if ('heater_bed' in data) and ('temperature' in data['heater_bed']):
-        self.labels["hotbed_temperature"].set_label(f'{int(data['heater_bed']['temperature'])}℃')
+        self.labels["heater_bed_temperature"].set_label(f'{int(data['heater_bed']['temperature'])}℃')
 
     if ('heater_bed' in data) and ('temperature' in data['heater_bed']):
         self.labels["chassis_temperature"].set_label(f'{int(data['heater_bed']['temperature'])}℃')
 
     if ('extruder' in data) and ('temperature' in data['extruder']):
-        self.labels["left_nozzle_extruder"].set_label(f'{int(data['extruder']['temperature'])}℃')
-        self.labels["right_nozzle_extruder"].set_label(f'{int(data['extruder']['temperature'])}℃')
+        self.labels["extruder_temperature"].set_label(f'{int(data['extruder']['temperature'])}℃')
+    if ('extruder1' in data) and ('temperature' in data['extruder1']):
+        self.labels["extruder1_temperature"].set_label(f'{int(data['extruder1']['temperature'])}℃')
     if ('toolhead' in data) and ('estimated_print_time' in data['toolhead']):
         estimated_print_time = int(data['toolhead']['estimated_print_time'])
         self.labels["remaining_time"].set_label(f' - {print_time_format(estimated_print_time)}')
@@ -321,7 +329,7 @@ def pause_confirm(widget,self):
         state = 'paused'
     elif self.labels['print_state'].get_label() == _("Paused"):
         state = 'printing'
-    change_pause_button_state(self,state)
+    change_pause_button_state(self,state,widget)
 
 
 #停止打印窗口

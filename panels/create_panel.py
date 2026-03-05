@@ -78,10 +78,9 @@ class Panel(ScreenPanel):
         self.list_button_size = self._gtk.img_scale * self.bts
         self.thumbsize = self._gtk.img_scale * self._gtk.button_image_scale * 2.5
         self.change_item = ['print_busy',
-                            'chassis_temperature', 'hotbed_temperature', 'left_nozzle_extruder', 'right_nozzle_extruder',
+                            'chassis_temperature', 'heater_bed_temperature', 'extruder_temperature', 'extruder1_temperature',
                             'percentage_progress', 'floor_height_progress', 'remaining_time','floor_height_progress',
-                            'print_modeling_graphics', 'print_file_name', 'print_state','pause_button',
-                            'heater_bed_temperature']
+                            'print_modeling_graphics', 'print_file_name', 'print_state','pause_button']
         if panel_name == "sport_control":
             self.labels["sport_distance"]=10
             self.labels['distance_button']=[]
@@ -196,6 +195,7 @@ class Panel(ScreenPanel):
 
         elif(item['type'] == "Label"):
             self.counter += 1
+            value = ''
             if current_key in {'file_name', 'print_file_name','print_modeling_graphics'} and fileinfo is not None:
                 item_control_name = Gtk.Label(hexpand=True, halign=Gtk.Align.START, ellipsize=Pango.EllipsizeMode.END)
                 value=fileinfo['filename'].replace('.gcode', '')
@@ -204,8 +204,8 @@ class Panel(ScreenPanel):
             else:
                 value = self._screen.env.from_string(item['value']).render(self.j2_data) if item['value'] else None
 
-            if (key_array[len(key_array) - 1] == "nozzle1_temperature"):
-                value=self._printer.get_stat('extruder', "temperature")
+            # if (key_array[len(key_array) - 1] in self.change_item):
+            #     value=self._printer.get_stat(key_array[len(key_array) - 1], "temperature")
 
             if(current_key == "percentage_progress"):
                 self.percentage_progress=int(value)*0.01;
@@ -221,10 +221,6 @@ class Panel(ScreenPanel):
             if current_key in self.change_item:
                 self.labels[current_key]=item_control_name
                 return self.labels[current_key]
-
-            if key_array[len(key_array) - 1].endswith("extruder_temperature") :
-                self.labels[key_array[len(key_array) - 1]] = item_control_name
-                return self.labels[key_array[len(key_array) - 1]]
 
         elif(item['type'] == "Grid"):#移除默认边框
             item_control_name = Gtk.Grid(orientation=Gtk.Orientation.HORIZONTAL)
@@ -367,7 +363,7 @@ class Panel(ScreenPanel):
     def process_update(self, panel_name,action,data):
         if panel_name == "home_menu" or panel_name == "printer_control_menu":
             for dev in self.labels:
-                for type in ('extruder', 'heater_bed'):
+                for type in ('extruder', 'extruder1','heater_bed'):
                     if dev.endswith(f'{type}_temperature'):
                         self.update_temp(
                             type,

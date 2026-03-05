@@ -240,8 +240,8 @@
               "rowspan":1,
               "src":"images/right_arrow.png"
             },
-            "left_extruder_temperature":{
-              "name":"Left Extruder Temperature",
+            "extruder_temperature":{
+              "name":"Extruder Temperature",
               "type":"Label",
               "column":0,
               "row":1,
@@ -260,8 +260,8 @@
               "rowspan":2,
               "src":"images/nozzle_extruder.png"
             },
-            "right_extruder_temperature":{
-              "name":"Right Extruder Temperature",
+            "extruder1_temperature":{
+              "name":"Extruder1 Temperature",
               "type":"Label",
               "column":4,
               "row":1,

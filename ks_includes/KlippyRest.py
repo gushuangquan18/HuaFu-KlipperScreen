@@ -55,6 +55,8 @@ class KlippyRest:
         return self._do_request(method, "post", data, json, json_response)
 
     def send_request(self, method, json=True, timeout=4):
+        # method :'server/files/gcodes/.thumbs/a-320x320.png'
+        # method :'server/files/gcodes/.thumbs/a-320x320.png'
         res = self._do_request(method, "get", json_response=json, timeout=timeout)
         return self.process_response(res) if json else res
 
