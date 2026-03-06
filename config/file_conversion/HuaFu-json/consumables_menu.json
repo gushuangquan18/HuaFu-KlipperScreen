@@ -3,15 +3,15 @@
   "name":"consumables_menu",
   "type":"Grid",
   "children": {
-    "consumables_control":{
-      "name":"Consumables Control",
+    "t0_extruder_consumables_control":{
+      "name":"T0 Extruder Consumables Control",
       "type":"Button",
       "icon":"consumables_left",
       "column":0,
       "row":0,
       "columnspan":1,
       "rowspan":1,
-      "method":"show_dialog"
+      "method":"consumables_dialog"
     }
   }
 }

@@ -250,17 +250,20 @@ def change_pause_button_state(self, state, *args):
     button_text = ''
     # printing 打印中 paused暂停
     if state == "printing":
-        if len(args) == 1:
-            self._gtk.Button_busy(args[0], True)
+        #args[0],widget 发出请求的按钮控件
+        # if len(args) == 1:
+        #     self._gtk.Button_busy(args[0], True)
         self._screen._ws.klippy.print_resume()
+        # self._gtk.Button_busy(args[0], False)
         state_text = _("Printing")
         filename = "images/pause.png"
         button_text = _("Pause")
 
     elif state == "paused":
-        if len(args) == 1:
-            self._gtk.Button_busy(args[0], True)
+        # if len(args) == 1:
+        #     self._gtk.Button_busy(args[0], True)
         self._screen._ws.klippy.print_pause()
+        # self._gtk.Button_busy(args[0], False)
         state_text = _("Paused")
         filename = "images/start.png"
         button_text = _("Start")
@@ -333,7 +336,7 @@ def pause_confirm(widget,self):
 
 
 #停止打印窗口
-def cancel(widget,self ):
+def cancel(widget,self):
     buttons = [
         {"name": _("Confirm"), "response": Gtk.ResponseType.OK, "style": 'waring_button'},
         {"name": _("Back"), "response": Gtk.ResponseType.CANCEL, "style": 'dialog_cancel'}
@@ -342,14 +345,16 @@ def cancel(widget,self ):
         buttons.insert(0, {"name": _("Exclude Object"), "response": Gtk.ResponseType.APPLY})
     label = Gtk.Label(hexpand=True, vexpand=True, wrap=True)
     label.set_markup(_("Are you sure you wish to cancel this print?"))
-    self._gtk.Dialog(_("Cancel"), buttons, label, cancel_confirm,self)
+    self._gtk.Dialog(_("Cancel"), buttons, label, cancel_confirm,self,widget)
 
 #确认停止,关闭打印
-
 def cancel_confirm(dialog, response_id, klippy_gtk,self,*args):
     self._gtk.remove_dialog(dialog)
     if response_id == Gtk.ResponseType.OK:
         logging.debug("Canceling print")
+        #args[0],widget 发出请求的按钮控件
+        # if len(args) == 1:
+        #     self._gtk.Button_busy(args[0], True)
         if self._screen._ws.klippy.print_cancel():
             parameter_item = {
                 "panel": "home_menu",

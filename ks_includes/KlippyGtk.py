@@ -215,6 +215,7 @@ class KlippyGtk:
         spinner = find_widget(widget, Gtk.Spinner)
         image = find_widget(widget, Gtk.Image)
         if busy:
+            #设置为禁用状态
             widget.set_sensitive(False)
             if image:
                 widget.set_always_show_image(False)

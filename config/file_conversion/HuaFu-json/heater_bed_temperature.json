@@ -62,8 +62,8 @@
       }
     }
   },
-  "heater_bed": {
-    "name": "Heater Bed",
+  "heater_bed_temperature_grid": {
+    "name": "Heater Bed Temperature Grid",
     "type": "Grid",
     "column": 0,
     "row": 1,

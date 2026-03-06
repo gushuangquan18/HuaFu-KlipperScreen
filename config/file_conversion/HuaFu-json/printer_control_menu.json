@@ -191,8 +191,8 @@
         }
       }
     },
-    "nozzle_extruder":{
-      "name":"Nozzle Extruder",
+    "control_extruder_temperature":{
+      "name":"Controld Extruder Temperature",
       "type":"Button",
       "column":0,
       "row":1,
@@ -200,202 +200,205 @@
       "rowspan":2,
       "width":10,
       "height":5,
-      "panel":"nozzle_extruder",
-      "control_nozzle_extruder_grid":{
-        "name":"Control Nozzle Extruder Grid",
-        "type":"Grid",
-        "width":300,
-        "height":200,
-        "column_homogeneous": "True",
-        "row_homogeneous": "True",
-        "children":{
-            "nozzle_extruder_icon":{
-              "name":"Nozzle Extruder Icon",
+      "panel":"extruder_temperature",
+      "children": {
+        "control_extruder_temperature_grid": {
+          "name": "Control Extruder Temperature Grid",
+          "type": "Grid",
+          "width": 300,
+          "height": 200,
+          "column_homogeneous": "True",
+          "row_homogeneous": "True",
+          "children": {
+            "nozzle_extruder_icon": {
+              "name": "Nozzle Extruder Icon",
+              "type": "Image",
+              "width": 40,
+              "height": 40,
+              "column": 0,
+              "row": 0,
+              "columnspan": 1,
+              "rowspan": 1,
+              "src": "images/nozzle_temperature.png"
+            },
+            "nozzle_extruder_label": {
+              "name": "Nozzle Extruder Label",
+              "type": "Label",
+              "column": 1,
+              "row": 0,
+              "columnspan": 4,
+              "rowspan": 1,
+              "value": "Nozzle Extruder"
+            },
+            "right_arrow_icon": {
+              "name": "Right Arrow Icon",
+              "type": "Image",
+              "width": 10,
+              "height": 20,
+              "column": 5,
+              "row": 0,
+              "columnspan": 1,
+              "rowspan": 1,
+              "src": "images/right_arrow.png"
+            },
+            "extruder_temperature": {
+              "name": "Extruder Temperature",
+              "type": "Label",
+              "column": 0,
+              "row": 1,
+              "columnspan": 2,
+              "rowspan": 2,
+              "value": "30℃\\n/65℃"
+            },
+            "nozzle_extruder_image": {
+              "name": "Nozzle Extrude Image",
+              "type": "Image",
+              "width": 60,
+              "height": 90,
+              "column": 2,
+              "row": 1,
+              "columnspan": 2,
+              "rowspan": 2,
+              "src": "images/nozzle_extruder.png"
+            },
+            "extruder1_temperature": {
+              "name": "Extruder1 Temperature",
+              "type": "Label",
+              "column": 4,
+              "row": 1,
+              "columnspan": 2,
+              "rowspan": 2,
+              "value": "30℃\\n/65℃"
+            }
+          }
+        }
+      }
+    },
+    "control_chassis_temperature":{
+      "name":"Control Chassis Temperature",
+      "type":"Button",
+      "column":0,
+      "row":3,
+      "columnspan":3,
+      "rowspan":1,
+      "children": {
+        "control_chassis_temperature_grid":{
+          "name":"Control Chassis Temperature Grid",
+          "type":"Grid",
+          "column":0,
+          "row":0,
+          "columnspan":1,
+          "rowspan":1,
+          "width":300,
+          "height":100,
+          "column_homogeneous": "True",
+          "children": {
+            "chassis_temperature_icon":{
+              "name":"Chassis Temperature Icon",
               "type":"Image",
               "width":40,
               "height":40,
               "column":0,
               "row":0,
               "columnspan":1,
-              "rowspan":1,
-              "src":"images/nozzle_temperature.png"
+              "rowspan":2,
+              "src":"images/chassis_temperature.png"
             },
-            "nozzle_extruder_label":{
-              "name":"Nozzle Extruder Label",
+            "chassis_temperature_label":{
+              "name":"Chassis Temperature Label",
               "type":"Label",
               "column":1,
               "row":0,
-              "columnspan":4,
+              "columnspan":3,
               "rowspan":1,
-              "value":"Nozzle Extruder"
+              "value":"Chassis"
+            },
+            "chassis_temperature_model":{
+              "name":"Chassis Temperature Model",
+              "type":"Label",
+              "column":1,
+              "row":1,
+              "columnspan":3,
+              "rowspan":1,
+              "value":"30℃/65℃"
             },
             "right_arrow_icon":{
               "name":"Right Arrow Icon",
               "type":"Image",
-              "width":10,
-              "height":20,
-              "column":5,
+              "width":20,
+              "height":40,
+              "column":4,
               "row":0,
               "columnspan":1,
-              "rowspan":1,
+              "rowspan":2,
               "src":"images/right_arrow.png"
-            },
-            "extruder_temperature":{
-              "name":"Extruder Temperature",
-              "type":"Label",
-              "column":0,
-              "row":1,
-              "columnspan":2,
-              "rowspan":2,
-              "value":"30℃\\n/65℃"
-            },
-            "nozzle_extruder_image":{
-              "name":"Nozzle Extrude Image",
-              "type":"Image",
-              "width":60,
-              "height":90,
-              "column":2,
-              "row":1,
-              "columnspan":2,
-              "rowspan":2,
-              "src":"images/nozzle_extruder.png"
-            },
-            "extruder1_temperature":{
-              "name":"Extruder1 Temperature",
-              "type":"Label",
-              "column":4,
-              "row":1,
-              "columnspan":2,
-              "rowspan":2,
-              "value":"30℃\\n/65℃"
             }
           }
-      }
-    },
-    "chassis_temperature":{
-      "name":"Chassis Temperature",
-      "type":"Button",
-      "column":0,
-      "row":3,
-      "columnspan":3,
-      "rowspan":1,
-      "panel":"chassis_temperature",
-      "chassis_temperature_grid":{
-        "name":"Chassis Temperature Grid",
-        "type":"Grid",
-        "column":0,
-        "row":0,
-        "columnspan":1,
-        "rowspan":1,
-        "width":300,
-        "height":100,
-        "column_homogeneous": "True",
-        "children": {
-          "chassis_temperature_icon":{
-            "name":"Chassis Temperature Icon",
-            "type":"Image",
-            "width":40,
-            "height":40,
-            "column":0,
-            "row":0,
-            "columnspan":1,
-            "rowspan":2,
-            "src":"images/chassis_temperature.png"
-          },
-          "chassis_temperature_label":{
-            "name":"Chassis Temperature Label",
-            "type":"Label",
-            "column":1,
-            "row":0,
-            "columnspan":3,
-            "rowspan":1,
-            "value":"Chassis"
-          },
-          "chassis_temperature_model":{
-            "name":"Chassis Temperature Model",
-            "type":"Label",
-            "column":1,
-            "row":1,
-            "columnspan":3,
-            "rowspan":1,
-            "value":"30℃/65℃"
-          },
-          "right_arrow_icon":{
-            "name":"Right Arrow Icon",
-            "type":"Image",
-            "width":20,
-            "height":40,
-            "column":4,
-            "row":0,
-            "columnspan":1,
-            "rowspan":2,
-            "src":"images/right_arrow.png"
-          }
         }
-
       }
     },
-    "heater_bed_temperature_button":{
-      "name":"Heater Bed Temperature Button",
+    "control_heater_bed_temperature_button":{
+      "name":"Control Heater Bed Temperature Button",
       "type":"Button",
       "column":0,
       "row":4,
       "columnspan":3,
       "rowspan":1,
       "panel":"heater_bed_temperature",
-      "heater_bed_temperature_grid":{
-        "name":"Heater Bed Temperature Grid",
-        "type":"Grid",
-        "column":0,
-        "row":0,
-        "columnspan":1,
-        "rowspan":1,
-        "width":300,
-        "height":100,
-        "column_homogeneous": "True",
-        "children": {
-          "heater_bed_temperature_icon":{
-            "name":"Heater Bed Temperature Icon",
-            "type":"Image",
-            "width":40,
-            "height":40,
-            "column":0,
-            "row":0,
-            "columnspan":1,
-            "rowspan":2,
-            "src":"images/heater_bed_temperature.png"
-          },
-          "heater_bed_temperature_label":{
-            "name":"Heater Bed Temperature Label",
-            "type":"Label",
-            "column":1,
-            "row":0,
-            "columnspan":3,
-            "rowspan":1,
-            "value":"Heater Bed"
-          },
-          "heater_bed_temperature":{
-            "name":"Heater Bed Temperature",
-            "type":"Label",
-            "column":1,
-            "row":1,
-            "columnspan":3,
-            "rowspan":1,
-            "value":"30℃/65℃"
-          },
-          "right_arrow_icon":{
-            "name":"Right Arrow Icon",
-            "type":"Image",
-            "width":20,
-            "height":40,
-            "column":4,
-            "row":0,
-            "columnspan":1,
-            "rowspan":2,
-            "src":"images/right_arrow.png"
+      "children": {
+        "control_heater_bed_temperature_grid":{
+          "name":"Control Heater Bed Temperature Grid",
+          "type":"Grid",
+          "column":0,
+          "row":0,
+          "columnspan":1,
+          "rowspan":1,
+          "width":300,
+          "height":100,
+          "column_homogeneous": "True",
+          "children": {
+            "heater_bed_temperature_icon":{
+              "name":"Heater Bed Temperature Icon",
+              "type":"Image",
+              "width":40,
+              "height":40,
+              "column":0,
+              "row":0,
+              "columnspan":1,
+              "rowspan":2,
+              "src":"images/heater_bed_temperature.png"
+            },
+            "heater_bed_temperature_label":{
+              "name":"Heater Bed Temperature Label",
+              "type":"Label",
+              "column":1,
+              "row":0,
+              "columnspan":3,
+              "rowspan":1,
+              "value":"Heater Bed"
+            },
+            "heater_bed_temperature":{
+              "name":"Heater Bed Temperature",
+              "type":"Label",
+              "column":1,
+              "row":1,
+              "columnspan":3,
+              "rowspan":1,
+              "value":"30℃/65℃"
+            },
+            "right_arrow_icon":{
+              "name":"Right Arrow Icon",
+              "type":"Image",
+              "width":20,
+              "height":40,
+              "column":4,
+              "row":0,
+              "columnspan":1,
+              "rowspan":2,
+              "src":"images/right_arrow.png"
+            }
           }
         }
-
       }
     },
     "light_system_grid":{

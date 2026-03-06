@@ -29,6 +29,7 @@ from panels.printer_control import (move,
                                   on_digit_clicked,
                                   change_sprot_speed,
                                   change_target_temp)
+from panels.edit_consumables import consumables_dialog
 
 class Panel(ScreenPanel):
 
@@ -80,7 +81,8 @@ class Panel(ScreenPanel):
         self.change_item = ['print_busy',
                             'chassis_temperature', 'heater_bed_temperature', 'extruder_temperature', 'extruder1_temperature',
                             'percentage_progress', 'floor_height_progress', 'remaining_time','floor_height_progress',
-                            'print_modeling_graphics', 'print_file_name', 'print_state','pause_button']
+                            'print_modeling_graphics', 'print_file_name', 'print_state','pause_button',
+                            't0_extruder_consumables_control']
         if panel_name == "sport_control":
             self.labels["sport_distance"]=10
             self.labels['distance_button']=[]
@@ -156,8 +158,11 @@ class Panel(ScreenPanel):
                 item_control_name.connect("clicked", self._screen._menu_go_back)
             elif(item['method'] == 'show_dialog'):
                 item_control_name.connect("clicked", self.show_dialog,current_key)
+            elif(item['method'] == 'consumables_dialog'):
+                item_control_name.connect("clicked", consumables_dialog,self)
             elif(item['method'] == 'on_digit_clicked'):
-                item_control_name.connect("clicked", on_digit_clicked, self, value, key_array[len(key_array)-3])
+                #panel_name extruder_temperature chassis_temperature heater_bed_temperature
+                item_control_name.connect("clicked", on_digit_clicked, self, value, panel_name)
             elif(item['method'] == 'set_nozzle_type'):
                 item_control_name.connect("clicked", self.set_nozzle_type)
             elif (item['method'] == 'refresh_loading'):
@@ -167,7 +172,9 @@ class Panel(ScreenPanel):
             elif (item['method'] == 'pause_confirm'):
                 item_control_name.connect("clicked", pause_confirm,self)
             elif (item['method'] == 'change_target_temp'):
-                item_control_name.connect("clicked", change_target_temp,self,"heater_bed")
+                #更改腔温 热床温度
+                #panel_name extruder_temperature chassis_temperature heater_bed_temperature
+                item_control_name.connect("clicked", change_target_temp,self,panel_name,value)
             elif (item['method'] == 'move'):
                 item_control_name.connect("clicked", move,self,value)
             elif (item['method'] == 'direction_home'):
@@ -299,7 +306,8 @@ class Panel(ScreenPanel):
             item_control_name.set_alignment(0.5) #文本居中
             item_control_name.set_size_request(400,100)
             item_control_name.get_style_context().add_class("entry_temperature")
-            self.entry[key_array[len(key_array)-2]] = item_control_name
+            # panel_name extruder_temperature chassis_temperature heater_bed_temperature
+            self.entry[panel_name] = item_control_name
 
         elif (item['type'] == "ComboBoxText"):
             self.counter += 1
@@ -363,8 +371,10 @@ class Panel(ScreenPanel):
     def process_update(self, panel_name,action,data):
         if panel_name == "home_menu" or panel_name == "printer_control_menu":
             for dev in self.labels:
-                for type in ('extruder', 'extruder1','heater_bed'):
+                for type in ('extruder', 'extruder1','heater_bed','chassis'):
                     if dev.endswith(f'{type}_temperature'):
+                        if type == "chassis":
+                            type = "temperature_sensor filament_box_temp"
                         self.update_temp(
                             type,
                             self._printer.get_stat(type, "temperature"),

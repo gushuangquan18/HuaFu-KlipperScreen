@@ -1,6 +1,6 @@
 {
   "father":"printer_control_menu",
-  "name":"chassis_temperature",
+  "name":"extruder_temperature",
   "type":"Grid",
   "head_grid":{
     "name":"Head Grid",
@@ -27,10 +27,10 @@
         "button_width": 150,
         "button_height": 50
       },
-      "chassis_temperature_label":{
-        "name":"Chassis Temperature Label",
+      "extruder_temperature_label":{
+        "name":"Extruder Temperature Label",
         "type":"Label",
-        "value":"Chassis Temperature",
+        "value":"Extruder Temperature",
         "column":1,
         "row":0,
         "columnspan":1,
@@ -45,10 +45,10 @@
         "columnspan":1,
         "rowspan":1
       },
-      "confirm":{
-        "name":"Confirm",
+      "extruder_confirm":{
+        "name":"Extruder Confirm",
         "type":"Button",
-        "value":"Confirm",
+        "value":"T0:Confirm",
         "hexpand": "False",
         "vexpand": "False",
         "button_width": 150,
@@ -59,11 +59,26 @@
         "rowspan":1,
         "style": "next_level",
         "method": "change_target_temp"
+      },
+      "extruder1_confirm":{
+        "name":"Extruder1 Confirm",
+        "type":"Button",
+        "value":"T1:Confirm",
+        "hexpand": "False",
+        "vexpand": "False",
+        "button_width": 150,
+        "button_height": 15,
+        "column":5,
+        "row":0,
+        "columnspan":1,
+        "rowspan":1,
+        "style": "next_level",
+        "method": "change_target_temp"
       }
     }
   },
-  "chassis_temperature": {
-    "name": "Chassis Temperature",
+  "extruder_temperature_grid": {
+    "name": "Extruder Temperature Grid",
     "type": "Grid",
     "column": 0,
     "row": 1,
@@ -73,8 +88,8 @@
     "height": 520,
     "column_spacing": 1,
     "children": {
-      "chassis_temperature_image":{
-        "name": "Chassis Temperature Image",
+      "extruder_temperature_image":{
+        "name": "Extruder Temperature Image",
         "type":"Image",
         "width":350,
         "height":280,
@@ -82,10 +97,10 @@
         "row":0,
         "columnspan":3,
         "rowspan": 4,
-        "src":"images/chassis_temperature_inner.jpg"
+        "src":"images/nozzle_extruder.png"
       },
-      "chassis_temperature_message":{
-        "name":"Chassis Temperature Message",
+      "extruder_temperature_message":{
+        "name":"Extruder Temperature Message",
         "type":"Label",
         "column":0,
         "row":4,
@@ -93,8 +108,8 @@
         "rowspan":1,
         "value":"Low chamber temperature is suitable \\nfor printing PLA and PETG materials."
       },
-      "chassis_temperature_entry": {
-        "name": "Chassis Temperature Entry",
+      "extruder_temperature_entry": {
+        "name": "Extruder Temperature Entry",
         "type": "Entry",
         "column": 3,
         "row": 0,

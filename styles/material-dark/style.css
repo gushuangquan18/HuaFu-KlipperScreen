@@ -267,9 +267,9 @@ button.print_menu_button{
 #air_system_grid ,
 #speed_control_grid ,
 #sport_control_grid,
-#heater_bed_temperature_grid ,
-#chassis_temperature_grid,
-#control_nozzle_extruder_grid{
+#control_extruder_temperature_grid,
+#control_chassis_temperature_grid,
+#control_heater_bed_temperature_grid{
     background-color: @grid_bg;
     border-radius: 1em;
     padding-top: 15px;
@@ -322,22 +322,32 @@ button.print_menu_button{
 #hot_bed_control_grid{
 }
 
+/* 喷嘴温度管理 */
+#extruder_temperature{
+    margin: 10px 10px 10px 10px;
+}
+
+#extruder_temperature_grid{
+    padding: 20px 15px 20px 15px;
+    margin: 10px;
+}
+
 /* 腔温管理 */
 #chassis_temperature{
     margin: 10px 10px 10px 10px;
 }
 
-#chassis_temperature_body_grid{
+#chassis_temperature_grid{
     padding: 20px 15px 20px 15px;
     margin: 10px;
 }
 
 /* 热床温度管理 */
-#hotbed_temperature{
+#heater_bed_temperature{
     margin: 10px 10px 10px 10px;
 }
 
-#hotbed_temperature_body_grid{
+#heater_bed_temperature_grid{
     padding: 20px 15px 20px 15px;
     margin: 10px;
 }

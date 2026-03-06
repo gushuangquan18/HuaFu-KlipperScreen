@@ -9,7 +9,6 @@ from gi.repository import Gtk, Pango, Gdk, GdkPixbuf
 from ks_includes.KlippyGtk import find_widget
 
 DIALOG_MESSAGES = {
-    'consumables_control': ('编辑', '进料', '退料'),
     'video_tape': ('1080P', '4K'),
     'auto_sleep': ('10分钟','20分钟','30分钟'),
     'language': ('中文','英文','日文','韩文')
@@ -324,8 +323,8 @@ class ScreenPanel:
     #格式化展示温度
     def update_temp(self, dev, temp, target, power, name,lines=1, digits=1):
         new_label_text = f"{temp or 0:.{digits}f}"
-        # if self._printer.device_has_target(dev) and target:
-        #         new_label_text += f"/{target}"
+        if self._printer.device_has_target(dev) and target:
+            new_label_text += f"/{int(target)}"
                 # new_label_text += f"/{target:.0f}"
         if dev not in self.devices:
             new_label_text += "℃"
@@ -341,6 +340,8 @@ class ScreenPanel:
         elif dev in self.devices:
             # Temperature and Main_Menu
             find_widget(self.devices[dev]["temp"], Gtk.Label).set_text(new_label_text)
+        if name == "temperature_sensor filament_box_temp":
+            name = "chassis_temperature"
         find_widget(self.labels[name], Gtk.Label).set_text(new_label_text)
 
     def add_option(self, boxname, opt_array, opt_name, option):

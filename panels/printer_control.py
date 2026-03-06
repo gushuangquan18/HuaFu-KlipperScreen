@@ -81,22 +81,27 @@ def direction_home(widget, self, value=None):
     self._screen._send_action(widget, "printer.gcode.script", {"script": script})
 
 #更改喷嘴 腔温 热床温度
-def change_target_temp(widget,self, name):
-    # temp = self.verify_max_temp(name,temp)
+def change_target_temp(widget,self, name,*args):
     temp_text = self.entry[name].get_text()
     match= re.search(r'(\d+\.?\d*)',temp_text)
     temp = int(match.group(0))
-    temp = True
+    # temp = self.verify_max_temp(name,temp)
     if temp is False:
         return
-    if name.startswith('extruder'):
-        self._screen._ws.klippy.set_tool_temp(self._printer.get_tool_number(name), temp)
-    elif name == "heater_bed":
+    if args[0].startswith('T0'):
+        #{'script': 'M104 Textruder S50'}
+        self._screen._ws.klippy.set_tool_temp('extruder', temp)
+    elif args[0].startswith('T1'):
+        # {'script': 'M104 T1 S65'}  T1  1代表extruder
+        self._screen._ws.klippy.set_tool_temp('1', temp)
+    elif name.startswith("heater_bed"):
+        #{'script': 'M140 S90'} S后面是温度
         self._screen._ws.klippy.set_bed_temp(temp)
-    elif name.startswith('heater_generic '):
-        self._screen._ws.klippy.set_heater_temp(name, temp)
-    elif name.startswith('temperature_fan '):
-        self._screen._ws.klippy.set_temp_fan_temp(name, temp)
+    # elif name.startswith("chassis"):
+    #     name = "temperature_sensor filament_box_temp"
+    #     self._screen._ws.klippy.set_heater_temp(name, temp)
+    # elif name.startswith('temperature_fan '):
+    #     self._screen._ws.klippy.set_temp_fan_temp(name, temp)
     else:
         logging.info(f"Unknown heater: {name}")
         self._screen.show_popup_message(_("Unknown Heater") + " " + name)

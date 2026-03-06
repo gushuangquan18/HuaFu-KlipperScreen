@@ -176,7 +176,7 @@
           "direction_left": {
             "name": "Direction Left",
             "type": "Button",
-            "value": "X-",
+            "value": "X+",
             "hexpand": "False",
             "vexpand": "False",
             "button_width": 130,
@@ -191,7 +191,7 @@
           "direction_right": {
             "name": "Direction Right",
             "type": "Button",
-            "value": "X+",
+            "value": "X-",
             "hexpand": "False",
             "vexpand": "False",
             "button_width": 130,
