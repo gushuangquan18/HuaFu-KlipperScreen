@@ -29,7 +29,7 @@ from panels.printer_control import (move,
                                   on_digit_clicked,
                                   change_sprot_speed,
                                   change_target_temp)
-from panels.edit_consumables import consumables_dialog
+from panels.edit_consumables import consumables_dialog,change_consumables_button
 
 class Panel(ScreenPanel):
 
@@ -82,10 +82,16 @@ class Panel(ScreenPanel):
                             'chassis_temperature', 'heater_bed_temperature', 'extruder_temperature', 'extruder1_temperature',
                             'percentage_progress', 'floor_height_progress', 'remaining_time','floor_height_progress',
                             'print_modeling_graphics', 'print_file_name', 'print_state','pause_button',
-                            't0_extruder_consumables_control']
+                            't0_extruder_consumables_control',]
         if panel_name == "sport_control":
-            self.labels["sport_distance"]=10
+            self.labels["distance"]=10
             self.labels['distance_button']=[]
+        if panel_name == "control_consumables":
+            self.labels["length"]=10
+            self.labels['length_button']=[]
+            self.labels["speed"] = 10
+            self.labels['speed_button'] = []
+
         while i< len(self.items):
             key = list(self.items[i])[0]
             item = self.items[i][key]
@@ -96,7 +102,7 @@ class Panel(ScreenPanel):
                     int(item['rowspan']))
             i = self.counter
         parent_grid.set_name(panel_name)
-        if(panel_name == "printer_control_menu" or panel_name == "messages_menu"):
+        if(panel_name == "printer_control_menu" or panel_name == "messages_menu" ):
             parent_grid.set_row_homogeneous(True)
         if panel_name == "print_file_list":
             self._screen._ws.klippy.get_dir_info(self.load_files, self.cur_directory)
@@ -179,11 +185,17 @@ class Panel(ScreenPanel):
                 item_control_name.connect("clicked", move,self,value)
             elif (item['method'] == 'direction_home'):
                 item_control_name.connect("clicked", direction_home,self,value)
-            elif (item['method'] == 'change_sprot_speed'):
-                item_control_name.connect("clicked", change_sprot_speed,self,value)
+            elif (item['method'] == 'change_consumables_length'):
+                item_control_name.connect("clicked", change_consumables_button,self,'length',value)
+            elif (item['method'] == 'change_consumables_speed'):
+                item_control_name.connect("clicked", change_consumables_button,self,'speed',value)
 
             if current_key.startswith('distance'):
                 self.labels['distance_button'].append(item_control_name)
+            if current_key.startswith('length'):
+                self.labels['length_button'].append(item_control_name)
+            if current_key.startswith('speed_consumables') :
+                self.labels['speed_button'].append(item_control_name)
             if current_key=='print_busy':
                 if  father == 'print_menu':
                     item_control_name.set_no_show_all(False)

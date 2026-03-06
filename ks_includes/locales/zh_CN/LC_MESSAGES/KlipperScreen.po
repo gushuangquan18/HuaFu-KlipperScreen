@@ -227,6 +227,9 @@ msgstr "断开"
 msgid "Distance (mm)"
 msgstr "挤出长度（mm）"
 
+msgid "Distance(mm)"
+msgstr "距离(mm)"
+
 #, python-format
 msgid "Do you want to forget or disconnect %s?"
 msgstr "您要忘记或断开%s的连接吗？"
@@ -502,6 +505,9 @@ msgstr "打印机限制"
 
 msgid "Load"
 msgstr "载入耗材"
+
+msgid "Long Load"
+msgstr "长料载入"
 
 msgid "Loading..."
 msgstr "加载中..."
@@ -912,6 +918,9 @@ msgstr "未知的安全类型"
 msgid "Unload"
 msgstr "卸载耗材"
 
+msgid "Long UnLoad"
+msgstr "长料载出"
+
 msgid "Unlock"
 msgstr "解锁"
 
@@ -1055,8 +1064,8 @@ msgstr "运动"
 msgid "Sprot:XYZ"
 msgstr "运动:XYZ"
 
-msgid "Speed"
-msgstr "速度"
+msgid "Speed(mm/s)"
+msgstr "速度(mm/s)"
 
 msgid "Standard"
 msgstr "标准"
@@ -1100,6 +1109,9 @@ msgstr "低腔温适合打印PLA、PETG材料。"
 msgid "Hotbed Temperature"
 msgstr "热床温度"
 
+msgid "Extruder Temperature"
+msgstr "喷嘴温度"
+
 msgid "T0:Confirm"
 msgstr "T0:确认"
 
@@ -1120,6 +1132,9 @@ msgstr "编辑耗材"
 
 msgid "Control Consumables"
 msgstr "控制耗材"
+
+msgid "Length(mm)"
+msgstr "长度(mm)"
 
 
 

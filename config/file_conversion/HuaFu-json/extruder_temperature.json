@@ -28,7 +28,7 @@
         "button_height": 50
       },
       "extruder_temperature_label":{
-        "name":"Extruder Temperature Label",
+        "name":"Extruder Temperature",
         "type":"Label",
         "value":"Extruder Temperature",
         "column":1,

@@ -48,10 +48,10 @@
     "width": 930,
     "height": 530,
     "children": {
-      "tool_head_label": {
-        "name": "Tool Head Label",
+      "distance_label": {
+        "name": "Distance Label",
         "type": "Label",
-        "value": "Tool Head",
+        "value": "Distance(mm)",
         "column": 0,
         "row": 0,
         "columnspan": 1,
@@ -71,7 +71,7 @@
           "distance1": {
             "name": "Distance1",
             "type": "Button",
-            "value": "1mm",
+            "value": "1",
             "hexpand": "False",
             "vexpand": "False",
             "button_width": 150,
@@ -86,7 +86,7 @@
           "distance10": {
             "name": "Distance10",
             "type": "Button",
-            "value": "10mm",
+            "value": "10",
             "hexpand": "False",
             "vexpand": "False",
             "button_width": 150,
@@ -101,7 +101,7 @@
           "distance30": {
             "name": "Distance30",
             "type": "Button",
-            "value": "30mm",
+            "value": "30",
             "hexpand": "False",
             "vexpand": "False",
             "button_width": 150,

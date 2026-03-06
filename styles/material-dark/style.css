@@ -372,18 +372,25 @@ button.print_menu_button{
 
 
 /* 耗材管理 菜单页面 */
-#consumables_menu {
-    padding:10px;
-    background-image: url('images/consumables_menu_background.jpg');
-    background-size: contain; /* cover; 会缩放图片以完全覆盖整个区域，可能会裁剪图片。 contain; 会缩放图片以完整显示在区域内，可能不会填满整个区域。*/
-    background-repeat: no-repeat;
-}
+/*#consumables_menu {*/
+/*    padding:10px;*/
+/*    background-image: url('images/consumables_menu_background.jpg');*/
+/*    background-size: contain; !* cover; 会缩放图片以完全覆盖整个区域，可能会裁剪图片。 contain; 会缩放图片以完整显示在区域内，可能不会填满整个区域。*!*/
+/*    background-repeat: no-repeat;*/
+/*}*/
 /* 编辑耗材耗材 */
 #edit_consumables_body_grid{
     background-color: @grid_bg;
     border-radius: 1em;
     margin: 5px 10px 10px 5px ;
     padding: 20px 20px 20px 10px;
+}
+
+#control_consumables{
+
+}
+#control_consumables_body_grid{
+    padding: 0px 20px 0px 35px;
 }
 
 

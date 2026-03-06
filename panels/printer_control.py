@@ -37,7 +37,7 @@ def move(widget, self, value):
     ):
         direction = "-" if direction == "+" else "+"
 
-    dist = f"{direction}{self.labels["sport_distance"]}"
+    dist = f"{direction}{self.labels["distance"]}"
     config_key = "move_speed_z" if axis == "z" else "move_speed_xy"
     # speed = (
     #     None
@@ -46,7 +46,7 @@ def move(widget, self, value):
     # )
     # if speed is None:
     #     speed = self._config.get_config()["main"].getint(config_key, self.max_z_velocity)
-    speed = 60 * max(1, self.labels["sport_distance"])
+    speed = 60 * max(1, self.labels["distance"])
     script = f"{KlippyGcodes.MOVE_RELATIVE}\nG0 {axis}{dist} F{speed}"
     self._screen._send_action(widget, "printer.gcode.script", {"script": script})
     if self._printer.get_stat("gcode_move", "absolute_coordinates"):
@@ -54,13 +54,12 @@ def move(widget, self, value):
 
 #更改XY轴每次移动的距离,并更改对应选中按钮的颜色
 def change_sprot_speed(widget, self, value):
-    match= re.search(r'\d+', value)
-    distance = int(match.group(0))
-    self.labels["sport_distance"] = distance
-    logging.info(f"Change sport distance: {self.labels["sport_distance"]}")
+    distance = int(value)
+    self.labels["distance"] = distance
+    logging.info(f"Change sport distance: {self.labels["distance"]}")
     for distance_button in self.labels["distance_button"]:
         text=distance_button.get_label()
-        if text == f'{distance}mm':
+        if int(text) == distance:
             distance_button.get_style_context().remove_class('distance_button')
             distance_button.get_style_context().add_class('select_distance_button')
         else:
@@ -97,8 +96,10 @@ def change_target_temp(widget,self, name,*args):
     elif name.startswith("heater_bed"):
         #{'script': 'M140 S90'} S后面是温度
         self._screen._ws.klippy.set_bed_temp(temp)
-    # elif name.startswith("chassis"):
+    elif name.startswith("chassis"):
+        #CHAMBER_HEAT TARGET=45 TOLERANCE=2
     #     name = "temperature_sensor filament_box_temp"
+        self._screen._ws.klippy.set_tool_temp('5', temp)
     #     self._screen._ws.klippy.set_heater_temp(name, temp)
     # elif name.startswith('temperature_fan '):
     #     self._screen._ws.klippy.set_temp_fan_temp(name, temp)

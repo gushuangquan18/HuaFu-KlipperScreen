@@ -29,7 +29,9 @@ def consumables_dialog(widget,self):
     label = Gtk.Label(hexpand=True, vexpand=True, wrap=True)
     label.set_markup(_("Please select the function you want to operate!"))
     if self.labels['t0_extruder_consumables_control'] == widget:
-        title = f'T0:{_("Operating consumables")}'
+        title = f'左喷嘴:{_("Operating consumables")}'
+    else:
+        title = f'右喷嘴:{_("Operating consumables")}'
     self._gtk.Dialog(title, buttons, label, consumables_confirm,self,widget)
 
 #选择哪个功能
@@ -40,6 +42,25 @@ def consumables_confirm(dialog, response_id, klippy_gtk,self,*args):
             "panel": 'edit_consumables',
             "icon": None,
         }
-        self.menu_item_clicked(args[0],parameter_item)
+        self.menu_item_clicked(args[0], parameter_item)
     if response_id==2:
-        logging.debug("Control ConSumables")
+        parameter_item = {
+            "panel": 'control_consumables',
+            "icon": None,
+        }
+        self.menu_item_clicked(args[0], parameter_item)
+
+
+#更改耗材每次载入抽回的距离,并更改对应选中按钮的颜色
+def change_consumables_button(widget, self, type,value):
+    value = int(value)
+    self.labels[type] = value
+    logging.info(f"Change {type} value : {value}")
+    for distance_button in self.labels[f'{type}_button']:
+        text=distance_button.get_label()
+        if int(text) == value:
+            distance_button.get_style_context().remove_class('distance_button')
+            distance_button.get_style_context().add_class('select_distance_button')
+        else:
+            distance_button.get_style_context().remove_class('select_distance_button')
+            distance_button.get_style_context().add_class('distance_button')

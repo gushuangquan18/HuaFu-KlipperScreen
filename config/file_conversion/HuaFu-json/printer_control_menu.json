@@ -281,6 +281,7 @@
       "row":3,
       "columnspan":3,
       "rowspan":1,
+      "panel":"chassis_temperature",
       "children": {
         "control_chassis_temperature_grid":{
           "name":"Control Chassis Temperature Grid",
