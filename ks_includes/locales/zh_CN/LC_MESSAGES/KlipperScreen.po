@@ -919,7 +919,7 @@ msgid "Unload"
 msgstr "卸载耗材"
 
 msgid "Long UnLoad"
-msgstr "长料载出"
+msgstr "长料卸载"
 
 msgid "Unlock"
 msgstr "解锁"

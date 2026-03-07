@@ -239,7 +239,7 @@ class Panel(ScreenPanel):
                     select_extruder = "T0: "
                 else:
                     select_extruder = "T1: "
-                if  current_key == "edit_consumables_label" or "control_consumables_label":
+                if  current_key in ("edit_consumables_title", "control_consumables_title"):
                     value = f"{select_extruder}{value}"
 
             if (key_array[len(key_array) - 1] == "space_label"):

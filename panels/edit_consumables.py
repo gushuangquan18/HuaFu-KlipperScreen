@@ -78,11 +78,11 @@ def check_min_temp(widget,self , current_key):
     elif current_key.startswith('retraction_consumables'):
         method = 'extrude'
         direction = '-'
-    elif current_key.startswith('load_consumables'):
-        method = 'load_unload'
+    elif current_key.startswith('long_load_consumables'):
+        method = 'long_load'
         direction = '+'
-    elif current_key.startswith('unload_consumables'):
-        method = 'load_unload'
+    elif current_key.startswith('long_unload_consumables'):
+        method = 'long_load'
         direction = '-'
 
     # temp = float(self._printer.get_stat(self.current_extruder, 'temperature'))
@@ -96,8 +96,8 @@ def check_min_temp(widget,self , current_key):
     #         )
     if method == "extrude":
         extrude(widget,self, direction)
-    elif method == "load_unload":
-        load_unload(widget,self, direction)
+    elif method == "long_load":
+        long_load(widget,self, direction)
 
 def extrude(widget, self, direction):
     self._screen._ws.klippy.gcode_script(KlippyGcodes.EXTRUDE_REL)
@@ -105,19 +105,29 @@ def extrude(widget, self, direction):
     self._screen._send_action(widget, "printer.gcode.script",
                               {"script": f"G1 E{direction}{self.labels['length']} F{self.labels['speed'] * 60}"})
 
-def load_unload(widget, self, direction):
-    if direction == "-":
-        if not self.unload_filament:
-            self._screen.show_popup_message("Macro UNLOAD_FILAMENT not found")
-        else:
-            self._screen._send_action(widget, "printer.gcode.script",
-                                      {"script": f"UNLOAD_FILAMENT SPEED={self.labels['speed'] * 60}"})
+def long_load(widget, self, direction):
     if direction == "+":
-        if not self.load_filament:
-            self._screen.show_popup_message("Macro LOAD_FILAMENT not found")
-        else:
-            self._screen._send_action(widget, "printer.gcode.script",
-                                      {"script": f"LOAD_FILAMENT SPEED={self.labels['speed'] * 60}"})
+        # "G91  相对位移
+        #  G1 E2150 F6000 距离是2150 速度是100mm/s  *60
+        #  G90 绝对位移
+        self._screen._send_action(None, "printer.gcode.script", {"script": "G91"})
+        self._screen._send_action(widget, "printer.gcode.script",
+                                                                {"script": "G1 E+"
+                                                                           " F6000"})
+        self._screen._send_action(None, "printer.gcode.script", {"script": "G90"})
+        self._screen._send_action(None, "printer.gcode.script",
+                                                                {"script": "G1 E+250 F300"})
+    elif direction == "-":
+        # "G91  相对
+        #  G1 E2150 F6000
+        #  G90   距离是2150 速度是100mm/s  *60
+        self._screen._send_action(None, "printer.gcode.script",
+                                                                {"script": "G1 E-200 F300"})
+        self._screen._send_action(None, "printer.gcode.script", {"script": "G91"})
+        self._screen._send_action(widget, "printer.gcode.script",
+                                                                {"script": "G1 E-2150 F6000"})
+        self._screen._send_action(None, "printer.gcode.script", {"script": "G90"})
+
 
 
 #更改耗材每次载入抽回的距离,并更改对应选中按钮的颜色

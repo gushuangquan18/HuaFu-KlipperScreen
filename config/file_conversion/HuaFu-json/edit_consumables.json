@@ -27,8 +27,8 @@
         "button_width": 150,
         "button_height": 50
       },
-      "edit_consumables_label":{
-        "name":"Edit Consumables Label",
+      "edit_consumables_title":{
+        "name":"Edit Consumables Title",
         "type":"Label",
         "value":"编辑耗材",
         "hexpand": "False",

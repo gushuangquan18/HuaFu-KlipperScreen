@@ -27,8 +27,8 @@
         "button_width": 150,
         "button_height": 50
       },
-      "control_consumables_label":{
-        "name":"Control Consumables Label",
+      "control_consumables_title":{
+        "name":"Control Consumables Title",
         "type":"Label",
         "value":"Control Consumables",
         "column":1,
@@ -38,7 +38,7 @@
       }
     }
   },
-  "+": {
+  "control_consumables_body_grid": {
     "name": "Control Consumables Body Grid",
     "type": "Grid",
     "column_homogeneous": "True",
@@ -225,6 +225,7 @@
         "row": 4,
         "columnspan": 2,
         "rowspan": 2,
+        "icon":"extrude_consumables",
         "style": "direction_button",
         "method": "check_min_temp"
       },
@@ -240,13 +241,14 @@
         "row": 4,
         "columnspan": 2,
         "rowspan": 2,
+        "icon":"extrude_consumables",
         "style": "direction_button",
         "method": "check_min_temp"
       },
-      "load_consumables": {
-        "name": "Load Consumables",
+      "long_load_consumables": {
+        "name": "Long Load Consumables",
         "type": "Button",
-        "value": "Load",
+        "value": "Long Load",
         "hexpand": "False",
         "vexpand": "False",
         "button_width": 400,
@@ -255,13 +257,14 @@
         "row": 6,
         "columnspan": 2,
         "rowspan": 2,
+        "icon":"extrude_consumables",
         "style": "direction_button",
         "method": "check_min_temp"
       },
-      "unload_consumables": {
-        "name": "Unload Consumables",
+      "long_unload_consumables": {
+        "name": "Long Unload Consumables",
         "type": "Button",
-        "value": "Unload",
+        "value": " Long UnLoad",
         "hexpand": "False",
         "vexpand": "False",
         "button_width": 400,
@@ -270,6 +273,7 @@
         "row": 6,
         "columnspan": 2,
         "rowspan": 2,
+        "icon":"extrude_consumables",
         "style": "direction_button",
         "method": "check_min_temp"
       }
