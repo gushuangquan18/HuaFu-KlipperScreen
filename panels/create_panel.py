@@ -79,6 +79,7 @@ class Panel(ScreenPanel):
         self.list_button_size = self._gtk.img_scale * self.bts
         self.thumbsize = self._gtk.img_scale * self._gtk.button_image_scale * 2.5
         self.select_extruder="T0: "
+        self.is_printing=False
         self.change_item = ['print_busy',
                             'chassis_temperature', 'heater_bed_temperature', 'extruder_temperature', 'extruder1_temperature',
                             'percentage_progress', 'floor_height_progress', 'remaining_time','floor_height_progress',
@@ -202,8 +203,10 @@ class Panel(ScreenPanel):
                 self.labels['speed_button'].append(item_control_name)
             if current_key=='print_busy':
                 if  father == 'print_menu':
+                    self.is_printing = True
                     item_control_name.set_no_show_all(False)
                 else:
+                    self.is_printing = False
                     item_control_name.set_no_show_all(True)
 
             if(self.counter<len(self.items)):

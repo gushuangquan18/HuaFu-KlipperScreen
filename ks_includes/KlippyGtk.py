@@ -267,6 +267,8 @@ class KlippyGtk:
             else:
                 button_hsize = int((self.width / 3))
             for button in buttons:
+                if args[0] is not None and button["name"] == _("Print") and args[0].is_printing:
+                    continue
                 style = button['style'] if 'style' in button else 'dialog-default'
                 dialog.add_button(button['name'], button['response'])
                 button = dialog.get_widget_for_response(button['response'])
