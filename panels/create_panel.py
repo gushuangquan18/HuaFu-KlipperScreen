@@ -394,6 +394,7 @@ class Panel(ScreenPanel):
                             self._printer.get_stat(type, "power"),
                             name=dev
                         )
+                        break
         elif panel_name == "print_menu" and action == 'notify_status_update':
             update_time_left(self,data)
         #   删除文件后刷新页面

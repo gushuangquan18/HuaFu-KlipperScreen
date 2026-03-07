@@ -99,7 +99,7 @@ def change_target_temp(widget,self, name,*args):
     elif name.startswith("chassis"):
         #CHAMBER_HEAT TARGET=45 TOLERANCE=2
     #     name = "temperature_sensor filament_box_temp"
-        self._screen._ws.klippy.set_tool_temp('5', temp)
+        self._screen._ws.klippy.set_chassis_temp(temp)
     #     self._screen._ws.klippy.set_heater_temp(name, temp)
     # elif name.startswith('temperature_fan '):
     #     self._screen._ws.klippy.set_temp_fan_temp(name, temp)

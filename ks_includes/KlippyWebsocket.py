@@ -288,6 +288,17 @@ class MoonrakerApi:
             *args
         )
 
+    def set_chassis_temp(self, target, callback=None, *args):
+        logging.debug(f"Sending set_chassis_temp: {KlippyGcodes.set_chassis_temp(target)}")
+        return self._ws.send_method(
+            "printer.gcode.script",
+            {
+                "script": KlippyGcodes.set_chassis_temp(target)
+            },
+            callback,
+            *args
+        )
+
     def set_heater_temp(self, heater, target, callback=None, *args):
         logging.debug(f"Sending heater {heater} to temp: {target}")
         return self._ws.send_method(

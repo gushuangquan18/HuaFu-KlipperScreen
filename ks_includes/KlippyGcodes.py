@@ -9,6 +9,10 @@ class KlippyGcodes:
         return f"M140 S{temp}"
 
     @staticmethod
+    def set_chassis_temp(temp):
+        return f"CHAMBER_HEAT TARGET={temp} TOLERANCE=2"
+
+    @staticmethod
     def set_ext_temp(temp, tool=0):
         return f"M104 T{tool} S{temp}"
 

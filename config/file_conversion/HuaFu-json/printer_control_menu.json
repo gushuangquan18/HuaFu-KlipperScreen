@@ -314,8 +314,8 @@
               "rowspan":1,
               "value":"Chassis"
             },
-            "chassis_temperature_model":{
-              "name":"Chassis Temperature Model",
+            "chassis_temperature":{
+              "name":"Chassis Temperature",
               "type":"Label",
               "column":1,
               "row":1,
