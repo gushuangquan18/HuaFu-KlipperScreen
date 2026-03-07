@@ -214,7 +214,7 @@
         }
       },
       "extrude_consumables": {
-        "name": "Extrude",
+        "name": "Extrude Consumables",
         "type": "Button",
         "value": "Extrude",
         "hexpand": "False",
@@ -226,7 +226,7 @@
         "columnspan": 2,
         "rowspan": 2,
         "style": "direction_button",
-        "method": "direction_home"
+        "method": "check_min_temp"
       },
       "retraction_consumables": {
         "name": "Retraction Consumables",
@@ -241,7 +241,7 @@
         "columnspan": 2,
         "rowspan": 2,
         "style": "direction_button",
-        "method": "direction_home"
+        "method": "check_min_temp"
       },
       "load_consumables": {
         "name": "Load Consumables",
@@ -256,7 +256,7 @@
         "columnspan": 2,
         "rowspan": 2,
         "style": "direction_button",
-        "method": "direction_home"
+        "method": "check_min_temp"
       },
       "unload_consumables": {
         "name": "Unload Consumables",
@@ -271,7 +271,7 @@
         "columnspan": 2,
         "rowspan": 2,
         "style": "direction_button",
-        "method": "direction_home"
+        "method": "check_min_temp"
       }
     }
   }

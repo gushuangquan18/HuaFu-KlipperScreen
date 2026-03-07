@@ -1067,6 +1067,9 @@ msgstr "运动:XYZ"
 msgid "Speed(mm/s)"
 msgstr "速度(mm/s)"
 
+msgid "Speed"
+msgstr "速度"
+
 msgid "Standard"
 msgstr "标准"
 

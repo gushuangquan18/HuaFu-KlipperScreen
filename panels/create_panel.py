@@ -29,16 +29,16 @@ from panels.printer_control import (move,
                                   on_digit_clicked,
                                   change_sprot_speed,
                                   change_target_temp)
-from panels.edit_consumables import consumables_dialog,change_consumables_button
+from panels.edit_consumables import consumables_dialog,change_consumables_button,check_min_temp
 
 class Panel(ScreenPanel):
 
-    def __init__(self, screen, title, items=None, fileinfo=None,father=None):
+    def __init__(self, screen, title, items=None, **panel_args):
         super().__init__(screen, title)
         self.items = items
         self.loading_msg = _('Loading...')
         self.j2_data = self._printer.get_printer_status_data()
-        self.create_menu_items(title,fileinfo,father)
+        self.create_menu_items(title,**panel_args)
         self.scroll = self._gtk.ScrolledWindow()
         self.scroll.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
         if "flowbox" in self.labels:
@@ -62,7 +62,7 @@ class Panel(ScreenPanel):
 
 
 
-    def create_menu_items(self,panel_name,fileinfo=None,father=None):
+    def create_menu_items(self,panel_name,fileinfo=None,father=None,select_extruder=None):
         """
             创建主界面 下半部分元素
         :return:
@@ -78,6 +78,7 @@ class Panel(ScreenPanel):
         self.time_24 = self._config.get_main_config().getboolean("24htime", True)
         self.list_button_size = self._gtk.img_scale * self.bts
         self.thumbsize = self._gtk.img_scale * self._gtk.button_image_scale * 2.5
+        self.select_extruder="T0: "
         self.change_item = ['print_busy',
                             'chassis_temperature', 'heater_bed_temperature', 'extruder_temperature', 'extruder1_temperature',
                             'percentage_progress', 'floor_height_progress', 'remaining_time','floor_height_progress',
@@ -95,7 +96,7 @@ class Panel(ScreenPanel):
         while i< len(self.items):
             key = list(self.items[i])[0]
             item = self.items[i][key]
-            parent_grid.attach(self.create_child_items(i,panel_name,fileinfo,father),
+            parent_grid.attach(self.create_child_items(i,panel_name,fileinfo,father,select_extruder),
                     int(item['column']),
                     int(item['row']),
                     int(item['columnspan']),
@@ -109,7 +110,7 @@ class Panel(ScreenPanel):
         self.labels['parent_grid'] = parent_grid
         # self.content.add(parent_grid)
 
-    def create_child_items(self,i,panel_name,fileinfo=None,father=None):
+    def create_child_items(self,i,panel_name,fileinfo=None,father=None,select_extruder=None):
         self.counter =i
         key = list(self.items[i])[0]
         key_array=key.split(' ')
@@ -165,7 +166,8 @@ class Panel(ScreenPanel):
             elif(item['method'] == 'show_dialog'):
                 item_control_name.connect("clicked", self.show_dialog,current_key)
             elif(item['method'] == 'consumables_dialog'):
-                item_control_name.connect("clicked", consumables_dialog,self)
+                # current_key :t1_extruder_consumables_control
+                item_control_name.connect("clicked", consumables_dialog,self,current_key)
             elif(item['method'] == 'on_digit_clicked'):
                 #panel_name extruder_temperature chassis_temperature heater_bed_temperature
                 item_control_name.connect("clicked", on_digit_clicked, self, value, panel_name)
@@ -189,6 +191,8 @@ class Panel(ScreenPanel):
                 item_control_name.connect("clicked", change_consumables_button,self,'length',value)
             elif (item['method'] == 'change_consumables_speed'):
                 item_control_name.connect("clicked", change_consumables_button,self,'speed',value)
+            elif (item['method'] == 'check_min_temp'):
+                item_control_name.connect("clicked", check_min_temp,self,current_key)
 
             if current_key.startswith('distance'):
                 self.labels['distance_button'].append(item_control_name)
@@ -230,6 +234,14 @@ class Panel(ScreenPanel):
                 self.percentage_progress=int(value)*0.01;
                 value=f"{value}%"
 
+            if select_extruder is not None:
+                if select_extruder == 'extruder':
+                    select_extruder = "T0: "
+                else:
+                    select_extruder = "T1: "
+                if  current_key == "edit_consumables_label" or "control_consumables_label":
+                    value = f"{select_extruder}{value}"
+
             if (key_array[len(key_array) - 1] == "space_label"):
                 item_control_name = Gtk.Label()
                 item_control_name.set_hexpand(True)
@@ -267,7 +279,7 @@ class Panel(ScreenPanel):
                 key_father = ' '.join(key_child.split()[:-1]) if key_child and key_child.strip() else ''
                 item_child = self.items[i][key_child]
                 if (key_father == key and len((list(self.items[i])[0]).split()) > 1):
-                    item_control_name.attach(self.create_child_items(i,panel_name,fileinfo,father),
+                    item_control_name.attach(self.create_child_items(i,panel_name,fileinfo,father,select_extruder),
                                        int(item_child['column']),
                                        int(item_child['row']),
                                        int(item_child['columnspan']),

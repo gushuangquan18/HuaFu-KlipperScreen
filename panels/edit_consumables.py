@@ -18,7 +18,7 @@ from ks_includes.KlippyGcodes import KlippyGcodes
 
 
 #控制耗材的弹窗
-def consumables_dialog(widget,self):
+def consumables_dialog(widget,self,current_key):
     title=_("Operating consumables")
     buttons = [
         {"name": _("Edit ConSumables"), "response": 1, "style": 'waring_button'},
@@ -29,26 +29,95 @@ def consumables_dialog(widget,self):
     label = Gtk.Label(hexpand=True, vexpand=True, wrap=True)
     label.set_markup(_("Please select the function you want to operate!"))
     if self.labels['t0_extruder_consumables_control'] == widget:
-        title = f'左喷嘴:{_("Operating consumables")}'
+        title = f'T0:{_("Operating consumables")}'
     else:
-        title = f'右喷嘴:{_("Operating consumables")}'
-    self._gtk.Dialog(title, buttons, label, consumables_confirm,self,widget)
+        title = f'T1:{_("Operating consumables")}'
+    self._gtk.Dialog(title, buttons, label, consumables_confirm,self,widget,current_key)
 
 #选择哪个功能
 def consumables_confirm(dialog, response_id, klippy_gtk,self,*args):
     self._gtk.remove_dialog(dialog)
+    extruder = ''
+    if args[1].startswith('t0'):
+        extruder = 'extruder'
+    else:
+        extruder = 'extruder1'
+    change_extruder(dialog, self, extruder)
     if response_id==1:
         parameter_item = {
             "panel": 'edit_consumables',
+            "select_extruder":extruder,
             "icon": None,
         }
         self.menu_item_clicked(args[0], parameter_item)
     if response_id==2:
         parameter_item = {
             "panel": 'control_consumables',
+            "select_extruder":extruder,
             "icon": None,
         }
         self.menu_item_clicked(args[0], parameter_item)
+
+
+def change_extruder(widget, self, extruder):
+
+    #printer.gcode.script: {'script': 'ACTIVATE_EXTRUDER EXTRUDER=extruder1'}
+    self._screen._send_action(widget, "printer.gcode.script",
+                              {"script": f"ACTIVATE_EXTRUDER EXTRUDER={extruder}"})
+
+#控制耗材挤入挤出 载入等
+#挤出：method：extrude direction：+
+#抽回：method：extrude direction：-
+#载入：method：load_unload direction：+
+#卸载：method：load_unload direction：-
+def check_min_temp(widget,self , current_key):
+    method = direction = ''
+    if current_key.startswith('extrude_consumables'):
+        method = 'extrude'
+        direction = '+'
+    elif current_key.startswith('retraction_consumables'):
+        method = 'extrude'
+        direction = '-'
+    elif current_key.startswith('load_consumables'):
+        method = 'load_unload'
+        direction = '+'
+    elif current_key.startswith('unload_consumables'):
+        method = 'load_unload'
+        direction = '-'
+
+    # temp = float(self._printer.get_stat(self.current_extruder, 'temperature'))
+    # target = float(self._printer.get_stat(self.current_extruder, 'target'))
+    # min_extrude_temp = float(self._printer.config[self.current_extruder].get('min_extrude_temp', 170))
+    # if temp < min_extrude_temp:
+    #     if target > min_extrude_temp:
+    #         self._screen._send_action(
+    #             widget, "printer.gcode.script",
+    #             {"script": f"M109 S{target}"}
+    #         )
+    if method == "extrude":
+        extrude(widget,self, direction)
+    elif method == "load_unload":
+        load_unload(widget,self, direction)
+
+def extrude(widget, self, direction):
+    self._screen._ws.klippy.gcode_script(KlippyGcodes.EXTRUDE_REL)
+    #printer.gcode.script: {'script': 'G1 E+10 F120'}
+    self._screen._send_action(widget, "printer.gcode.script",
+                              {"script": f"G1 E{direction}{self.labels['length']} F{self.labels['speed'] * 60}"})
+
+def load_unload(widget, self, direction):
+    if direction == "-":
+        if not self.unload_filament:
+            self._screen.show_popup_message("Macro UNLOAD_FILAMENT not found")
+        else:
+            self._screen._send_action(widget, "printer.gcode.script",
+                                      {"script": f"UNLOAD_FILAMENT SPEED={self.labels['speed'] * 60}"})
+    if direction == "+":
+        if not self.load_filament:
+            self._screen.show_popup_message("Macro LOAD_FILAMENT not found")
+        else:
+            self._screen._send_action(widget, "printer.gcode.script",
+                                      {"script": f"LOAD_FILAMENT SPEED={self.labels['speed'] * 60}"})
 
 
 #更改耗材每次载入抽回的距离,并更改对应选中按钮的颜色
@@ -64,3 +133,5 @@ def change_consumables_button(widget, self, type,value):
         else:
             distance_button.get_style_context().remove_class('select_distance_button')
             distance_button.get_style_context().add_class('distance_button')
+
+

@@ -11,8 +11,8 @@ def remove_newlines(msg: str) -> str:
 
 
 class Panel(CreatePanel):
-    def __init__(self, screen, title, items=None, fileinfo=None, father=None):
-        super().__init__(screen, title, items,fileinfo,father)
+    def __init__(self, screen, title, items=None, **panel_args):
+        super().__init__(screen, title, items,**panel_args)
         grid = Gtk.Grid(row_homogeneous=True, column_homogeneous=True, hexpand=True, vexpand=True)
         scroll = self._gtk.ScrolledWindow()
         self.numpad_visible = False
