@@ -30,7 +30,7 @@
       "calibration_label":{
         "name":"Calibration Label",
         "type":"Label",
-        "value":"校准",
+        "value":"Calibration",
         "column":1,
         "row":0,
         "columnspan":1,
@@ -227,6 +227,58 @@
                 "name":"Sport Calibration Label",
                 "type":"Label",
                 "value":"运动精度校准",
+                "column":0,
+                "row":0,
+                "columnspan":1,
+                "rowspan":1
+              },
+              "space_label":{
+                "name":"Space Label",
+                "type":"Label",
+                "value":"占位符",
+                "column":1,
+                "row":0,
+                "columnspan":1,
+                "rowspan":1
+              },
+              "settings_right_arrow_icon":{
+                "name":"Right Arrow Icon",
+                "type":"Image",
+                "width":30,
+                "height":40,
+                "column":2,
+                "row":0,
+                "columnspan":1,
+                "rowspan":1,
+                "src":"images/right_arrow.png"
+              }
+            }
+          }
+        }
+      },
+      "bed_mesh_calibration": {
+        "name":"Bed Mesh Calibration",
+        "type":"Button",
+        "hexpand": "False",
+        "vexpand": "False",
+        "button_width": 940,
+        "button_height": 60,
+        "column":0,
+        "row":4,
+        "columnspan":1,
+        "rowspan":1,
+        "panel":"bed_mesh_calibration",
+        "children": {
+          "bed_mesh_calibration_grid": {
+            "name":"Bed Mesh Calibration Grid",
+            "type":"Grid",
+            "width": 940,
+            "height": 60,
+            "children": {
+              "bed_mesh_calibration_label":{
+                "name":"Bed Mesh Calibration Label",
+                "type":"Label",
+                "value":"Bed Mesh Auto Calibration",
                 "column":0,
                 "row":0,
                 "columnspan":1,

@@ -1306,12 +1306,18 @@ class KlipperScreen(Gtk.Window):
 
         label = Gtk.Label(hexpand=True, vexpand=True, halign=Gtk.Align.CENTER, valign=Gtk.Align.CENTER,
                           wrap=True, wrap_mode=Pango.WrapMode.WORD_CHAR)
-        label.set_markup(_("Are you sure you want to cancel this print file?"))
+        title = "Delete"
+        if 'script' in params and params['script'] == 'SAVE_CONFIG':
+            label.set_markup(_("Do you want to save the configuration and restart Klipper?"))
+            title = "Message"
+        else:
+            label.set_markup(_("Are you sure you want to cancel this print file?"))
+
         if self.confirm is not None:
             self.gtk.remove_dialog(self.confirm)
 
         self.confirm = self.gtk.Dialog(
-            "Delete", buttons, label, self._confirm_send_action_response, method,params
+            title, buttons, label, self._confirm_send_action_response, method,params
         )
 
     def _confirm_send_action_response(self, dialog, response_id, klippy_gtk,method, params):

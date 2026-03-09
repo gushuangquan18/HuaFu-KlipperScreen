@@ -493,7 +493,8 @@ button.print_menu_button{
 #print_calibration_grid,
 #nozzle_calibration_grid,
 #camera_calibration_grid,
-#sport_calibration_grid{
+#sport_calibration_grid,
+#bed_mesh_calibration_grid{
     background-color: @grid_bg;
     border-radius: 1em;
     padding: 10px 10px 0px 20px;
@@ -525,7 +526,8 @@ button.print_menu_button{
 }
 #nozzle_calibration_body_grid,
 #camera_calibration_body_grid,
-#sport_calibration_body_grid{
+#sport_calibration_body_grid,
+#bed_mesh_calibration_body_grid{
     margin:5px 0px 0px 5px;
 }
 #nozzle_calibration_message_grid,
@@ -533,7 +535,9 @@ button.print_menu_button{
 #camera_calibration_message_grid,
 #camera_calibration_image_grid,
 #sport_calibration_message_grid,
-#sport_calibration_image_grid{
+#sport_calibration_image_grid,
+#bed_mesh_calibration_message_grid,
+#bed_mesh_calibration_image_grid{
     background-color: @grid_bg;
     border-radius: 1em;
     padding: 20px 10px 0px 20px;

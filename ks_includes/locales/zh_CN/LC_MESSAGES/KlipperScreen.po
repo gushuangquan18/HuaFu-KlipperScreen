@@ -109,6 +109,9 @@ msgstr "热床调平"
 msgid "Bed Mesh"
 msgstr "床网"
 
+msgid "Bed Mesh Auto Calibration"
+msgstr "床网自动校准"
+
 msgid "Both"
 msgstr "两个都"
 
@@ -1138,6 +1141,15 @@ msgstr "控制耗材"
 
 msgid "Length(mm)"
 msgstr "长度(mm)"
+
+msgid "Messages"
+msgstr "信息"
+
+msgid "Calibration"
+msgstr "校准"
+
+msgid "Do you want to save the configuration and restart Klipper?"
+msgstr "是否保存配置并重新启动Klipper？"
 
 
 

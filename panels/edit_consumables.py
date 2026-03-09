@@ -110,23 +110,20 @@ def long_load(widget, self, direction):
         # "G91  相对位移
         #  G1 E2150 F6000 距离是2150 速度是100mm/s  *60
         #  G90 绝对位移
-        self._screen._send_action(None, "printer.gcode.script", {"script": "G91"})
         self._screen._send_action(widget, "printer.gcode.script",
-                                                                {"script": "G1 E+"
-                                                                           " F6000"})
-        self._screen._send_action(None, "printer.gcode.script", {"script": "G90"})
-        self._screen._send_action(None, "printer.gcode.script",
-                                                                {"script": "G1 E+250 F300"})
+                                                                {"script": "G91\n"+
+                                                                           "G1 E+2150 F6000\n"+
+                                                                           "G90\n"+
+                                                                           "G1 E+250 F300"})
     elif direction == "-":
         # "G91  相对
         #  G1 E2150 F6000
         #  G90   距离是2150 速度是100mm/s  *60
-        self._screen._send_action(None, "printer.gcode.script",
-                                                                {"script": "G1 E-200 F300"})
-        self._screen._send_action(None, "printer.gcode.script", {"script": "G91"})
         self._screen._send_action(widget, "printer.gcode.script",
-                                                                {"script": "G1 E-2150 F6000"})
-        self._screen._send_action(None, "printer.gcode.script", {"script": "G90"})
+                                                                {"script": "G1 E-200 F300\n"+
+                                                                           "G91\n"+
+                                                                            "G1 E-2150 F6000\n"+
+                                                                            "G90"})
 
 
 

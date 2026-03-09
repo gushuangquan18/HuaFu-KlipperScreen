@@ -30,6 +30,7 @@ from panels.printer_control import (move,
                                   change_sprot_speed,
                                   change_target_temp)
 from panels.edit_consumables import consumables_dialog,change_consumables_button,check_min_temp
+from panels.print_setting import bed_mesh_calibration
 
 class Panel(ScreenPanel):
 
@@ -103,7 +104,8 @@ class Panel(ScreenPanel):
                     int(item['columnspan']),
                     int(item['rowspan']))
             i = self.counter
-        parent_grid.set_name(panel_name)
+        if(panel_name is not None):
+            parent_grid.set_name(panel_name)
         if(panel_name == "printer_control_menu" or panel_name == "messages_menu" ):
             parent_grid.set_row_homogeneous(True)
         if panel_name == "print_file_list":
@@ -186,6 +188,8 @@ class Panel(ScreenPanel):
                 item_control_name.connect("clicked", change_target_temp,self,panel_name,value)
             elif (item['method'] == 'move'):
                 item_control_name.connect("clicked", move,self,value)
+            elif (item['method'] == 'change_sprot_speed'):
+                item_control_name.connect("clicked", change_sprot_speed,self,value)
             elif (item['method'] == 'direction_home'):
                 item_control_name.connect("clicked", direction_home,self,value)
             elif (item['method'] == 'change_consumables_length'):
@@ -194,6 +198,8 @@ class Panel(ScreenPanel):
                 item_control_name.connect("clicked", change_consumables_button,self,'speed',value)
             elif (item['method'] == 'check_min_temp'):
                 item_control_name.connect("clicked", check_min_temp,self,current_key)
+            elif (item['method'] == 'bed_mesh_calibration'):
+                item_control_name.connect("clicked", bed_mesh_calibration,self)
 
             if current_key.startswith('distance'):
                 self.labels['distance_button'].append(item_control_name)
