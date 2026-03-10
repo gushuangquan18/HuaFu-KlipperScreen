@@ -275,10 +275,10 @@ def change_pause_button_state(self, state, *args):
         height=50,
         preserve_aspect_ratio=True  # 设为False则强制50x50（可能拉伸）
     )
-    self.labels['pause_button'].set_label(button_text)
+    self.buttons['pause_button'].set_label(button_text)
     # 设置缩放后的图片到Image控件
     image = Gtk.Image.new_from_pixbuf(pixbuf)
-    self.labels['pause_button'].set_image(image)
+    self.buttons['pause_button'].set_image(image)
 
 #实时更新print_menu界面相关数据信息
 def update_time_left(self, data):
@@ -305,15 +305,15 @@ def update_time_left(self, data):
             self.labels['progressBar'].set_fraction(percentage_progress)
 
     if ('heater_bed' in data) and ('temperature' in data['heater_bed']):
-        self.labels["heater_bed_temperature"].set_label(f'{int(data['heater_bed']['temperature'])}℃')
+        self.buttons["heater_bed_temperature"].set_label(f'{int(data['heater_bed']['temperature'])}℃')
 
     if ('heater_bed' in data) and ('temperature' in data['heater_bed']):
-        self.labels["chassis_temperature"].set_label(f'{int(data['heater_bed']['temperature'])}℃')
+        self.buttons["chassis_temperature"].set_label(f'{int(data['heater_bed']['temperature'])}℃')
 
     if ('extruder' in data) and ('temperature' in data['extruder']):
-        self.labels["extruder_temperature"].set_label(f'{int(data['extruder']['temperature'])}℃')
+        self.buttons["extruder_temperature"].set_label(f'{int(data['extruder']['temperature'])}℃')
     if ('extruder1' in data) and ('temperature' in data['extruder1']):
-        self.labels["extruder1_temperature"].set_label(f'{int(data['extruder1']['temperature'])}℃')
+        self.buttons["extruder1_temperature"].set_label(f'{int(data['extruder1']['temperature'])}℃')
     if ('toolhead' in data) and ('estimated_print_time' in data['toolhead']):
         estimated_print_time = int(data['toolhead']['estimated_print_time'])
         self.labels["remaining_time"].set_label(f' - {print_time_format(estimated_print_time)}')

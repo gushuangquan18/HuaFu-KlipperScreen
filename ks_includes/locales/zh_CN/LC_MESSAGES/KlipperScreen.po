@@ -231,7 +231,7 @@ msgid "Distance (mm)"
 msgstr "挤出长度（mm）"
 
 msgid "Distance(mm)"
-msgstr "距离(mm)"
+msgstr "移动距离(mm)"
 
 #, python-format
 msgid "Do you want to forget or disconnect %s?"
@@ -722,6 +722,12 @@ msgstr "龙门架调平"
 msgid "Raise Nozzle"
 msgstr "升高喷嘴"
 
+msgid "Raise Heater Bed"
+msgstr "升高热床"
+
+msgid "Reduce Heater Bed"
+msgstr "降低热床"
+
 msgid "Recover"
 msgstr "恢复"
 
@@ -963,7 +969,7 @@ msgstr "XY轴移动速度（mm/s）"
 msgid "XY Speed (mm/s)"
 msgstr "XY轴速度（mm/s）"
 
-msgid "Z Calibrate"
+msgid "Z Offset Calibration"
 msgstr "Z偏移校准"
 
 msgid "Z Move Speed (mm/s)"
@@ -1148,6 +1154,12 @@ msgstr "信息"
 msgid "Calibration"
 msgstr "校准"
 
+msgid "Do you want to cancel saving the configuration?"
+msgstr "您想取消保存配置吗?"
+
+msgid "Are you sure you want to stop the calibration?"
+msgstr "您确定要停止校准吗？"
+
 msgid "Do you want to save the configuration and restart Klipper?"
 msgstr "是否保存配置并重新启动Klipper？"
 
@@ -1159,9 +1171,6 @@ msgstr "是否保存配置并重新启动Klipper？"
 
 #~ msgid "PSK for"
 #~ msgstr "PSK"
-
-#~ msgid "Are you sure you want to stop the calibration?"
-#~ msgstr "您确定要停止校准吗？"
 
 #~ msgid "Do you want to let KlipperScreen try to solve the issue?"
 #~ msgstr "你想让KlipperScreen尝试解决这个问题吗？"

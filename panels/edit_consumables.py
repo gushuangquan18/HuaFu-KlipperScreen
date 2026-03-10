@@ -28,7 +28,7 @@ def consumables_dialog(widget,self,current_key):
         buttons.insert(0, {"name": _("Exclude Object"), "response": Gtk.ResponseType.APPLY})
     label = Gtk.Label(hexpand=True, vexpand=True, wrap=True)
     label.set_markup(_("Please select the function you want to operate!"))
-    if self.labels['t0_extruder_consumables_control'] == widget:
+    if self.buttons['t0_extruder_consumables_control'] == widget:
         title = f'T0:{_("Operating consumables")}'
     else:
         title = f'T1:{_("Operating consumables")}'
@@ -132,7 +132,7 @@ def change_consumables_button(widget, self, type,value):
     value = int(value)
     self.labels[type] = value
     logging.info(f"Change {type} value : {value}")
-    for distance_button in self.labels[f'{type}_button']:
+    for distance_button in self.buttons[f'{type}_button']:
         text=distance_button.get_label()
         if int(text) == value:
             distance_button.get_style_context().remove_class('distance_button')

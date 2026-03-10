@@ -1126,8 +1126,8 @@ class KlipperScreen(Gtk.Window):
             return
         elif action == "notify_status_update" and self.printer.state != "shutdown":
             self.printer.process_update(data)
-            if 'manual_probe' in data and data['manual_probe']['is_active'] and 'zcalibrate' not in self._cur_panels:
-                self.show_panel("zcalibrate")
+            if 'manual_probe' in data and data['manual_probe']['is_active'] and 'z_offset_calibration' not in self._cur_panels:
+                self.show_panel("z_offset_calibration")
             if ("screws_tilt_adjust" in data and "max_deviation" in data['screws_tilt_adjust']
                 and not data['screws_tilt_adjust']['max_deviation']
                     and 'bed_level' not in self._cur_panels):
@@ -1307,9 +1307,12 @@ class KlipperScreen(Gtk.Window):
         label = Gtk.Label(hexpand=True, vexpand=True, halign=Gtk.Align.CENTER, valign=Gtk.Align.CENTER,
                           wrap=True, wrap_mode=Pango.WrapMode.WORD_CHAR)
         title = "Delete"
-        if 'script' in params and params['script'] == 'SAVE_CONFIG':
-            label.set_markup(_("Do you want to save the configuration and restart Klipper?"))
-            title = "Message"
+        if 'script' in params:
+            title = "Messages"
+            if params['script'] == 'SAVE_CONFIG':
+                label.set_markup(_("Do you want to save the configuration and restart Klipper?"))
+            if params['script'] == 'ABORT':
+                label.set_markup(_("Do you want to cancel saving the configuration?"))
         else:
             label.set_markup(_("Are you sure you want to cancel this print file?"))
 

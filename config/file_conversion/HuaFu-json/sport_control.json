@@ -80,8 +80,8 @@
             "row": 1,
             "columnspan": 1,
             "rowspan": 1,
-            "style": "distance_button",
-            "method": "change_sprot_speed"
+            "style": "select_distance_button",
+            "method": "change_distance"
           },
           "distance10": {
             "name": "Distance10",
@@ -95,8 +95,8 @@
             "row": 1,
             "columnspan": 1,
             "rowspan": 1,
-            "style": "select_distance_button",
-            "method": "change_sprot_speed"
+            "style": "distance_button",
+            "method": "change_distance"
           },
           "distance30": {
             "name": "Distance30",
@@ -111,7 +111,7 @@
             "columnspan": 1,
             "rowspan": 1,
             "style": "distance_button",
-            "method": "change_sprot_speed"
+            "method": "change_distance"
           }
         }
       },

@@ -494,7 +494,8 @@ button.print_menu_button{
 #nozzle_calibration_grid,
 #camera_calibration_grid,
 #sport_calibration_grid,
-#bed_mesh_calibration_grid{
+#bed_mesh_calibration_grid,
+#z_offset_calibration_grid{
     background-color: @grid_bg;
     border-radius: 1em;
     padding: 10px 10px 0px 20px;

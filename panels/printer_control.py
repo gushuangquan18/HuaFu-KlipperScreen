@@ -28,16 +28,28 @@ def move(widget, self, value):
     :param direction: +,_
     :return:
     """
-
-    axis = value[0].lower()
-    direction = value[1]
+    axis = ''
+    direction = ''
+    target = self.distance
+    if value == _("Raise Heater Bed"):
+        target=float(target)
+        axis = 'Z'
+        direction = '-'
+    elif value == _("Reduce Heater Bed"):
+        target=float(target)
+        axis = 'Z'
+        direction = '+'
+    else:
+        target=int(target)
+        axis = value[0].lower()
+        direction = value[1]
     if (
             self._config.get_config()["main"].getboolean(f"invert_{axis}", False)
             and axis != "z"
     ):
         direction = "-" if direction == "+" else "+"
 
-    dist = f"{direction}{self.labels["distance"]}"
+    dist = f"{direction}{target}"
     config_key = "move_speed_z" if axis == "z" else "move_speed_xy"
     # speed = (
     #     None
@@ -46,20 +58,19 @@ def move(widget, self, value):
     # )
     # if speed is None:
     #     speed = self._config.get_config()["main"].getint(config_key, self.max_z_velocity)
-    speed = 60 * max(1, self.labels["distance"])
+    speed = 60 * max(1, target)
     script = f"{KlippyGcodes.MOVE_RELATIVE}\nG0 {axis}{dist} F{speed}"
     self._screen._send_action(widget, "printer.gcode.script", {"script": script})
     if self._printer.get_stat("gcode_move", "absolute_coordinates"):
         self._screen._ws.klippy.gcode_script("G90")
 
-#更改XY轴每次移动的距离,并更改对应选中按钮的颜色
-def change_sprot_speed(widget, self, value):
-    distance = int(value)
-    self.labels["distance"] = distance
-    logging.info(f"Change sport distance: {self.labels["distance"]}")
-    for distance_button in self.labels["distance_button"]:
+#更改XYZ轴每次移动的距离,并更改对应选中按钮的颜色
+def change_distance(widget, self, value):
+    self.distance = value
+    logging.info(f"Change sport distance: {self.distance}")
+    for distance_button in self.buttons["distance_button"]:
         text=distance_button.get_label()
-        if int(text) == distance:
+        if text == value:
             distance_button.get_style_context().remove_class('distance_button')
             distance_button.get_style_context().add_class('select_distance_button')
         else:

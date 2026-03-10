@@ -26,11 +26,18 @@ from panels.print import (refresh_loading,
                                     create_print_file_list_item)
 from panels.printer_control import (move,
                                   direction_home,
+                                  change_distance,
                                   on_digit_clicked,
-                                  change_sprot_speed,
                                   change_target_temp)
 from panels.edit_consumables import consumables_dialog,change_consumables_button,check_min_temp
-from panels.print_setting import bed_mesh_calibration
+from panels.print_setting import (bed_mesh_calibration,
+                                  init_xyz_offset,
+                                  update_position,
+                                  buttons_calibrating,
+                                  buttons_not_calibrating,
+                                  start_z_calibration,
+                                  confrim_calibration,
+                                  cancle_calibration)
 
 class Panel(ScreenPanel):
 
@@ -85,15 +92,18 @@ class Panel(ScreenPanel):
                             'chassis_temperature', 'heater_bed_temperature', 'extruder_temperature', 'extruder1_temperature',
                             'percentage_progress', 'floor_height_progress', 'remaining_time','floor_height_progress',
                             'print_modeling_graphics', 'print_file_name', 'print_state','pause_button',
-                            't0_extruder_consumables_control',]
-        if panel_name == "sport_control":
-            self.labels["distance"]=10
-            self.labels['distance_button']=[]
+                            't0_extruder_consumables_control',
+                            'start_z_calibration','raise_heater_bed','reduce_heater_bed','confirm','cancel',
+                            'z_value','old_z_value','new_z_value']
+        self.buttons = {}
+        if panel_name == "sport_control" or panel_name == "z_offset_calibration":
+            self.distance=1
+            self.buttons['distance_button']=[]
         if panel_name == "control_consumables":
             self.labels["length"]=10
-            self.labels['length_button']=[]
+            self.buttons['length_button']=[]
             self.labels["speed"] = 10
-            self.labels['speed_button'] = []
+            self.buttons['speed_button'] = []
 
         while i< len(self.items):
             key = list(self.items[i])[0]
@@ -111,6 +121,10 @@ class Panel(ScreenPanel):
         if panel_name == "print_file_list":
             self._screen._ws.klippy.get_dir_info(self.load_files, self.cur_directory)
         self.labels['parent_grid'] = parent_grid
+
+        #初始化Z偏移校准数据
+        if panel_name == "z_offset_calibration":
+            init_xyz_offset(self)
         # self.content.add(parent_grid)
 
     def create_child_items(self,i,panel_name,fileinfo=None,father=None,select_extruder=None):
@@ -129,6 +143,8 @@ class Panel(ScreenPanel):
             height = int(self._screen.env.from_string(item['height']).render(self.j2_data) if item['height'] else None)
             width = int(self._screen.env.from_string(item['width']).render(self.j2_data) if item['width'] else None)
             pixbuf = ''
+            if panel_name == "print_menu" and image is None:
+                image = "images/no_model_image.png"
             if fileinfo is not None and current_key in self.change_item:
                 pixbuf = self.get_file_image(fileinfo["path"], height, width, False)
                 item_control_name = Gtk.Image.new_from_pixbuf(pixbuf)
@@ -188,8 +204,8 @@ class Panel(ScreenPanel):
                 item_control_name.connect("clicked", change_target_temp,self,panel_name,value)
             elif (item['method'] == 'move'):
                 item_control_name.connect("clicked", move,self,value)
-            elif (item['method'] == 'change_sprot_speed'):
-                item_control_name.connect("clicked", change_sprot_speed,self,value)
+            elif (item['method'] == 'change_distance'):
+                item_control_name.connect("clicked", change_distance,self,value)
             elif (item['method'] == 'direction_home'):
                 item_control_name.connect("clicked", direction_home,self,value)
             elif (item['method'] == 'change_consumables_length'):
@@ -200,13 +216,21 @@ class Panel(ScreenPanel):
                 item_control_name.connect("clicked", check_min_temp,self,current_key)
             elif (item['method'] == 'bed_mesh_calibration'):
                 item_control_name.connect("clicked", bed_mesh_calibration,self)
+            elif (item['method'] == 'start_z_calibration'):
+                item_control_name.connect("clicked", start_z_calibration,self)
+            elif (item['method'] == 'confrim_calibration'):
+                item_control_name.connect("clicked", confrim_calibration,self)
+            elif (item['method'] == 'cancle_calibration'):
+                item_control_name.connect("clicked", cancle_calibration,self)
+
 
             if current_key.startswith('distance'):
-                self.labels['distance_button'].append(item_control_name)
+                self.buttons['distance_button'].append(item_control_name)
             if current_key.startswith('length'):
-                self.labels['length_button'].append(item_control_name)
+                self.buttons['length_button'].append(item_control_name)
             if current_key.startswith('speed_consumables') :
-                self.labels['speed_button'].append(item_control_name)
+                self.buttons['speed_button'].append(item_control_name)
+
             if current_key=='print_busy':
                 if  father == 'print_menu':
                     self.is_printing = True
@@ -221,9 +245,13 @@ class Panel(ScreenPanel):
                 if (item_child[key_child]['type'] == "Grid" and len(key_child.split(" "))>len(key.split(" "))):
                     item_control_name.add(self.create_child_items(self.counter,panel_name,fileinfo,father))
 
+            # if current_key in self.change_item:
+            #     self.labels[current_key] = item_control_name
+            #     return self.labels[current_key]
+
             if current_key in self.change_item:
-                self.labels[current_key]=item_control_name
-                return self.labels[current_key]
+                self.buttons[current_key] = item_control_name
+                return self.buttons[current_key]
 
         elif(item['type'] == "Label"):
             self.counter += 1
@@ -419,6 +447,17 @@ class Panel(ScreenPanel):
         elif panel_name == "print_menu" and action == 'notify_status_update':
             update_time_left(self,data)
         #   删除文件后刷新页面
+        elif panel_name == "z_offset_calibration":
+            if action == "notify_status_update":
+                if self._printer.get_stat("toolhead", "homed_axes") != "xyz":
+                    self.labels['z_value'].set_text("Z: ?")
+                elif "gcode_move" in data and "gcode_position" in data['gcode_move']:
+                    update_position(self, data['gcode_move']['gcode_position'])
+                if "manual_probe" in data:
+                    if data["manual_probe"]["is_active"]:
+                        buttons_calibrating(self)
+                    else:
+                        buttons_not_calibrating(self)
         elif "action" in data and data["action"] == "delete_file":
             refresh_loading(None,self)
 
