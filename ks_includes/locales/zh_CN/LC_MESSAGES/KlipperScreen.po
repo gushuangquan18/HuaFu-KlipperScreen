@@ -1082,6 +1082,18 @@ msgstr "速度"
 msgid "Standard"
 msgstr "标准"
 
+msgid "Furious(166%)"
+msgstr "狂暴(166%)"
+
+msgid "Sport(124%)"
+msgstr "运动(124%)"
+
+msgid "Standard(100%)"
+msgstr "标准(100%)"
+
+msgid "Mute(50%)"
+msgstr "静音(50%)"
+
 msgid "Air System"
 msgstr "空调系统"
 
@@ -1163,6 +1175,11 @@ msgstr "您确定要停止校准吗？"
 msgid "Do you want to save the configuration and restart Klipper?"
 msgstr "是否保存配置并重新启动Klipper？"
 
+msgid "Macro Command"
+msgstr "宏命令"
+
+msgid "Cutting continuous fiber consumables"
+msgstr "切割连续纤维耗材"
 
 
 

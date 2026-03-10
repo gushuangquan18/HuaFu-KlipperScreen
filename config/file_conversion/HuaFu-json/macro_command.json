@@ -1,0 +1,69 @@
+{
+  "father":"settings_menu",
+  "name":"macro_command",
+  "type":"Grid",
+  "head_grid":{
+    "name":"Head Grid",
+    "type":"Grid",
+    "column":0,
+    "row":0,
+    "columnspan":1,
+    "rowspan":1,
+    "width": 970,
+    "height": 50,
+    "children":{
+      "go_bcak":{
+        "name":"Go Back",
+        "type":"Button",
+        "icon": "back",
+        "hexpand": "False",
+        "vexpand": "False",
+        "column":0,
+        "row":0,
+        "columnspan":1,
+        "rowspan":1,
+        "width": 50,
+        "height": 50,
+        "button_width": 150,
+        "button_height": 50
+      },
+      "macro_command_label":{
+        "name":"Macro Command Label",
+        "type":"Label",
+        "value":"Macro Command",
+        "column":1,
+        "row":0,
+        "columnspan":1,
+        "rowspan":1
+      }
+    }
+  },
+  "macro_command_body_grid":{
+    "name":"Macro Command Body grid",
+    "type":"Grid",
+    "column":0,
+    "row":1,
+    "columnspan":4,
+    "rowspan":5,
+    "width": 940,
+    "height": 500,
+    "children": {
+      "cut": {
+        "name":"Cut",
+        "type":"Button",
+        "icon": "cut",
+        "value": "Cutting continuous fiber consumables",
+        "hexpand": "False",
+        "vexpand": "False",
+        "button_width": 180,
+        "button_height": 180,
+        "column":0,
+        "row":0,
+        "columnspan":1,
+        "rowspan":1,
+        "method": "cut",
+        "style": "macro_command_buttons"
+      }
+    }
+  }  
+}

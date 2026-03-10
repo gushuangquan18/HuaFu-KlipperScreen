@@ -424,11 +424,10 @@ button.print_menu_button{
 #settings_menu {
     padding:10px;
 }
-#user_messages_grid{
+#macro_command_grid{
     background-color: @grid_bg;
     border-radius: 1em;
-    padding-top: 130px;
-    padding-left: 110px;
+    padding: 120px 30px 30px 30px;
 }
 #settings_wifi_grid,
 #disk_messages_grid,
@@ -437,6 +436,26 @@ button.print_menu_button{
     border-radius: 1em;
     padding: 30px 10px 0px 25px;
 }
+
+/* 校准菜单界面 */
+#macro_command {
+
+}
+#calibration_body_grid{
+    margin:10px;
+}
+#macro_command_body_grid{
+    padding: 10px 10px 0px 20px;
+}
+.macro_command_buttons{
+    background-color: @grid_bg;
+    border-radius: 1em;
+}
+
+
+
+
+
 /* WIFI 菜单界面*/
 #wifi{
 

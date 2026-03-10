@@ -3,8 +3,8 @@
   "name":"settings_menu",
   "type":"Grid",
   "children": {
-    "user_messages": {
-      "name":"User Messages",
+    "macro_command": {
+      "name":"Macro Command",
       "type":"Button",
       "hexpand": "False",
       "vexpand": "False",
@@ -14,53 +14,36 @@
       "row":0,
       "columnspan":3,
       "rowspan":3,
-      "panel":"user_messages",
+      "panel": "macro_command",
       "style":"setting_menu_button",
       "children": {
-        "user_messages_grid": {
-          "name":"User Messages Grid",
+        "macro_command_grid": {
+          "name":"Macro Command Grid",
           "type":"Grid",
+          "column_homogeneous": "True",
           "width": 450,
           "height": 300,
           "style": "settings_menu_button",
           "children": {
-            "printer_network_model":{
-              "name":"Printer Network Model",
-              "type":"Label",
-              "value":"仅局域网模式",
+            "macro_command_icon":{
+              "name":"Macro Command Icon",
+              "type":"Image",
+              "width":120,
+              "height":120,
               "column":0,
               "row":0,
-              "columnspan":3,
-              "rowspan":1
+              "columnspan":1,
+              "rowspan":1,
+              "src":"images/macro_command.png"
             },
-            "access_code_label":{
-              "name":"Access Code Label",
+            "macro_command_label":{
+              "name":"Macro Command Label",
               "type":"Label",
-              "value":"访问码：",
+              "value":"Macro Command",
               "column":0,
               "row":1,
               "columnspan":1,
               "rowspan":1
-            },
-            "access_code":{
-              "name":"Access Code",
-              "type":"Label",
-              "value":"d7d9a7e8",
-              "column":1,
-              "row":1,
-              "columnspan":1,
-              "rowspan":1
-            },
-            "refresh_icon":{
-              "name":"Refresh Icon",
-              "type":"Image",
-              "width":30,
-              "height":30,
-              "column":2,
-              "row":1,
-              "columnspan":1,
-              "rowspan":1,
-              "src":"images/refresh.png"
             }
           }
         }

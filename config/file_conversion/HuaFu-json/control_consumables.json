@@ -114,10 +114,10 @@
             "style": "distance_button",
             "method": "change_consumables_length"
           },
-          "length70": {
-            "name": "Length70",
+          "length100": {
+            "name": "Length100",
             "type": "Button",
-            "value": "70",
+            "value": "100",
             "hexpand": "False",
             "vexpand": "False",
             "button_width": 200,

@@ -30,7 +30,7 @@ from panels.printer_control import (move,
                                   on_digit_clicked,
                                   change_target_temp)
 from panels.edit_consumables import consumables_dialog,change_consumables_button,check_min_temp
-from panels.print_setting import (bed_mesh_calibration,
+from panels.calibration import (bed_mesh_calibration,
                                   init_xyz_offset,
                                   update_position,
                                   buttons_calibrating,
@@ -38,6 +38,7 @@ from panels.print_setting import (bed_mesh_calibration,
                                   start_z_calibration,
                                   confrim_calibration,
                                   cancle_calibration)
+from panels.macro_command import cut
 
 class Panel(ScreenPanel):
 
@@ -143,9 +144,7 @@ class Panel(ScreenPanel):
             height = int(self._screen.env.from_string(item['height']).render(self.j2_data) if item['height'] else None)
             width = int(self._screen.env.from_string(item['width']).render(self.j2_data) if item['width'] else None)
             pixbuf = ''
-            if panel_name == "print_menu" and image is None:
-                image = "images/no_model_image.png"
-            if fileinfo is not None and current_key in self.change_item:
+            if fileinfo is not None and "path" not in  fileinfo and  current_key in self.change_item:
                 pixbuf = self.get_file_image(fileinfo["path"], height, width, False)
                 item_control_name = Gtk.Image.new_from_pixbuf(pixbuf)
             else:
@@ -222,6 +221,8 @@ class Panel(ScreenPanel):
                 item_control_name.connect("clicked", confrim_calibration,self)
             elif (item['method'] == 'cancle_calibration'):
                 item_control_name.connect("clicked", cancle_calibration,self)
+            elif (item['method'] == 'cut'):
+                item_control_name.connect("clicked", cut,self)
 
 
             if current_key.startswith('distance'):

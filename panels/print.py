@@ -297,6 +297,10 @@ def update_time_left(self, data):
             # '.thumbs/a-320x320.png'
             path = f'.thumbs/{name}-320x320.png'
             pixbuf = self._gtk.PixbufFromHttp(path, 320, 320)
+            if pixbuf is None:
+                pixbuf = GdkPixbuf.Pixbuf.new_from_file("images/no_model_image.png")
+                scaled_pixbuf = pixbuf.scale_simple(280, 280, GdkPixbuf.InterpType.BILINEAR)
+                return self.labels["print_modeling_graphics"].set_from_pixbuf(scaled_pixbuf)
             self.labels["print_modeling_graphics"].set_from_pixbuf(pixbuf)
 
         if 'progress' in data['virtual_sdcard']:
