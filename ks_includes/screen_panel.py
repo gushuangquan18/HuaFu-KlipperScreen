@@ -276,10 +276,10 @@ class ScreenPanel:
         min_units = ngettext("minute", "minutes", minutes)
         seconds %= 60
         sec_units = ngettext("second", "seconds", seconds)
-        return f"{f'{days:2.0f}{spc}{day_units}{spc}' if days > 0 else ''}" \
-               f"{f'{hours:2.0f}{spc}{hour_units}{spc}' if hours > 0 else ''}" \
-               f"{f'{minutes:2.0f}{spc}{min_units}{spc}' if minutes > 0 and days == 0 else ''}" \
-               f"{f'{seconds:2.0f}{spc}{sec_units}' if days == 0 and hours == 0 and minutes == 0 else ''}"
+        return f"{f'{days:2.0f}d' if days > 0 else ''}" \
+               f"{f'{hours:2.0f}h' if hours > 0 else ''}" \
+               f"{f'{minutes:2.0f}m' if minutes > 0 and days == 0 else ''}"\
+               f"{f'{seconds:2.0f}s' if days == 0 and hours == 0 and minutes == 0 else ''}"
 
     def format_eta(self, total, elapsed):
         if total is None:
@@ -294,8 +294,10 @@ class ScreenPanel:
         minutes = seconds // 60
         eta = datetime.datetime.now() + datetime.timedelta(days=days, hours=hours, minutes=minutes)
         if self._config.get_main_config().getboolean("24htime", True):
-            return f"{self.format_time(total - elapsed)} | {eta:%H:%M} {f' +{days:2.0f}d' if days > 0 else ''}"
-        return f"{self.format_time(total - elapsed)} | {eta:%I:%M %p} {f' +{days:2.0f}d' if days > 0 else ''}"
+            # return f"{self.format_time(total - elapsed)} | {eta:%H:%M} {f' +{days:2.0f}d' if days > 0 else ''}"
+            return f"{self.format_time(total - elapsed)}"
+        # return f"{self.format_time(total - elapsed)} | {eta:%I:%M %p} {f' +{days:2.0f}d' if days > 0 else ''}"
+        return f"{self.format_time(total - elapsed)}"
 
     @staticmethod
     def format_size(size):

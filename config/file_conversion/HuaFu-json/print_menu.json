@@ -253,11 +253,20 @@
               "columnspan":1,
               "rowspan":1
             },
-            "floor_height_progress":{
-              "name":"Floor Height Progress",
+            "current_layer":{
+              "name":"Current Layers",
               "type":"Label",
-              "value":"70/108 |",
+              "value":"0 /",
               "column":2,
+              "row":0,
+              "columnspan":1,
+              "rowspan":1
+            },
+            "total_layers":{
+              "name":"Total_Layers",
+              "type":"Label",
+              "value":"0 |",
+              "column":3,
               "row":0,
               "columnspan":1,
               "rowspan":1
@@ -266,7 +275,7 @@
               "name":"Remaining Time",
               "type":"Label",
               "value":"-1h14m",
-              "column":3,
+              "column":4,
               "row":0,
               "columnspan":1,
               "rowspan":1

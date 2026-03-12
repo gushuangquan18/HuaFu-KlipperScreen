@@ -281,52 +281,82 @@ def change_pause_button_state(self, state, *args):
     self.buttons['pause_button'].set_image(image)
 
 #实时更新print_menu界面相关数据信息
-def update_time_left(self, data):
-    if ('virtual_sdcard' in data) and ('file_path' in data['virtual_sdcard']):
+def update_time_left(self, action,data):
+
+    #热床温度
+    if ('heater_bed' in data) and ('temperature' in data['heater_bed']):
+        self.buttons["heater_bed_temperature"].set_label(f'{int(data['heater_bed']['temperature'])}℃')
+    #腔温
+    if ('temperature_sensor filament_box_temp' in data) and ('temperature' in data['temperature_sensor filament_box_temp']):
+        self.buttons["chassis_temperature"].set_label(f'{int(data['temperature_sensor filament_box_temp']['temperature'])}℃')
+
+    #T0喷嘴温度
+    if ('extruder' in data) and ('temperature' in data['extruder']):
+        self.buttons["extruder_temperature"].set_label(f'{int(data['extruder']['temperature'])}℃')
+    #T1喷嘴温度
+    if ('extruder1' in data) and ('temperature' in data['extruder1']):
+        self.buttons["extruder1_temperature"].set_label(f'{int(data['extruder1']['temperature'])}℃')
+    #更改打印状态
+    if 'print_stats' in data :
+        if 'state' in data['print_stats']:
+            #更改打印状态
+            if data['print_stats']['state'] == 'paused':
+                change_pause_button_state(self,data['print_stats']['state'])
+
+    name = ''
+    # 放模型图
+    if self.filename is not None:
+        name = self.filename.replace('.gcode', '')
+    elif ('virtual_sdcard' in data) and ('file_path' in data['virtual_sdcard']):
         # '/home/orangepi/printer_data/gcodes/Rabbit.gcode'
         if data['virtual_sdcard']['file_path'] is not None:
             path = data['virtual_sdcard']['file_path']
             name = os.path.splitext(os.path.basename(path))[0]
             # 'a.gcode'
-            filename=f'{name}.gcode'
+            self.filename = f'{name}.gcode'
             self.labels["print_file_name"].set_label(name)
-            # 设置缩放后的图片到Image控件 'Box.gcode'
+        else:
+            self.labels["print_file_name"].set_label(name)
+    # 设置缩放后的图片到Image控件 'Box.gcode'
+    pixbuf = None
+    if self.file_metadata is not None:
+        path = self.file_metadata['thumbnails'][1]['relative_path']
+        pixbuf = self._gtk.PixbufFromHttp(path, 320, 320)
+    if pixbuf is None:
+        pixbuf = GdkPixbuf.Pixbuf.new_from_file("images/no_model_image.png")
+        scaled_pixbuf = pixbuf.scale_simple(280, 280, GdkPixbuf.InterpType.BILINEAR)
+        self.labels["print_modeling_graphics"].set_from_pixbuf(scaled_pixbuf)
+    else:
+        self.labels["print_modeling_graphics"].set_from_pixbuf(pixbuf)
+    print_duration = float(self._printer.get_stat('print_stats', 'print_duration'))
+    if  self.file_metadata is None:
+        return self.init_file_data(True)
 
-            # pixbuf = self.get_file_image(path, 320, 320, False)
-            # ['http', '.thumbs/Box-300x300.png']
-            # '.thumbs/a-320x320.png'
-            path = f'.thumbs/{name}-320x320.png'
-            pixbuf = self._gtk.PixbufFromHttp(path, 320, 320)
-            if pixbuf is None:
-                pixbuf = GdkPixbuf.Pixbuf.new_from_file("images/no_model_image.png")
-                scaled_pixbuf = pixbuf.scale_simple(280, 280, GdkPixbuf.InterpType.BILINEAR)
-                return self.labels["print_modeling_graphics"].set_from_pixbuf(scaled_pixbuf)
-            self.labels["print_modeling_graphics"].set_from_pixbuf(pixbuf)
 
-        if 'progress' in data['virtual_sdcard']:
-            percentage_progress = data['virtual_sdcard']['progress']
-            self.labels["percentage_progress"].set_label(f' {int(percentage_progress * 100)}%')
-            self.labels['progressBar'].set_fraction(percentage_progress)
+    #更新进度条
+    progress = (
+            max(self._printer.get_stat('virtual_sdcard', 'file_position') - self.file_metadata['gcode_start_byte'], 0)
+            / (self.file_metadata['gcode_end_byte'] - self.file_metadata['gcode_start_byte'])
+    ) if "gcode_start_byte" in self.file_metadata else self._printer.get_stat('virtual_sdcard', 'progress')
+    estimated = self.file_metadata['estimated_time'] if 'estimated_time' in self.file_metadata else 0
+    if estimated > 1:
+        # 更新剩余打印时间
+        self.labels["remaining_time"].set_label(f" -{self.format_eta(estimated, print_duration)}")
+        progress = min(max(print_duration / estimated, 0), 1)
+        self.labels["percentage_progress"].set_label(f' {int(progress * 100)}%')
+        self.labels['progressBar'].set_fraction(progress)
+    #更新打印层数 total_layer 总层数  current_layer 打印层数
+    # if 'info' in data["print_stats"]:
+    #     if ('total_layer' in data['print_stats']['info']
+    #             and data["print_stats"]['info']['total_layer'] is not None):
+    #         self.labels['total_layers'].set_label(f"0 / {data['print_stats']['info']['total_layer']}")
+    #     if ('current_layer' in data['print_stats']['info']
+    #             and data['print_stats']['info']['current_layer'] is not None):
+    #         self.labels['layer'].set_label(
+    #             f"{data['print_stats']['info']['current_layer']} / "
+    #             f"{self.labels['total_layers'].get_text()}"
+    #         )
 
-    if ('heater_bed' in data) and ('temperature' in data['heater_bed']):
-        self.buttons["heater_bed_temperature"].set_label(f'{int(data['heater_bed']['temperature'])}℃')
-
-    if ('heater_bed' in data) and ('temperature' in data['heater_bed']):
-        self.buttons["chassis_temperature"].set_label(f'{int(data['heater_bed']['temperature'])}℃')
-
-    if ('extruder' in data) and ('temperature' in data['extruder']):
-        self.buttons["extruder_temperature"].set_label(f'{int(data['extruder']['temperature'])}℃')
-    if ('extruder1' in data) and ('temperature' in data['extruder1']):
-        self.buttons["extruder1_temperature"].set_label(f'{int(data['extruder1']['temperature'])}℃')
-    if ('toolhead' in data) and ('estimated_print_time' in data['toolhead']):
-        estimated_print_time = int(data['toolhead']['estimated_print_time'])
-        self.labels["remaining_time"].set_label(f' - {print_time_format(estimated_print_time)}')
-    if ('print_stats' in data) and ('state' in data['print_stats']):
-        if data['print_stats']['state'] == 'paused':
-            change_pause_button_state(self,data['print_stats']['state'])
-    if ('webhooks' in data) and ('state' in data['webhooks']):
-        #  打印层数 数据未实时更新
-        self.labels["floor_height_progress"].set_label(f' 2/30 |')
 
 #暂停或开始打印
 def pause_confirm(widget,self):

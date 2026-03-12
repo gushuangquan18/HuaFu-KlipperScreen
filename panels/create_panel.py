@@ -23,6 +23,7 @@ from panels.print import (refresh_loading,
                                     set_loading,
                                     pause_confirm,
                                     update_time_left,
+                                    print_time_format,
                                     create_print_file_list_item)
 from panels.printer_control import (move,
                                   direction_home,
@@ -38,7 +39,7 @@ from panels.calibration import (bed_mesh_calibration,
                                   start_z_calibration,
                                   confrim_calibration,
                                   cancle_calibration)
-from panels.macro_command import cut
+from panels.macro_command import cut,stop_chamber_temperature,turn_on_each_detection_bed,turn_off_each_detection_bed
 
 class Panel(ScreenPanel):
 
@@ -89,9 +90,11 @@ class Panel(ScreenPanel):
         self.thumbsize = self._gtk.img_scale * self._gtk.button_image_scale * 2.5
         self.select_extruder="T0: "
         self.is_printing=False
+        self.filename = None
+        self.file_metadata = None
         self.change_item = ['print_busy',
                             'chassis_temperature', 'heater_bed_temperature', 'extruder_temperature', 'extruder1_temperature',
-                            'percentage_progress', 'floor_height_progress', 'remaining_time','floor_height_progress',
+                            'percentage_progress', 'total_layers', 'current_layers','remaining_time','floor_height_progress',
                             'print_modeling_graphics', 'print_file_name', 'print_state','pause_button',
                             't0_extruder_consumables_control',
                             'start_z_calibration','raise_heater_bed','reduce_heater_bed','confirm','cancel',
@@ -121,6 +124,8 @@ class Panel(ScreenPanel):
             parent_grid.set_row_homogeneous(True)
         if panel_name == "print_file_list":
             self._screen._ws.klippy.get_dir_info(self.load_files, self.cur_directory)
+        if panel_name == "print_menu" and self.filename is not None :
+            self.init_file_data(True)
         self.labels['parent_grid'] = parent_grid
 
         #初始化Z偏移校准数据
@@ -223,10 +228,18 @@ class Panel(ScreenPanel):
                 item_control_name.connect("clicked", cancle_calibration,self)
             elif (item['method'] == 'cut'):
                 item_control_name.connect("clicked", cut,self)
+            elif (item['method'] == 'stop_chamber_temperature'):
+                item_control_name.connect("clicked", stop_chamber_temperature,self)
+            elif (item['method'] == 'turn_on_each_detection_bed'):
+                item_control_name.connect("clicked", turn_on_each_detection_bed,self)
+            elif (item['method'] == 'turn_off_each_detection_bed'):
+                item_control_name.connect("clicked", turn_off_each_detection_bed,self)
 
 
-            if current_key.startswith('distance'):
-                self.buttons['distance_button'].append(item_control_name)
+            if current_key.startswith('distance') :
+                #Z offset Calibration Bug
+                if item_control_name not in self.buttons['distance_button']:
+                    self.buttons['distance_button'].append(item_control_name)
             if current_key.startswith('length'):
                 self.buttons['length_button'].append(item_control_name)
             if current_key.startswith('speed_consumables') :
@@ -259,6 +272,7 @@ class Panel(ScreenPanel):
             value = ''
             if current_key in {'file_name', 'print_file_name','print_modeling_graphics'} and fileinfo is not None:
                 item_control_name = Gtk.Label(hexpand=True, halign=Gtk.Align.START, ellipsize=Pango.EllipsizeMode.END)
+                self.filename = fileinfo['filename']
                 value=fileinfo['filename'].replace('.gcode', '')
                 item_control_name.set_markup(f"<b>{value}</b>")
                 return item_control_name
@@ -431,6 +445,8 @@ class Panel(ScreenPanel):
             return False
 
     def process_update(self, panel_name,action,data):
+        if self.file_metadata is None and self.filename is not None:
+            self.init_file_data(True)
         if panel_name == "home_menu" or panel_name == "printer_control_menu":
             for dev in self.labels:
                 for type in ('extruder', 'extruder1','heater_bed','chassis'):
@@ -445,8 +461,8 @@ class Panel(ScreenPanel):
                             name=dev
                         )
                         break
-        elif panel_name == "print_menu" and action == 'notify_status_update':
-            update_time_left(self,data)
+        elif panel_name == "print_menu" and action == 'notify_status_update' :
+            update_time_left(self,action,data)
         #   删除文件后刷新页面
         elif panel_name == "z_offset_calibration":
             if action == "notify_status_update":
@@ -478,5 +494,80 @@ class Panel(ScreenPanel):
                 column += 1
         set_loading(self,False)
 
+    #回滚 加载打印文件信息
+    def _callback(self, result, method, params):
+        self.file = {}
+        self.file_metadata = {}
+        self.gcodes_path = None
+        if "error" in result:
+            logging.debug(result["error"])
+            return
+        if method == "server.files.metadata":
+            for x in result['result']:
+                self.file_metadata[x] = result['result'][x]
+
+        file_time = filament_time = None
+        progress = (
+                max(self._printer.get_stat('virtual_sdcard', 'file_position') - self.file_metadata['gcode_start_byte'],
+                    0)
+                / (self.file_metadata['gcode_end_byte'] - self.file_metadata['gcode_start_byte'])
+        ) if "gcode_start_byte" in self.file_metadata else self._printer.get_stat('virtual_sdcard', 'progress')
+
+        last_time = self.file_metadata['last_time'] if "last_time" in self.file_metadata else 0
+        slicer_time = self.file_metadata['estimated_time'] if 'estimated_time' in self.file_metadata else 0
+        print_duration = float(self._printer.get_stat('print_stats', 'print_duration'))
+        if print_duration < 1:  # No-extrusion
+            if last_time:
+                print_duration = last_time * progress
+            elif slicer_time:
+                print_duration = slicer_time * progress
+            else:
+                print_duration = float(self._printer.get_stat('print_stats', 'total_duration'))
+
+        fila_used = float(self._printer.get_stat('print_stats', 'filament_used'))
+        if 'filament_total' in self.file_metadata and self.file_metadata['filament_total'] >= fila_used > 0:
+            filament_time = (print_duration / (fila_used / self.file_metadata['filament_total']))
+            # self.labels["filament_time"].set_label(self.format_time(filament_time))
+        else:
+            filament_time = 0
+        if progress > 0:
+            file_time = (print_duration / progress)
+            # self.labels["file_time"].set_label(self.format_time(file_time))
+        else:
+            file_time = 0
+
+        estimated = 0
+        timeleft_type = self._config.get_config()['main'].get('print_estimate_method', 'auto')
+        if timeleft_type == "file":
+            estimated = file_time
+        elif timeleft_type == "filament":
+            estimated = filament_time
+        elif timeleft_type == "slicer":
+            estimated = slicer_time
+        else:
+            estimated = self.estimate_time(
+                progress, print_duration, file_time, filament_time, slicer_time, last_time
+            )
+        if estimated > 1:
+            progress = min(max(print_duration / estimated, 0), 1)
+            #初始化剩余打印时长  print_duration 打印持续时间
+            time = print_time_format(estimated)
+            self.labels["remaining_time"].set_label(time)
 
 
+        # 更新进度条
+        if progress is not None:
+            self.labels["percentage_progress"].set_label(f' {int(progress * 100)}%')
+            self.labels['progressBar'].set_fraction(progress)
+
+        # if ('toolhead' in data) and ('estimated_print_time' in data['toolhead']):
+        #     estimated_print_time = int(data['toolhead']['estimated_print_time'])
+        # #  打印层数
+        # self.labels['total_layers'].set_label(f"{data['print_stats']['info']['total_layer']}")
+        # self.labels['current_layers'].set_label()
+
+
+    def init_file_data(self,is_init):
+        if is_init:
+            self._screen._ws.klippy.get_file_metadata(self.filename, self._callback)
+        return True

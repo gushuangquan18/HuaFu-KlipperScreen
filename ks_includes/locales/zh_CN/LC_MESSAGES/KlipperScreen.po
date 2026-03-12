@@ -1181,6 +1181,15 @@ msgstr "宏命令"
 msgid "Cutting continuous fiber consumables"
 msgstr "切割连续纤维耗材"
 
+msgid "Stop chamber temperature heating"
+msgstr "停止腔温加热"
+
+msgid "Turn on pre print detection"
+msgstr "开启打印前探测"
+
+msgid "Turn off pre print detection"
+msgstr "关闭打印前探测"
+
 
 
 #~ msgid "Hide temp."
