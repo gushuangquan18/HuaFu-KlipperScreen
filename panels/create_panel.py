@@ -30,7 +30,9 @@ from panels.printer_control import (move,
                                   change_distance,
                                   on_digit_clicked,
                                   change_target_temp,
-                                  change_print_speed)
+                                  change_print_speed,
+                                  update_print_speed_message,
+                                  update_speed_button)
 from panels.edit_consumables import consumables_dialog,change_consumables_button,check_min_temp
 from panels.calibration import (bed_mesh_calibration,
                                   init_xyz_offset,
@@ -469,9 +471,18 @@ class Panel(ScreenPanel):
                             name=dev
                         )
                         break
-        elif panel_name == "print_menu" and action == 'notify_status_update' :
+
+        if panel_name == "printer_control_menu" :
+            update_print_speed_message(self, data)
+
+        if panel_name == "speed_control":
+            update_speed_button(self, data)
+
+        #更新打印信息
+        if panel_name == "print_menu" and action == 'notify_status_update' :
             update_time_left(self,action,data)
-        #   删除文件后刷新页面
+
+        #更新Z偏移校准信息
         elif panel_name == "z_offset_calibration":
             if action == "notify_status_update":
                 if self._printer.get_stat("toolhead", "homed_axes") != "xyz":
@@ -483,6 +494,7 @@ class Panel(ScreenPanel):
                         buttons_calibrating(self)
                     else:
                         buttons_not_calibrating(self)
+        #  删除文件后刷新页面
         elif "action" in data and data["action"] == "delete_file":
             refresh_loading(None,self)
 
@@ -501,6 +513,12 @@ class Panel(ScreenPanel):
             else:
                 column += 1
         set_loading(self,False)
+
+    #请求文件详细信息
+    def init_file_data(self, is_init):
+        if is_init:
+            self._screen._ws.klippy.get_file_metadata(self.filename, self._callback)
+        return True
 
     #回滚 加载打印文件信息
     def _callback(self, result, method, params):
@@ -575,7 +593,3 @@ class Panel(ScreenPanel):
         # self.labels['current_layers'].set_label()
 
 
-    def init_file_data(self,is_init):
-        if is_init:
-            self._screen._ws.klippy.get_file_metadata(self.filename, self._callback)
-        return True

@@ -1046,8 +1046,8 @@ msgstr "打印机正忙"
 msgid "Onboard Storage"
 msgstr "机内存储"
 
-msgid "Printing"
-msgstr "打印中"
+msgid "Printing..."
+msgstr "打印中..."
 
 msgid "Skip"
 msgstr "跳过"
@@ -1060,6 +1060,9 @@ msgstr "停止"
 
 msgid "Confirm"
 msgstr "确认"
+
+msgid "Preprocessing in progress..."
+msgstr "预处理中..."
 
 msgid "Filament Type"
 msgstr "耗材类型"

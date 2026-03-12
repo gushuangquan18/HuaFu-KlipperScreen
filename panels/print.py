@@ -247,13 +247,13 @@ def change_pause_button_state(self, state, *args):
     filename = ''
     button_text = ''
     # printing 打印中 paused暂停
-    if state == "printing":
+    if state == "printing...":
         #args[0],widget 发出请求的按钮控件
         # if len(args) == 1:
         #     self._gtk.Button_busy(args[0], True)
         self._screen._ws.klippy.print_resume()
         # self._gtk.Button_busy(args[0], False)
-        state_text = _("Printing")
+        state_text = _("Printing...")
         filename = "images/pause.png"
         button_text = _("Pause")
 
@@ -337,6 +337,10 @@ def update_time_left(self, action,data):
             / (self.file_metadata['gcode_end_byte'] - self.file_metadata['gcode_start_byte'])
     ) if "gcode_start_byte" in self.file_metadata else self._printer.get_stat('virtual_sdcard', 'progress')
     estimated = self.file_metadata['estimated_time'] if 'estimated_time' in self.file_metadata else 0
+    if progress*100 <1:
+        self.labels['print_state'].set_label(_("Preprocessing in progress..."))
+    else:
+        self.labels['print_state'].set_label(_("Printing..."))
     if estimated > 1:
         # 更新剩余打印时间
         self.labels["remaining_time"].set_label(f" -{self.format_eta(estimated, print_duration)}")
@@ -360,10 +364,10 @@ def update_time_left(self, action,data):
 def pause_confirm(widget,self):
     logging.debug("Pauseing print")
     state = ''
-    if self.labels['print_state'].get_label() == _("Printing"):
+    if self.labels['print_state'].get_label() == _("Printing..."):
         state = 'paused'
     elif self.labels['print_state'].get_label() == _("Paused"):
-        state = 'printing'
+        state = 'printing...'
     change_pause_button_state(self,state,widget)
 
 
