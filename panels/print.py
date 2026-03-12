@@ -35,8 +35,6 @@ def print_time_format(time):
         minutes = int((time - hours * 3600) / 60)
         return f'{hours}h{minutes}m'
 
-
-
 #刷新按钮，重新加载文件列表
 def refresh_loading(widget,self,*args):
     set_loading(self,True)

@@ -46,6 +46,10 @@ button.ten_button{
     background-color: #606060;
     border-radius: 1em;
 }
+button.select_speed_control_button{
+    background-color: @next_level;
+    border-radius: 1em;
+}
 button.one_button{
     background-color: #909090;
     border-radius: 1em;

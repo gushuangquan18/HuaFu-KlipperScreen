@@ -16,7 +16,26 @@ from ks_includes.screen_panel import ScreenPanel
 from ks_includes.KlippyGtk import find_widget
 from ks_includes.KlippyGcodes import KlippyGcodes
 
+SPEED_MODEL = {
+    '50':_("Mute"),'100':_("Standard"),'124':_("Sport"),'166':_("Furious"),
+}
 
+def change_print_speed(widget, self, value):
+    print_speed = re.search(r'\d+', value)
+    if print_speed:
+        # 提取并转换为整数
+        print_speed = int(print_speed.group())
+    self.print_speed = print_speed
+    self._screen._send_action(widget, "printer.gcode.script", {"script": KlippyGcodes.set_speed_rate(print_speed)})
+    self.labels['speed_control_model'].sel_label(SPEED_MODEL[f'print_speed'])
+    for button in self.buttons["print_speed"]:
+        text=button.get_label()
+        if text.endswith(f"({print_speed}%)"):
+            button.get_style_context().remove_class('speed_control_button')
+            button.get_style_context().add_class('select_speed_control_button')
+        else:
+            button.get_style_context().remove_class('select_speed_control_button')
+            button.get_style_context().add_class('speed_control_button')
 
 #控制打印机XYZ轴
 def move(widget, self, value):

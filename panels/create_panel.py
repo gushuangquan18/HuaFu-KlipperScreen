@@ -29,7 +29,8 @@ from panels.printer_control import (move,
                                   direction_home,
                                   change_distance,
                                   on_digit_clicked,
-                                  change_target_temp)
+                                  change_target_temp,
+                                  change_print_speed)
 from panels.edit_consumables import consumables_dialog,change_consumables_button,check_min_temp
 from panels.calibration import (bed_mesh_calibration,
                                   init_xyz_offset,
@@ -93,7 +94,7 @@ class Panel(ScreenPanel):
         self.filename = None
         self.file_metadata = None
         self.change_item = ['print_busy',
-                            'chassis_temperature', 'heater_bed_temperature', 'extruder_temperature', 'extruder1_temperature',
+                            'speed_control_model','chassis_temperature', 'heater_bed_temperature', 'extruder_temperature', 'extruder1_temperature',
                             'percentage_progress', 'total_layers', 'current_layers','remaining_time','floor_height_progress',
                             'print_modeling_graphics', 'print_file_name', 'print_state','pause_button',
                             't0_extruder_consumables_control',
@@ -108,6 +109,9 @@ class Panel(ScreenPanel):
             self.buttons['length_button']=[]
             self.labels["speed"] = 10
             self.buttons['speed_button'] = []
+        if panel_name == "speed_control":
+            self.print_speed = 100
+            self.buttons["print_speed"] = []
 
         while i< len(self.items):
             key = list(self.items[i])[0]
@@ -206,6 +210,8 @@ class Panel(ScreenPanel):
                 #更改腔温 热床温度
                 #panel_name extruder_temperature chassis_temperature heater_bed_temperature
                 item_control_name.connect("clicked", change_target_temp,self,panel_name,value)
+            elif (item['method'] == 'change_print_speed'):
+                item_control_name.connect("clicked", change_print_speed,self,value)
             elif (item['method'] == 'move'):
                 item_control_name.connect("clicked", move,self,value)
             elif (item['method'] == 'change_distance'):
@@ -244,6 +250,8 @@ class Panel(ScreenPanel):
                 self.buttons['length_button'].append(item_control_name)
             if current_key.startswith('speed_consumables') :
                 self.buttons['speed_button'].append(item_control_name)
+            if current_key.endswith('_mode'):
+                self.buttons["print_speed"].append(item_control_name)
 
             if current_key=='print_busy':
                 if  father == 'print_menu':

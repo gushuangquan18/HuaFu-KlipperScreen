@@ -80,7 +80,9 @@
         "row": 0,
         "columnspan": 1,
         "rowspan": 1,
-        "style": "speed_control_button"
+        "style": "speed_control_button",
+        "method": "change_print_speed"
+
       },
       "sport_mode": {
         "name": "Sport Mode",
@@ -94,7 +96,8 @@
         "row": 1,
         "columnspan": 1,
         "rowspan": 1,
-        "style": "speed_control_button"
+        "style": "speed_control_button",
+        "method": "change_print_speed"
       },
       "standard_mode": {
         "name": "Standard Mode",
@@ -108,7 +111,8 @@
         "row": 2,
         "columnspan": 1,
         "rowspan": 1,
-        "style": "speed_control_button"
+        "style": "select_speed_control_button",
+        "method": "change_print_speed"
       },
       "mute_mode": {
         "name": "Mute Mode",
@@ -122,7 +126,8 @@
         "row": 3,
         "columnspan": 1,
         "rowspan": 1,
-        "style": "speed_control_button"
+        "style": "speed_control_button",
+        "method": "change_print_speed"
       }
     }
   }
