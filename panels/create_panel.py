@@ -43,6 +43,7 @@ from panels.calibration import (bed_mesh_calibration,
                                   confrim_calibration,
                                   cancle_calibration)
 from panels.macro_command import cut,stop_chamber_temperature,turn_on_each_detection_bed,turn_off_each_detection_bed
+from panels.firmware_information import update_system_info
 
 class Panel(ScreenPanel):
 
@@ -101,7 +102,8 @@ class Panel(ScreenPanel):
                             'print_modeling_graphics', 'print_file_name', 'print_state','pause_button',
                             't0_extruder_consumables_control',
                             'start_z_calibration','raise_heater_bed','reduce_heater_bed','confirm','cancel',
-                            'z_value','old_z_value','new_z_value']
+                            'z_value','old_z_value','new_z_value',
+                            'system_version','network_address','ip_address','mac_address']
         self.buttons = {}
         if panel_name == "sport_control" or panel_name == "z_offset_calibration":
             self.distance=1
@@ -114,7 +116,6 @@ class Panel(ScreenPanel):
         if panel_name == "speed_control":
             self.print_speed = 100
             self.buttons["print_speed"] = []
-
         while i< len(self.items):
             key = list(self.items[i])[0]
             item = self.items[i][key]
@@ -132,6 +133,8 @@ class Panel(ScreenPanel):
             self._screen._ws.klippy.get_dir_info(self.load_files, self.cur_directory)
         if panel_name == "print_menu" and self.filename is not None :
             self.init_file_data(True)
+        if panel_name == 'firmware_information':
+            update_system_info(self)
         self.labels['parent_grid'] = parent_grid
 
         #初始化Z偏移校准数据

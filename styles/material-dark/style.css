@@ -497,9 +497,11 @@ button.print_menu_button{
 #firmware_information{
 
 }
-#printer_firmware_information_grid,
-#pump_firmware_information_grid,
-#offline_update_firmware_information_grid{
+#ui_system_grid,
+#system_grid,
+#network_grid,
+#ip_grid,
+#mac_grid{
     background-color: @grid_bg;
     border-radius: 0.5em;
     margin: 20px 20px 2px 20px;

@@ -317,7 +317,7 @@ def update_time_left(self, action,data):
             self.labels["print_file_name"].set_label(name)
     # 设置缩放后的图片到Image控件 'Box.gcode'
     pixbuf = None
-    if self.file_metadata is not None:
+    if self.file_metadata is not None and 'thumbnails' in self.file_metadata:
         path = self.file_metadata['thumbnails'][1]['relative_path']
         pixbuf = self._gtk.PixbufFromHttp(path, 320, 320)
     if pixbuf is None:

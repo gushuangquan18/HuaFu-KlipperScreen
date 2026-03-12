@@ -596,6 +596,18 @@ msgstr "名称"
 msgid "Network"
 msgstr "网络"
 
+msgid "UI System Version"
+msgstr "UI系统版本"
+
+msgid "System Version"
+msgstr "系统版本"
+
+msgid "IP Address"
+msgstr "IP地址"
+
+msgid "MAC Address"
+msgstr "MAC地址"
+
 msgid "Network connected"
 msgstr "网络已连接"
 

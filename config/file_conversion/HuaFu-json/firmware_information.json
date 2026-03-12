@@ -72,8 +72,8 @@
     "width": 940,
     "height": 500,
     "children": {
-      "printer_firmware_information_grid": {
-        "name":"Printer Firmware Information Grid",
+      "ui_system_grid": {
+        "name":"UI System Grid",
         "type":"Grid",
         "width": 900,
         "height": 80,
@@ -82,10 +82,10 @@
         "columnspan":1,
         "rowspan":1,
         "children": {
-          "printer_firmware_information_label": {
-            "name": "Printer Firmware Information Label",
+          "ui_system_label": {
+            "name": "UI System Label",
             "type": "Label",
-            "value": "HUAFU Test1",
+            "value": "UI System Version",
             "column": 0,
             "row": 0,
             "columnspan": 1,
@@ -100,10 +100,10 @@
             "columnspan":1,
             "rowspan":1
           },
-          "printer_firmware_information_version": {
-            "name": "Printer Firmware Information Version",
+          "ui_system_version": {
+            "name": "UI System Version",
             "type": "Label",
-            "value": "01.02.02.00",
+            "value": "0.9",
             "column": 3,
             "row": 0,
             "columnspan": 1,
@@ -111,8 +111,8 @@
           }
         }
       },
-      "pump_firmware_information_grid": {
-        "name":"Pump Firmware Information Grid",
+      "system_grid": {
+        "name":"System Grid",
         "type":"Grid",
         "width": 900,
         "height": 80,
@@ -121,10 +121,10 @@
         "columnspan":1,
         "rowspan":1,
         "children": {
-          "pump_firmware_information_label": {
-            "name": "Pump Firmware Information Label",
+          "system_label": {
+            "name": "System Label",
             "type": "Label",
-            "value": "气泵",
+            "value": "System Version",
             "column": 0,
             "row": 0,
             "columnspan": 1,
@@ -139,10 +139,10 @@
             "columnspan":1,
             "rowspan":1
           },
-          "pump_firmware_information_version": {
-            "name": "Pump Firmware Information Version",
+          "system_version": {
+            "name": "System Version",
             "type": "Label",
-            "value": "03.00.21.29",
+            "value": "None 0.0",
             "column": 3,
             "row": 0,
             "columnspan": 1,
@@ -150,8 +150,8 @@
           }
         }
       },
-      "offline_update_firmware_information_grid": {
-        "name":"Offline Update Firmware Information Grid",
+      "network_grid": {
+        "name":"Network Grid",
         "type":"Grid",
         "width": 900,
         "height": 80,
@@ -160,11 +160,107 @@
         "columnspan":1,
         "rowspan":1,
         "children": {
-          "offline_update_firmware_information_label": {
-            "name": "Offline Update Firmware Information Label",
+          "network_label": {
+            "name": "Network Label",
             "type": "Label",
-            "value": "离线升级",
+            "value": "Network",
             "column": 0,
+            "row": 0,
+            "columnspan": 1,
+            "rowspan": 1
+          },
+          "space_label":{
+            "name":"Space Label",
+            "type":"Label",
+            "value":"占位符",
+            "column":1,
+            "row":0,
+            "columnspan":1,
+            "rowspan":1
+          },
+          "network_address": {
+            "name": "Network Address",
+            "type": "Label",
+            "value": "None",
+            "column": 3,
+            "row": 0,
+            "columnspan": 1,
+            "rowspan": 1
+          }
+        }
+      },
+      "ip_grid": {
+        "name":"Ip Grid",
+        "type":"Grid",
+        "width": 900,
+        "height": 80,
+        "column":0,
+        "row":3,
+        "columnspan":1,
+        "rowspan":1,
+        "children": {
+          "ip_label": {
+            "name": "Ip Label",
+            "type": "Label",
+            "value": "IP Address",
+            "column": 0,
+            "row": 0,
+            "columnspan": 1,
+            "rowspan": 1
+          },
+          "space_label":{
+            "name":"Space Label",
+            "type":"Label",
+            "value":"占位符",
+            "column":1,
+            "row":0,
+            "columnspan":1,
+            "rowspan":1
+          },
+          "ip_address": {
+            "name": "Ip Address",
+            "type": "Label",
+            "value": "0.0.0.0",
+            "column": 3,
+            "row": 0,
+            "columnspan": 1,
+            "rowspan": 1
+          }
+        }
+      },
+      "mac_grid": {
+        "name":"MAC Grid",
+        "type":"Grid",
+        "width": 900,
+        "height": 80,
+        "column":0,
+        "row":4,
+        "columnspan":1,
+        "rowspan":1,
+        "children": {
+          "mac_label": {
+            "name": "MAC Label",
+            "type": "Label",
+            "value": "MAC Address",
+            "column": 0,
+            "row": 0,
+            "columnspan": 1,
+            "rowspan": 1
+          },
+          "space_label":{
+            "name":"Space Label",
+            "type":"Label",
+            "value":"占位符",
+            "column":1,
+            "row":0,
+            "columnspan":1,
+            "rowspan":1
+          },
+          "mac_address": {
+            "name": "MAC Address",
+            "type": "Label",
+            "value": "00:00:00:00:00:00",
+            "column": 3,
             "row": 0,
             "columnspan": 1,
             "rowspan": 1
