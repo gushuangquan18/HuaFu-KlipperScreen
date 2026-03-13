@@ -1181,6 +1181,9 @@ msgstr "信息"
 msgid "Calibration"
 msgstr "校准"
 
+msgid "Toolbox"
+msgstr "工具箱"
+
 msgid "Do you want to cancel saving the configuration?"
 msgstr "您想取消保存配置吗?"
 
@@ -1204,6 +1207,9 @@ msgstr "开启打印前探测"
 
 msgid "Turn off pre print detection"
 msgstr "关闭打印前探测"
+
+msgid "Firmware"
+msgstr "固件"
 
 
 
