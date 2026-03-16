@@ -51,7 +51,7 @@ def convert_json_to_config(input_file: str, output_file: str) -> None:
                       'button_width', 'button_height', 'v_button_width', 'v_button_height',
                       'column_spacing', 'row_spacing', 'column_homogeneous', 'row_homogeneous',
                       'width', 'height', 'column', 'row', 'columnspan', 'rowspan',
-                      'v_width', 'v_height', 'v_column', 'v_row', 'v_columnspan', 'v_rowspan']
+                      'v_width', 'v_height', 'v_column', 'v_row', 'v_columnspan', 'v_rowspan', 'v_column_spacing','v_row_spacing']
         for attr in attr_order:
             if attr not in node:
                 continue
@@ -82,7 +82,7 @@ def convert_json_to_config(input_file: str, output_file: str) -> None:
                       'button_width', 'button_height', 'v_button_width', 'v_button_height',
                       'column_spacing', 'row_spacing', 'column_homogeneous', 'row_homogeneous',
                       'width', 'height', 'column', 'row', 'columnspan', 'rowspan',
-                      'v_width', 'v_height', 'v_column', 'v_row', 'v_columnspan', 'v_rowspan']:
+                      'v_width', 'v_height', 'v_column', 'v_row', 'v_columnspan', 'v_rowspan','v_column_spacing','v_row_spacing']:
                 continue
             if isinstance(value, dict) and 'name' in value:
                 process_node(value, current_menu_path)
@@ -99,7 +99,7 @@ def convert_json_to_config(input_file: str, output_file: str) -> None:
 
 if __name__ == "__main__":
     # 配置输入输出文件路径
-    name="home_menu"
+    name="consumables_menu"
     INPUT_FILE = f"HuaFu-json/{name}.json"
     OUTPUT_FILE = f"../{name}.conf"
     convert_json_to_config(INPUT_FILE, OUTPUT_FILE)

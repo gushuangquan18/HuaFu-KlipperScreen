@@ -155,8 +155,11 @@ class Panel(ScreenPanel):
             item_control_name = Gtk.Image()
             item_control_name.set_name(current_key)
             image = self._screen.env.from_string(item['src']).render(self.j2_data) if item['src'] else None
-            height = int(self._screen.env.from_string(item['height']).render(self.j2_data) if item['height'] else None)
             width = int(self._screen.env.from_string(item['width']).render(self.j2_data) if item['width'] else None)
+            height = int(self._screen.env.from_string(item['height']).render(self.j2_data) if item['height'] else None)
+            if self._screen.vertical_mode:
+                width = int(self._screen.env.from_string(item['v_width']).render(self.j2_data) if item['v_width'] else None)
+                height = int(self._screen.env.from_string(item['v_height']).render(self.j2_data) if item['v_height'] else None)
             pixbuf = ''
             if fileinfo is not None and "path" not in  fileinfo and  current_key in self.change_item:
                 pixbuf = self.get_file_image(fileinfo["path"], height, width, False)
@@ -182,6 +185,11 @@ class Panel(ScreenPanel):
             button_height = self._screen.env.from_string(item['button_height']).render(self.j2_data) if item['button_height'] else None
             hexpand = self._screen.env.from_string(item['hexpand']).render(self.j2_data) if item['hexpand'] else None
             vexpand = self._screen.env.from_string(item['vexpand']).render(self.j2_data) if item['vexpand'] else None
+            if self._screen.vertical_mode:
+                width = self._screen.env.from_string(item['v_width']).render(self.j2_data) if item['v_width'] else None
+                height = self._screen.env.from_string(item['v_height']).render(self.j2_data) if item['v_height'] else None
+                button_width = self._screen.env.from_string(item['v_button_width']).render(self.j2_data) if item['v_button_width'] else None
+                button_height = self._screen.env.from_string(item['v_button_height']).render(self.j2_data) if item['v_button_height'] else None
             item_control_name = self._gtk.Button(icon,value,style,width,height,hexpand,vexpand,button_width,button_height,position)
             parameter_item = {
                 "panel": item["panel"],
@@ -321,9 +329,9 @@ class Panel(ScreenPanel):
         elif(item['type'] == "Grid"):#移除默认边框
             item_control_name = Gtk.Grid(orientation=Gtk.Orientation.HORIZONTAL)
             item_control_name.set_name(current_key)
-            height = int(self._screen.env.from_string(item['height']).render(self.j2_data) if item['height'] else None)
             width = int(self._screen.env.from_string(item['width']).render(self.j2_data) if item['width'] else None)
-            item_control_name.set_size_request(width, height)
+            height = int(self._screen.env.from_string(item['height']).render(self.j2_data) if item['height'] else None)
+
             if(item['column_spacing'] != None):
                 column_spacing = int(self._screen.env.from_string(item['column_spacing']).render(self.j2_data) if item['column_spacing'] else None)
                 item_control_name.set_column_spacing(50)
@@ -334,6 +342,17 @@ class Panel(ScreenPanel):
                 item_control_name.set_column_homogeneous(True)
             if (item['row_homogeneous'] == 'True'):
                 item_control_name.set_row_homogeneous(True)
+            if self._screen.vertical_mode:
+                width = int(self._screen.env.from_string(item['v_width']).render(self.j2_data) if item['v_width'] else None)
+                height = int(self._screen.env.from_string(item['v_height']).render(self.j2_data) if item['v_height'] else None)
+                if (item['v_column_spacing'] != None):
+                    v_column_spacing = int(item['v_column_spacing'])
+                    item_control_name.set_column_spacing(v_column_spacing)
+                if (item['v_row_spacing'] != None):
+                    v_row_spacing = int(item['v_row_spacing'])
+                    item_control_name.set_row_spacing(v_row_spacing)
+
+            item_control_name.set_size_request(width, height)
             i+=1
             if (key_array[len(key_array) - 1] == "file_list_body_grid"):
                 self.labels['flowbox']= item_control_name
@@ -344,11 +363,18 @@ class Panel(ScreenPanel):
                 key_father = ' '.join(key_child.split()[:-1]) if key_child and key_child.strip() else ''
                 item_child = self.items[i][key_child]
                 if (key_father == key and len((list(self.items[i])[0]).split()) > 1):
-                    item_control_name.attach(self.create_child_items(i,panel_name,fileinfo,father,select_extruder),
-                                       int(item_child['column']),
-                                       int(item_child['row']),
-                                       int(item_child['columnspan']),
-                                       int(item_child['rowspan']))
+                    if self._screen.vertical_mode:
+                        item_control_name.attach(self.create_child_items(i,panel_name,fileinfo,father,select_extruder),
+                                                   int(item_child['v_column']),
+                                                   int(item_child['v_row']),
+                                                   int(item_child['v_columnspan']),
+                                                   int(item_child['v_rowspan']))
+                    else:
+                        item_control_name.attach(self.create_child_items(i, panel_name, fileinfo, father, select_extruder),
+                                                    int(item_child['column']),
+                                                    int(item_child['row']),
+                                                    int(item_child['columnspan']),
+                                                    int(item_child['rowspan']))
                     i = self.counter
                 else:
                     i = self.counter + 1
@@ -370,6 +396,9 @@ class Panel(ScreenPanel):
             item_control_name.set_show_text(False)
             width = int(self._screen.env.from_string(item['width']).render(self.j2_data) if item['width'] else None)
             height = int(self._screen.env.from_string(item['height']).render(self.j2_data) if item['height'] else None)
+            if self._screen.vertical_mode:
+                width = int(self._screen.env.from_string(item['v_width']).render(self.j2_data) if item['v_width'] else None)
+                height = int(self._screen.env.from_string(item['v_height']).render(self.j2_data) if item['v_height'] else None)
             item_control_name.set_size_request(width, height)
             self.labels['progressBar']=item_control_name
 
@@ -408,6 +437,9 @@ class Panel(ScreenPanel):
             item_control_name.set_active(0)
             width = int(self._screen.env.from_string(item['width']).render(self.j2_data) if item['width'] else None)
             height = int(self._screen.env.from_string(item['height']).render(self.j2_data) if item['height'] else None)
+            if self._screen.vertical_mode:
+                width = int(self._screen.env.from_string(item['v_width']).render(self.j2_data) if item['v_width'] else None)
+                height = int(self._screen.env.from_string(item['v_height']).render(self.j2_data) if item['v_height'] else None)
             item_control_name.set_size_request(width, height)
             style = self._screen.env.from_string(item['style']).render(self.j2_data) if item['style'] else None
             item_control_name.get_style_context().add_class(style)

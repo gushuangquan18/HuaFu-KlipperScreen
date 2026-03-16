@@ -195,7 +195,7 @@ class KlipperScreenConfig:
                       'button_width', 'button_height', 'v_button_width', 'v_button_height',
                       'column_spacing', 'row_spacing', 'column_homogeneous', 'row_homogeneous',
                       'width', 'height', 'column', 'row', 'columnspan', 'rowspan',
-                      'v_width', 'v_height', 'v_column', 'v_row', 'v_columnspan', 'v_rowspan' )
+                      'v_width', 'v_height', 'v_column', 'v_row', 'v_columnspan', 'v_rowspan', 'v_column_spacing','v_row_spacing')
             elif section.startswith('graph')\
                     or section.startswith('displayed_macros')\
                     or section.startswith('spoolman'):
@@ -648,7 +648,9 @@ class KlipperScreenConfig:
             "v_column": cfg.get("v_column", None),
             "v_row": cfg.get("v_row", None),
             "v_columnspan": cfg.get("v_columnspan", None),
-            "v_rowspan": cfg.get("v_rowspan", None)
+            "v_rowspan": cfg.get("v_rowspan", None),
+            "v_column_spacing": cfg.get("v_column_spacing", None),
+            "v_row_spacing": cfg.get("v_row_spacing", None)
         }
 
         return {name[(len(menu) + 6):]: item}

@@ -165,19 +165,13 @@ class BasePanel(ScreenPanel):
         self.main_grid = Gtk.Grid()
 
         if self._screen.vertical_mode:
-            self.main_grid.attach(self.titlebar, 0, 0, 1, 1)
-            self.main_grid.attach(self.content, 0, 1, 1, 1)
-            self.main_grid.attach(self.action_bar, 0, 2, 1, 1)
+            self.main_grid.attach(self.content, 0, 0, 1, 1)
+            self.main_grid.attach(self.action_bar, 0, 1, 1, 1)
             self.action_bar.set_orientation(orientation=Gtk.Orientation.HORIZONTAL)
         else:
             self.main_grid.attach(self.action_bar, 0, 0, 1, 2)
             self.action_bar.set_orientation(orientation=Gtk.Orientation.VERTICAL)
-            #最上面显示
-            # self.main_grid.attach(self.titlebar, 1, 0, 1, 1)
-            #右侧功能区
-            # self.main_grid.attach(self.content, 1, 1, 1, 1)
             self.main_grid.attach(self.content, 1, 0, 1, 1)
-            self.update_time()
 
     def load_battery_icons(self):
         """

@@ -1,244 +1,733 @@
-/* Material-darker theme created by Alfredo Monclus 2021 */
-@define-color color_1 #e2e2e2;
-@define-color color_2 #2196f3;
-@define-color color_3 #fb8c00;
-@define-color color_4 #9E9E9E;
-@define-color color_5 #121212;
-@define-color background-color_2 #1c1c1c;
-@define-color background-color_3 #424242;
-@define-color background-color_4 #252525;
-@define-color background-color_5 #2f5631;
-@define-color background-color_6 #006064;
-@define-color background-color_7 #545454;
-@define-color background-color_8 #006412;
-@define-color background-color_9 #EF6C00;
-@define-color background-color_10 #B71C1C;
-@define-color background-color_12 #f9b274;
-@define-color background-color_13 #CF6679;
-@define-color background-color_14 #090909;
-@define-color border-color_6 #a2a2a2;
-@define-color border-color_7 #282828;
+/* Material-dark theme created by Alfredo Monclus 2021 */
+@define-color grid_bg #808080;
+@define-color next_level #0073BD;
 
-* {
-    color: #e2e2e2;
-    font-family: RobotoMedium;
+
+
+/*设置所有按钮背景颜色,以及点击状态下为透明*/
+/*button:active,*/
+button{
+    background-color: transparent;
+    border-color: transparent;
+    color: white;
+    box-shadow: none;
 }
 
-junction,
-list row,
-treeview.view,
-window {
-    background-color: #121212;
+button.home_menu_button,
+button.settings_menu_button{
+    background-color: @grid_bg;
+    border-radius: 1em;
+    margin: 10px 10px 10px 20px;
+}
+button.next_level{
+    background-color: @next_level;
+    border-radius: 1em;
+}
+button.later_button{
+    background-color: #A8A8A8;
+    border-radius: 1em;
+}
+button.select_consumables_type{
+    background-color:#A9A9A9;
+    border-radius: 1em;
+    margin: 5px 5px 5px 5px;
+}
+button.print_menu_button{
+    background-color: @grid_bg;
+    border-radius: 1em;
+}
+/*button.print_print_list{*/
+/*    background-color: @grid_bg;*/
+/*    border-radius: 1em;*/
+/*    margin: 10px;*/
+/*}*/
+button.speed_control_button,
+button.ten_button{
+    background-color: #606060;
+    border-radius: 1em;
+}
+button.select_speed_control_button{
+    background-color: @next_level;
+    border-radius: 1em;
+}
+button.one_button{
+    background-color: #909090;
+    border-radius: 1em;
+}
+button.distance_button{
+    background-color: #CCCCCC;
+    border-radius: 1em;
+}
+button.select_distance_button{
+    background-color: @next_level;
+    border-radius: 1em;
+}
+button.direction_home{
+    background-color: #F5F5F5;
+    border-radius: 2em;
+}
+button.direction_button{
+    background-color: #BFBFBF;
+    border-radius: 1em;
+}
+button.temperature_number{
+    background-color: #4E4F4F;
+    border-radius: 1em;
 }
 
-button {
-    background-color: #121212;
+#nozzle_extruder_dialog{
+    background-color: @grid_bg;
 }
 
-button:active {
-    background-color: #424242;
+/* 设置进度条颜色 */
+progressbar trough {
+    border: none;
+    background-color: #EDEDED; /* 背景颜色 */
+}
+progressbar progress {
+    border: none;
+    background-color: #0073bd; /* 进度条颜色 */
+}
+/* 下拉菜单背景颜色 */
+.consumables_select button{
+    background-color: #A8A8A8;      /* 背景色 */
+    border: 0px solid #FF8A65;      /* 可选：自定义边框 */
+    color: #dbdbdb;             /* 文字颜色 */
+}
+/* 下拉菜单中的选项样式（可选） */
+.consumables_select popup > contents {
+    background-color: white;
+}
+/* 下拉菜单背景颜色 */
+.eidt_consumables_select button{
+    background-color: black;      /* 背景色 */
+    border: 0px solid black;      /* 可选：自定义边框 */
+    color: black;             /* 文字颜色 */
 }
 
-.button_active {
-    border-color: #424242;
-    border-style: solid;
-    background-color: #424242;
-}
-
-button.color1,
-button.color2,
-button.color3,
-button.color4 {
-    background-color: #252525;
-    border-color: #252525;
-    border-radius: .25em;
-    padding-top: 0.4em;
-}
-
-button.color1:active,
-button.color2:active,
-button.color3:active,
-button.color4:active,
-button.update:active,
-button.invalid:active,
-.dialog button:active {
-    border-style: none;
-    background-color: #424242;
-}
-
-.active image,
-button.update {
-    color: #2196f3;
-    background-color: #121212;
-    border-color: #2196f3;
-    border-radius: .5em;
-    border-width: .1em;
-}
-
-button.invalid {
-    color: #fb8c00;
-    background-color: #121212;
-    border-color: #fb8c00;
-    border-radius: .5em;
-    border-width: .1em;
-}
-
-menu,
-menuitem,
-combobox button,
-combobox arrow,
-combobox menuitem {
-    background-color: #252525;
-    border-color: #121212;
-}
-
-treeview.view check,
-switch {
-    background-color: #1c1c1c;
-}
-
-treeview.view check:checked,
-switch:checked {
-    background-color: #2f5631;
-}
-
-treeview.view check:checked {
-    -gtk-icon-source: url("./styles/material-darker/images/complete.svg");
-}
-
-label {
-    color: #e2e2e2;
-}
-
-trough {
-    background-color: #121212;
-    color: #e2e2e2;
-}
-
-trough highlight,
-trough progress {
-    background-color: #2f5631;
-    color: #e2e2e2;
-}
-
-scale-mark {
-    color: #e2e2e2;
-}
-
-scrollbar,
-scrollbar button,
-scrollbar trough {
-    background-color: #121212;
-}
-
-scrollbar slider {
-    background-color: #1c1c1c;
-}
-
-textview .time {
-    color: #9E9E9E;
-}
-
-.active_device {
-    background-color: #1c1c1c;
-}
-
-.dialog {
-    border: 0;
-    background-color: #121212;
-}
-
-.dialog button {
-    background-color: #252525;
-    border-radius: .25em;
+.entry_temperature{
+    background-color: @next_level;
 }
 
 
-.dialog-error {
-    border-bottom-color: #CF6679;
+
+/* 主页菜单 */
+#head_grid{
+    margin-top:5px
 }
 
-.dialog-warning {
-    border-bottom-color: #f9b274;
+#up_grid {
+    /*background-color: red;*/
+    margin: 0px 0px 10px 0px;
+    /*border-radius: 1em;*/
+    /*padding-top: 20px;*/
+    padding-left: 35px;
 }
 
-.dialog-info {
-    border-bottom-color: @color4;
+#tag_blue {
+    padding-left: 80px;
 }
 
-.dialog-default {
-    border-bottom-color: @color3;
+#down_grid {
+    /*background-color: green;*/
+    padding: 5px 5px 5px 5px;
 }
 
-.dialog-secondary {
-     border-bottom-color: @color2;
+#print_file_list_grid {
+    background-color: @grid_bg;
+    border-radius: 1em;
+    padding-top: 88px;
+    padding-left: 38px;
 }
 
-.dialog-primary {
-     border-bottom-color: @color1;
+#lower_right_grid {
+    border-radius: 1em;
+    /*margin: 10px 10px 0px 10px;*/
 }
 
-.horizontal_togglebuttons  {
-    border-color: #545454;
-    border-width: .1em;
-    background-color: #252525;
+#nozzle_extruder_grid {
+    background-color: @grid_bg;
+    border-radius: 1em;
+    padding-top: 25px;
 }
 
-.horizontal_togglebuttons_active {
-    background-color: #545454;
+
+/* 选择打印文件 页面 */
+#print_file_list{
+    /*padding:0px 0px 0px 10px;*/
+}
+#file_list_body_grid{
+
+}
+#dialog_info_box{
+    margin: 10px 10px 10px 10px;
+}
+button.waring_button{
+    background-color: red;
+    border-radius: 0.5em;
+}
+button.print_button{
+    background-color: @next_level;
+    border-radius: 0.5em;
+}
+button.dialog_cancel{
+    background-color: #D0D0D0;
+    border-radius: 0.5em;
 }
 
-.fan_slider {
-    color: #e2e2e2;
+/* 要打印的盘 页面 */
+#select_disc_print{
+    margin:5px;
+}
+#file_grid,
+#disc_nozzle_grid,
+#other_grid {
+    background-color: @grid_bg;
+    border-radius: 1em;
+    margin: 10px;
+    padding-top: 15px;
+}
+#file_grid{
+    padding:0px 0px 10px 0px;
 }
 
-.message_popup {
-    border-bottom-color: #e2e2e2;
+#disc_nozzle_grid{
+    padding: 20px 0px 0px 40px;
+}
+#print_details_modeling_graphics{
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+#advanced_options{
+    padding-left: 15px;
 }
 
-.message_popup_echo,
-.message_popup_echo button {
-    background-color: #006412;
+/* 匹配耗材页面 */
+#matching_consumables{
+    margin:5px;
+}
+#left_matching_consumables_grid,
+#right_matching_consumables_grid{
+    background-color: @grid_bg;
+    border-radius: 1em;
+    margin: 10px;
+    padding: 20px 10px 10px 10px;
 }
 
-.message_popup_warning,
-.message_popup_warning button {
-    background-color: #EF6C00;
+/* 打印界面管理 */
+#print_menu{
+    margin: 15px 15px 15px 15px;
 }
 
-.message_popup_error,
-.message_popup_error button {
-    background-color: #B71C1C;
+#left_up_grid,
+#temperature_grid,
+#messages_control_grid,
+#right_down_grid{
+    background-color: @grid_bg;
+    border-radius: 0.5em;
+}
+#left_up_grid{
+    margin: 0px 15px 15px 0px;
+    padding: 10px;
+}
+#temperature_grid{
+    margin: 0px 0px 15px 0px;
+    padding: 30px 0px 0px 20px;
+}
+#messages_control_grid{
+    margin: 0px 15px 0px 0px;
+    padding: 25px 0px 10px 15px;
 }
 
-.numpad_key {
-    border-color: #545454;
-    background-color: #252525;
+
+
+
+#nozzle_extruder_temperature_grid{
+    padding: 100px 0px 0px 0px;
+}
+#printer_temperature_grid{
+    background-image: url('images/printer_inner.jpg');
+    background-size: contain; /* cover; 会缩放图片以完全覆盖整个区域，可能会裁剪图片。 contain; 会缩放图片以完整显示在区域内，可能不会填满整个区域。*/
+    background-repeat: no-repeat;
+}
+button.print_menu_button{
+    background-color: @grid_bg;
+    border-radius: 0.5em;
 }
 
-.printing-status {
-    color: #e2e2e2;
+
+/* 3D打印机系统控制管理 */
+/*#printer_control_menu.button{    */
+/*    opacity: 0.6;*/
+/*}*/
+
+#printer_control_menu {
+    padding:10px;
+    background-image: url('images/printer_control_menu_background.jpg');
+    background-size: contain; /* cover; 会缩放图片以完全覆盖整个区域，可能会裁剪图片。 contain; 会缩放图片以完整显示在区域内，可能不会填满整个区域。*/
+    background-repeat: no-repeat;
 }
 
-.printing-progress-text {
-    color: #e2e2e2;
+#air_system_grid ,
+#speed_control_grid ,
+#sport_control_grid,
+#control_extruder_temperature_grid,
+#control_chassis_temperature_grid,
+#control_heater_bed_temperature_grid{
+    background-color: @grid_bg;
+    border-radius: 1em;
+    padding-top: 15px;
+    padding-left: 15px;
+}
+#light_system_grid {
+    padding-top: 15px;
+    padding-left: 20px;
+}
+/* 空调系统 */
+#air_system_model{
+    padding-left:50px;
+}
+#air_system_down_left_grid{
+    padding-left:50px;
+}
+#air_system_body_grid{
+    background-color: @grid_bg;
+    border-radius: 1em;
+    padding:15px;
+    margin: 10px;
 }
 
-.printing-status-label {
-    color: #9E9E9E;
+/* 速度控制 */
+#speed_control{
+
+}
+#speed_control_body_grid{
+    background-color: @grid_bg;
+    border-radius: 1em;
+    padding:25px 25px 15px 25px;
+    margin: 10px;
 }
 
-.message {
-    border-color: #B71C1C;
-    color: #e2e2e2;
-    background-color: #B71C1C;
+/* 运动控制*/
+#sport_control{
+
+}
+#sport_control_body_grid{
+    background-color: @grid_bg;
+    border-radius: 1em;
+    padding: 20px 10px 10px 10px;
+    margin: 0px 10px 0px 10px;
+}
+#distance_grid{
+    padding: 18px 0px 0px 0px;
+}
+#direction_control_grid{
+}
+#hot_bed_control_grid{
 }
 
-.message button {
-    background-color: #e2e2e2;
-    color: #121212;
+/* 喷嘴温度管理 */
+#extruder_temperature{
+    margin: 10px 10px 10px 10px;
 }
 
-.keyboard_pad {
-    background-color: #090909;
+#extruder_temperature_grid{
+    padding: 20px 15px 20px 15px;
+    margin: 10px;
+}
+
+/* 腔温管理 */
+#chassis_temperature{
+    margin: 10px 10px 10px 10px;
+}
+
+#chassis_temperature_grid{
+    padding: 20px 15px 20px 15px;
+    margin: 10px;
+}
+
+/* 热床温度管理 */
+#heater_bed_temperature{
+    margin: 10px 10px 10px 10px;
+}
+
+#heater_bed_temperature_grid{
+    padding: 20px 15px 20px 15px;
+    margin: 10px;
+}
+
+/* 喷嘴和挤出机 */
+#nozzle_extruder{
+
+}
+#nozzle_extruder_body_grid{
+    padding: 20px 15px 20px 15px;
+}
+#nozzle_extruder_left_button_grid,
+#nozzle_extruder_right_button_grid{
+    background-color: @grid_bg;
+    border-radius: 1em;
+}
+
+
+
+
+
+
+
+/* 耗材管理 菜单页面 */
+/*#consumables_menu {*/
+/*    padding:10px;*/
+/*    background-image: url('images/consumables_menu_background.jpg');*/
+/*    background-size: contain; !* cover; 会缩放图片以完全覆盖整个区域，可能会裁剪图片。 contain; 会缩放图片以完整显示在区域内，可能不会填满整个区域。*!*/
+/*    background-repeat: no-repeat;*/
+/*}*/
+
+/* 编辑耗材界面 */
+#edit_consumables_body_grid{
+    background-color: @grid_bg;
+    border-radius: 1em;
+    margin: 5px 10px 10px 5px ;
+    padding: 20px 20px 20px 10px;
+}
+
+#control_consumables{
+
+}
+#control_consumables_body_grid{
+    padding: 0px 20px 0px 35px;
+}
+
+/* 控制耗材界面 */
+#control_consumable{
+
+}
+#long_consumable_grid{
+     /*background-color: red;*/
+}
+
+
+/* 通知信息菜单*/
+#messages_menu {
+
+}
+#messages_assistant_grid{
+    background-color: @grid_bg;
+    border-radius: 1em;
+    margin: 20px 10px 20px 0px;
+}
+
+#messages_grid {
+    background-color: @grid_bg;
+    border-radius: 1em;
+    margin: 20px 10px 20px 0px;
+}
+
+
+/* 系统设置 菜单界面*/
+#settings_menu {
+    padding:10px;
+}
+#macro_command_grid{
+    background-color: @grid_bg;
+    border-radius: 1em;
+    padding: 120px 30px 30px 30px;
+}
+#settings_wifi_grid,
+#disk_messages_grid,
+#firmware_information_grid{
+    background-color: @grid_bg;
+    border-radius: 1em;
+    padding: 30px 10px 0px 25px;
+}
+
+/* 校准菜单界面 */
+#macro_command {
+
+}
+#calibration_body_grid{
+    margin:10px;
+}
+#macro_command_body_grid{
+    padding: 10px 10px 0px 20px;
+}
+.macro_command_buttons{
+    background-color: @grid_bg;
+    border-radius: 1em;
+}
+
+
+
+
+
+/* WIFI 菜单界面*/
+#wifi{
+
+}
+#wifi_switch_grid,
+#test_network_grid,
+#current_network_grid,
+#other_network_grid{
+    background-color: @grid_bg;
+    border-radius: 0.5em;
+    margin: 7px 20px 7px 20px;
+}
+#wifi_switch_grid{
+    padding: 0px 25px 0px 20px;
+}
+#test_network_grid,
+#current_network_grid,
+#other_network_grid{
+    padding: 30px 25px 25px 20px;
+}
+/* 内存信息 菜单界面*/
+#disk_messages{
+
+}
+#disk_messages_memory_grid,
+#pop_up_grid,
+#format_disk_grid{
+    background-color: @grid_bg;
+    border-radius: 0.5em;
+    margin: 20px 20px 2px 20px;
+    padding: 9px 25px 0px 20px;
+}
+
+/* 固件信息 菜单界面*/
+#firmware_information{
+
+}
+#ui_system_grid,
+#system_grid,
+#network_grid,
+#ip_grid,
+#mac_grid{
+    background-color: @grid_bg;
+    border-radius: 0.5em;
+    margin: 20px 20px 2px 20px;
+    padding: 12px 25px 0px 20px;
+}
+
+/* 校准菜单界面 */
+#calibration {
+
+}
+#calibration_body_grid{
+    margin:10px;
+}
+#print_calibration_grid,
+#nozzle_calibration_grid,
+#camera_calibration_grid,
+#sport_calibration_grid,
+#bed_mesh_calibration_grid,
+#z_offset_calibration_grid{
+    background-color: @grid_bg;
+    border-radius: 1em;
+    padding: 10px 10px 0px 20px;
+}
+
+/* 打印校准 */
+#print_calibration{
+
+}
+#print_calibration_body_grid{
+    background-color: @grid_bg;
+    border-radius: 1em;
+    margin: 5px;
+    padding: 10px 10px 0px 20px;
+}
+/* 喷嘴校准 */
+
+#nozzle_calibration{
+
+}
+/* 实况相机校准 */
+#camera_calibration{
+
+}
+
+/* 运动精度校准 */
+#sport_calibration{
+
+}
+#nozzle_calibration_body_grid,
+#camera_calibration_body_grid,
+#sport_calibration_body_grid,
+#bed_mesh_calibration_body_grid{
+    margin:5px 0px 0px 5px;
+}
+#nozzle_calibration_message_grid,
+#nozzle_calibration_image_grid,
+#camera_calibration_message_grid,
+#camera_calibration_image_grid,
+#sport_calibration_message_grid,
+#sport_calibration_image_grid,
+#bed_mesh_calibration_message_grid,
+#bed_mesh_calibration_image_grid{
+    background-color: @grid_bg;
+    border-radius: 1em;
+    padding: 20px 10px 0px 20px;
+    margin: 5px;
+}
+
+/* 工具箱菜单界面 */
+#toolbox {
+
+}
+#toolbox_body_grid{
+    margin:10px;
+}
+#drying_consumables_grid,
+#xyz_axis_cleaning_grid,
+#lead_screw_lubrication_grid,
+#laser_module_cleaning_grid,
+#nozzle_cold_drawing_maintenance_grid{
+    background-color: @grid_bg;
+    border-radius: 1em;
+    padding: 10px 10px 0px 20px;
+}
+/* 烘干耗材 */
+#drying_consumables{
+
+}
+#drying_consumables_message_grid,
+#drying_consumables_steps_grid{
+    background-color: @grid_bg;
+    border-radius: 1em;
+    padding: 20px 10px 0px 20px;
+    margin: 5px;
+}
+/* XYZ轴清洁 */
+#xyz_axis_cleaning{
+
+}
+#xyz_cleaning_message_grid,
+#xyz_cleaning_steps_grid{
+    background-color: @grid_bg;
+    border-radius: 1em;
+    padding: 20px 10px 0px 20px;
+    margin: 5px;
+}
+/* 丝杆清洁 */
+#lead_screw_lubrication{
+
+}
+#lead_screw_lubrication_message_grid,
+#lead_screw_lubrication_steps_grid{
+    background-color: @grid_bg;
+    border-radius: 1em;
+    padding: 20px 10px 0px 20px;
+    margin: 5px;
+}
+/* 激光模组清洁 */
+#laser_module_cleaning{
+
+}
+#laser_module_cleaning_message_grid,
+#laser_module_cleaning_steps_grid{
+    background-color: @grid_bg;
+    border-radius: 1em;
+    padding: 20px 10px 0px 20px;
+    margin: 5px;
+}
+/* 喷嘴冷拔维护 */
+#nozzle_cold_drawing_maintenance{
+
+}
+#nozzle_cold_drawing_maintenance_message_grid,
+#nozzle_cold_drawing_maintenance_steps_grid{
+    background-color: @grid_bg;
+    border-radius: 1em;
+    padding: 20px 10px 0px 20px;
+    margin: 5px;
+}
+
+/* 系统设置界面 */
+#system_settings{
+
+}
+#system_settings_body_grid{
+
+}
+#print_options_grid,
+#ams_options_grid,
+#video_tape_grid,
+#auto_sleep_grid,
+#chassis_light_grid,
+#language_grid,
+#equipment_serial_number_grid,
+#only_lan_grid,
+#export_logs_external_grid,
+#restore_factory_settings_grid{
+    background-color: @grid_bg;
+    border-radius: 1em;
+    padding: 10px 10px 0px 20px;
+}
+#sound_switch_grid,
+#status_light_switch_grid{
+    background-color: @grid_bg;
+    border-radius: 1em;
+    padding: 0px 0px 0px 20px;
+    margin:5px 0px 5px 0px;
+}
+
+/* 机箱灯模式*/
+#chassis_light{
+    margin:10px 0px 0px 10px
+ }
+#chassis_light_body_grid{
+    padding: 40px 0px 0px 30px;
+}
+
+/* 设备和序列号信息*/
+#equipment_serial_number{
+
+}
+#equipment_name_grid,
+#printer_usage_time_grid,
+#printer_type_grid,
+#air_pump_type_grid{
+    background-color: @grid_bg;
+    border-radius: 1em;
+    margin:10px 10px 10px 10px;
+}
+
+#equipment_name_grid,
+#air_pump_type_grid{
+    padding: 10px 20px 0px 20px;
+}
+#printer_usage_time_grid{
+    padding: 15px 20px 0px 20px;
+}
+#printer_type_grid{
+    padding: 15px 20px 0px 20px;
+}
+/* 设备和序列号信息*/
+#only_lan{
+
+}
+#only_lan_body_grid{
+    margin:10px;
+}
+#only_lan_switch_grid,
+#ip_message_grid,
+#access_code_grid,
+#lan_live_broadcast_switch_grid,
+#developer_mode_grid{
+    background-color: @grid_bg;
+    border-radius: 1em;
+    margin:0px 0px 10px 0px;
+}
+#only_lan_switch_grid,
+#lan_live_broadcast_switch_grid,
+#developer_mode_grid{
+    padding: 3px 20px 0px 20px;
+}
+#ip_message_grid{
+    padding: 28px 20px 0px 20px;
+}
+#access_code_grid{
+    padding: 10px 20px 0px 20px;
 }

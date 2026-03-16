@@ -158,8 +158,10 @@ class KlipperScreen(Gtk.Window):
         self.wayland = display.get_name().startswith('wayland') or display.get_primary_monitor() is None
         logging.info(f"Wayland: {self.wayland} Display name: {display.get_name()}")
         #设置窗口大小 如果是None参数是默认 1100 620
-        self.width = self._config.get_main_config().getint("width", 1100)
-        self.height = self._config.get_main_config().getint("height", 620)
+        # self.width = self._config.get_main_config().getint("width", 1100)
+        # self.height = self._config.get_main_config().getint("height", 620)
+        self.width = self._config.get_main_config().getint("width", 500)
+        self.height = self._config.get_main_config().getint("height", 830)
         if 'XDG_CURRENT_DESKTOP' in os.environ:
             logging.warning("Running inside a desktop environment is not recommended")
             if not self.width:
@@ -179,6 +181,7 @@ class KlipperScreen(Gtk.Window):
         self.set_default_size(self.width, self.height)
         self.aspect_ratio = self.width / self.height
         self.vertical_mode = self.aspect_ratio < 1.0
+        # self.vertical_mode = True
         logging.info(f"Screen resolution: {self.width}x{self.height}")
         self.theme = self._config.get_main_config().get('theme')
         self.show_cursor = self._config.get_main_config().getboolean("show_cursor", fallback=False)

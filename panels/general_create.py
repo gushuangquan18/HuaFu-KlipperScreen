@@ -17,11 +17,8 @@ class Panel(CreatePanel):
         scroll = self._gtk.ScrolledWindow()
         self.numpad_visible = False
 
-        if self._screen.vertical_mode:
-            print(self._screen.vertical_mode)
-        else:
-            scroll.add(self.labels["parent_grid"])
-            grid.attach(scroll, 0, 0, 1, 1)
+        scroll.add(self.labels["parent_grid"])
+        grid.attach(scroll, 0, 0, 1, 1)
         self.content.add(grid)
 
 
