@@ -95,7 +95,7 @@ class KlipperScreenConfig:
             printers.append("Printer Printer")
         self.printers = [
             {printer[8:]: {
-                "moonraker_host": self.config.get(printer, "moonraker_host", fallback="127.0.0.1"),
+                "moonraker_host": self.config.get(printer, "moonraker_host", fallback="192.168.7.57"),
                 "moonraker_port": self.config.get(printer, "moonraker_port", fallback="7125"),
                 "moonraker_path": self.config.get(printer, "moonraker_path", fallback='').strip('/'),
                 "moonraker_ssl": self.config.getboolean(printer, "moonraker_ssl", fallback=None),
@@ -190,11 +190,12 @@ class KlipperScreenConfig:
                 strs = ('gcode', '')
                 numbers = [f'{option}' for option in config[section] if option != 'gcode']
             elif section.startswith('menu '):
-                strs = ('name', 'type', 'value', 'icon', 'src', 'str', 'panel',
-                        'row_spacing','column_spacing','row_homogeneous','column_homogeneous',
-                        'width' ,'height', 'row', 'column', 'rowspan', 'columnspan','position',
-                        'hexpand','vexpand','button_height','button_width','visible',
-                        'connect', 'method', 'params', 'enable', 'confirm', 'style')
+                strs = ('name', 'type', 'value', 'connect', 'visible', 'enable', 'method', 'panel','style',
+                      'src', 'icon', 'hexpand', 'vexpand', 'position',
+                      'button_width', 'button_height', 'v_button_width', 'v_button_height',
+                      'column_spacing', 'row_spacing', 'column_homogeneous', 'row_homogeneous',
+                      'width', 'height', 'column', 'row', 'columnspan', 'rowspan',
+                      'v_width', 'v_height', 'v_column', 'v_row', 'v_columnspan', 'v_rowspan' )
             elif section.startswith('graph')\
                     or section.startswith('displayed_macros')\
                     or section.startswith('spoolman'):
@@ -617,32 +618,37 @@ class KlipperScreenConfig:
             "name": cfg.get("name"),
             "type": cfg.get("type", None),
             "value": cfg.get("value", None),
-            "row": cfg.get("row", None),
-            "column": cfg.get("column", None),
-            "rowspan": cfg.get("rowspan", None),
-            "columnspan": cfg.get("columnspan", None),
+            "connect": cfg.get("connect", None),
+            "visible": cfg.get("visible", True),
+            "enable": cfg.get("enable", "True"),
+            "method": cfg.get("method", None),
+            "panel": cfg.get("panel", None),
+            "style": cfg.get("style", None),
             "src": cfg.get("src", None),
-            "str": cfg.get("str", None),
+            "icon": cfg.get("icon", None),
             "hexpand": cfg.get("hexpand", "True"),
             "vexpand": cfg.get("vexpand", "True"),
-            "button_height": cfg.get("button_height", None),
-            "visible": cfg.get("visible", True),
-            "button_width": cfg.get("button_width", None),
             "position": cfg.get("position", None),
-            "connect": cfg.get("connect", None),
-            "icon": cfg.get("icon", None),
-            "panel": cfg.get("panel", None),
-            "width": cfg.get("width", None),
-            "height": cfg.get("height", None),
+            "button_width": cfg.get("button_width", None),
+            "button_height": cfg.get("button_height", None),
+            "v_button_width": cfg.get("v_button_width", None),
+            "v_button_height": cfg.get("v_button_height", None),
             "row_spacing": cfg.get("row_spacing", None),
             "column_spacing": cfg.get("column_spacing", None),
             "row_homogeneous": cfg.get("row_homogeneous", "False"),
             "column_homogeneous": cfg.get("column_homogeneous", "False"),
-            "method": cfg.get("method", None),
-            "confirm": cfg.get("confirm", None),
-            "enable": cfg.get("enable", "True"),
-            "params": cfg.get("params", "{}"),
-            "style": cfg.get("style", None)
+            "width": cfg.get("width", None),
+            "height": cfg.get("height", None),
+            "column": cfg.get("column", None),
+            "row": cfg.get("row", None),
+            "columnspan": cfg.get("columnspan", None),
+            "rowspan": cfg.get("rowspan", None),
+            "v_width": cfg.get("v_width", None),
+            "v_height": cfg.get("v_height", None),
+            "v_column": cfg.get("v_column", None),
+            "v_row": cfg.get("v_row", None),
+            "v_columnspan": cfg.get("v_columnspan", None),
+            "v_rowspan": cfg.get("v_rowspan", None)
         }
 
         return {name[(len(menu) + 6):]: item}

@@ -46,10 +46,12 @@ def convert_json_to_config(input_file: str, output_file: str) -> None:
         output_lines.append(menu_line)
 
         # 2. 处理节点属性（严格按目标顺序，同时清除值前后空格）
-        attr_order = ['name', 'type', 'width', 'height', 'icon', 'background','row_homogeneous','column_homogeneous',
-                      'panel', 'row', 'column', 'rowspan', 'columnspan','row_spacing','column_spacing',
-                      'hexpand','vexpand','button_height','button_width','position','enable',
-                      'connect', 'method',  'src', 'value','style','visible']
+        attr_order = ['name', 'type', 'value', 'connect', 'visible', 'enable', 'method', 'panel','style',
+                      'src', 'icon', 'hexpand', 'vexpand', 'position',
+                      'button_width', 'button_height', 'v_button_width', 'v_button_height',
+                      'column_spacing', 'row_spacing', 'column_homogeneous', 'row_homogeneous',
+                      'width', 'height', 'column', 'row', 'columnspan', 'rowspan',
+                      'v_width', 'v_height', 'v_column', 'v_row', 'v_columnspan', 'v_rowspan']
         for attr in attr_order:
             if attr not in node:
                 continue
@@ -75,10 +77,12 @@ def convert_json_to_config(input_file: str, output_file: str) -> None:
 
         # 4. 处理直接嵌套的字典属性（如 air_system_HBox）
         for key, value in node.items():
-            if key in ['name', 'type', 'background', 'connect', 'method','row_homogeneous','column_homogeneous',
-                       'panel', 'row', 'column', 'rowspan', 'columnspan','row_spacing','column_spacing',
-                       'hexpand','vexpand','button_height','button_width','position','enable',
-                       'src', 'value', 'children','width','height','icon','style','visible']:
+            if key in ['name', 'type', 'value', 'connect', 'visible', 'enable', 'method', 'panel','style',
+                      'src', 'icon', 'hexpand', 'vexpand', 'position',
+                      'button_width', 'button_height', 'v_button_width', 'v_button_height',
+                      'column_spacing', 'row_spacing', 'column_homogeneous', 'row_homogeneous',
+                      'width', 'height', 'column', 'row', 'columnspan', 'rowspan',
+                      'v_width', 'v_height', 'v_column', 'v_row', 'v_columnspan', 'v_rowspan']:
                 continue
             if isinstance(value, dict) and 'name' in value:
                 process_node(value, current_menu_path)
@@ -95,7 +99,7 @@ def convert_json_to_config(input_file: str, output_file: str) -> None:
 
 if __name__ == "__main__":
     # 配置输入输出文件路径
-    name="calibration"
+    name="home_menu"
     INPUT_FILE = f"HuaFu-json/{name}.json"
     OUTPUT_FILE = f"../{name}.conf"
     convert_json_to_config(INPUT_FILE, OUTPUT_FILE)
