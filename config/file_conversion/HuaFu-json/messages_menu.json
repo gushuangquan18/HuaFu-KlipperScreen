@@ -1,0 +1,77 @@
+{
+  "father": "menu",
+  "name": "messages_menu",
+  "type": "Grid",
+  "children": {
+    "messages_assistant_grid": {
+      "name": "Messages Assistant Grid",
+      "type": "Grid",
+      "column_homogeneous": "True",
+      "row_homogeneous": "True",
+      "width": 490,
+      "height": 520,
+      "column": 0,
+      "row": 0,
+      "columnspan": 1,
+      "rowspan": 1,
+      "v_width": 490,
+      "v_height": 520,
+      "v_column": 0,
+      "v_row": 0,
+      "v_columnspan": 1,
+      "v_rowspan": 1,
+      "children": {
+        "messages_assistant": {
+          "name": "Messages Assistant",
+          "type": "Image",
+          "src": "images/messages_assistant.png",
+          "width": 150,
+          "height": 150,
+          "column": 0,
+          "row": 0,
+          "columnspan": 1,
+          "rowspan": 1,
+          "v_width": 150,
+          "v_height": 150,
+          "v_column": 0,
+          "v_row": 0,
+          "v_columnspan": 1,
+          "v_rowspan": 1
+        }
+      }
+    },
+    "messages_grid": {
+      "name": "Messages Grid",
+      "type": "Grid",
+      "column_homogeneous": "True",
+      "row_homogeneous": "True",
+      "width": 490,
+      "height": 520,
+      "column": 1,
+      "row": 0,
+      "columnspan": 1,
+      "rowspan": 1,
+      "v_width": 490,
+      "v_height": 520,
+      "v_column": 1,
+      "v_row": 0,
+      "v_columnspan": 1,
+      "v_rowspan": 1,
+      "children": {
+        "notice": {
+          "name": "Notice",
+          "type": "Label",
+          "value": "No information available!",
+          "column": 0,
+          "row": 0,
+          "columnspan": 1,
+          "rowspan": 1,
+          "v_column": 0,
+          "v_row": 0,
+          "v_columnspan": 1,
+          "v_rowspan": 1
+        }
+      }
+    }
+  }
+}

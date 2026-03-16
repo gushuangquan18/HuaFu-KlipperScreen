@@ -1,0 +1,43 @@
+{
+  "father": "menu",
+  "name": "consumables_menu",
+  "type": "Grid",
+  "children": {
+    "t0_extruder_consumables_control": {
+      "name": "T0 Extruder Consumables Control",
+      "type": "Button",
+      "method": "consumables_dialog",
+      "icon": "consumables_left",
+      "width": 100,
+      "height": 100,
+      "column": 0,
+      "row": 0,
+      "columnspan": 1,
+      "rowspan": 1,
+      "v_width": 100,
+      "v_height": 100,
+      "v_column": 0,
+      "v_row": 0,
+      "v_columnspan": 1,
+      "v_rowspan": 1
+    },
+    "t1_extruder_consumables_control": {
+      "name": "T1 Extruder Consumables Control",
+      "type": "Button",
+      "method": "consumables_dialog",
+      "icon": "consumables_left",
+      "width": 100,
+      "height": 100,
+      "column": 1,
+      "row": 0,
+      "columnspan": 1,
+      "rowspan": 1,
+      "v_width": 100,
+      "v_height": 100,
+      "v_column": 1,
+      "v_row": 0,
+      "v_columnspan": 1,
+      "v_rowspan": 1
+    }
+  }
+}

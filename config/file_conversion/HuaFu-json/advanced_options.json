@@ -1,0 +1,60 @@
+{
+  "father": "select_disc_print_list",
+  "name": "advanced_options",
+  "type": "Grid",
+  "head_box": {
+    "name": "Head Box",
+    "type": "Box",
+    "children": {
+      "go_bcak": {
+        "name": "Go Back",
+        "type": "Button",
+        "connect": "clicked",
+        "method": "go_back",
+        "src": "images/back.svg"
+      },
+      "advanced_options_label": {
+        "name": "Advanced Options",
+        "type": "Label",
+        "value": "高级选项"
+      }
+    }
+  },
+  "message": {
+    "name": "Message",
+    "type": "Grid",
+    "children": {
+      "first_grid": {
+        "name": "First Grid",
+        "type": "Grid",
+        "children": {
+          "advanced_options_label": {
+            "name": "Advanced Options Label",
+            "type": "Label",
+            "value": "自动热床调平"
+          },
+          "advanced_options_message": {
+            "name": "Advanced Options Message",
+            "type": "Label",
+            "value": "检测热床的平整度......"
+          },
+          "auto_radio": {
+            "name": "Auto Radion",
+            "type": "RadioButton",
+            "value": "True"
+          },
+          "open_radio": {
+            "name": "Open Radion",
+            "type": "RadioButton",
+            "value": "False"
+          },
+          "close_radio": {
+            "name": "Close Radion",
+            "type": "RadioButton",
+            "value": "False"
+          }
+        }
+      }
+    }
+  }
+}
