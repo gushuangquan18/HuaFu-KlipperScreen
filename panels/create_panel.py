@@ -55,6 +55,7 @@ class Panel(ScreenPanel):
         self.create_menu_items(title,**panel_args)
         self.scroll = self._gtk.ScrolledWindow()
         self.scroll.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
+        self.vertical_mode = self._screen.vertical_mode
         if "flowbox" in self.labels:
             self._screen._ws.klippy.get_dir_info(self.load_files, self.cur_directory)
 
@@ -542,11 +543,18 @@ class Panel(ScreenPanel):
         for item in filter(None, items):
             self.labels['flowbox'].attach(item, column, row, 1, 1)
             i += 1
-            if i % 4 == 0:
-                row += 1
-                column = 0
+            if self._screen.vertical_mode:
+                if i % 2 == 0:
+                    row += 1
+                    column = 0
+                else:
+                    column += 1
             else:
-                column += 1
+                if i % 4 == 0:
+                    row += 1
+                    column = 0
+                else:
+                    column += 1
         set_loading(self,False)
 
     #请求文件详细信息

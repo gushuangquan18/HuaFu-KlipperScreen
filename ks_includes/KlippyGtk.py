@@ -235,13 +235,18 @@ class KlippyGtk:
     def dialog_content_decouple(self, widget, event, dialog):
         self.remove_dialog(dialog)
 
+                     # title, buttons, label, self._confirm_send_action_response, method, params
     def Dialog(self, title, buttons, content, callback=None, *args):
         #设置打印界面中关闭弹出框的宽高和按钮宽高
         self.width=650
         self.height=250
         button_width=200
         button_height=10
-
+        if args[0].vertical_mode:
+            self.width = 480
+            self.height = 170
+            button_width = 150
+            button_height = 10
         dialog = Gtk.Dialog(title='', modal=True, transient_for=self.screen,
                             default_width=self.width, default_height=self.height)
         dialog.set_size_request(self.width, self.height)

@@ -94,7 +94,7 @@ def create_print_file_list_item(self, item):
         button_grid.attach(itemname, 0, 4, 4, 1)
         button_grid.attach(estimated_time, 1, 5, 1, 1)
         button_grid.attach(filament_weight_total, 3, 5, 1, 1)
-        image_args = (path, icon, self.thumbsize / 2, True, "file")
+        image_args = (path, icon, self.thumbsize / 2, False, "file")
 
     else:  # Thumbnail view
         icon = self._gtk.Button(label=basename)
@@ -123,11 +123,13 @@ def set_loading(self, loading):
 
 #加载3D模型图片
 def image_load(self, filepath, widget, size=-1, small=False, iconname=None):
-    pixbuf = self.get_file_image(filepath, 170, 150, False)
+    width = 170
+    height = 150
+    pixbuf = self.get_file_image(filepath, width, height, small)
     if pixbuf is not None:
         widget.set_image(Gtk.Image.new_from_pixbuf(pixbuf))
     elif iconname is not None:
-        widget.set_image(self._gtk.Image(iconname, 170, 150))
+        widget.set_image(self._gtk.Image(iconname, width, height))
     format_label(widget)
 
 #确认打印文件的Dialog
@@ -318,7 +320,7 @@ def update_time_left(self, action,data):
     # 设置缩放后的图片到Image控件 'Box.gcode'
     pixbuf = None
     if self.file_metadata is not None and 'thumbnails' in self.file_metadata:
-        path = self.file_metadata['thumbnails'][1]['relative_path']
+        path = self.file_metadata['thumbnails'][2]['relative_path']
         pixbuf = self._gtk.PixbufFromHttp(path, 320, 320)
     if pixbuf is None:
         pixbuf = GdkPixbuf.Pixbuf.new_from_file("images/no_model_image.png")

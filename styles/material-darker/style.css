@@ -111,10 +111,7 @@ progressbar progress {
 
 
 
-/* 主页菜单 */
-#head_grid{
-    margin-top:5px
-}
+
 
 #up_grid {
     /*background-color: red;*/
@@ -151,6 +148,10 @@ progressbar progress {
     padding-top: 25px;
 }
 
+/* 主页菜单 */
+#head_grid{
+    padding: 5px 0px 0px 5px;
+}
 
 /* 选择打印文件 页面 */
 #print_file_list{
@@ -159,6 +160,7 @@ progressbar progress {
 #file_list_body_grid{
 
 }
+
 #dialog_info_box{
     margin: 10px 10px 10px 10px;
 }
