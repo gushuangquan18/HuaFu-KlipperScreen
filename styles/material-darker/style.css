@@ -246,6 +246,7 @@ button.dialog_cancel{
 
 
 
+
 #nozzle_extruder_temperature_grid{
     padding: 100px 0px 0px 0px;
 }
@@ -266,27 +267,41 @@ button.print_menu_button{
 /*}*/
 
 #printer_control_menu {
-    padding:10px;
     background-image: url('images/printer_control_menu_background.jpg');
     background-size: contain; /* cover; 会缩放图片以完全覆盖整个区域，可能会裁剪图片。 contain; 会缩放图片以完整显示在区域内，可能不会填满整个区域。*/
     background-repeat: no-repeat;
 }
 
-#air_system_grid ,
-#speed_control_grid ,
+#air_system_grid,
+#speed_control_grid,
 #sport_control_grid,
 #control_extruder_temperature_grid,
 #control_chassis_temperature_grid,
 #control_heater_bed_temperature_grid{
     background-color: @grid_bg;
     border-radius: 1em;
-    padding-top: 15px;
-    padding-left: 15px;
+}
+#air_system_grid,
+#speed_control_grid,
+#control_chassis_temperature_grid,
+#control_heater_bed_temperature_grid{
+    padding-top: 22px;
+    padding-left: 13px;
+}
+#sport_control_grid{
+    padding-top: 28px;
+    padding-left: 13px;
+}
+#control_extruder_temperature_grid{
+    padding-top: 10px;
+    padding-left: 13px;
 }
 #light_system_grid {
     padding-top: 15px;
     padding-left: 20px;
 }
+
+
 /* 空调系统 */
 #air_system_model{
     padding-left:50px;

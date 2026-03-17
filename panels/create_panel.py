@@ -120,16 +120,26 @@ class Panel(ScreenPanel):
         while i< len(self.items):
             key = list(self.items[i])[0]
             item = self.items[i][key]
-            parent_grid.attach(self.create_child_items(i,panel_name,fileinfo,father,select_extruder),
-                    int(item['column']),
-                    int(item['row']),
-                    int(item['columnspan']),
-                    int(item['rowspan']))
+            if self._screen.vertical_mode:
+                parent_grid.attach(self.create_child_items(i,panel_name,fileinfo,father,select_extruder),
+                        int(item['v_column']),
+                        int(item['v_row']),
+                        int(item['v_columnspan']),
+                        int(item['v_rowspan']))
+            else:
+                parent_grid.attach(self.create_child_items(i,panel_name,fileinfo,father,select_extruder),
+                        int(item['column']),
+                        int(item['row']),
+                        int(item['columnspan']),
+                        int(item['rowspan']))
             i = self.counter
         if(panel_name is not None):
             parent_grid.set_name(panel_name)
         if(panel_name == "printer_control_menu" or panel_name == "messages_menu" ):
-            parent_grid.set_row_homogeneous(True)
+            if self._screen.vertical_mode:
+                parent_grid.set_row_homogeneous(False)
+            else:
+                parent_grid.set_row_homogeneous(True)
         if panel_name == "print_file_list":
             self._screen._ws.klippy.get_dir_info(self.load_files, self.cur_directory)
         if panel_name == "print_menu" and self.filename is not None :
