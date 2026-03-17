@@ -381,23 +381,6 @@ button.print_menu_button{
     padding: 10px 10px 0px 10px;
 }
 
-/* 喷嘴和挤出机 */
-#nozzle_extruder{
-
-}
-#nozzle_extruder_body_grid{
-    padding: 20px 15px 20px 15px;
-}
-#nozzle_extruder_left_button_grid,
-#nozzle_extruder_right_button_grid{
-    background-color: @grid_bg;
-    border-radius: 1em;
-}
-
-
-
-
-
 
 
 /* 耗材管理 菜单页面 */
@@ -420,7 +403,7 @@ button.print_menu_button{
 
 }
 #control_consumables_body_grid{
-    padding: 0px 20px 0px 35px;
+    padding: 0px 0px 0px 12px;
 }
 
 /* 控制耗材界面 */
