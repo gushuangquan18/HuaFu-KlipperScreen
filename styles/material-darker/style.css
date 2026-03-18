@@ -17,6 +17,8 @@ button.home_menu_button,
 button.settings_menu_button{
     background-color: @grid_bg;
     border-radius: 1em;
+}
+button.home_menu_button{
     margin: 10px 10px 10px 20px;
 }
 button.next_level{
@@ -171,6 +173,7 @@ button.waring_button{
 button.print_button{
     background-color: @next_level;
     border-radius: 0.5em;
+    margin: 2px 2px 2px 2px;
 }
 button.dialog_cancel{
     background-color: #D0D0D0;
@@ -434,19 +437,21 @@ button.print_menu_button{
 
 /* 系统设置 菜单界面*/
 #settings_menu {
-    padding:10px;
+    margin: 10px 10px 0px 10px;
 }
 #macro_command_grid{
     background-color: @grid_bg;
     border-radius: 1em;
-    padding: 120px 30px 30px 30px;
+    padding: 95px 0px 0px 0px;
+
 }
 #settings_wifi_grid,
 #disk_messages_grid,
 #firmware_information_grid{
     background-color: @grid_bg;
     border-radius: 1em;
-    padding: 30px 10px 0px 25px;
+    margin: 0px 0px 0px 10px;
+    padding: 35px 5px 0px 5px;
 }
 
 /* 校准菜单界面 */
@@ -513,7 +518,7 @@ button.print_menu_button{
     background-color: @grid_bg;
     border-radius: 0.5em;
     margin: 20px 20px 2px 20px;
-    padding: 12px 25px 0px 20px;
+    padding: 10px 25px 0px 20px;
 }
 
 /* 校准菜单界面 */
@@ -534,42 +539,30 @@ button.print_menu_button{
     padding: 10px 10px 0px 20px;
 }
 
-/* 打印校准 */
-#print_calibration{
+
+/*Z偏移校准*/
+#z_offset_calibration{
 
 }
-#print_calibration_body_grid{
+#z_offset_calibration_body_grid,
+#distance_grid{
+    margin: 0px 5px 5px 5px;
+}
+
+#distance_grid{
+    margin: 5px 0px 5px 0px;
+}
+#z_offset_message_grid{
     background-color: @grid_bg;
     border-radius: 1em;
-    margin: 5px;
-    padding: 10px 10px 0px 20px;
-}
-/* 喷嘴校准 */
-
-#nozzle_calibration{
-
-}
-/* 实况相机校准 */
-#camera_calibration{
-
+    padding: 20px 10px 0px 20px;
+    margin: 10px;
 }
 
-/* 运动精度校准 */
-#sport_calibration{
-
-}
-#nozzle_calibration_body_grid,
-#camera_calibration_body_grid,
-#sport_calibration_body_grid,
 #bed_mesh_calibration_body_grid{
-    margin:5px 0px 0px 5px;
+    margin:0px 5px 5px 5px;
 }
-#nozzle_calibration_message_grid,
-#nozzle_calibration_image_grid,
-#camera_calibration_message_grid,
-#camera_calibration_image_grid,
-#sport_calibration_message_grid,
-#sport_calibration_image_grid,
+
 #bed_mesh_calibration_message_grid,
 #bed_mesh_calibration_image_grid{
     background-color: @grid_bg;

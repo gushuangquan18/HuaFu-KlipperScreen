@@ -69,29 +69,29 @@ class ScreenPanel:
         return None
 
     def menu_item_clicked(self, widget, item):
-        if item['panel'] == 'messages_menu':
-            find_widget(self.labels[name], Gtk.Label).set_text(new_label_text)
-        # 设置选中图标变蓝
-        if (item['panel'].endswith("_menu") and item['panel'] != 'print_menu'):
-            i=0
-            while i<len(MENU_NAME):
-                image = Gtk.Image()
-                image_name = ''
-                a=MENU_NAME[i]
-                if (item['panel'] == MENU_NAME[i]):
-                    image_name = f'images/{item['panel']}_blue_icon.png'
-                else:
-                    image_name =  f'images/{MENU_NAME[i]}_icon.png'
-                pixbuf = GdkPixbuf.Pixbuf.new_from_file(image_name)
-                scaled_pixbuf = pixbuf.scale_simple(40, 40, GdkPixbuf.InterpType.BILINEAR)
-                image.set_from_pixbuf(scaled_pixbuf)
-                self.control[MENU_NAME[i]].set_image(image)
-                if item['panel'] == 'home_menu' and self._printer.state in ('printing','paused'):
-                    item= {
-                        "panel": "print_menu",
-                        "icon": None,
-                    }
-                i += 1
+        # if item['panel'] == 'messages_menu':
+        #     find_widget(self.labels[name], Gtk.Label).set_text(new_label_text)
+        # # 设置选中图标变蓝
+        # if (item['panel'].endswith("_menu") and item['panel'] != 'print_menu'):
+        #     i=0
+        #     while i<len(MENU_NAME):
+        #         image = Gtk.Image()
+        #         image_name = ''
+        #         a=MENU_NAME[i]
+        #         if (item['panel'] == MENU_NAME[i]):
+        #             image_name = f'images/{item['panel']}_blue_icon.png'
+        #         else:
+        #             image_name =  f'images/{MENU_NAME[i]}_icon.png'
+        #         pixbuf = GdkPixbuf.Pixbuf.new_from_file(image_name)
+        #         scaled_pixbuf = pixbuf.scale_simple(40, 40, GdkPixbuf.InterpType.BILINEAR)
+        #         image.set_from_pixbuf(scaled_pixbuf)
+        #         self.control[MENU_NAME[i]].set_image(image)
+        #         if item['panel'] == 'home_menu' and self._printer.state in ('printing','paused'):
+        #             item= {
+        #                 "panel": "print_menu",
+        #                 "icon": None,
+        #             }
+        #         i += 1
         panel_args = {}
         if 'name' in item:
             panel_args['title'] = item['name']
