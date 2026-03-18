@@ -223,40 +223,34 @@ button.dialog_cancel{
 
 /* 打印界面管理 */
 #print_menu{
-    margin: 15px 15px 15px 15px;
+    margin: 5px 5px 0px 5px;
 }
 
-#left_up_grid,
-#temperature_grid,
-#messages_control_grid,
+#left_up_grid{
+    background-color: red;
+    border-radius: 0.5em;
+}
+#temperature_grid{
+    background-color: green;
+    border-radius: 0.5em;
+}
+#messages_control_grid{
+    /*background-color: blue;*/
+    border-radius: 0.5em;
+}
 #right_down_grid{
     background-color: @grid_bg;
     border-radius: 0.5em;
 }
-#left_up_grid{
-    margin: 0px 15px 15px 0px;
-    padding: 10px;
-}
-#temperature_grid{
-    margin: 0px 0px 15px 0px;
-    padding: 30px 0px 0px 20px;
-}
-#messages_control_grid{
-    margin: 0px 15px 0px 0px;
-    padding: 25px 0px 10px 15px;
-}
-
-
-
 
 
 #nozzle_extruder_temperature_grid{
-    padding: 100px 0px 0px 0px;
+
 }
 #printer_temperature_grid{
-    background-image: url('images/printer_inner.jpg');
-    background-size: contain; /* cover; 会缩放图片以完全覆盖整个区域，可能会裁剪图片。 contain; 会缩放图片以完整显示在区域内，可能不会填满整个区域。*/
-    background-repeat: no-repeat;
+    /*background-image: url('images/printer_inner.jpg');*/
+    /*background-size: contain; !* cover; 会缩放图片以完全覆盖整个区域，可能会裁剪图片。 contain; 会缩放图片以完整显示在区域内，可能不会填满整个区域。*!*/
+    /*background-repeat: no-repeat;*/
 }
 button.print_menu_button{
     background-color: @grid_bg;

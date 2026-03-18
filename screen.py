@@ -115,11 +115,11 @@ class KlipperScreen(Gtk.Window):
         """
         self.server_info = None
         try:
-            super().__init__(title="HuaFuLianLi")
+            super().__init__(title="HUAFU")
         except Exception as e:
             logging.exception(f"{e}\n\n{traceback.format_exc()}")
             raise RuntimeError from e
-        GLib.set_prgname('HuaFuLianLi')
+        GLib.set_prgname('HUAFU')
         self.blanking_time = 600    #休眠时间
         self.use_dpms = True
         self.apiclient = None   #API客户端

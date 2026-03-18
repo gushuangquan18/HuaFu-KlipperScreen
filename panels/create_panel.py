@@ -99,7 +99,7 @@ class Panel(ScreenPanel):
         self.file_metadata = None
         self.change_item = ['print_busy',
                             'speed_control_model','chassis_temperature', 'heater_bed_temperature', 'extruder_temperature', 'extruder1_temperature',
-                            'percentage_progress', 'total_layers', 'current_layers','remaining_time','floor_height_progress',
+                            'percentage_progress','total_layers', 'current_layers','remaining_time','floor_height_progress',
                             'print_modeling_graphics', 'print_file_name', 'print_state','pause_button',
                             't0_extruder_consumables_control',
                             'start_z_calibration','raise_heater_bed','reduce_heater_bed','confirm','cancel',
@@ -410,8 +410,13 @@ class Panel(ScreenPanel):
             if self._screen.vertical_mode:
                 width = int(self._screen.env.from_string(item['v_width']).render(self.j2_data) if item['v_width'] else None)
                 height = int(self._screen.env.from_string(item['v_height']).render(self.j2_data) if item['v_height'] else None)
+                if current_key == 'h_progress_bar':
+                    item_control_name.set_no_show_all(True)
+            elif current_key == 'v_progress_bar':
+                    item_control_name.set_no_show_all(True)
+            item_control_name.set_name("rotated-progressbar")
             item_control_name.set_size_request(width, height)
-            self.labels['progressBar']=item_control_name
+            self.labels[current_key]=item_control_name
 
         elif (item['type'] == "RadioButton"):
             self.counter += 1
@@ -640,7 +645,8 @@ class Panel(ScreenPanel):
         # 更新进度条
         if progress is not None:
             self.labels["percentage_progress"].set_label(f' {int(progress * 100)}%')
-            self.labels['progressBar'].set_fraction(progress)
+            self.labels['v_progress_bar'].set_fraction(progress)
+            self.labels['h_progress_bar'].set_fraction(progress)
 
         # if ('toolhead' in data) and ('estimated_print_time' in data['toolhead']):
         #     estimated_print_time = int(data['toolhead']['estimated_print_time'])
