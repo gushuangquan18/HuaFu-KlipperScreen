@@ -5,7 +5,7 @@ import gi
 # from netaddr.strategy.ipv4 import width
 
 gi.require_version("Gtk", "3.0")
-from gi.repository import GLib, Gtk, Pango
+from gi.repository import GLib, Gtk, Pango, GdkPixbuf
 from jinja2 import Environment
 from datetime import datetime
 from math import log
@@ -18,6 +18,7 @@ except ImportError:
     psutil_available = False
     logging.debug("psutil is not installed. Unable to do battery check.")
 
+MENU_NAME=['home_menu','printer_control_menu','consumables_menu','settings_menu','messages_menu']
 
 class BasePanel(ScreenPanel):
     """
@@ -67,7 +68,7 @@ class BasePanel(ScreenPanel):
             "panel": "home_menu",
             "icon": "home_menu_icon",
         }
-        self.control['home_menu'] = self._gtk.Button('home_menu_icon',hexpand="True",vexpand="True", width=40,height=40)
+        self.control['home_menu'] = self._gtk.Button('home_menu_blue_icon',hexpand="True",vexpand="True", width=40,height=40)
         self.control['home_menu'].connect("clicked", self.menu_item_clicked,self.home_menu)
         # self.control['home_menu'].connect("clicked", self._screen._menu_go_back)
 
@@ -321,6 +322,32 @@ class BasePanel(ScreenPanel):
         self.current_panel = panel
         self.set_title(panel.title)
         self.content.add(panel.content)
+
+
+    def change_control_icon(self, widget, item):
+        # if item['panel'] == 'messages_menu':
+        #     find_widget(self.labels[name], Gtk.Label).set_text(new_label_text)
+        # 设置选中图标变蓝
+        father_menu = item['father']
+        if item['panel'] in ('extruder_temperature', 'chassis_temperature', 'heater_bed_temperature'):
+            father_menu = 'printer_control_menu'
+        if father_menu == "print_menu":
+            father_menu = 'home_menu'
+        if father_menu.endswith("_menu"):
+            i=0
+            while i<len(MENU_NAME):
+                image = Gtk.Image()
+                image_name = ''
+                a=MENU_NAME[i]
+                if (father_menu == MENU_NAME[i]):
+                    image_name = f'images/{father_menu}_blue_icon.png'
+                else:
+                    image_name =  f'images/{MENU_NAME[i]}_icon.png'
+                pixbuf = GdkPixbuf.Pixbuf.new_from_file(image_name)
+                scaled_pixbuf = pixbuf.scale_simple(40, 40, GdkPixbuf.InterpType.BILINEAR)
+                image.set_from_pixbuf(scaled_pixbuf)
+                self.control[MENU_NAME[i]].set_image(image)
+                i += 1
 
     def back(self, widget=None):
         """

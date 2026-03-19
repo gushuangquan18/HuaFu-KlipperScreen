@@ -815,6 +815,12 @@ class KlipperScreen(Gtk.Window):
             del self._cur_panels[-1]
             if not home:
                 break
+        length = len(self._cur_panels)
+        item = {
+            "panel": self._cur_panels[-1],
+            "father": self._cur_panels[length-2]
+        }
+        self.base_panel.change_control_icon(widget, item)
         self.attach_panel(self._cur_panels[-1])
 
 
@@ -1760,6 +1766,23 @@ class KlipperScreen(Gtk.Window):
             self.aspect_ratio = new_ratio
             logging.info(f"Vertical mode: {self.vertical_mode}")
             self.reload_panels()
+
+    def jump_rotor_page(self, widget, item):
+       self.base_panel.change_control_icon(widget, item)
+       panel_args = {}
+       if 'name' in item:
+           panel_args['title'] = item['name']
+       if 'extra' in item:
+           panel_args['extra'] = item['extra']
+       if 'fileinfo' in item:
+           panel_args['fileinfo'] = item['fileinfo']
+       if 'father' in item:
+           panel_args['father'] = item['father']
+       if 'select_extruder' in item:
+           panel_args['select_extruder'] = item['select_extruder']
+       panel_args['items'] = self._config.get_menu_items(item['panel'])
+       self.show_panel(item['panel'], **panel_args)
+
 
 
 def main():

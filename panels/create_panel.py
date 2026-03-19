@@ -211,7 +211,8 @@ class Panel(ScreenPanel):
             if (item["panel"] != None and item["panel"] == 'print_menu') and father !='print_menu':
                 item_control_name.connect("clicked", print_start, parameter_item)
             if item["panel"] != None:
-                item_control_name.connect("clicked", self.menu_item_clicked, parameter_item)
+                # item_control_name.connect("clicked", self.menu_item_clicked, parameter_item)
+                item_control_name.connect("clicked", self._screen.jump_rotor_page, parameter_item)
             elif(current_key == 'go_back'):
                 item_control_name.connect("clicked", self._screen._menu_go_back)
             elif(item['method'] == 'show_dialog'):
