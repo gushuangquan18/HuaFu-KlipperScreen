@@ -321,7 +321,7 @@ def update_time_left(self, action,data):
     pixbuf = None
     if self.file_metadata is not None and 'thumbnails' in self.file_metadata:
         path = self.file_metadata['thumbnails'][2]['relative_path']
-        pixbuf = self._gtk.PixbufFromHttp(path, 320, 320)
+        pixbuf = self._gtk.PixbufFromHttp(path, 280, 280)
     if pixbuf is None:
         pixbuf = GdkPixbuf.Pixbuf.new_from_file("images/no_model_image.png")
         scaled_pixbuf = pixbuf.scale_simple(280, 280, GdkPixbuf.InterpType.BILINEAR)

@@ -229,18 +229,29 @@ button.dialog_cancel{
 #left_up_grid{
     background-color: red;
     border-radius: 0.5em;
+    margin: 0px 10px 5px 10px;
 }
 #temperature_grid{
     background-color: green;
     border-radius: 0.5em;
+    margin: 5px 10px 0px 10px;
+    padding: 25px 0px 0px 0px;
+}
+#printer_temperature_grid{
+    padding: 40px 0px 0px 45px;
+}
+#nozzle_extruder_temperature_grid{
+    padding: 20px 0px 0px 20px;
 }
 #messages_control_grid{
     /*background-color: blue;*/
     border-radius: 0.5em;
+    margin: 0px 5px 0px 0px;
 }
 #right_down_grid{
     background-color: @grid_bg;
     border-radius: 0.5em;
+    margin: 3px 10px 0px 5px;
 }
 
 

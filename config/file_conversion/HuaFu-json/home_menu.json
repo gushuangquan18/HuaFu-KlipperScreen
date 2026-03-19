@@ -171,7 +171,6 @@
             "nozzle_extruder": {
               "name": "Nozzle Extruder",
               "type": "Button",
-              "connect": "clicked",
               "column": 0,
               "row": 0,
               "columnspan": 1,
@@ -180,7 +179,7 @@
               "v_row": 0,
               "v_columnspan": 2,
               "v_rowspan": 1,
-              "panel": "printer_control_menu",
+              "panel": "extruder_temperature",
               "style": "home_menu_button",
               "children": {
                 "nozzle_extruder_grid": {
