@@ -70,7 +70,7 @@ class BasePanel(ScreenPanel):
         }
         self.control['home_menu'] = self._gtk.Button('home_menu_blue_icon',hexpand="True",vexpand="True", width=40,height=40)
         self.control['home_menu'].connect("clicked", self.menu_item_clicked,self.home_menu)
-        # self.control['home_menu'].connect("clicked", self._screen._menu_go_back)
+        self.control['home_menu'].set_sensitive(False)
 
         self.printer_control_menu = {
             "panel": "printer_control_menu",
@@ -78,6 +78,7 @@ class BasePanel(ScreenPanel):
         }
         self.control['printer_control_menu'] = self._gtk.Button('printer_control_menu_icon',hexpand="True",vexpand="True", width=40,height=40)
         self.control['printer_control_menu'].connect("clicked", self.menu_item_clicked,self.printer_control_menu)
+        self.control['printer_control_menu'].set_sensitive(False)
 
         # 耗材按钮
         self.consumables_menu = {
@@ -86,6 +87,7 @@ class BasePanel(ScreenPanel):
         }
         self.control['consumables_menu'] = self._gtk.Button('consumables_menu_icon', hexpand="True",vexpand="True", width=40,height=40)
         self.control['consumables_menu'].connect("clicked", self.menu_item_clicked,self.consumables_menu)
+        self.control['consumables_menu'].set_sensitive(False)
 
         self.settings_menu = {
             "panel": "settings_menu",
@@ -93,6 +95,7 @@ class BasePanel(ScreenPanel):
         }
         self.control['settings_menu'] = self._gtk.Button('settings_menu_icon', hexpand="True",vexpand="True", width=40,height=40)
         self.control['settings_menu'].connect("clicked", self.menu_item_clicked,self.settings_menu)
+        self.control['settings_menu'].set_sensitive(False)
 
         # 少个参数 _go_to_submenu
         self.control['settings_menu'].connect("clicked", self._screen._go_to_submenu)
@@ -103,7 +106,7 @@ class BasePanel(ScreenPanel):
         }
         self.control['messages_menu'] = self._gtk.Button('messages_menu_icon', hexpand="True",vexpand="True", width=40,height=40)
         self.control['messages_menu'].connect("clicked", self.menu_item_clicked,self.messages_menu)
-
+        self.control['messages_menu'].set_sensitive(False)
         # Any action bar button should close the keyboard
         #移除键盘
         for item in self.control:
@@ -312,6 +315,18 @@ class BasePanel(ScreenPanel):
         printing = self._printer and self._printer.state in {"printing", "paused"}
         connected = self._printer and self._printer.state not in {'disconnected', 'startup', 'shutdown', 'error'}
         printer_select = 'printer_select' not in self._screen._cur_panels
+        if  printer_select:
+            self.control['home_menu'].set_sensitive(printer_select)
+            # image = Gtk.Image()
+            # image_name = f'images/home_menu_blue_icon.png'
+            # pixbuf = GdkPixbuf.Pixbuf.new_from_file(image_name)
+            # scaled_pixbuf = pixbuf.scale_simple(40, 40, GdkPixbuf.InterpType.BILINEAR)
+            # image.set_from_pixbuf(scaled_pixbuf)
+            # self.control['home_menu'].set_image(image)
+            self.control['printer_control_menu'].set_sensitive(printer_select)
+            self.control['consumables_menu'].set_sensitive(printer_select)
+            self.control['settings_menu'].set_sensitive(printer_select)
+            self.control['messages_menu'].set_sensitive(printer_select)
         self.control['estop'].set_visible(printing)
         self.control['shutdown'].set_visible(printing)
         self.show_shortcut(connected and printer_select)
