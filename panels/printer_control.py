@@ -153,11 +153,7 @@ def change_target_temp(widget,self, name,*args):
     if self.numpad_visible:
         self.hide_numpad()
 
-    parameter_item = {
-        "panel": "printer_control_menu",
-        "icon": None
-    }
-    self.menu_item_clicked(widget, parameter_item)
+    self._screen._menu_go_back()
 
 #判断需要更改的温度是否超出限制
 def verify_max_temp(self, name,temp):

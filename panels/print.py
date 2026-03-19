@@ -243,13 +243,13 @@ def confirm_delete_file(self, widget, filepath):
 #Print_menu界面使用的方法
 
 #改变按钮控件状态 暂停 开始
-def change_pause_button_state(self, state, *args):
+def change_pause_button_state(self, *args):
     pixbuf = ''
     state_text = ''
     filename = ''
     button_text = ''
     # printing 打印中 paused暂停
-    if state == "printing...":
+    if self._printer.state == 'paused':
         #args[0],widget 发出请求的按钮控件
         # if len(args) == 1:
         #     self._gtk.Button_busy(args[0], True)
@@ -259,7 +259,7 @@ def change_pause_button_state(self, state, *args):
         filename = "images/pause.png"
         button_text = _("Pause")
 
-    elif state == "paused":
+    elif self._printer.state == 'printing':
         # if len(args) == 1:
         #     self._gtk.Button_busy(args[0], True)
         self._screen._ws.klippy.print_pause()
@@ -320,7 +320,8 @@ def update_time_left(self, action,data):
     # 设置缩放后的图片到Image控件 'Box.gcode'
     pixbuf = None
     if self.file_metadata is not None and 'thumbnails' in self.file_metadata:
-        path = self.file_metadata['thumbnails'][2]['relative_path']
+        length = len(self.file_metadata['thumbnails'])
+        path = self.file_metadata['thumbnails'][length-1]['relative_path']
         pixbuf = self._gtk.PixbufFromHttp(path, 280, 280)
     if pixbuf is None:
         pixbuf = GdkPixbuf.Pixbuf.new_from_file("images/no_model_image.png")
@@ -367,11 +368,11 @@ def update_time_left(self, action,data):
 def pause_confirm(widget,self):
     logging.debug("Pauseing print")
     state = ''
-    if self.labels['print_state'].get_label() == _("Printing..."):
+    if self._printer.state == 'printing':
         state = 'paused'
-    elif self.labels['print_state'].get_label() == _("Paused"):
+    elif self._printer.state == 'paused':
         state = 'printing...'
-    change_pause_button_state(self,state,widget)
+    change_pause_button_state(self,widget)
 
 
 #停止打印窗口
