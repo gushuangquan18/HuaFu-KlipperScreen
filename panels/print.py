@@ -243,26 +243,28 @@ def confirm_delete_file(self, widget, filepath):
 #Print_menu界面使用的方法
 
 #改变按钮控件状态 暂停 开始
-def change_pause_button_state(self, *args):
+def change_pause_button_state(self, state, is_control, *args):
     pixbuf = ''
     state_text = ''
     filename = ''
     button_text = ''
     # printing 打印中 paused暂停
-    if self._printer.state == 'paused':
+    if state == 'printing':
         #args[0],widget 发出请求的按钮控件
         # if len(args) == 1:
         #     self._gtk.Button_busy(args[0], True)
-        self._screen._ws.klippy.print_resume()
+        if is_control:
+            self._screen._ws.klippy.print_resume()
         # self._gtk.Button_busy(args[0], False)
         state_text = _("Printing...")
         filename = "images/pause.png"
         button_text = _("Pause")
 
-    elif self._printer.state == 'printing':
+    elif state == 'paused':
         # if len(args) == 1:
         #     self._gtk.Button_busy(args[0], True)
-        self._screen._ws.klippy.print_pause()
+        if is_control:
+            self._screen._ws.klippy.print_pause()
         # self._gtk.Button_busy(args[0], False)
         state_text = _("Paused")
         filename = "images/start.png"
@@ -301,7 +303,7 @@ def update_time_left(self, action,data):
         if 'state' in data['print_stats']:
             #更改打印状态
             if data['print_stats']['state'] == 'paused':
-                change_pause_button_state(self,data['print_stats']['state'])
+                change_pause_button_state(self, data['print_stats']['state'], False)
 
     name = ''
     # 放模型图
@@ -340,9 +342,9 @@ def update_time_left(self, action,data):
             / (self.file_metadata['gcode_end_byte'] - self.file_metadata['gcode_start_byte'])
     ) if "gcode_start_byte" in self.file_metadata else self._printer.get_stat('virtual_sdcard', 'progress')
     estimated = self.file_metadata['estimated_time'] if 'estimated_time' in self.file_metadata else 0
-    if progress*100 <1:
+    if progress*100 <1 and self._printer.state == 'printing':
         self.labels['print_state'].set_label(_("Preprocessing in progress..."))
-    else:
+    elif self._printer.state == 'printing':
         self.labels['print_state'].set_label(_("Printing..."))
     if estimated > 1:
         # 更新剩余打印时间
@@ -371,8 +373,8 @@ def pause_confirm(widget,self):
     if self._printer.state == 'printing':
         state = 'paused'
     elif self._printer.state == 'paused':
-        state = 'printing...'
-    change_pause_button_state(self,widget)
+        state = 'printing'
+    change_pause_button_state(self, state, True, widget)
 
 
 #停止打印窗口
@@ -398,9 +400,10 @@ def cancel_confirm(dialog, response_id, klippy_gtk,self,*args):
         if self._screen._ws.klippy.print_cancel():
             parameter_item = {
                 "panel": "home_menu",
+                "father": "home_menu",
                 "icon": "home_menu_icon",
             }
-            self.menu_item_clicked(dialog, parameter_item)
+            self._screen.jump_rotor_page(dialog, parameter_item)
         return
     # Cancel_dialog
     if response_id == Gtk.ResponseType.CANCEL:

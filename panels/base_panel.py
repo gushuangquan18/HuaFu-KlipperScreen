@@ -331,9 +331,11 @@ class BasePanel(ScreenPanel):
         father_menu = item['father']
         if item['panel'] in ('extruder_temperature', 'chassis_temperature', 'heater_bed_temperature'):
             father_menu = 'printer_control_menu'
+        if item['panel'] == 'messages_menu':
+            father_menu = 'messages_menu'
         if father_menu == "print_menu":
             father_menu = 'home_menu'
-        if father_menu.endswith("_menu"):
+        if father_menu is not None and father_menu.endswith("_menu"):
             i=0
             while i<len(MENU_NAME):
                 image = Gtk.Image()
