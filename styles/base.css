@@ -1,7 +1,7 @@
-@define-color color1 #ED6500;
-@define-color color2 #B10080;
-@define-color color3 #009384;
-@define-color color4 #A7E100;
+@define-color color1 red;
+@define-color color2 #D9D919;
+@define-color color3 green;
+@define-color color4 #0073BD;
 @define-color bg #13181C;
 @define-color active #404E57;
 @define-color echo #367554;
@@ -105,19 +105,27 @@ button.color4 {
 }
 
 button.color1 {
-    border-bottom: .4em solid @color1;
+    border-bottom: .4em;
+    border-radius: 1em;
+    background: @color1;
 }
 
 button.color2 {
-    border-bottom: .4em solid @color2;
+    border-bottom: .4em;
+    border-radius: 1em;
+    background: @color2;
 }
 
 button.color3 {
-    border-bottom: .4em solid @color3;
+    border-bottom: .4em;
+    border-radius: 1em;
+    background: @color3;
 }
 
 button.color4 {
-    border-bottom: .4em solid @color4;
+    border-bottom: .4em;
+    border-radius: 1em;
+    background: @color4;
 }
 
 button.status {

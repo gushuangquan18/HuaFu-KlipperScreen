@@ -68,7 +68,7 @@ class BasePanel(ScreenPanel):
             "panel": "home_menu",
             "icon": "home_menu_icon",
         }
-        self.control['home_menu'] = self._gtk.Button('home_menu_blue_icon',hexpand="True",vexpand="True", width=40,height=40)
+        self.control['home_menu'] = self._gtk.Button('home_menu_icon',hexpand="True",vexpand="True", width=40,height=40)
         self.control['home_menu'].connect("clicked", self.menu_item_clicked,self.home_menu)
         self.control['home_menu'].set_sensitive(False)
 
@@ -315,14 +315,18 @@ class BasePanel(ScreenPanel):
         printing = self._printer and self._printer.state in {"printing", "paused"}
         connected = self._printer and self._printer.state not in {'disconnected', 'startup', 'shutdown', 'error'}
         printer_select = 'printer_select' not in self._screen._cur_panels
+        if not hasattr(self, 'init_control_home'):
+            self.init_control_home = False
         if  printer_select:
             self.control['home_menu'].set_sensitive(printer_select)
-            # image = Gtk.Image()
-            # image_name = f'images/home_menu_blue_icon.png'
-            # pixbuf = GdkPixbuf.Pixbuf.new_from_file(image_name)
-            # scaled_pixbuf = pixbuf.scale_simple(40, 40, GdkPixbuf.InterpType.BILINEAR)
-            # image.set_from_pixbuf(scaled_pixbuf)
-            # self.control['home_menu'].set_image(image)
+            if self.init_control_home is False :
+                image = Gtk.Image()
+                image_name = f'images/home_menu_blue_icon.png'
+                pixbuf = GdkPixbuf.Pixbuf.new_from_file(image_name)
+                scaled_pixbuf = pixbuf.scale_simple(40, 40, GdkPixbuf.InterpType.BILINEAR)
+                image.set_from_pixbuf(scaled_pixbuf)
+                self.control['home_menu'].set_image(image)
+                self.init_control_home = True
             self.control['printer_control_menu'].set_sensitive(printer_select)
             self.control['consumables_menu'].set_sensitive(printer_select)
             self.control['settings_menu'].set_sensitive(printer_select)

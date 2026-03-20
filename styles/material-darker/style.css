@@ -311,18 +311,21 @@ button.print_menu_button{
 
 
 /* 空调系统 */
-#air_system_model{
-    padding-left:50px;
-}
-#air_system_down_left_grid{
-    padding-left:50px;
+#air_system{
+
 }
 #air_system_body_grid{
     background-color: @grid_bg;
     border-radius: 1em;
-    padding:15px;
-    margin: 10px;
+    /*margin: 0px 5px 0px 5px;*/
 }
+#air_system_left_grid{
+    background-color: green;
+}
+#air_system_right_grid{
+    background-color: green;
+}
+
 
 /* 速度控制 */
 #speed_control{

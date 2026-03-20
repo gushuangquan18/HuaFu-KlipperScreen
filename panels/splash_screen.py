@@ -85,7 +85,7 @@ class Panel(ScreenPanel):
         else:
             self.labels["actions"].add(self.labels["restart_system"])
             self.labels["actions"].add(self.labels["shutdown"])
-        self.labels["actions"].add(self.labels["menu"])
+        # self.labels["actions"].add(self.labels["menu"])
         if (
             self._screen._ws
             and not self._screen._ws.connecting

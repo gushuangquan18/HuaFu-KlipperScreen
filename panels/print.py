@@ -344,7 +344,7 @@ def update_time_left(self, action,data):
     estimated = self.file_metadata['estimated_time'] if 'estimated_time' in self.file_metadata else 0
     if progress*100 <1 and self._printer.state == 'printing':
         self.labels['print_state'].set_label(_("Preprocessing in progress..."))
-    elif self._printer.state == 'printing':
+    if self._printer.state == 'printing':
         self.labels['print_state'].set_label(_("Printing..."))
     if estimated > 1:
         # 更新剩余打印时间
