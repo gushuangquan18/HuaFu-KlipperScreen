@@ -21,8 +21,8 @@ from ks_includes.KlippyGcodes import KlippyGcodes
 def consumables_dialog(widget,self,current_key):
     title=_("Operating consumables")
     buttons = [
-        {"name": _("Edit ConSumables"), "response": 1, "style": 'waring_button'},
-        {"name": _("Control Consumables"), "response": 2, "style": 'dialog_cancel'}
+        {"name": _("Edit ConSumables"), "response": 1, "style": 'dialog_edit_consumables_button'},
+        {"name": _("Control Consumables"), "response": 2, "style": 'dialog_control_consumables_button'}
     ]
     if len(self._printer.get_stat("exclude_object", "objects")) > 1:
         buttons.insert(0, {"name": _("Exclude Object"), "response": Gtk.ResponseType.APPLY})

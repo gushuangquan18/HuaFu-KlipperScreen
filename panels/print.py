@@ -14,7 +14,7 @@ from jinja2 import Template
 from datetime import datetime
 from ks_includes.screen_panel import ScreenPanel
 from ks_includes.KlippyGtk import find_widget
-from ks_includes.widgets.flowboxchild_extended import PrintListItem
+from ks_includes.KlippyGtk import KlippyGtk
 
 
 
@@ -137,9 +137,9 @@ def confirm_print(widget,self, filename):
     action = _("Print") if self._printer.extrudercount > 0 else _("Start")
 
     buttons = [
-        {"name": _("Delete"), "response": Gtk.ResponseType.REJECT, "style": 'waring_button'},
-        {"name": action, "response": Gtk.ResponseType.OK, "style": 'print_button'},
-        {"name": _("Cancel"), "response": Gtk.ResponseType.CANCEL, "style": 'dialog_cancel'}
+        {"name": _("Delete"), "response": Gtk.ResponseType.REJECT, "style": 'dialog_waring_button'},
+        {"name": action, "response": Gtk.ResponseType.OK, "style": 'dialog_print_button'},
+        {"name": _("Cancel"), "response": Gtk.ResponseType.CANCEL, "style": 'dialog_cancel_button'}
     ]
 
     main_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, vexpand=True)
@@ -344,7 +344,7 @@ def update_time_left(self, action,data):
     estimated = self.file_metadata['estimated_time'] if 'estimated_time' in self.file_metadata else 0
     if progress*100 <1 and self._printer.state == 'printing':
         self.labels['print_state'].set_label(_("Preprocessing in progress..."))
-    if self._printer.state == 'printing':
+    if progress*100 >1 and self._printer.state == 'printing':
         self.labels['print_state'].set_label(_("Printing..."))
     if estimated > 1:
         # 更新剩余打印时间
@@ -380,8 +380,8 @@ def pause_confirm(widget,self):
 #停止打印窗口
 def cancel(widget,self):
     buttons = [
-        {"name": _("Confirm"), "response": Gtk.ResponseType.OK, "style": 'waring_button'},
-        {"name": _("Back"), "response": Gtk.ResponseType.CANCEL, "style": 'dialog_cancel'}
+        {"name": _("Confirm"), "response": Gtk.ResponseType.OK, "style": 'dialog_waring_button'},
+        {"name": _("Back"), "response": Gtk.ResponseType.CANCEL, "style": 'dialog_cancel_button'}
     ]
     if len(self._printer.get_stat("exclude_object", "objects")) > 1:
         buttons.insert(0, {"name": _("Exclude Object"), "response": Gtk.ResponseType.APPLY})

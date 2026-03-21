@@ -306,7 +306,7 @@
         "type": "Grid",
         "width": 30,
         "height": 120,
-        "column": 0,
+        "column": 2,
         "row": 1,
         "columnspan": 1,
         "rowspan": 3,

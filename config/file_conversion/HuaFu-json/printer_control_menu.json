@@ -67,7 +67,7 @@
               "name": "Fen Model",
               "type": "Label",
               "value": "Fan : On",
-              "column": 0,
+              "column": 1,
               "row": 1,
               "columnspan": 3,
               "rowspan": 1,

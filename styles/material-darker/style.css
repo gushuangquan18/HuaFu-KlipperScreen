@@ -166,18 +166,26 @@ progressbar progress {
 #dialog_info_box{
     margin: 10px 10px 10px 10px;
 }
-button.waring_button{
+button.waring_button,
+button.dialog_waring_button{
     background-color: red;
     border-radius: 0.5em;
 }
+button.dialog_control_consumables_button,
+button.dialog_print_button{
+    background-color: @next_level;
+    border-radius: 0.5em;
+}
+button.dialog_edit_consumables_button,
+button.dialog_cancel_button{
+    background-color: #D0D0D0;
+    border-radius: 0.5em;
+}
+
 button.print_button{
     background-color: @next_level;
     border-radius: 0.5em;
     margin: 2px 2px 2px 2px;
-}
-button.dialog_cancel{
-    background-color: #D0D0D0;
-    border-radius: 0.5em;
 }
 
 /* 要打印的盘 页面 */
