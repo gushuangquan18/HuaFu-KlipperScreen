@@ -19,7 +19,7 @@ from ks_includes.KlippyGcodes import KlippyGcodes
 SPEED_MODEL = {
     50:_("Mute"),100:_("Standard"),124:_("Sport"),166:_("Furious"),
 }
-
+#调整打印速度
 def change_print_speed(widget, self, value):
     print_speed = re.search(r'\d+', value)
     if print_speed:
@@ -27,6 +27,21 @@ def change_print_speed(widget, self, value):
         print_speed = int(print_speed.group())
     self._screen._send_action(widget, "printer.gcode.script", {"script": KlippyGcodes.set_speed_rate(print_speed)})
     change_button_style(self, print_speed)
+
+def change_fan_value(widget, self,):
+    #M106 S
+    #M106 S255
+    # SET_FAN_SPEED FAN=model_fan2 SPEED=0.0
+    # SET_FAN_SPEED FAN=model_fan2 SPEED=1.0
+    value = self.labels['fen_model'].get_text()
+    if value == _("On"):
+        #
+        self.labels['fen_model'].set_text(_("Off"))
+        self._screen._send_action(widget, "printer.gcode.script", {"script": "M106 S0"})
+    else:
+        self.labels['fen_model'].set_text(_("On"))
+        self._screen._send_action(widget, "printer.gcode.script", {"script": "M106 S255"})
+
 
 #实时更新速度按钮选中状态
 def update_speed_button(self, data):
@@ -149,7 +164,7 @@ def change_target_temp(widget,self, name,*args):
     else:
         logging.info(f"Unknown heater: {name}")
         self._screen.show_popup_message(_("Unknown Heater") + " " + name)
-    self._printer.set_stat(name, {"target": temp})
+    # self._printer.set_stat(name, {"target": temp})
     if self.numpad_visible:
         self.hide_numpad()
 

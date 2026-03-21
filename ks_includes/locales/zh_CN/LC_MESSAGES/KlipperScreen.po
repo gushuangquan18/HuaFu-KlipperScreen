@@ -1085,8 +1085,17 @@ msgstr "重量"
 msgid "Sport"
 msgstr "运动"
 
-msgid "Sprot:XYZ"
-msgstr "运动:XYZ"
+msgid "On"
+msgstr "开启"
+
+msgid "Off"
+msgstr "关闭"
+
+msgid "Fan Model"
+msgstr "风扇系统"
+
+msgid "Fan : "
+msgstr "风扇 : "
 
 msgid "Speed(mm/s)"
 msgstr "速度(mm/s)"
@@ -1321,9 +1330,6 @@ msgstr "固件"
 
 #~ msgid "Initializing"
 #~ msgstr "初始化"
-
-#~ msgid "Off"
-#~ msgstr "关闭"
 
 #~ msgid "View Mesh"
 #~ msgstr "查看热床网格"

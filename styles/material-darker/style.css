@@ -317,15 +317,23 @@ button.print_menu_button{
 #air_system_body_grid{
     background-color: @grid_bg;
     border-radius: 1em;
-    /*margin: 0px 5px 0px 5px;*/
+    margin: 0px 0px 0px 7px;
 }
 #air_system_left_grid{
-    background-color: green;
+    /*background-color: green;*/
+    padding: 60px 0px 0px 30px;
 }
-#air_system_right_grid{
-    background-color: green;
+button.air_system_left_grid_button{
+    padding: 30px 0px 0px 0px;
 }
 
+#air_system_right_grid{
+    /*background-color: green;*/
+    padding: 40px 0px 0px 0px;
+}
+button.air_system_right_grid_button{
+    padding: 20px 0px 0px 0px;
+}
 
 /* 速度控制 */
 #speed_control{

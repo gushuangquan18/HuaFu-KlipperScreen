@@ -63,11 +63,11 @@
               "v_columnspan": 3,
               "v_rowspan": 1
             },
-            "air_system_model": {
-              "name": "Air System Model",
+            "fen_model": {
+              "name": "Fen Model",
               "type": "Label",
-              "value": "腔温保持系统",
-              "column": 1,
+              "value": "Fan : On",
+              "column": 0,
               "row": 1,
               "columnspan": 3,
               "rowspan": 1,

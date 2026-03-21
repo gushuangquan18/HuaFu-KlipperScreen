@@ -18,6 +18,8 @@ STATIC_CONSUMABLES = {
     'dynamic_pressure_control_select': ('Default','Other')
 }
 
+#msgfmt -o KlipperScreen.mo KlipperScreen.po
+
 from panels.print import (refresh_loading,
                                     cancel,
                                     set_loading,
@@ -32,7 +34,8 @@ from panels.printer_control import (move,
                                   change_target_temp,
                                   change_print_speed,
                                   update_print_speed_message,
-                                  update_speed_button)
+                                  update_speed_button,
+                                  change_fan_value)
 from panels.edit_consumables import consumables_dialog,change_consumables_button,check_min_temp
 from panels.calibration import (bed_mesh_calibration,
                                   init_xyz_offset,
@@ -98,7 +101,7 @@ class Panel(ScreenPanel):
         self.filename = None
         self.file_metadata = None
         self.change_item = ['print_busy',
-                            'speed_control_model','chassis_temperature', 'heater_bed_temperature', 'extruder_temperature', 'extruder1_temperature',
+                            'fen_model','speed_control_model','chassis_temperature', 'heater_bed_temperature', 'extruder_temperature', 'extruder1_temperature',
                             'percentage_progress','total_layers', 'current_layers','remaining_time','floor_height_progress',
                             'print_modeling_graphics', 'print_file_name', 'print_state','pause_button',
                             't0_extruder_consumables_control',
@@ -237,6 +240,8 @@ class Panel(ScreenPanel):
                 item_control_name.connect("clicked", change_target_temp,self,panel_name,value)
             elif (item['method'] == 'change_print_speed'):
                 item_control_name.connect("clicked", change_print_speed,self,value)
+            elif (item['method'] == 'change_fan_value'):
+                item_control_name.connect("clicked", change_fan_value,self)
             elif (item['method'] == 'move'):
                 item_control_name.connect("clicked", move,self,value)
             elif (item['method'] == 'change_distance'):
@@ -329,7 +334,11 @@ class Panel(ScreenPanel):
 
             if (key_array[len(key_array) - 1] == "space_label"):
                 item_control_name = Gtk.Label()
-                item_control_name.set_hexpand(True)
+                if panel_name == 'air_system':
+                    item_control_name.set_vexpand(True)
+                else:
+                    item_control_name.set_hexpand(True)
+
             else:
                 item_control_name = Gtk.Label(label=_(value))
 
@@ -512,7 +521,7 @@ class Panel(ScreenPanel):
     def process_update(self, panel_name,action,data):
         if self.file_metadata is None and self.filename is not None:
             self.init_file_data(True)
-        if panel_name == "home_menu" or panel_name == "printer_control_menu":
+        if panel_name in ( "home_menu", "printer_control_menu", "air_system"):
             for dev in self.labels:
                 for type in ('extruder', 'extruder1','heater_bed','chassis'):
                     if dev.endswith(f'{type}_temperature'):
@@ -526,7 +535,18 @@ class Panel(ScreenPanel):
                             name=dev
                         )
                         break
-
+            if panel_name in ("printer_control_menu", "air_system"):
+                # 'fan':{'rpm': None, 'speed': 1.0}
+                value = ''
+                if 'fan' in data and 'speed' in data['fan']:
+                    if data['fan']['speed'] > 0:
+                        value = 'On'
+                    else:
+                        value = 'Off'
+                    if panel_name == "printer_control_menu":
+                        self.labels['fen_model'].set_text(f'{_('Fan : ')}{_(value)}')
+                    else:
+                        self.labels['fen_model'].set_text(f'{_(value)}')
         if panel_name == "printer_control_menu" :
             update_print_speed_message(self, data)
 
