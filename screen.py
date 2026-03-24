@@ -160,8 +160,8 @@ class KlipperScreen(Gtk.Window):
         #设置窗口大小 如果是None参数是默认 1100 620
         # self.width = self._config.get_main_config().getint("width", 1100)
         # self.height = self._config.get_main_config().getint("height", 620)
-        self.width = self._config.get_main_config().getint("width", 500)
-        self.height = self._config.get_main_config().getint("height", 830)
+        self.width = self._config.get_main_config().getint("width", 600)
+        self.height = self._config.get_main_config().getint("height", 1024)
         if 'XDG_CURRENT_DESKTOP' in os.environ:
             logging.warning("Running inside a desktop environment is not recommended")
             if not self.width:

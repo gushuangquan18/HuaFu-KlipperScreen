@@ -48,7 +48,7 @@ from panels.calibration import (bed_mesh_calibration,
                                   cancle_calibration)
 from panels.macro_command import cut,stop_chamber_temperature,turn_on_each_detection_bed,turn_off_each_detection_bed
 from panels.firmware_information import update_system_info
-from panels.wifi import init_panel
+from panels.wifi import init_panel,reload_wifi
 
 class Panel(ScreenPanel):
 
@@ -276,8 +276,8 @@ class Panel(ScreenPanel):
                 item_control_name.connect("clicked", turn_on_each_detection_bed,self)
             elif (item['method'] == 'turn_off_each_detection_bed'):
                 item_control_name.connect("clicked", turn_off_each_detection_bed,self)
-            # elif (item['method'] == 'refresh_wifi'):
-            #     item_control_name.connect("clicked", refresh_wifi,self)
+            elif (item['method'] == 'reload_wifi'):
+                item_control_name.connect("clicked", reload_wifi,self)
 
 
             if current_key.startswith('distance') :

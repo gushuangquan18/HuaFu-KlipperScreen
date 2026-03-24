@@ -48,16 +48,30 @@ def init_panel(self):
 def popup_callback(self, msg, level=3):
     self._screen.show_popup_message(msg, level)
 
+#加载wifi列表
 def load_networks(self):
     # {'BSSID': 'CE:4D:6B:96:64:E9', 'SSID': 'HuangHai', 'channel': '1', 'frequency': '2.4', 'known': False,'security': 'AES WPA-PSK', 'signal_level': 94}
     # MAC                           Name                    群组          频段                  是否连接        加密方式                    信号强度
-    a = self.sdbus_nm.get_networks()
-    for net in a:
+    wifi_list = self.sdbus_nm.get_networks()
+    for net in wifi_list:
         add_network(self, net['BSSID'])
     # GLib.timeout_add_seconds(10, self._gtk.Button_busy, self.buttons['reload_wifi'], False)
     self.content.show_all()
     return False
 
+#刷新Wifi列表
+def reload_wifi(widget, self):
+    for child in self.grid['current_network_grid'].get_children():
+        self.network_list.remove(child)
+    for child in self.grid['other_network_grid'].get_children():
+        self.network_list.remove(child)
+    if self.sdbus_nm is not None and self.sdbus_nm.wifi:
+        if widget:
+            self._gtk.Button_busy(widget, True)
+        self.sdbus_nm.rescan()
+        load_networks(self)
+
+#添加WIFI项
 def add_network(self, bssid):
     row = 0
     if bssid in self.network_rows:
@@ -66,9 +80,9 @@ def add_network(self, bssid):
     net = next(net for net in self.sdbus_nm.get_networks() if bssid == net['BSSID'])
     ssid = net['SSID']
 
-    width = 476
+    width = 520
     height = 40
-    wifi_button = self._gtk.Button(button_width = width, button_height = height)
+    wifi_button = self._gtk.Button(button_width = width, button_height = height, hexpand=True)
     self.other_wifi[ssid] = wifi_button
 
     single_wifi_grid = Gtk.Grid(orientation=Gtk.Orientation.HORIZONTAL)
@@ -90,11 +104,11 @@ def add_network(self, bssid):
 
 
         wifi_button.connect("clicked", connect_network, self, ssid)
-        single_wifi_grid.set_name('single_wifi_current')
+        wifi_button.get_style_context().add_class('single_wifi_current')
         self.grid['current_network_grid'].attach(wifi_button, 0, 1, 1, 1)
     else:
         wifi_button.connect("clicked", connect_network, self, ssid)
-        single_wifi_grid.set_name('single_wifi_other')
+        wifi_button.get_style_context().add_class('single_wifi_other')
     row = row+1
 
 
@@ -121,14 +135,6 @@ def add_network(self, bssid):
     single_wifi_grid.attach(wifi_icon, row, 0, 1, 1)
     if not bssid == self.sdbus_nm.get_connected_bssid():
         self.grid['other_network_grid'].attach(wifi_button, row, 0, 1, 1)
-
-
-
-
-    # delete = self._gtk.Button("delete", None, "color3", self.bts)
-    # delete.connect("clicked", self.remove_confirm_dialog, ssid, bssid)
-    # delete.set_hexpand(False)
-    # delete.set_halign(Gtk.Align.END)
 
 
 def remove_confirm_dialog(self, widget, ssid, bssid):
@@ -199,7 +205,6 @@ def close_add_network(self):
     self.show_add = False
 
 def connect_network(self, widget, ssid, showadd=True):
-    self.deactivate()
     if showadd and not self.sdbus_nm.is_known(ssid):
         sec_type = self.sdbus_nm.get_security_type(ssid)
         if sec_type == "Open" or "OWE" in sec_type:
@@ -215,7 +220,7 @@ def connect_network(self, widget, ssid, showadd=True):
     if bssid and bssid in self.network_rows:
         self.remove_network_from_list(bssid)
     self.sdbus_nm.connect(ssid)
-    self.reload_networks()
+    reload_wifi(self)
 
 def remove_network_from_list(self, bssid):
     if bssid not in self.network_rows:
@@ -365,49 +370,12 @@ def update_single_network_info(self):
     self.labels['networkinfo'].show_all()
     return True
 
-def reload_networks(self, widget=None):
-    self.deactivate()
-    del self.network_rows
-    self.network_rows = {}
-    for child in self.network_list.get_children():
-        self.network_list.remove(child)
-    if self.sdbus_nm is not None and self.sdbus_nm.wifi:
-        if widget:
-            self._gtk.Button_busy(widget, True)
-        self.sdbus_nm.rescan()
-        self.load_networks(self)
-    self.activate()
-
-def activate(self):
-    if self.sdbus_nm is None:
-        return
-    if self.update_timeout is None:
-        if self.sdbus_nm.wifi:
-            if self.reload_button.get_sensitive():
-                self._gtk.Button_busy(self.reload_button, True)
-                self.sdbus_nm.rescan()
-                self.load_networks(self)
-            self.update_all_networks()
-            self.update_timeout = GLib.timeout_add_seconds(5, self.update_all_networks)
-        else:
-            self.update_single_network_info()
-            self.update_timeout = GLib.timeout_add_seconds(5, self.update_single_network_info)
-
-def deactivate(self):
-    if self.sdbus_nm is None:
-        return
-    if self.update_timeout is not None:
-        GLib.source_remove(self.update_timeout)
-        self.update_timeout = None
-    if self.sdbus_nm.wifi:
-        self.sdbus_nm.enable_monitoring(False)
-
 def toggle_wifi(self, switch, gparams):
     enable = switch.get_active()
     logging.info(f"WiFi {enable}")
     self.sdbus_nm.toggle_wifi(enable)
     if enable:
         self.reload_button.show()
-        self.reload_networks()
+        reload_wifi(self)
     else:
         self.reload_button.hide()
