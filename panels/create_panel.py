@@ -48,7 +48,7 @@ from panels.calibration import (bed_mesh_calibration,
                                   cancle_calibration)
 from panels.macro_command import cut,stop_chamber_temperature,turn_on_each_detection_bed,turn_off_each_detection_bed
 from panels.firmware_information import update_system_info
-from panels.wifi import init_panel,reload_wifi
+from panels.wifi import init_panel,reload_wifi,toggle_wifi
 
 class Panel(ScreenPanel):
 
@@ -103,6 +103,7 @@ class Panel(ScreenPanel):
         self.filename = None
         self.file_metadata = None
         self.grid = {}
+        self.wifi_switch = None
         self.change_item = ['print_busy',
                             'fen_model','speed_control_model','chassis_temperature', 'heater_bed_temperature', 'extruder_temperature', 'extruder1_temperature',
                             'percentage_progress','total_layers', 'current_layers','remaining_time','floor_height_progress',
@@ -387,14 +388,11 @@ class Panel(ScreenPanel):
                 self.labels['flowbox']= item_control_name
                 self.counter=i
                 return self.labels['flowbox']
-            if (current_key == "current_network_grid"):
+            if (current_key == "wifi_message_grid"):
                 self.grid[current_key]= item_control_name
                 self.counter=i
                 return self.grid[current_key]
-            if (current_key == "other_network_grid"):
-                self.grid[current_key]= item_control_name
-                self.counter=i
-                return self.grid[current_key]
+
 
             while i<len(self.items):
                 key_child = list(self.items[i])[0]
@@ -417,6 +415,7 @@ class Panel(ScreenPanel):
                 else:
                     i = self.counter + 1
                     break
+
         elif (item['type'] == "Switch"):
             self.counter += 1
             item_control_name= Gtk.Switch()
@@ -424,13 +423,10 @@ class Panel(ScreenPanel):
             # width = int(self._screen.env.from_string(item['width']).render(self.j2_data) if item['width'] else None)
             # height = int(self._screen.env.from_string(item['height']).render(self.j2_data) if item['height'] else None)
             # item_control_name.set_size_request(width, height)
-            # self.wifi_toggle = Gtk.Switch(
-            #     width_request=round(self._gtk.font_size * 2),
-            #     height_request=round(self._gtk.font_size),
-            #     active=self.sdbus_nm.is_wifi_enabled()
-            # )
-            # self.wifi_toggle.connect("notify::active", toggle_wifi)
-            item_control_name.set_active(bool(value))
+            item_control_name.connect("notify::active", toggle_wifi,self)
+            if current_key == "wifi_switch":
+                self.wifi_switch = item_control_name
+                return self.wifi_switch
 
         elif (item['type'] == "ProgressBar"):
             self.counter += 1
