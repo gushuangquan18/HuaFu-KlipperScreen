@@ -1223,6 +1223,12 @@ msgstr "关闭打印前探测"
 msgid "Firmware"
 msgstr "固件"
 
+msgid "Current Network"
+msgstr "当前网络"
+
+msgid "Other Network"
+msgstr "其他网络"
+
 
 
 #~ msgid "Hide temp."

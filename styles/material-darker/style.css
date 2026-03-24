@@ -501,22 +501,26 @@ button.air_system_right_grid_button{
 #wifi{
 
 }
-#wifi_switch_grid,
-#test_network_grid,
-#current_network_grid,
-#other_network_grid{
+#wifi_switch_grid{
     background-color: @grid_bg;
     border-radius: 0.5em;
     margin: 7px 20px 7px 20px;
+    padding: 0px 15px 0px 20px;
 }
-#wifi_switch_grid{
-    padding: 0px 25px 0px 20px;
-}
-#test_network_grid,
-#current_network_grid,
-#other_network_grid{
+#single_wifi_current{
+    background-color: @grid_bg;
+    border-radius: 0.5em;
+    margin: 7px 10px 7px 10px;
     padding: 30px 25px 25px 20px;
 }
+
+#single_wifi_other{
+    background-color: red;
+    border-radius: 0.5em;
+    margin: 7px 10px 7px 10px;
+    padding: 30px 25px 25px 20px;
+}
+
 /* 内存信息 菜单界面*/
 #disk_messages{
 

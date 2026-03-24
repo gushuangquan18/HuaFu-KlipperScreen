@@ -20,6 +20,10 @@ from sdbus_block.networkmanager import (
     exceptions,
 )
 
+# sdbus_block：是一个 Python 第三方库（基于 sdbus），用于和 Linux 系统的 D-Bus 总线通信（D-Bus 是 Linux 系统中进程间通信的标准）。
+#pip3 install --upgrade pip --break-system-packages
+# pip3 install sdbus sdbus-networkmanager --break-system-packages
+
 NONE = 0  # The access point has no special security requirements.
 PAIR_WEP40 = 1  # 40/64-bit WEP is supported for pairwise/unicast encryption.
 PAIR_WEP104 = 2  # 104/128-bit WEP is supported for pairwise/unicast encryption.

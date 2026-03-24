@@ -19,6 +19,7 @@ STATIC_CONSUMABLES = {
 }
 
 #msgfmt -o KlipperScreen.mo KlipperScreen.po
+#pip3 install sdbus --break-system-packages
 
 from panels.print import (refresh_loading,
                                     cancel,
@@ -47,6 +48,7 @@ from panels.calibration import (bed_mesh_calibration,
                                   cancle_calibration)
 from panels.macro_command import cut,stop_chamber_temperature,turn_on_each_detection_bed,turn_off_each_detection_bed
 from panels.firmware_information import update_system_info
+from panels.wifi import init_panel
 
 class Panel(ScreenPanel):
 
@@ -100,6 +102,7 @@ class Panel(ScreenPanel):
         self.is_printing=False
         self.filename = None
         self.file_metadata = None
+        self.grid = {}
         self.change_item = ['print_busy',
                             'fen_model','speed_control_model','chassis_temperature', 'heater_bed_temperature', 'extruder_temperature', 'extruder1_temperature',
                             'percentage_progress','total_layers', 'current_layers','remaining_time','floor_height_progress',
@@ -107,7 +110,8 @@ class Panel(ScreenPanel):
                             't0_extruder_consumables_control',
                             'start_z_calibration','raise_heater_bed','reduce_heater_bed','confirm','cancel',
                             'z_value','old_z_value','new_z_value',
-                            'system_version','network_address','ip_address','mac_address']
+                            'system_version','network_address','ip_address','mac_address',
+                            'wifi_ip','reload_wifi']
         self.buttons = {}
         if panel_name == "sport_control" or panel_name == "z_offset_calibration":
             self.distance=1
@@ -149,6 +153,8 @@ class Panel(ScreenPanel):
             self.init_file_data(True)
         if panel_name == 'firmware_information':
             update_system_info(self)
+        if panel_name == "wifi" :
+            init_panel(self)
         self.labels['parent_grid'] = parent_grid
 
         #初始化Z偏移校准数据
@@ -270,6 +276,8 @@ class Panel(ScreenPanel):
                 item_control_name.connect("clicked", turn_on_each_detection_bed,self)
             elif (item['method'] == 'turn_off_each_detection_bed'):
                 item_control_name.connect("clicked", turn_off_each_detection_bed,self)
+            # elif (item['method'] == 'refresh_wifi'):
+            #     item_control_name.connect("clicked", refresh_wifi,self)
 
 
             if current_key.startswith('distance') :
@@ -379,6 +387,15 @@ class Panel(ScreenPanel):
                 self.labels['flowbox']= item_control_name
                 self.counter=i
                 return self.labels['flowbox']
+            if (current_key == "current_network_grid"):
+                self.grid[current_key]= item_control_name
+                self.counter=i
+                return self.grid[current_key]
+            if (current_key == "other_network_grid"):
+                self.grid[current_key]= item_control_name
+                self.counter=i
+                return self.grid[current_key]
+
             while i<len(self.items):
                 key_child = list(self.items[i])[0]
                 key_father = ' '.join(key_child.split()[:-1]) if key_child and key_child.strip() else ''
@@ -407,6 +424,12 @@ class Panel(ScreenPanel):
             # width = int(self._screen.env.from_string(item['width']).render(self.j2_data) if item['width'] else None)
             # height = int(self._screen.env.from_string(item['height']).render(self.j2_data) if item['height'] else None)
             # item_control_name.set_size_request(width, height)
+            # self.wifi_toggle = Gtk.Switch(
+            #     width_request=round(self._gtk.font_size * 2),
+            #     height_request=round(self._gtk.font_size),
+            #     active=self.sdbus_nm.is_wifi_enabled()
+            # )
+            # self.wifi_toggle.connect("notify::active", toggle_wifi)
             item_control_name.set_active(bool(value))
 
         elif (item['type'] == "ProgressBar"):
@@ -549,7 +572,6 @@ class Panel(ScreenPanel):
                         self.labels['fen_model'].set_text(f'{_(value)}')
         if panel_name == "printer_control_menu" :
             update_print_speed_message(self, data)
-
         if panel_name == "speed_control":
             update_speed_button(self, data)
 
