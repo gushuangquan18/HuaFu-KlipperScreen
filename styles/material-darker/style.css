@@ -437,7 +437,14 @@ button.air_system_right_grid_button{
 
 }
 #control_consumables_body_grid{
-    padding: 0px 0px 0px 12px;
+    background-color: @grid_bg;
+    border-radius: 1em;
+    padding: 10px 20px 10px 20px;
+    margin: 0px 15px 10px 15px;
+}
+#length_grid,
+#speed_consumables_grid{
+    margin: 5px 0px 5px 5px;
 }
 
 /* 控制耗材界面 */
@@ -473,7 +480,7 @@ button.air_system_right_grid_button{
 #macro_command_grid{
     background-color: @grid_bg;
     border-radius: 1em;
-    padding: 95px 0px 0px 0px;
+    padding: 140px 0px 0px 0px;
 
 }
 #settings_wifi_grid,
@@ -482,7 +489,7 @@ button.air_system_right_grid_button{
     background-color: @grid_bg;
     border-radius: 1em;
     margin: 0px 0px 0px 10px;
-    padding: 35px 5px 0px 5px;
+    padding: 50px 10px 0px 15px;
 }
 
 /* 校准菜单界面 */
@@ -493,7 +500,7 @@ button.air_system_right_grid_button{
     margin:10px;
 }
 #macro_command_body_grid{
-    padding: 10px 10px 0px 20px;
+    padding: 0px 20px 0px 20px;
 }
 .macro_command_buttons{
     background-color: @grid_bg;
@@ -545,7 +552,16 @@ button.single_wifi_other{
 #firmware_information{
 
 }
-#ui_system_grid,
+#firmware_information_body_grid{
+    margin: 0px 10px 10px 10px;
+}
+#ui_system_grid{
+    background-color: @grid_bg;
+    border-radius: 0.5em;
+    margin: 10px 20px 2px 20px;
+    padding: 13px 25px 0px 20px;
+}
+
 #system_grid,
 #network_grid,
 #ip_grid,
@@ -553,7 +569,7 @@ button.single_wifi_other{
     background-color: @grid_bg;
     border-radius: 0.5em;
     margin: 20px 20px 2px 20px;
-    padding: 10px 25px 0px 20px;
+    padding: 13px 25px 0px 20px;
 }
 
 /* 校准菜单界面 */
@@ -561,7 +577,7 @@ button.single_wifi_other{
 
 }
 #calibration_body_grid{
-    margin:10px;
+    margin: 0px 10px 10px 10px;
 }
 #print_calibration_grid,
 #nozzle_calibration_grid,
@@ -571,7 +587,7 @@ button.single_wifi_other{
 #z_offset_calibration_grid{
     background-color: @grid_bg;
     border-radius: 1em;
-    padding: 10px 10px 0px 20px;
+    padding: 20px 15px 0px 20px;
 }
 
 
@@ -579,9 +595,8 @@ button.single_wifi_other{
 #z_offset_calibration{
 
 }
-#z_offset_calibration_body_grid,
-#distance_grid{
-    margin: 0px 5px 5px 5px;
+#z_offset_calibration_body_grid{
+    margin: 0px 10px 10px 10px;
 }
 
 #distance_grid{
@@ -591,11 +606,12 @@ button.single_wifi_other{
     background-color: @grid_bg;
     border-radius: 1em;
     padding: 20px 10px 0px 20px;
-    margin: 10px;
 }
-
+#z_offset_control_grid{
+    margin: 10px 0px 0px 0px;
+}
 #bed_mesh_calibration_body_grid{
-    margin:0px 5px 5px 5px;
+    margin:0px 10px 10px 10px;
 }
 
 #bed_mesh_calibration_message_grid,

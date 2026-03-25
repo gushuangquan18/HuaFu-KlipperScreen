@@ -1220,7 +1220,7 @@ msgstr "开启打印前探测"
 msgid "Turn off pre print detection"
 msgstr "关闭打印前探测"
 
-msgid "Firmware"
+msgid "Firmware Information"
 msgstr "固件"
 
 msgid "Current Network"
