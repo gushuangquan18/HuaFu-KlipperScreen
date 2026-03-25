@@ -136,7 +136,7 @@ progressbar progress {
     background-color: @grid_bg;
     border-radius: 1em;
     padding-top: 88px;
-    padding-left: 38px;
+    padding-left: 53px;
 }
 
 #lower_right_grid {
@@ -299,13 +299,16 @@ button.print_menu_button{
 }
 #air_system_grid,
 #speed_control_grid,
-#control_chassis_temperature_grid,
+#control_chassis_temperature_grid{
+    padding-top: 37px;
+    padding-left: 13px;
+}
 #control_heater_bed_temperature_grid{
-    padding-top: 22px;
+    padding-top: 30px;
     padding-left: 13px;
 }
 #sport_control_grid{
-    padding-top: 28px;
+    padding-top: 35px;
     padding-left: 13px;
 }
 #control_extruder_temperature_grid{
@@ -313,7 +316,7 @@ button.print_menu_button{
     padding-left: 13px;
 }
 #light_system_grid {
-    padding-top: 15px;
+    padding-top: 30px;
     padding-left: 20px;
 }
 
@@ -325,22 +328,24 @@ button.print_menu_button{
 #air_system_body_grid{
     background-color: @grid_bg;
     border-radius: 1em;
-    margin: 0px 0px 0px 7px;
+    margin: 0px 10px 0px 10px;
 }
 #air_system_left_grid{
     /*background-color: green;*/
-    padding: 60px 0px 0px 30px;
+    padding: 200px 0px 0px 30px;
 }
 button.air_system_left_grid_button{
-    padding: 30px 0px 0px 0px;
+    padding: 80px 0px 0px 0px;
 }
-
+#air_system_image_grid{
+     padding: 90px 0px 0px 0px;
+}
 #air_system_right_grid{
     /*background-color: green;*/
-    padding: 40px 0px 0px 0px;
+    padding: 180px 0px 0px 0px;
 }
 button.air_system_right_grid_button{
-    padding: 20px 0px 0px 0px;
+    padding: 50px 0px 0px 0px;
 }
 
 /* 速度控制 */
@@ -351,7 +356,7 @@ button.air_system_right_grid_button{
     background-color: @grid_bg;
     border-radius: 1em;
     padding:25px 25px 15px 25px;
-    margin: 10px;
+    margin: 0px 10px 10px 10px;
 }
 
 /* 运动控制*/
@@ -361,17 +366,17 @@ button.air_system_right_grid_button{
 #sport_control_body_grid{
     background-color: @grid_bg;
     border-radius: 1em;
-    padding: 10px 5px 0px 5px;
-    margin: 0px 8px 0px 8px;
+    padding: 20px 20px 10px 20px;
+    margin: 0px 10px 0px 10px;
 }
 #distance_grid{
     /*padding: 18px 0px 0px 0px;*/
 }
 #direction_control_grid{
-    margin: 3px 0px 0px 0px;
+    margin: 8px 0px 8px 0px;
 }
 #home_position_control_grid{
-    margin: 3px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
 }
 
 /*数字键盘通用*/
@@ -386,7 +391,7 @@ button.air_system_right_grid_button{
 
 #extruder_temperature_grid{
     padding: 10px 10px 0px 10px;
-    /*margin: 10px;*/
+    margin: 0px 10px 10px 10px;
 }
 
 
@@ -397,6 +402,7 @@ button.air_system_right_grid_button{
 
 #chassis_temperature_grid{
     padding: 10px 10px 0px 10px;
+    margin: 0px 10px 10px 10px;
 }
 
 /* 热床温度管理 */
@@ -406,6 +412,7 @@ button.air_system_right_grid_button{
 
 #heater_bed_temperature_grid{
     padding: 10px 10px 0px 10px;
+    margin: 0px 10px 10px 10px;
 }
 
 

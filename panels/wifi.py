@@ -102,7 +102,7 @@ def add_network(self, bssid):
     else:
         self.network_rows[ssid] = net
 
-    width = 520
+    width = 515
     height = 40
     wifi_button = self._gtk.Button(button_width = width, button_height = height, hexpand=True)
     self.other_wifi[ssid] = wifi_button

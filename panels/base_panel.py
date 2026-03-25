@@ -352,6 +352,8 @@ class BasePanel(ScreenPanel):
             father_menu = 'printer_control_menu'
         if item['panel'] == 'messages_menu':
             father_menu = 'messages_menu'
+        if item['panel'] == 'wifi':
+            father_menu = 'settings_menu'
         if father_menu == "print_menu":
             father_menu = 'home_menu'
         if father_menu is not None and father_menu.endswith("_menu"):

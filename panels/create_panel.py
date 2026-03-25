@@ -468,7 +468,7 @@ class Panel(ScreenPanel):
             item_control_name.set_position(0)  # 光标在最前
             item_control_name.set_alignment(0.5) # 文本居中
             if self._screen.vertical_mode:
-                item_control_name.set_size_request(400,60)
+                item_control_name.set_size_request(400,80)
             else:
                 item_control_name.set_size_request(400,100)
             item_control_name.get_style_context().add_class("entry_temperature")
