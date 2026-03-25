@@ -143,11 +143,12 @@ class Panel(ScreenPanel):
             i = self.counter
         if(panel_name is not None):
             parent_grid.set_name(panel_name)
-        if(panel_name == "printer_control_menu" or panel_name == "messages_menu" ):
+        if(panel_name in ("printer_control_menu", "messages_menu")):
             if self._screen.vertical_mode:
                 parent_grid.set_row_homogeneous(False)
             else:
                 parent_grid.set_row_homogeneous(True)
+
         if panel_name == "print_file_list":
             self._screen._ws.klippy.get_dir_info(self.load_files, self.cur_directory)
         if panel_name == "print_menu" and self.filename is not None :

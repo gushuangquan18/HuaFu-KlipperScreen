@@ -23,9 +23,11 @@ def init_panel(self):
     self.networks = {}
     self.wifi_switch.set_active(self.sdbus_nm.is_wifi_enabled())
     self.grid['current_network_grid'] = Gtk.Grid(orientation=Gtk.Orientation.HORIZONTAL)
-    self.grid['current_network_grid'].set_size_request(520, 100)
+    self.grid['current_network_grid'].set_size_request(520, 50)
+    self.grid['current_network_grid'].set_name('current_network_grid')
     self.grid['other_network_grid'] = Gtk.Grid(orientation=Gtk.Orientation.HORIZONTAL)
     self.grid['other_network_grid'].set_size_request(520, 400)
+    self.grid['other_network_grid'].set_name('other_network_grid')
     self.network_interfaces = self.sdbus_nm.get_interfaces()
     logging.info(f"Network interfaces: {self.network_interfaces}")
 
@@ -54,13 +56,16 @@ def popup_callback(self, msg, level=3):
     self._screen.show_popup_message(msg, level)
 
 #加载wifi列表
-def load_networks(self):
+def load_networks(self, widget = None):
     # {'BSSID': 'CE:4D:6B:96:64:E9', 'SSID': 'HuangHai', 'channel': '1', 'frequency': '2.4', 'known': False,'security': 'AES WPA-PSK', 'signal_level': 94}
     # MAC                           Name                    群组          频段                  是否连接        加密方式                    信号强度
     wifi_list = self.sdbus_nm.get_networks()
     for net in wifi_list:
         add_network(self, net['BSSID'])
     # GLib.timeout_add_seconds(10, self._gtk.Button_busy, self.buttons['reload_wifi'], False)
+    self.grid['wifi_message_grid'].set_column_homogeneous(True)
+    self.grid['current_network_grid'].set_column_homogeneous(True)
+    self.grid['other_network_grid'].set_column_homogeneous(True)
     if len(self.connected_wifi) <= 0:
         self.grid['wifi_message_grid'].attach(self.grid['other_network_grid'], 0, 0, 1, 1)
     if len(self.other_wifi) <= 0:
@@ -69,10 +74,17 @@ def load_networks(self):
         self.grid['wifi_message_grid'].attach(self.grid['current_network_grid'], 0, 0, 1, 1)
         self.grid['wifi_message_grid'].attach(self.grid['other_network_grid'], 0, 1, 1, 1)
     self.content.show_all()
+    if widget:
+        self._gtk.Button_busy(widget, False)
     return False
 
 #刷新Wifi列表
 def reload_wifi(widget, self):
+    self.connected_wifi = {}
+    self.other_wifi = {}
+    self.other_count_wifi =1
+    del self.network_rows
+    self.network_rows = {}
     grid_list = ['current_network_grid', 'other_network_grid']
     for grid in grid_list:
         if grid in self.grid and self.grid[grid] is not None:
@@ -87,7 +99,7 @@ def reload_wifi(widget, self):
         if widget:
             self._gtk.Button_busy(widget, True)
         # self.sdbus_nm.rescan()
-        load_networks(self)
+        load_networks(self,widget)
 
 #添加WIFI项
 def add_network(self, bssid):
@@ -109,7 +121,7 @@ def add_network(self, bssid):
 
     single_wifi_grid = Gtk.Grid(orientation=Gtk.Orientation.HORIZONTAL)
     wifi_button.add(single_wifi_grid)
-    single_wifi_grid.set_size_request(width, height)
+    # single_wifi_grid.set_size_request(width, height)
 
     if bssid == self.sdbus_nm.get_connected_bssid():
         self.connected_wifi[ssid] = self.other_wifi.pop(ssid)
@@ -125,13 +137,13 @@ def add_network(self, bssid):
         single_wifi_grid.attach(check_mark_icon, row, 0, 1, 1)
         row = row + 1
 
-        wifi_button.connect("clicked", connect_network, self, ssid)
+        wifi_button.connect("clicked", remove_confirm_dialog, self, ssid)
         wifi_button.get_style_context().add_class('single_wifi_current')
         self.grid['current_network_grid'].attach(wifi_button, 0, 1, 1, 1)
     else:
         other_network_label = Gtk.Label(label=_('Other Network'))
         self.grid['other_network_grid'].attach(other_network_label, 0, 0, 1, 1)
-        wifi_button.connect("clicked", connect_network, self, ssid)
+        wifi_button.connect("clicked", remove_confirm_dialog, self, ssid)
         wifi_button.get_style_context().add_class('single_wifi_other')
 
 
@@ -161,30 +173,31 @@ def add_network(self, bssid):
         self.other_count_wifi =  self.other_count_wifi+1
 
 
-def remove_confirm_dialog(self, widget, ssid, bssid):
-
-    label = Gtk.Label(wrap=True, vexpand=True)
-    label.set_markup(_("Do you want to forget or disconnect %s?") % ssid)
+#移除已经连接WiFi的Dialog
+def remove_confirm_dialog(widget,self,ssid):
+    title=_("Remove network")
     buttons = [
-        {"name": _("Forget"), "response": Gtk.ResponseType.OK, "style": 'dialog-warning'},
-        {"name": _("Cancel"), "response": Gtk.ResponseType.CANCEL, "style": 'dialog-error'},
+        {"name": _("Forget"), "response": Gtk.ResponseType.OK, "style": 'dialog_waring_button'},
+        {"name": _("Cancel"), "response": Gtk.ResponseType.CANCEL, "style": 'dialog_cancel_button'}
     ]
-    if bssid == self.sdbus_nm.get_connected_bssid():
-        buttons.insert(0, {"name": _("Disconnect"), "response": Gtk.ResponseType.APPLY, "style": 'dialog-info'})
-    self._gtk.Dialog(_("Remove network"), buttons, label, self.confirm_removal, ssid)
+    label = Gtk.Label(hexpand=True, vexpand=True, wrap=True)
+    label.set_markup(_("Do you want to forget this network?"))
+    self._gtk.Dialog(title, buttons, label, confirm_removal, self, ssid)
 
-def confirm_removal(self, dialog, response_id, ssid):
+def confirm_removal(dialog, response_id, klippy_gtk, self, ssid):
     self._gtk.remove_dialog(dialog)
     if response_id == Gtk.ResponseType.CANCEL:
         return
-    bssid = self.sdbus_nm.get_bssid_from_ssid(ssid)
-    self.remove_network_from_list(bssid)
+    # bssid = self.sdbus_nm.get_bssid_from_ssid(ssid)
     if response_id == Gtk.ResponseType.OK:
         logging.info(f"Deleting {ssid}")
         self.sdbus_nm.delete_network(ssid)
-    if response_id == Gtk.ResponseType.APPLY:
-        logging.info(f"Disconnecting {ssid}")
-        self.sdbus_nm.disconnect_network()
+    reload_wifi(None, self)
+
+
+
+
+
 
 def add_new_network(self, widget, ssid):
     self._screen.remove_keyboard()
@@ -246,14 +259,7 @@ def connect_network(self, widget, ssid, showadd=True):
     self.sdbus_nm.connect(ssid)
     reload_wifi(self)
 
-def remove_network_from_list(self, bssid):
-    if bssid not in self.network_rows:
-        logging.error(f"{bssid} not in rows")
-        return
-    self.network_list.remove(self.network_rows[bssid])
-    del self.network_rows[bssid]
-    del self.networks[bssid]
-    return
+
 
 def on_popup_shown(self, combo_box, params):
     if combo_box.get_property("popup-shown"):

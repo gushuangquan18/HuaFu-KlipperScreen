@@ -231,19 +231,21 @@ button.print_button{
 
 /* 打印界面管理 */
 #print_menu{
-    margin: 5px 5px 0px 5px;
+    margin: 10px 10px 0px 10px;
 }
 
 #left_up_grid{
-    background-color: red;
+    background-color: @grid_bg;
     border-radius: 0.5em;
     margin: 0px 10px 5px 10px;
+    padding: 10px 10px 5px 10px;
+
 }
 #temperature_grid{
     background-color: green;
     border-radius: 0.5em;
     margin: 5px 10px 0px 10px;
-    padding: 25px 0px 0px 0px;
+    padding: 40px 0px 0px 0px;
 }
 #printer_temperature_grid{
     padding: 40px 0px 0px 45px;
@@ -520,6 +522,12 @@ button.air_system_right_grid_button{
     border-radius: 0.5em;
     margin: 7px 14px 7px 14px;
     padding: 0px 15px 0px 20px;
+}
+#current_network_grid{
+    background-color: green;
+}
+#other_network_grid{
+    background-color: yellow;
 }
 button.single_wifi_current{
     background-color: @grid_bg;
