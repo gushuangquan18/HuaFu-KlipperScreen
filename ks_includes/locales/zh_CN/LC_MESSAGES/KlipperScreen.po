@@ -1223,6 +1223,21 @@ msgstr "关闭打印前探测"
 msgid "Firmware Information"
 msgstr "固件"
 
+msgid "Firmware"
+msgstr "固件"
+
+msgid "SSID"
+msgstr "WiFi名称"
+
+msgid "Frequency"
+msgstr "频段"
+
+msgid "Security"
+msgstr "安全"
+
+msgid "Signal Level"
+msgstr "信号强度"
+
 msgid "Current Network"
 msgstr "当前网络"
 
@@ -1231,6 +1246,9 @@ msgstr "其他网络"
 
 msgid "Forget Network"
 msgstr "忘记网络"
+
+msgid "Connect network"
+msgstr "连接网络"
 
 msgid "Do you want to forget this network?"
 msgstr "您想忘记该网络吗?"

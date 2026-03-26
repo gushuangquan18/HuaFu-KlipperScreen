@@ -9,6 +9,13 @@ from ks_includes.screen_panel import ScreenPanel
 from ks_includes.sdbus_nm import SdbusNm
 from datetime import datetime
 
+def format_label(widget, lines=2):
+    label = find_widget(widget, Gtk.Label)
+    if label is not None:
+        label.set_line_wrap_mode(Pango.WrapMode.WORD_CHAR)
+        label.set_line_wrap(True)
+        label.set_ellipsize(Pango.EllipsizeMode.END)
+        label.set_lines(lines)
 
 def init_panel(self):
     logging.exception("Initializing Wifi panel")
@@ -18,7 +25,6 @@ def init_panel(self):
     self.connected_wifi = {}
     self.other_wifi = {}
     self.other_count_wifi =0
-    self.network_list = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, hexpand=True, vexpand=True)
     self.network_rows = {}
     self.networks = {}
     self.wifi_switch.set_active(self.sdbus_nm.is_wifi_enabled())
@@ -102,7 +108,8 @@ def reload_wifi(widget, self):
 #添加WIFI项
 def add_network(self, bssid):
     row = 0
-
+    width = 500
+    height = 80
     net = next(net for net in self.sdbus_nm.get_networks() if bssid == net['BSSID'])
     ssid = net['SSID']
     # net_list = next(net for net in self.sdbus_nm.get_networks() if ssid == net['SSID'])
@@ -112,64 +119,67 @@ def add_network(self, bssid):
     else:
         self.network_rows[ssid] = net
 
-    width = 515
-    height = 40
-    wifi_button = self._gtk.Button(button_width = width, button_height = height, hexpand=True)
-    self.other_wifi[ssid] = wifi_button
+    current_network_label = Gtk.Label(label=_('Current Network'))
+    other_network_label = Gtk.Label(label=_('Other Network'))
 
-    single_wifi_grid = Gtk.Grid(orientation=Gtk.Orientation.HORIZONTAL)
-    wifi_button.add(single_wifi_grid)
-    # single_wifi_grid.set_size_request(width, height)
+    check_mark_icon = Gtk.Image()
+    pixbuf = GdkPixbuf.Pixbuf.new_from_file("images/check_mark.png")
+    scaled_pixbuf = pixbuf.scale_simple(23, 23, GdkPixbuf.InterpType.BILINEAR)
+    check_mark_icon.set_from_pixbuf(scaled_pixbuf)
 
-    if bssid == self.sdbus_nm.get_connected_bssid():
-        self.connected_wifi[ssid] = self.other_wifi.pop(ssid)
+    wifi_name = Gtk.Label(hexpand=True, halign=Gtk.Align.START, wrap=True, wrap_mode=Pango.WrapMode.WORD_CHAR)
+    wifi_name.set_markup(f"<b>{ssid}</b>")
 
-        current_network_label = Gtk.Label(label=_('Current Network'))
-        self.box['current_network_box'].pack_start(current_network_label, False, False, 0)
-
-
-        check_mark_icon = Gtk.Image()
-        pixbuf = GdkPixbuf.Pixbuf.new_from_file("images/check_mark.png")
-        scaled_pixbuf = pixbuf.scale_simple(23, 23, GdkPixbuf.InterpType.BILINEAR)
-        check_mark_icon.set_from_pixbuf(scaled_pixbuf)
-        single_wifi_grid.attach(check_mark_icon, row, 0, 1, 1)
-        row = row + 1
-
-        wifi_button.connect("clicked", remove_confirm_dialog, self, ssid)
-        wifi_button.get_style_context().add_class('single_wifi_current')
-        self.box['current_network_box'].pack_start(wifi_button, False, False, 0)
-    else:
-        if self.other_count_wifi < 1 :
-            other_network_label = Gtk.Label(label=_('Other Network'))
-            self.box['other_network_box'].pack_start(other_network_label, False, False, 0)
-        wifi_button.connect("clicked", remove_confirm_dialog, self, ssid)
-        wifi_button.get_style_context().add_class('single_wifi_other')
-
-
-    wifi_name = Gtk.Label(label=ssid)
-    single_wifi_grid.attach(wifi_name, row, 0, 1, 1)
-    row = row+1
-
-    space_label = Gtk.Label()
-    space_label.set_hexpand(True)
-    single_wifi_grid.attach(space_label, row, 0, 1, 1)
-    row = row + 1
-    if not bssid == self.sdbus_nm.get_connected_bssid():
-        lock_icon = Gtk.Image()
-        pixbuf = GdkPixbuf.Pixbuf.new_from_file("images/lock.png")
-        scaled_pixbuf = pixbuf.scale_simple(30, 30, GdkPixbuf.InterpType.BILINEAR)
-        lock_icon.set_from_pixbuf(scaled_pixbuf)
-        single_wifi_grid.attach(lock_icon, row, 0, 1, 1)
-        row = row + 1
+    lock_icon = Gtk.Image()
+    pixbuf = GdkPixbuf.Pixbuf.new_from_file("images/lock.png")
+    scaled_pixbuf = pixbuf.scale_simple(30, 30, GdkPixbuf.InterpType.BILINEAR)
+    lock_icon.set_halign(Gtk.Align.END)
+    lock_icon.set_from_pixbuf(scaled_pixbuf)
 
     wifi_icon = Gtk.Image()
     pixbuf = GdkPixbuf.Pixbuf.new_from_file("images/wifi_icon.png")
     scaled_pixbuf = pixbuf.scale_simple(38, 30, GdkPixbuf.InterpType.BILINEAR)
+    wifi_icon.set_halign(Gtk.Align.END)
     wifi_icon.set_from_pixbuf(scaled_pixbuf)
-    single_wifi_grid.attach(wifi_icon, row, 0, 1, 1)
+
+
+
+    left_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, vexpand=True,
+                     halign=Gtk.Align.START, valign=Gtk.Align.CENTER, spacing=10)
+    if bssid == self.sdbus_nm.get_connected_bssid():
+        left_box.add(check_mark_icon)
+    left_box.add(wifi_name)
+
+    right_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, vexpand=True,
+                     halign=Gtk.Align.END, valign=Gtk.Align.CENTER, spacing=5)
     if not bssid == self.sdbus_nm.get_connected_bssid():
-        self.box['other_network_box'].pack_start(wifi_button, False, False, 0)
-        self.other_count_wifi =  self.other_count_wifi+1
+        right_box.add(lock_icon)
+    right_box.add(wifi_icon)
+
+
+    wifi_button = self._gtk.Button(button_width=width, button_height=height, hexpand=True)
+    single_wifi_box = Gtk.Box(spacing=3, hexpand=True, vexpand=False)
+    single_wifi_box.add(left_box)
+    single_wifi_box.add(right_box)
+    wifi_button.add(single_wifi_box)
+    self.other_wifi[ssid] = wifi_button
+    if bssid == self.sdbus_nm.get_connected_bssid():
+        self.box['current_network_box'].add(current_network_label)
+        wifi_button.get_style_context().add_class("single_wifi_current")
+        wifi_button.connect("clicked", remove_confirm_dialog, self, ssid)
+        self.box['current_network_box'].add(wifi_button)
+        self.connected_wifi[ssid] = self.other_wifi.pop(ssid)
+    else:
+        if self.other_count_wifi ==0:
+            self.box['other_network_box'].add(other_network_label)
+        wifi_button.get_style_context().add_class("single_wifi_other")
+        wifi_button.connect("clicked", connect_network, self, ssid)
+        self.box['other_network_box'].add(wifi_button)
+        self.other_count_wifi = self.other_count_wifi+1
+
+
+
+
 
 
 #移除已经连接WiFi的Dialog
@@ -194,23 +204,96 @@ def confirm_removal(dialog, response_id, klippy_gtk, self, ssid):
     reload_wifi(None, self)
 
 
+#连接Wifi Diaolog
+def connect_network(widget, self, ssid, showadd=True):
+    if showadd and not self.sdbus_nm.is_known(ssid):
+        sec_type = self.sdbus_nm.get_security_type(ssid)
+        if sec_type == "Open" or "OWE" in sec_type:
+            logging.debug("Network is Open do not show psk")
+            result = self.sdbus_nm.add_network(ssid, '')
+            if "error" in result:
+                self._screen.show_popup_message(result["message"])
+        else:
+            show_connect_network_dialog(widget, self, ssid)
+        return
+    # bssid = self.sdbus_nm.get_bssid_from_ssid(ssid)
+    # self.sdbus_nm.connect(ssid)
+    # reload_wifi(self)
+#显示连接Wifi Dialog
+def show_connect_network_dialog(widget, self, ssid):
+    title = _("Connect network")
+    buttons = [
+        {"name": _("Save"), "response": Gtk.ResponseType.OK, "style": 'dialog_print_button'},
+        {"name": _("Cancel"), "response": Gtk.ResponseType.CANCEL, "style": 'dialog_cancel_button'}
+    ]
 
+    main_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, vexpand=True)
 
+    orientation = Gtk.Orientation.VERTICAL if self._screen.vertical_mode else Gtk.Orientation.HORIZONTAL
+    inside_box = Gtk.Box(orientation=orientation, vexpand=True)
 
+    # if self._screen.vertical_mode:
+    #     width = self._screen.width * .9
+    #     height = (self._screen.height - self._gtk.dialog_buttons_height - self._gtk.font_size * 5) * .45
+    # else:
+    #     width = self._screen.width * .5
+    #     height = (self._screen.height - self._gtk.dialog_buttons_height - self._gtk.font_size * 6)
+    #
+    # pixbuf = self.get_file_image(filename, 200, 200)
+    # if pixbuf is not None:
+    #     image = Gtk.Image.new_from_pixbuf(pixbuf)
+    #     inside_box.pack_start(image, True, True, 0)
 
+    info_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, vexpand=True)
+    net = next(net for net in self.sdbus_nm.get_networks() if ssid == net['SSID'])
+    format_wifiinfo = Gtk.Label(
+        label=get_wifi_info(self, net), use_markup=True, ellipsize=Pango.EllipsizeMode.END
+    )
+    info_box.pack_start(format_wifiinfo, True, True, 0)
+    info_box.get_style_context().add_class("dialog_info_box")
+    inside_box.pack_start(info_box, True, True, 0)
 
+    self.labels['network_psk'] = Gtk.Entry(hexpand=True)
+    self.labels['network_psk'].set_size_request(-1, 50)
+    self.labels['network_psk'].set_name("wifi_password")
+    inside_box.pack_start(self.labels['network_psk'], True, True, 0)
+    # self.labels['network_psk'].connect("activate", self.add_new_network, ssid)
+    # def show_keyboard(self, entry=None, event=None, box=None, close_cb=None):
 
+    key_board_box = Gtk.Box(orientation=orientation, vexpand=True)
+    self.labels['network_psk'].connect("touch-event", self._screen.show_keyboard,key_board_box,None)
+    self.labels['network_psk'].connect("button-press-event", self._screen.show_keyboard,key_board_box,None)
+    inside_box.pack_start(key_board_box, True, True, 0)
+    main_box.pack_start(inside_box, True, True, 0)
+    self._gtk.Dialog(title, buttons, main_box, add_new_network, self, ssid)
 
+#获取wifi详细信息
+def get_wifi_info(self, net):
+    info = ""
 
+    # {'BSSID': 'CE:4D:6B:96:64:E9', 'SSID': 'HuangHai', 'channel': '1', 'frequency': '2.4', 'known': False,'security': 'AES WPA-PSK', 'signal_level': 94}
+    # MAC                           Name                    群组          频段                  是否连接        加密方式                    信号强度
+    if "SSID" in net:
+        info += _("SSID") + f': <b>{net["SSID"]}</b> ' + '\n'
 
+    if "frequency" in net:
+        info += _("Frequency") + f': <b>{net["frequency"]}</b>G' + '\n'
 
+    if "security" in net:
+        info += _("Security") + f': <b>{net["security"]}</b> ' + '\n'
 
+    if "signal_level" in net:
+        info += _("Signal Level") + f': <b>{net["signal_level"]}%</b> ' + '\n'
 
+    if "BSSID" in net:
+        info += _("MAC Address") + f': <b>{net["BSSID"]}</b> '
+    return info
 
-
-
-
-def add_new_network(self, widget, ssid):
+#连接Wifi Dialog callback回调方法
+def add_new_network(dialog, response_id, klippy_gtk, self, ssid):
+    self._gtk.remove_dialog(dialog)
+    if response_id == Gtk.ResponseType.CANCEL:
+        return
     self._screen.remove_keyboard()
     psk = self.labels['network_psk'].get_text()
     identity = self.labels['network_identity'].get_text()
@@ -226,6 +309,88 @@ def add_new_network(self, widget, ssid):
     else:
         self.connect_network(widget, ssid, showadd=False)
     self.close_add_network()
+
+#     if self.show_add:
+#         return
+#
+#     for child in self.content.get_children():
+#         self.content.remove(child)
+#
+#     if "add_network" in self.labels:
+#         del self.labels['add_network']
+#
+#     eap_method = Gtk.ComboBoxText(hexpand=True)
+#     eap_method.connect("notify::popup-shown", self.on_popup_shown)
+#     for method in ("peap", "ttls", "pwd", "leap", "md5"):
+#         eap_method.append(method, method.upper())
+#     self.labels['network_eap_method'] = eap_method
+#     eap_method.set_active(0)
+#
+#     phase2 = Gtk.ComboBoxText(hexpand=True)
+#     phase2.connect("notify::popup-shown", self.on_popup_shown)
+#     for method in ("mschapv2", "gtc", "pap", "chap", "mschap", "disabled"):
+#         phase2.append(method, method.upper())
+#     self.labels['network_phase2'] = phase2
+#     phase2.set_active(0)
+#
+#     auth_selection_box = Gtk.Box(no_show_all=True)
+#     auth_selection_box.add(self.labels['network_eap_method'])
+#     auth_selection_box.add(self.labels['network_phase2'])
+#
+#     self.labels['network_identity'] = Gtk.Entry(hexpand=True, no_show_all=True)
+#     self.labels['network_identity'].connect("touch-event", self._screen.show_keyboard)
+#     self.labels['network_identity'].connect("button-press-event", self._screen.show_keyboard)
+#
+#     self.labels['network_psk'] = Gtk.Entry(hexpand=True)
+#     self.labels['network_psk'].connect("activate", self.add_new_network, ssid)
+#     self.labels['network_psk'].connect("touch-event", self._screen.show_keyboard)
+#     self.labels['network_psk'].connect("button-press-event", self._screen.show_keyboard)
+#
+#     save = self._gtk.Button("sd", _("Save"), "color3")
+#     save.set_hexpand(False)
+#     save.connect("clicked", self.add_new_network, ssid)
+#
+#     user_label = Gtk.Label(label=_("User"), hexpand=False, no_show_all=True)
+#     auth_grid = Gtk.Grid()
+#     auth_grid.attach(user_label, 0, 0, 1, 1)
+#     auth_grid.attach(self.labels['network_identity'], 1, 0, 1, 1)
+#     auth_grid.attach(Gtk.Label(label=_("Password"), hexpand=False), 0, 1, 1, 1)
+#     auth_grid.attach(self.labels['network_psk'], 1, 1, 1, 1)
+#     auth_grid.attach(save, 2, 0, 1, 2)
+#
+#     if "802.1x" in self.sdbus_nm.get_security_type(ssid):
+#         user_label.show()
+#         self.labels['network_eap_method'].show()
+#         self.labels['network_phase2'].show()
+#         self.labels['network_identity'].show()
+#         auth_selection_box.show()
+#
+#     self.labels['add_network'] = Gtk.Box(
+#         orientation=Gtk.Orientation.VERTICAL, spacing=5, valign=Gtk.Align.CENTER,
+#         hexpand=True, vexpand=True
+#     )
+#     self.labels['add_network'].add(Gtk.Label(label=_("Connecting to %s") % ssid))
+#     self.labels['add_network'].add(auth_selection_box)
+#     self.labels['add_network'].add(auth_grid)
+#     scroll = self._gtk.ScrolledWindow()
+#     scroll.add(self.labels['add_network'])
+#     self.content.add(scroll)
+#     self.labels['network_psk'].grab_focus_without_selecting()
+#     self.content.show_all()
+#     self.show_add = True
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
 
 def get_dropdown_value(self, dropdown, default=None):
     tree_iter = dropdown.get_active_iter()
@@ -251,25 +416,6 @@ def close_add_network(self):
         if i in self.labels:
             del self.labels[i]
     self.show_add = False
-
-def connect_network(self, widget, ssid, showadd=True):
-    if showadd and not self.sdbus_nm.is_known(ssid):
-        sec_type = self.sdbus_nm.get_security_type(ssid)
-        if sec_type == "Open" or "OWE" in sec_type:
-            logging.debug("Network is Open do not show psk")
-            result = self.sdbus_nm.add_network(ssid, '')
-            if "error" in result:
-                self._screen.show_popup_message(result["message"])
-        else:
-            self.show_add_network(widget, ssid)
-        self.activate()
-        return
-    bssid = self.sdbus_nm.get_bssid_from_ssid(ssid)
-    if bssid and bssid in self.network_rows:
-        self.remove_network_from_list(bssid)
-    self.sdbus_nm.connect(ssid)
-    reload_wifi(self)
-
 
 
 def on_popup_shown(self, combo_box, params):

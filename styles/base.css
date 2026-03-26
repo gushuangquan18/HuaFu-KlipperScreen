@@ -385,6 +385,7 @@ trough {
 }
 
 .keyboard_pad {
+    background-color: #808080;
     margin: 0.05em;
     padding: 0.0em;
     border-radius: 0.7em;

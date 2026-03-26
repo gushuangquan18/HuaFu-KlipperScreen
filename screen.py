@@ -1647,21 +1647,24 @@ class KlipperScreen(Gtk.Window):
             self.remove_keyboard(box=box)
             entry.grab_focus()
         kbd_grid = Gtk.Grid()
-        kbd_grid.set_size_request(self.gtk.content_width, self.gtk.keyboard_height)
+        # kbd_grid.set_size_request(self.gtk.content_width, self.gtk.keyboard_height)
+        kbd_grid.set_size_request(470, 80)
         kbd_grid.set_vexpand(False)
+
 
         if self._config.get_main_config().getboolean("use-matchbox-keyboard", False):
             return self._show_matchbox_keyboard(kbd_grid)
         purpose = entry.get_input_purpose()
         kbd_width = 1
-        if not self.vertical_mode and purpose in (Gtk.InputPurpose.DIGITS, Gtk.InputPurpose.NUMBER):
-            kbd_grid.set_column_homogeneous(True)
-            kbd_width = 2 if purpose == Gtk.InputPurpose.DIGITS else 3
-        kbd_grid.attach(Gtk.Box(), 0, 0, 1, 1)
+        # if not self.vertical_mode and purpose in (Gtk.InputPurpose.DIGITS, Gtk.InputPurpose.NUMBER):
+        #     kbd_grid.set_column_homogeneous(True)
+        #     kbd_width = 2 if purpose == Gtk.InputPurpose.DIGITS else 3
+        kbd_grid.set_column_homogeneous(True)
+        # kbd_grid.attach(Gtk.Box(), 0, 0, 1, 1)
         kbd = self._get_keyboard(entry.get_input_purpose())
         kbd.reinit(close_cb=close_cb, entry=entry, box=box)
-        kbd_grid.attach(kbd, 1, 0, kbd_width, 1)
-        kbd_grid.attach(Gtk.Box(), kbd_width + 1, 0, 1, 1)
+        kbd_grid.attach(kbd, 0, 0, 1, 1)
+        # kbd_grid.attach(Gtk.Box(), kbd_width + 1, 0, 1, 1)
         self.keyboard = {
             "box": kbd_grid,
             "kbd": kbd

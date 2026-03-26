@@ -537,6 +537,9 @@ button.single_wifi_other{
     margin: 7px 14px 7px 14px;
     padding: 30px 25px 25px 20px;
 }
+#wifi_password{
+    margin: 10px 15px 0px 15px;
+}
 
 /* 内存信息 菜单界面*/
 #disk_messages{
