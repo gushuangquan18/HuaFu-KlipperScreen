@@ -523,12 +523,7 @@ button.air_system_right_grid_button{
     margin: 7px 14px 7px 14px;
     padding: 0px 15px 0px 20px;
 }
-#current_network_grid{
-    background-color: green;
-}
-#other_network_grid{
-    background-color: yellow;
-}
+
 button.single_wifi_current{
     background-color: @grid_bg;
     border-radius: 0.5em;

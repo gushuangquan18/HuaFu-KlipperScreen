@@ -103,6 +103,7 @@ class Panel(ScreenPanel):
         self.filename = None
         self.file_metadata = None
         self.grid = {}
+        self.box = {}
         self.wifi_switch = None
         self.change_item = ['print_busy',
                             'fen_model','speed_control_model','chassis_temperature', 'heater_bed_temperature', 'extruder_temperature', 'extruder1_temperature',
