@@ -242,7 +242,7 @@ class KlippyGtk:
         self.height=250
         button_width=200
         button_height=10
-        if args[0].vertical_mode:
+        if args is not None and args[0].vertical_mode:
             self.width = 480
             self.height = 170
             button_width = 150

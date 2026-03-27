@@ -351,17 +351,20 @@ class SdbusNm:
                 return connection_path
         return None
 
-    def connect(self, ssid):
+    def connect(self, ssid, wifi_self):
         if target_connection := self.get_connection_path_by_ssid(ssid):
-            self.popup(f"{ssid}\n{_('Starting WiFi Association')}", 1)
+            messages = f"{ssid}\n{_('Starting WiFi Association')}"
+            wifi_self._screen.show_popup_message(messages, 1)
             try:
                 active_connection = self.nm.activate_connection(target_connection)
                 return target_connection
             except Exception as e:
                 logging.exception("Unexpected error")
-                self.popup(f"Unexpected error: {e}")
+                messages = f"Unexpected error: {e}"
+                wifi_self._screen.show_popup_message(messages, 3)
         else:
-            self.popup(f"SSID '{ssid}' not found among saved connections")
+            messages = f"SSID '{ssid}' not found among saved connections"
+            wifi_self._screen.show_popup_message(messages, 3)
 
     def toggle_wifi(self, enable):
         self.nm.wireless_enabled = enable

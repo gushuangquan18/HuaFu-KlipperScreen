@@ -577,6 +577,9 @@ class Panel(ScreenPanel):
         if panel_name == "print_menu" and action == 'notify_status_update' :
             update_time_left(self,action,data)
 
+        if panel_name == "wifi":
+            reload_wifi(None, self)
+
         #更新Z偏移校准信息
         elif panel_name == "z_offset_calibration":
             if action == "notify_status_update":
