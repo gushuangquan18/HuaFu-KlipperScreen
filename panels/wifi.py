@@ -22,11 +22,10 @@ def init_panel(self):
     self.last_drop_time = datetime.now()
     self.show_add = False
     self.sdbus_nm = SdbusNm(popup_callback)
-    self.connected_wifi = {}
+    self.current_wifi = {}
+    self.current_wifi_grid = {}
     self.other_wifi = {}
-    self.other_count_wifi =0
-    self.network_rows = {}
-    self.networks = {}
+    self.other_wifi_grid = {}
     self.wifi_switch.set_active(self.sdbus_nm.is_wifi_enabled())
     self.box['current_network_box'] = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
     self.box['current_network_box'].set_name('current_network_box')
@@ -63,19 +62,25 @@ def popup_callback(self, msg, level=3):
 
 #加载wifi列表
 def load_networks(self, widget = None):
-    # {'BSSID': 'CE:4D:6B:96:64:E9', 'SSID': 'HuangHai', 'channel': '1', 'frequency': '2.4', 'known': False,'security': 'AES WPA-PSK', 'signal_level': 94}
-    # MAC                           Name                    群组          频段                  是否连接        加密方式                    信号强度
     wifi_list = self.sdbus_nm.get_networks()
     for net in wifi_list:
         add_network(self, net['BSSID'])
     # GLib.timeout_add_seconds(10, self._gtk.Button_busy, self.buttons['reload_wifi'], False)
-    if len(self.connected_wifi) <= 0:
-        self.grid['wifi_message_grid'].attach(self.box['other_network_box'], 0, 0, 1, 1)
-    if len(self.other_wifi) <= 0:
-        self.grid['wifi_message_grid'].attach(self.box['current_network_box'], 0, 0, 1, 1)
-    else:
-        self.grid['wifi_message_grid'].attach(self.box['current_network_box'], 0, 0, 1, 1)
-        self.grid['wifi_message_grid'].attach(self.box['other_network_box'], 0, 1, 1, 1)
+    current_network_label = Gtk.Label(label=_('Current Network'))
+    other_network_label = Gtk.Label(label=_('Other Network'))
+    row = 0
+    if len(self.current_wifi) > 0:
+        self.box['current_network_box'].add(current_network_label)
+        for wifi_button in self.current_wifi_grid:
+            self.box['current_network_box'].add(self.current_wifi_grid[wifi_button])
+        self.grid['wifi_message_grid'].attach(self.box['current_network_box'], 0, row, 1, 1)
+        row = row+1
+    if len(self.other_wifi) > 0:
+        self.box['other_network_box'].add(other_network_label)
+        for wifi_button in self.other_wifi_grid:
+            self.box['other_network_box'].add(self.other_wifi_grid[wifi_button])
+        self.grid['wifi_message_grid'].attach(self.box['other_network_box'], 0, row, 1, 1)
+
     self.content.show_all()
     if widget:
         self._gtk.Button_busy(widget, False)
@@ -83,13 +88,10 @@ def load_networks(self, widget = None):
 
 #刷新Wifi列表
 def reload_wifi(widget, self):
-    self.connected_wifi = {}
+    self.current_wifi = {}
+    self.current_wifi_grid = {}
     self.other_wifi = {}
-    self.other_count_wifi =0
-    del self.network_rows
-    self.network_rows = {}
-
-
+    self.other_wifi_grid = {}
     for child in self.grid['wifi_message_grid'].get_children():
         self.grid['wifi_message_grid'].remove(child)
 
@@ -108,19 +110,13 @@ def reload_wifi(widget, self):
 #添加WIFI项
 def add_network(self, bssid):
     row = 0
-    width = 500
-    height = 80
+    width = 800
+    height = 100
+    if self._screen.vertical_mode:
+        width = 500
+        height = 80
     net = next(net for net in self.sdbus_nm.get_networks() if bssid == net['BSSID'])
     ssid = net['SSID']
-    # net_list = next(net for net in self.sdbus_nm.get_networks() if ssid == net['SSID'])
-    #筛选重复的
-    if ssid in self.network_rows:
-        return
-    else:
-        self.network_rows[ssid] = net
-
-    current_network_label = Gtk.Label(label=_('Current Network'))
-    other_network_label = Gtk.Label(label=_('Other Network'))
 
     check_mark_icon = Gtk.Image()
     pixbuf = GdkPixbuf.Pixbuf.new_from_file("images/check_mark.png")
@@ -162,25 +158,28 @@ def add_network(self, bssid):
     single_wifi_box.add(left_box)
     single_wifi_box.add(right_box)
     wifi_button.add(single_wifi_box)
-    self.other_wifi[ssid] = wifi_button
-    if bssid == self.sdbus_nm.get_connected_bssid():
-        self.box['current_network_box'].add(current_network_label)
-        wifi_button.get_style_context().add_class("single_wifi_current")
-        wifi_button.connect("clicked", remove_confirm_dialog, self, ssid)
-        self.box['current_network_box'].add(wifi_button)
-        self.connected_wifi[ssid] = self.other_wifi.pop(ssid)
+    # net_list = next(net for net in self.sdbus_nm.get_networks() if ssid == net['SSID'])
+    # {'BSSID': 'CE:4D:6B:96:64:E9', 'SSID': 'HuangHai', 'channel': '1', 'frequency': '2.4', 'known': False,'max_bitrate'，130000'security': 'AES WPA-PSK', 'signal_level': 94}
+    # MAC                           Name                    群组          频段                  是否连接        加密方式                    信号强度
+    #筛选重复的
+    if ssid in self.current_wifi:
+        if self.current_wifi[ssid]['known'] or self.current_wifi[ssid]['signal_level'] > net['signal_level']:
+            return
+    elif ssid in self.other_wifi:
+        if self.other_wifi[ssid]['known'] or self.other_wifi[ssid]['signal_level'] > net['signal_level']:
+            return
     else:
-        if self.other_count_wifi ==0:
-            self.box['other_network_box'].add(other_network_label)
-        wifi_button.get_style_context().add_class("single_wifi_other")
-        wifi_button.connect("clicked", connect_network, self, ssid)
-        self.box['other_network_box'].add(wifi_button)
-        self.other_count_wifi = self.other_count_wifi+1
-
-
-
-
-
+        # if bssid == self.sdbus_nm.get_connected_bssid():
+        if net["known"]:
+            wifi_button.get_style_context().add_class("single_wifi_current")
+            wifi_button.connect("clicked", remove_confirm_dialog, self, ssid)
+            self.current_wifi[ssid] = net
+            self.current_wifi_grid[ssid] = wifi_button
+        else:
+            wifi_button.get_style_context().add_class("single_wifi_other")
+            wifi_button.connect("clicked", connect_network, self, ssid)
+            self.other_wifi[ssid] = net
+            self.other_wifi_grid[ssid] = wifi_button
 
 #移除已经连接WiFi的Dialog
 def remove_confirm_dialog(widget,self,ssid):
@@ -191,7 +190,11 @@ def remove_confirm_dialog(widget,self,ssid):
     ]
     label = Gtk.Label(hexpand=True, vexpand=True, wrap=True)
     label.set_markup(_("Do you want to forget this network?"))
-    self._gtk.Dialog(title, buttons, label, confirm_removal, self, ssid)
+    net = next(net for net in self.sdbus_nm.get_networks() if ssid == net['SSID'])
+    format_wifiinfo = Gtk.Label(
+        label=get_wifi_info(self, net), use_markup=True, ellipsize=Pango.EllipsizeMode.END
+    )
+    self._gtk.Dialog(title, buttons, format_wifiinfo, confirm_removal, self, ssid)
 #回调Dialog 按钮返回事件
 def confirm_removal(dialog, response_id, klippy_gtk, self, ssid):
     self._gtk.remove_dialog(dialog)
@@ -248,32 +251,43 @@ def show_connect_network_dialog(widget, self, ssid):
     # self.entry['wifi_psd'].set_visibility(False)  # 密码隐藏
     inside_box.pack_start(self.entry['wifi_psd'], True, True, 0)
 
-    # self.entry['wifi_psd'].connect("activate", self.add_new_network, ssid)
-    # def show_keyboard(self, entry=None, event=None, box=None, close_cb=None):
-
     key_board_box = Gtk.Box(orientation=orientation, vexpand=True)
     self.entry['wifi_psd'].connect("touch-event", self._screen.show_keyboard,key_board_box,None)
     self.entry['wifi_psd'].connect("button-press-event", self._screen.show_keyboard,key_board_box,None)
+    self.entry['wifi_psd'].connect("changed", on_entry_text_changed,self)
     inside_box.pack_start(key_board_box, True, True, 0)
     main_box.pack_start(inside_box, True, True, 0)
     self._gtk.Dialog(title, buttons, main_box, add_new_network, self, ssid)
 
+
+#获取输入框中wifi密码
+def on_entry_text_changed(entry_widget,self):
+    self.wifi_pwd = entry_widget.get_text()
+    print("当前WiFi密码输入框内容：", self.wifi_pwd)
+
+
 #获取wifi详细信息
 def get_wifi_info(self, net):
     info = ""
-    # {'BSSID': 'CE:4D:6B:96:64:E9', 'SSID': 'HuangHai', 'channel': '1', 'frequency': '2.4', 'known': False,'security': 'AES WPA-PSK', 'signal_level': 94}
+    # {'BSSID': 'CE:4D:6B:96:64:E9', 'SSID': 'HuangHai', 'channel': '1', 'frequency': '2.4', 'known': False, ‘max_bitrate’：130000'security': 'AES WPA-PSK', 'signal_level': 94}
     # MAC                           Name                    群组          频段                  是否连接        加密方式                    信号强度
     if "SSID" in net:
         info += _("SSID") + f': <b>{net["SSID"]}</b> ' + '\n'
 
+    if "channel" in net:
+        info += _("Channel") + f': <b>{net["channel"]}</b> ' + '\n'
+
     if "frequency" in net:
         info += _("Frequency") + f': <b>{net["frequency"]}</b>G' + '\n'
 
-    if "security" in net:
-        info += _("Security") + f': <b>{net["security"]}</b> ' + '\n'
-
     if "signal_level" in net:
         info += _("Signal Level") + f': <b>{net["signal_level"]}%</b> ' + '\n'
+
+    if "max_bitrate" in net:
+        info += _("Max Bitrate") + f': <b>{net["max_bitrate"]}</b> ' + '\n'
+
+    if "security" in net:
+        info += _("Security") + f': <b>{net["security"]}</b> ' + '\n'
 
     if "BSSID" in net:
         info += _("MAC Address") + f': <b>{net["BSSID"]}</b> '
@@ -284,8 +298,6 @@ def add_new_network(dialog, response_id, klippy_gtk, self, ssid):
     self._gtk.remove_dialog(dialog)
     if response_id == Gtk.ResponseType.CANCEL:
         return
-    psk = self.entry['wifi_psd'].get_text()
-    psk = '12345678'
     # identity = self.labels['network_identity'].get_text()
     # eap_method = self.get_dropdown_value(self.labels['network_eap_method'])
     eap_list = ["peap", "ttls", "pwd", "leap", "md5"]
@@ -295,7 +307,7 @@ def add_new_network(dialog, response_id, klippy_gtk, self, ssid):
     phase2 = phase2_list[0].upper()
     logging.debug(f"{phase2=}")
     logging.debug(f"{eap_method=}")
-    result = self.sdbus_nm.add_network(ssid, psk, eap_method, '', phase2)
+    result = self.sdbus_nm.add_network(ssid, self.wifi_pwd, eap_method, '', phase2)
     if "error" in result:
         self._screen.show_popup_message(result["message"])
         if result["error"] == "psk_invalid":
@@ -309,99 +321,11 @@ def toggle_wifi(switch, gparams, self):
     logging.info(f"WiFi {enable}")
     self.sdbus_nm.toggle_wifi(enable)
     if enable:
-        self.network_rows = {}
+        self.current_wifi = {}
+        self.current_wifi_grid = {}
+        self.other_wifi = {}
+        self.other_wifi_grid = {}
         reload_wifi(None, self)
     else:
         self.grid['wifi_message_grid'].hide()
-
-
-
-
-
-
-def get_dropdown_value(self, dropdown, default=None):
-    tree_iter = dropdown.get_active_iter()
-    model = dropdown.get_model()
-    result = model[tree_iter][0]
-    return result if result != "disabled" else None
-
-    for child in self.content.get_children():
-        self.content.remove(child)
-    self.content.add(self.labels['main_box'])
-    self.content.show()
-    for i in ['add_network', 'network_psk', 'network_identity']:
-        if i in self.labels:
-            del self.labels[i]
-    self.show_add = False
-
-
-def on_popup_shown(self, combo_box, params):
-    if combo_box.get_property("popup-shown"):
-        logging.debug("Dropdown popup show")
-        self.last_drop_time = datetime.now()
-    else:
-        elapsed = (datetime.now() - self.last_drop_time).total_seconds()
-        if elapsed < 0.2:
-            logging.debug(f"Dropdown closed too fast ({elapsed}s)")
-            GLib.timeout_add(50, combo_box.popup)
-            return
-        logging.debug("Dropdown popup close")
-
-def update_all_networks(self):
-    self.interface = self.sdbus_nm.get_primary_interface()
-    self.labels['interface'].set_text(_("Interface") + f': {self.interface}')
-    self.labels['ip'].set_text(f"IP: {self.sdbus_nm.get_ip_address()}")
-    nets = self.sdbus_nm.get_networks()
-    remove = [bssid for bssid in self.network_rows.keys() if bssid not in [net['BSSID'] for net in nets]]
-    for bssid in remove:
-        self.remove_network_from_list(bssid)
-    for net in nets:
-        if net['BSSID'] not in self.network_rows.keys():
-            self.add_network(net['BSSID'])
-        self.update_network_info(net)
-    for i, net in enumerate(nets):
-        for child in self.network_list.get_children():
-            if child == self.network_rows[net['BSSID']]:
-                self.network_list.reorder_child(child, i)
-    self.network_list.show_all()
-    return True
-
-def update_network_info(self, net):
-    if net['BSSID'] not in self.network_rows.keys() or net['BSSID'] not in self.networks:
-        logging.info(f"Unknown SSID {net['SSID']}")
-        return
-    info = _("Password saved") + '\n' if net['known'] else ""
-    chan = _("Channel") + f' {net["channel"]}'
-    max_bitrate = _("Max:") + f"{self.format_speed(net['max_bitrate'])}"
-    self.networks[net['BSSID']]['icon'].set_from_pixbuf(self.get_signal_strength_icon(net["signal_level"]))
-    self.networks[net['BSSID']]['info'].set_markup(
-        "<small>"
-        f"{info}"
-        f"{net['security']}\n"
-        f"{max_bitrate}\n"
-        f"{net['frequency']} Ghz  {chan}  {net['signal_level']} %\n"
-        f"{net['BSSID']}"
-        "</small>"
-    )
-
-def get_signal_strength_icon(self, signal_level):
-    # networkmanager uses percentage not dbm
-    if signal_level > 75:
-        return self.wifi_signal_icons['excellent']
-    elif signal_level > 60:
-        return self.wifi_signal_icons['good']
-    elif signal_level > 30:
-        return self.wifi_signal_icons['fair']
-    else:
-        return self.wifi_signal_icons['weak']
-
-def update_single_network_info(self):
-    self.labels['networkinfo'].set_markup(
-        f'<b>{self.interface}</b>\n\n'
-        + '<b>' + _("Hostname") + f':</b> {os.uname().nodename}\n'
-        f'<b>IPv4:</b> {self.sdbus_nm.get_ip_address()}\n'
-    )
-    self.labels['networkinfo'].show_all()
-    return True
-
 

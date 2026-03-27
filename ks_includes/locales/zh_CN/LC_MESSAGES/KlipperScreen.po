@@ -152,7 +152,7 @@ msgid "Changes how the time remaining is calculated"
 msgstr "调整剩余时间计算方法"
 
 msgid "Channel"
-msgstr "群组"
+msgstr "信道"
 
 msgid "Check ADXL Wiring"
 msgstr "请检查加速度计的接线"
@@ -1233,7 +1233,7 @@ msgid "Frequency"
 msgstr "频段"
 
 msgid "Security"
-msgstr "安全"
+msgstr "加密方式"
 
 msgid "Signal Level"
 msgstr "信号强度"
@@ -1249,6 +1249,9 @@ msgstr "忘记网络"
 
 msgid "Connect network"
 msgstr "连接网络"
+
+msgid "Max Bitrate"
+msgstr "最大速率"
 
 msgid "Do you want to forget this network?"
 msgstr "您想忘记该网络吗?"
