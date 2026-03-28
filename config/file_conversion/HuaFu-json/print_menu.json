@@ -393,7 +393,7 @@
               "rowspan": 1,
               "v_column": 0,
               "v_row": 0,
-              "v_columnspan": 1,
+              "v_columnspan": 2,
               "v_rowspan": 1
             },
             "space_label": {
@@ -406,33 +406,33 @@
               "rowspan": 1,
               "v_column": 0,
               "v_row": 2,
-              "v_columnspan": 1,
+              "v_columnspan": 2,
               "v_rowspan": 1
             },
-            "current_layer": {
-              "name": "Current Layers",
+            "print_speed": {
+              "name": "Print Speed",
               "type": "Label",
-              "value": "0 /",
-              "column": 2,
+              "value": "100%%",
+              "column": 3,
               "row": 0,
               "columnspan": 1,
               "rowspan": 1,
               "v_column": 0,
               "v_row": 2,
-              "v_columnspan": 1,
+              "v_columnspan": 2,
               "v_rowspan": 1
             },
-            "total_layers": {
-              "name": "Total_Layers",
+            "print_layers": {
+              "name": "Print Layers",
               "type": "Label",
-              "value": "0 |",
+              "value": "Layers : 0 | 50",
               "column": 3,
               "row": 0,
               "columnspan": 1,
               "rowspan": 1,
               "v_column": 0,
               "v_row": 3,
-              "v_columnspan": 1,
+              "v_columnspan": 2,
               "v_rowspan": 1
             },
             "remaining_time": {
@@ -445,7 +445,7 @@
               "rowspan": 1,
               "v_column": 0,
               "v_row": 4,
-              "v_columnspan": 1,
+              "v_columnspan": 2,
               "v_rowspan": 1
             },
             "h_progress_bar": {
@@ -474,7 +474,7 @@
               "rowspan": 1,
               "v_column": 0,
               "v_row": 5,
-              "v_columnspan": 1,
+              "v_columnspan": 2,
               "v_rowspan": 1
             }
           }

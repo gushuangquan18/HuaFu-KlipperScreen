@@ -15,6 +15,7 @@ from datetime import datetime
 from ks_includes.screen_panel import ScreenPanel
 from ks_includes.KlippyGtk import find_widget
 from ks_includes.KlippyGtk import KlippyGtk
+from panels.printer_control import direction_home
 
 
 
@@ -270,7 +271,7 @@ def change_pause_button_state(self, state, is_control, *args):
         filename = "images/start.png"
         button_text = _("Start")
 
-    self.labels['print_state'].set_label(state_text)
+    self.labels['print_state'].set_label(_("State")+" : "+state_text)
     pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_scale(
         filename=filename,
         width=50,
@@ -304,7 +305,10 @@ def update_time_left(self, action,data):
             #更改打印状态
             if data['print_stats']['state'] == 'paused':
                 change_pause_button_state(self, data['print_stats']['state'], False)
-
+    # print_speed
+    if ('gcode_move' in data) and ('speed_factor' in data['gcode_move']):
+        self.speed = round(float(data['gcode_move']['speed_factor']) * 100)
+        self.labels['print_speed'].set_label(_("Speed") + f' : {self.speed:3}%')
     name = ''
     # 放模型图
     if self.filename is not None:
@@ -343,14 +347,14 @@ def update_time_left(self, action,data):
     ) if "gcode_start_byte" in self.file_metadata else self._printer.get_stat('virtual_sdcard', 'progress')
     estimated = self.file_metadata['estimated_time'] if 'estimated_time' in self.file_metadata else 0
     if progress*100 <1 and self._printer.state == 'printing':
-        self.labels['print_state'].set_label(_("Preprocessing in progress..."))
+        self.labels['print_state'].set_label(_("State") + " : " +_("Preprocessing in progress..."))
     if progress*100 >1 and self._printer.state == 'printing':
-        self.labels['print_state'].set_label(_("Printing..."))
+        self.labels['print_state'].set_label(_("State") + " : " +_("Printing..."))
     if estimated > 1:
         # 更新剩余打印时间
-        self.labels["remaining_time"].set_label(f" -{self.format_eta(estimated, print_duration)}")
+        self.labels["remaining_time"].set_label(_("Time") + f" : -{self.format_eta(estimated, print_duration)}")
         progress = min(max(print_duration / estimated, 0), 1)
-        self.labels["percentage_progress"].set_label(f' {int(progress * 100)}%')
+        self.labels["percentage_progress"].set_label(_("Progress")+f' : {int(progress * 100)}%')
         self.labels['v_progress_bar'].set_fraction(progress)
         self.labels['h_progress_bar'].set_fraction(progress)
     #更新打印层数 total_layer 总层数  current_layer 打印层数
@@ -397,6 +401,7 @@ def cancel_confirm(dialog, response_id, klippy_gtk,self,*args):
         #args[0],widget 发出请求的按钮控件
         # if len(args) == 1:
         #     self._gtk.Button_busy(args[0], True)
+        direction_home(None, self, value=None)
         if self._screen._ws.klippy.print_cancel():
             parameter_item = {
                 "panel": "home_menu",

@@ -148,7 +148,7 @@ def add_network(self, bssid):
 
     right_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, vexpand=True,
                      halign=Gtk.Align.END, valign=Gtk.Align.CENTER, spacing=5)
-    if not bssid == self.sdbus_nm.get_connected_bssid():
+    if not net["known"]:
         right_box.add(lock_icon)
     right_box.add(wifi_icon)
 

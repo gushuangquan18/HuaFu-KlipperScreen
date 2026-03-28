@@ -107,7 +107,7 @@ class Panel(ScreenPanel):
         self.wifi_switch = None
         self.change_item = ['print_busy',
                             'fen_model','speed_control_model','chassis_temperature', 'heater_bed_temperature', 'extruder_temperature', 'extruder1_temperature',
-                            'percentage_progress','total_layers', 'current_layers','remaining_time','floor_height_progress',
+                            'percentage_progress','print_layers','print_speed','remaining_time','floor_height_progress',
                             'print_modeling_graphics', 'print_file_name', 'print_state','pause_button',
                             't0_extruder_consumables_control',
                             'start_z_calibration','raise_heater_bed','reduce_heater_bed','confirm','cancel',

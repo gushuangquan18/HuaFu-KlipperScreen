@@ -1073,6 +1073,9 @@ msgstr "停止"
 msgid "Confirm"
 msgstr "确认"
 
+msgid "Progress"
+msgstr "进度"
+
 msgid "Preprocessing in progress..."
 msgstr "预处理中..."
 
@@ -1132,6 +1135,15 @@ msgstr "热床"
 
 msgid "Print Time"
 msgstr "打印用时"
+
+msgid "Time"
+msgstr "时间"
+
+msgid "State"
+msgstr "状态"
+
+msgid "Layers"
+msgstr "层数"
 
 msgid "Light"
 msgstr "照明"
