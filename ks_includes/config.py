@@ -95,7 +95,7 @@ class KlipperScreenConfig:
             printers.append("Printer Printer")
         self.printers = [
             {printer[8:]: {
-                "moonraker_host": self.config.get(printer, "moonraker_host", fallback="192.168.7.57"),
+                "moonraker_host": self.config.get(printer, "moonraker_host", fallback="192.168.6.107"),
                 "moonraker_port": self.config.get(printer, "moonraker_port", fallback="7125"),
                 "moonraker_path": self.config.get(printer, "moonraker_path", fallback='').strip('/'),
                 "moonraker_ssl": self.config.getboolean(printer, "moonraker_ssl", fallback=None),
