@@ -234,7 +234,6 @@
           }
         }
       },
-      "panel": "disk_messages",
       "style": "settings_menu_button"
     },
     "firmware_information": {
@@ -368,7 +367,6 @@
       "v_row": 4,
       "v_columnspan": 1,
       "v_rowspan": 1,
-      "panel": "toolbox",
       "style": "settings_menu_button"
     },
     "system_settings": {
@@ -392,7 +390,6 @@
       "v_row": 5,
       "v_columnspan": 1,
       "v_rowspan": 1,
-      "panel": "system_settings",
       "style": "settings_menu_button"
     }
   }
