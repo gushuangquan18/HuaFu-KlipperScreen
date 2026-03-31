@@ -307,7 +307,7 @@ msgstr "失败，请先调整位置"
 msgid "Fan"
 msgstr "风扇"
 
-msgid "Filament"
+msgid "ConSumables"
 msgstr "耗材"
 
 msgid "Filament Used"
@@ -319,8 +319,14 @@ msgstr "使用耗材总数："
 msgid "Filament used:"
 msgstr "使用耗材："
 
-msgid "Filament:"
-msgstr "耗材："
+msgid "Consumables"
+msgstr "耗材"
+
+msgid "Color"
+msgstr "颜色"
+
+msgid "Diameter"
+msgstr "线宽"
 
 msgid "File"
 msgstr "文件"
@@ -1079,7 +1085,7 @@ msgstr "进度"
 msgid "Preprocessing in progress..."
 msgstr "预处理中..."
 
-msgid "Filament Type"
+msgid "Consumables Type"
 msgstr "耗材类型"
 
 msgid "Weight"
@@ -1169,9 +1175,6 @@ msgstr "低腔温适合打印PLA、PETG材料。"
 msgid "Hotbed Temperature"
 msgstr "热床温度"
 
-msgid "Extruder Temperature"
-msgstr "喷嘴温度"
-
 msgid "T0:Confirm"
 msgstr "T0:确认"
 
@@ -1192,6 +1195,9 @@ msgstr "编辑耗材"
 
 msgid "Control Consumables"
 msgstr "控制耗材"
+
+msgid "Reset"
+msgstr "重置"
 
 msgid "Length(mm)"
 msgstr "长度(mm)"

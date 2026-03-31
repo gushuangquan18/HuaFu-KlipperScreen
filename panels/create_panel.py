@@ -15,7 +15,7 @@ from ks_includes.widgets.flowboxchild_extended import PrintListItem
 STATIC_CONSUMABLES = {
     'supplier_select': ('Bambu Lab', 'Generic', 'Polymaker', 'Overture', 'eSUN'),
     'consumables_select': ('PLA', 'PETH', 'TPU'),
-    'dynamic_pressure_control_select': ('Default','Other')
+    'diameter_select': ('0.75mm','1.75mm')
 }
 
 #msgfmt -o KlipperScreen.mo KlipperScreen.po
@@ -518,6 +518,14 @@ class Panel(ScreenPanel):
             rgba = Gdk.RGBA()
             rgba.parse(value)  # 可以是 "blue", "#ff0000", "rgb(255,0,0)" 等
             item_control_name.set_rgba(rgba)
+            width = int(self._screen.env.from_string(item['width']).render(self.j2_data) if item['width'] else None)
+            height = int(self._screen.env.from_string(item['height']).render(self.j2_data) if item['height'] else None)
+            if self._screen.vertical_mode:
+                width = int(
+                    self._screen.env.from_string(item['v_width']).render(self.j2_data) if item['v_width'] else None)
+                height = int(
+                    self._screen.env.from_string(item['v_height']).render(self.j2_data) if item['v_height'] else None)
+            item_control_name.set_size_request(width, height)
             item_control_name.connect("color-set", self.on_color_chosen)
 
         return item_control_name

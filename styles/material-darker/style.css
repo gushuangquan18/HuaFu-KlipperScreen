@@ -431,8 +431,8 @@ button.air_system_right_grid_button{
 #edit_consumables_body_grid{
     background-color: @grid_bg;
     border-radius: 1em;
-    margin: 5px 10px 10px 5px ;
-    padding: 20px 20px 20px 10px;
+    margin: 5px 10px 10px 15px ;
+    padding: 20px 40px 20px 0px;
 }
 
 #control_consumables{
