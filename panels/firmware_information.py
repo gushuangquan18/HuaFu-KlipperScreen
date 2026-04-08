@@ -21,7 +21,7 @@ def update_system_info(self):
     print('a')
     system_info = self._printer.system_info
     if 'distribution' in system_info and 'id' in system_info['distribution']:
-        system_version = f'{system_info['distribution']['id'].capitalize()} {system_info['distribution']['version']}'
+        system_version = f"{system_info['distribution']['id'].capitalize()} {system_info['distribution']['version']}"
         self.labels['system_version'].set_label(system_version)
     network_address = None
     if 'network' in system_info :

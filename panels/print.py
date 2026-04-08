@@ -216,7 +216,7 @@ def confirm_print_response(dialog, response_id, klippy_gtk, self,fileinfo):
     elif response_id == Gtk.ResponseType.OK:
         print_start(dialog, self, fileinfo)
     elif response_id == Gtk.ResponseType.REJECT:
-        confirm_delete_file(self,None, f"gcodes/{fileinfo["filename"]}")
+        confirm_delete_file(self,None, f"gcodes/{fileinfo['filename']}")
 
 #开始打印文件，跳转到Print_menu界面
 def print_start(widget,self,fileinfo):
@@ -288,17 +288,17 @@ def update_time_left(self, action,data):
 
     #热床温度
     if ('heater_bed' in data) and ('temperature' in data['heater_bed']):
-        self.buttons["heater_bed_temperature"].set_label(f'{int(data['heater_bed']['temperature'])}℃')
+        self.buttons["heater_bed_temperature"].set_label(f"{int(data['heater_bed']['temperature'])}℃")
     #腔温
     if ('temperature_sensor filament_box_temp' in data) and ('temperature' in data['temperature_sensor filament_box_temp']):
-        self.buttons["chassis_temperature"].set_label(f'{int(data['temperature_sensor filament_box_temp']['temperature'])}℃')
+        self.buttons["chassis_temperature"].set_label(f"{int(data['temperature_sensor filament_box_temp']['temperature'])}℃")
 
     #T0喷嘴温度
     if ('extruder' in data) and ('temperature' in data['extruder']):
-        self.buttons["extruder_temperature"].set_label(f'{int(data['extruder']['temperature'])}℃')
+        self.buttons["extruder_temperature"].set_label(f"{int(data['extruder']['temperature'])}℃")
     #T1喷嘴温度
     if ('extruder1' in data) and ('temperature' in data['extruder1']):
-        self.buttons["extruder1_temperature"].set_label(f'{int(data['extruder1']['temperature'])}℃')
+        self.buttons["extruder1_temperature"].set_label(f"{int(data['extruder1']['temperature'])}℃")
     #更改打印状态
     if 'print_stats' in data :
         if 'state' in data['print_stats']:

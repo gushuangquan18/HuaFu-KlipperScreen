@@ -79,7 +79,7 @@ class ScreenPanel:
                 image_name = ''
                 a=MENU_NAME[i]
                 if (item['panel'] == MENU_NAME[i]):
-                    image_name = f'images/{item['panel']}_blue_icon.png'
+                    image_name = f"images/{item['panel']}_blue_icon.png"
                 else:
                     image_name =  f'images/{MENU_NAME[i]}_icon.png'
                 pixbuf = GdkPixbuf.Pixbuf.new_from_file(image_name)

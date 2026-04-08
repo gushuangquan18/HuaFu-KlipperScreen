@@ -573,7 +573,7 @@ class Panel(ScreenPanel):
                     else:
                         value = 'Off'
                     if panel_name == "printer_control_menu":
-                        self.labels['fen_model'].set_text(f'{_('Fan : ')}{_(value)}')
+                        self.labels['fen_model'].set_text(f"{_('Fan : ')}{_(value)}")
                     else:
                         self.labels['fen_model'].set_text(f'{_(value)}')
         if panel_name == "printer_control_menu" :
