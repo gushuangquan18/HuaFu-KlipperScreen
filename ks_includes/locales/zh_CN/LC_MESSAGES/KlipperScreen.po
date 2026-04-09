@@ -1232,6 +1232,9 @@ msgstr "切割连续纤维耗材"
 msgid "Stop chamber temperature heating"
 msgstr "停止腔温加热"
 
+msgid "Clean Nozzle"
+msgstr "清洁喷嘴"
+
 msgid "Turn on pre print detection"
 msgstr "开启打印前探测"
 

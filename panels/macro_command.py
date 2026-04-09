@@ -32,6 +32,14 @@ def stop_chamber_temperature(widget, self):
                                             "SET_PIN PIN=chamber_heater6_relay VALUE=0\n"+
                                             "SET_PIN PIN=chamber_heater1_relay VALUE=0"})
 
+def clean_nozzle(widget, self):
+    logging.info(_("Clean Nozzle"))
+    self._screen._send_action(widget, "printer.gcode.script",
+                              {"script": f"SET_GCODE_VARIABLE MACRO=_CHAMBER_VARS VARIABLE=target_temp VALUE=0\n"+
+                                            "SET_PIN PIN=chamber_heater5_relay VALUE=0\n"+
+                                            "SET_PIN PIN=chamber_heater6_relay VALUE=0\n"+
+                                            "SET_PIN PIN=chamber_heater1_relay VALUE=0"})
+
 def turn_on_each_detection_bed(widget, self):
     # 每次打印之前自动探测床网 只探测所打印的位置
     #BED_MESH_CALIBRATE ADAPTIVE = 1

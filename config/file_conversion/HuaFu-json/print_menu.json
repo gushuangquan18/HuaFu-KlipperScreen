@@ -438,7 +438,7 @@
             "remaining_time": {
               "name": "Remaining Time",
               "type": "Label",
-              "value": "-2h",
+              "value": "Time",
               "column": 4,
               "row": 0,
               "columnspan": 1,

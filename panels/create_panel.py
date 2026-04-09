@@ -17,7 +17,7 @@ STATIC_CONSUMABLES = {
     'diameter_select': ('0.75mm','1.75mm')
 }
 
-#msgfmt -o KlipperScreen.mo KlipperScreen.po
+#msgfmt -o /home/gsq/PycharmProjects/HuaFu-KlipperScreen/ks_includes/locales/zh_CN/LC_MESSAGES/KlipperScreen.mo /home/gsq/PycharmProjects/HuaFu-KlipperScreen/ks_includes/locales/zh_CN/LC_MESSAGES/KlipperScreen.po
 #pip3 install sdbus --break-system-packages
 
 from panels.print import (refresh_loading,
@@ -45,7 +45,7 @@ from panels.calibration import (bed_mesh_calibration,
                                   start_z_calibration,
                                   confrim_calibration,
                                   cancle_calibration)
-from panels.macro_command import cut,stop_chamber_temperature,turn_on_each_detection_bed,turn_off_each_detection_bed
+from panels.macro_command import cut,stop_chamber_temperature,clean_nozzle,turn_on_each_detection_bed,turn_off_each_detection_bed
 from panels.firmware_information import update_system_info
 from panels.wifi import init_panel,reload_wifi,toggle_wifi
 
@@ -274,6 +274,8 @@ class Panel(ScreenPanel):
                 item_control_name.connect("clicked", cut,self)
             elif (item['method'] == 'stop_chamber_temperature'):
                 item_control_name.connect("clicked", stop_chamber_temperature,self)
+            elif (item['method'] == 'clean_nozzle'):
+                item_control_name.connect("clicked", clean_nozzle,self)
             elif (item['method'] == 'turn_on_each_detection_bed'):
                 item_control_name.connect("clicked", turn_on_each_detection_bed,self)
             elif (item['method'] == 'turn_off_each_detection_bed'):
