@@ -465,13 +465,13 @@ button.air_system_right_grid_button{
 #messages_assistant_grid{
     background-color: @grid_bg;
     border-radius: 1em;
-    margin: 10px 10px 10px 10px;
+    margin: 20px 20px 10px 20px;
 }
 
 #messages_grid {
     background-color: @grid_bg;
     border-radius: 1em;
-    margin: 0px 10px 10px 10px;
+    margin: 10px 20px 20px 20px;
 }
 
 

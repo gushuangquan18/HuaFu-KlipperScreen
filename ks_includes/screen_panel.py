@@ -330,10 +330,11 @@ class ScreenPanel:
         return name
 
     #格式化展示温度
-    def update_temp(self, dev, temp, target, power, name,lines=1, digits=1):
+    def update_temp(self, panel_name, dev, temp, target, power, name,lines=1, digits=1):
         new_label_text = f"{temp or 0:.{digits}f}"
         if self._printer.device_has_target(dev) and target:
-            if name == "extruder_temperature" or name == "extruder1_temperature":
+            if (name in ("extruder_temperature", "extruder1_temperature")
+                    or (name in ("heater_bed_temperature", "chassis_temperature") and panel_name == "air_system")):
                 new_label_text += f"\n{int(target)}"
             else:
                 new_label_text += f"/{int(target)}"

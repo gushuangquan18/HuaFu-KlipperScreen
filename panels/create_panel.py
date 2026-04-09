@@ -556,6 +556,7 @@ class Panel(ScreenPanel):
                         if type == "chassis":
                             type = "temperature_sensor filament_box_temp"
                         self.update_temp(
+                            panel_name,
                             type,
                             self._printer.get_stat(type, "temperature"),
                             self._printer.get_stat(type, "target"),
