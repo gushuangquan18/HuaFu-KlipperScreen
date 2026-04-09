@@ -26,7 +26,7 @@
         "printer": {
           "name": "3D Printer Model",
           "type": "Image",
-          "src": "images/3D_printer.png",
+          "src": "images/printer.png",
           "width": 350,
           "height": 350,
           "column": 0,
