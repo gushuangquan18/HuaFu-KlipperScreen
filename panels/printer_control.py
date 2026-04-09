@@ -92,9 +92,14 @@ def move(widget, self, value):
         direction = value[1]
     if (
             self._config.get_config()["main"].getboolean(f"invert_{axis}", False)
-            and axis != "z"
+            and axis != "x"
     ):
         direction = "-" if direction == "+" else "+"
+    if (
+            self._config.get_config()["main"].getboolean(f"invert_{axis}", False)
+            and axis == "x"
+    ):
+        direction = "+" if direction == "+" else "-"
 
     dist = f"{direction}{target}"
     config_key = "move_speed_z" if axis == "z" else "move_speed_xy"

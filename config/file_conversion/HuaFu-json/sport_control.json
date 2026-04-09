@@ -233,7 +233,7 @@
           "direction_up": {
             "name": "Direction Up",
             "type": "Button",
-            "value": "Z+",
+            "value": "Z-",
             "method": "move",
             "hexpand": "False",
             "vexpand": "False",
@@ -275,7 +275,7 @@
           "direction_left": {
             "name": "Direction Left",
             "type": "Button",
-            "value": "X+",
+            "value": "X-",
             "method": "move",
             "hexpand": "False",
             "vexpand": "False",
@@ -296,7 +296,7 @@
           "direction_right": {
             "name": "Direction Right",
             "type": "Button",
-            "value": "X-",
+            "value": "X+",
             "method": "move",
             "hexpand": "False",
             "vexpand": "False",
@@ -338,7 +338,7 @@
           "direction_down": {
             "name": "Direction Down",
             "type": "Button",
-            "value": "Z-",
+            "value": "Z+",
             "method": "move",
             "hexpand": "False",
             "vexpand": "False",
