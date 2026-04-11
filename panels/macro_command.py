@@ -27,18 +27,17 @@ def cut(widget, self):
 def stop_chamber_temperature(widget, self):
     logging.info(_("Stop chamber temperature heating"))
     self._screen._send_action(widget, "printer.gcode.script",
-                              {"script": f"SET_GCODE_VARIABLE MACRO=_CHAMBER_VARS VARIABLE=target_temp VALUE=0\n"+
-                                            "SET_PIN PIN=chamber_heater5_relay VALUE=0\n"+
-                                            "SET_PIN PIN=chamber_heater6_relay VALUE=0\n"+
-                                            "SET_PIN PIN=chamber_heater1_relay VALUE=0"})
+                              {"script": f"CHAMBER_STOP"})
+    # self._screen._send_action(widget, "printer.gcode.script",
+    #                           {"script": f"SET_GCODE_VARIABLE MACRO=_CHAMBER_VARS VARIABLE=target_temp VALUE=0\n"+
+    #                                         "SET_PIN PIN=chamber_heater5_relay VALUE=0\n"+
+    #                                         "SET_PIN PIN=chamber_heater6_relay VALUE=0\n"+
+    #                                         "SET_PIN PIN=chamber_heater1_relay VALUE=0"})
 
 def clean_nozzle(widget, self):
     logging.info(_("Clean Nozzle"))
     self._screen._send_action(widget, "printer.gcode.script",
-                              {"script": f"SET_GCODE_VARIABLE MACRO=_CHAMBER_VARS VARIABLE=target_temp VALUE=0\n"+
-                                            "SET_PIN PIN=chamber_heater5_relay VALUE=0\n"+
-                                            "SET_PIN PIN=chamber_heater6_relay VALUE=0\n"+
-                                            "SET_PIN PIN=chamber_heater1_relay VALUE=0"})
+                              {"script": f"CLEAN_NOZZLE"})
 
 def turn_on_each_detection_bed(widget, self):
     # 每次打印之前自动探测床网 只探测所打印的位置
