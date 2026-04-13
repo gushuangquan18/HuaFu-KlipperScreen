@@ -47,7 +47,7 @@ from panels.calibration import (bed_mesh_calibration,
                                   cancle_calibration)
 from panels.macro_command import cut,stop_chamber_temperature,clean_nozzle,turn_on_each_detection_bed,turn_off_each_detection_bed
 from panels.firmware_information import update_system_info
-from panels.wifi import init_panel,reload_wifi,toggle_wifi
+from panels.wifi import init_panel,on_refresh_clicked,on_wifi_switch_toggled
 
 class Panel(ScreenPanel):
 
@@ -103,6 +103,7 @@ class Panel(ScreenPanel):
         self.file_metadata = None
         self.grid = {}
         self.box = {}
+        self.switch ={}
         self.wifi_switch = None
         self.change_item = ['print_busy',
                             'fen_model','speed_control_model','chassis_temperature', 'heater_bed_temperature', 'extruder_temperature', 'extruder1_temperature',
@@ -281,7 +282,7 @@ class Panel(ScreenPanel):
             elif (item['method'] == 'turn_off_each_detection_bed'):
                 item_control_name.connect("clicked", turn_off_each_detection_bed,self)
             elif (item['method'] == 'reload_wifi'):
-                item_control_name.connect("clicked", reload_wifi,self)
+                item_control_name.connect("clicked", on_refresh_clicked,self)
 
 
             if current_key.startswith('distance') :
@@ -425,11 +426,11 @@ class Panel(ScreenPanel):
             value = self._screen.env.from_string(item['value']).render(self.j2_data) if item['value'] else None
             # width = int(self._screen.env.from_string(item['width']).render(self.j2_data) if item['width'] else None)
             # height = int(self._screen.env.from_string(item['height']).render(self.j2_data) if item['height'] else None)
-            # item_control_name.set_size_request(width, height)
-            item_control_name.connect("notify::active", toggle_wifi,self)
+            # item_control_name.set_size_request(120, 60)
             if current_key == "wifi_switch":
-                self.wifi_switch = item_control_name
-                return self.wifi_switch
+                item_control_name.connect("notify::active", on_wifi_switch_toggled, self)
+                self.switch[current_key] = item_control_name
+                return self.switch[current_key]
 
         elif (item['type'] == "ProgressBar"):
             self.counter += 1

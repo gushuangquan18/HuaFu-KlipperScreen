@@ -85,7 +85,7 @@
         "v_row": 0,
         "v_columnspan": 1,
         "v_rowspan": 1,
-        "method": "reload_wifi"
+        "method": "on_refresh_clicked"
       }
     }
   },
@@ -108,13 +108,14 @@
       "wifi_switch_grid": {
         "name": "WIFI Switch Grid",
         "type": "Grid",
+        "column_spacing": "3",
         "width": 940,
         "height": 30,
         "column": 0,
         "row": 0,
         "columnspan": 1,
         "rowspan": 1,
-        "v_width": 510,
+        "v_width": 590,
         "v_height": 60,
         "v_column": 0,
         "v_row": 0,
@@ -171,8 +172,8 @@
         "row": 0,
         "columnspan": 1,
         "rowspan": 1,
-        "v_width": 510,
-        "v_height": 500,
+        "v_width": 590,
+        "v_height": 700,
         "v_column": 0,
         "v_row": 1,
         "v_columnspan": 1,
