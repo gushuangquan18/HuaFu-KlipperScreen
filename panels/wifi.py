@@ -39,7 +39,7 @@ def init_panel(self):
     self.selected_ap = None  # 当前选中的未连接AP对象
     self.connected_ssid = None  # 当前已连接的WiFi SSID
     self.current_ap = None  # 当前已连接的AP对象
-    self.current_ip = "未获取"  # 当前IP地址
+    self.current_ip = f"{_('Not obtained')}"  # 当前IP地址
     self._scan_pending = False  # 扫描状态标志，防止重复扫描
     self.current_wifi = {}
     self.current_wifi_grid = {}
@@ -92,7 +92,7 @@ def update_connected_info(self):
     # 重置变量
     self.connected_ssid = None
     self.current_ap = None
-    self.current_ip = "未连接"
+    self.current_ip = f"{_('Not Connect')}"
     self.active_conn = None
     self.active_dev = None
 
@@ -293,7 +293,7 @@ def is_security(self, ap):
 
 def get_security_type(self, ap):
     flags = ap.get_flags()
-    if not (flags & 0x1): return "开放"
+    if not (flags & 0x1): return f"{_('Open')}"
     wpa_flags = ap.get_wpa_flags()
     rsn_flags = ap.get_rsn_flags()
     sec = []
@@ -354,7 +354,7 @@ def delete_network(self, ssid):
     else:
         # 未找到连接
         logger.debug(f"SSID '{ssid}' not found among saved connections")
-        self._msg("错误", f"未找到已保存的网络：{ssid}")
+        # self._msg("错误", f"未找到已保存的网络：{ssid}")
 
 def get_connection_path_by_ssid(self, ssid):
     """
@@ -390,7 +390,7 @@ def delete_connection_path(self, path):
         logger.warning(f"Connection path not found: {path}")
     except Exception as e:
         logger.exception(f"Failed to delete connection path: {path} - {e}")
-        self._msg("删除失败", f"无法删除连接：{e}")
+        # self._msg("删除失败", f"无法删除连接：{e}")
 
 def on_connection_deleted(self, connection, res):
     """删除连接完成的回调"""
@@ -471,7 +471,7 @@ def add_new_network(dialog, response_id, klippy_gtk, self, ssid, ap):
     if not dev:
         return
     is_secure = is_security(self, ap)
-    self.labels['wifi_ip'].set_text(f"IP: 正在连接...")
+    self.labels['wifi_ip'].set_text(f"IP: {_('Connecting')}...")
 
 
     # 构建NetworkManager连接配置
@@ -570,7 +570,7 @@ def wait_device_and_scan(self):
         return False
     dev = get_wifi_device(self)
     if not dev:
-        self.labels['wifi_ip'].set_text("IP: 等待设备...")
+        self.labels['wifi_ip'].set_text(f"IP: {_('Waiting')}...")
         return True  # 继续等待
 
     # 设备已就绪，开始扫描
@@ -663,7 +663,7 @@ def on_wifi_switch_toggled(switch, gparam, self):
     self.buttons['reload_wifi'].set_sensitive(active)
     if active:
         # WiFi打开：启动自动刷新，延迟扫描
-        self.labels['wifi_ip'].set_text("\nIP: 正在启用...\n")
+        self.labels['wifi_ip'].set_text(f"\nIP: {_('Enabling')}...\n")
         self._scan_pending = False
         start_auto_refresh(self)
         GLib.timeout_add(800, wait_device_and_scan, self)
@@ -678,8 +678,8 @@ def on_wifi_switch_toggled(switch, gparam, self):
         self.net_list = {}
         self.connected_ssid = None
         self.current_ap = None
-        self.current_ip = "未连接"
-        self.labels['wifi_ip'].set_text("IP: 未连接")
+        self.current_ip = f"{_('Not obtained')}"
+        self.labels['wifi_ip'].set_text(f"IP: {_('Not obtained')}")
         for child in self.grid['wifi_message_grid'].get_children():
             self.grid['wifi_message_grid'].remove(child)
         box_list = ['current_network_box', 'other_network_box']

@@ -1262,6 +1262,21 @@ msgstr "信号强度"
 msgid "Current Network"
 msgstr "当前网络"
 
+msgid "Not obtained"
+msgstr "未获取"
+
+msgid "Not Connect"
+msgstr "未连接"
+
+msgid "Open"
+msgstr "开放"
+
+msgid "Waiting"
+msgstr "等待中"
+
+msgid "Enabling"
+msgstr "正在启用"
+
 msgid "Other Network"
 msgstr "其他网络"
 
