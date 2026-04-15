@@ -295,6 +295,9 @@ msgstr "挤出量 +"
 msgid "Extrusion -"
 msgstr "挤出量 -"
 
+msgid "Extruder Temperature"
+msgstr "喷嘴温度"
+
 msgid "Failed to delete connection"
 msgstr "删除连接失败"
 
@@ -1094,6 +1097,9 @@ msgstr "重量"
 msgid "Sport"
 msgstr "运动"
 
+msgid "Sport:XYZ"
+msgstr "运动:XYZ"
+
 msgid "On"
 msgstr "开启"
 
@@ -1291,6 +1297,9 @@ msgstr "最大速率"
 
 msgid "Do you want to forget this network?"
 msgstr "您想忘记该网络吗?"
+
+msgid "Stay tuned!"
+msgstr "敬请期待！"
 
 
 

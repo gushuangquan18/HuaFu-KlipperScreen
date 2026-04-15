@@ -4,6 +4,8 @@ import pathlib
 from functools import lru_cache
 import json
 import logging
+from xxlimited_35 import Null
+
 import gi
 import re
 
@@ -36,13 +38,14 @@ def consumables_dialog(widget,self,current_key):
 
 #选择哪个功能
 def consumables_confirm(dialog, response_id, klippy_gtk,self,*args):
-    self._gtk.remove_dialog(dialog)
+    # self._gtk.remove_dialog(dialog)
     extruder = ''
     if args[1].startswith('t0'):
         extruder = 'extruder'
     else:
         extruder = 'extruder1'
-    change_extruder(dialog, self, extruder)
+    # change_extruder(dialog, self, extruder)
+    change_extruder(None, self, extruder)
     if response_id==1:
         parameter_item = {
             "panel": 'edit_consumables',

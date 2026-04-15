@@ -36,7 +36,7 @@ from panels.printer_control import (move,
                                   update_print_speed_message,
                                   update_speed_button,
                                   change_fan_value)
-from panels.edit_consumables import consumables_dialog,change_consumables_button,check_min_temp
+from panels.edit_consumables import consumables_dialog,change_consumables_button,check_min_temp,consumables_confirm,change_extruder
 from panels.calibration import (bed_mesh_calibration,
                                   init_xyz_offset,
                                   update_position,
@@ -45,9 +45,11 @@ from panels.calibration import (bed_mesh_calibration,
                                   start_z_calibration,
                                   confrim_calibration,
                                   cancle_calibration)
+from panels.settings_menu import dialog_message
 from panels.macro_command import cut,stop_chamber_temperature,clean_nozzle,turn_on_each_detection_bed,turn_off_each_detection_bed
 from panels.firmware_information import update_system_info
 from panels.wifi import init_panel,on_refresh_clicked,on_wifi_switch_toggled
+
 
 class Panel(ScreenPanel):
 
@@ -231,7 +233,8 @@ class Panel(ScreenPanel):
                 item_control_name.connect("clicked", self.show_dialog,current_key)
             elif(item['method'] == 'consumables_dialog'):
                 # current_key :t1_extruder_consumables_control
-                item_control_name.connect("clicked", consumables_dialog,self,current_key)
+                # item_control_name.connect("clicked", consumables_dialog,self,current_key)
+                item_control_name.connect("clicked", consumables_confirm,2,None,self,None,current_key)
             elif(item['method'] == 'on_digit_clicked'):
                 #panel_name extruder_temperature chassis_temperature heater_bed_temperature
                 item_control_name.connect("clicked", on_digit_clicked, self, value, panel_name)
@@ -283,6 +286,8 @@ class Panel(ScreenPanel):
                 item_control_name.connect("clicked", turn_off_each_detection_bed,self)
             elif (item['method'] == 'reload_wifi'):
                 item_control_name.connect("clicked", on_refresh_clicked,self)
+            elif (item['method'] == 'toolbox' or item['method'] == 'system_settings'):
+                item_control_name.connect("clicked", dialog_message,self)
 
 
             if current_key.startswith('distance') :

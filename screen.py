@@ -743,7 +743,7 @@ class KlipperScreen(Gtk.Window):
         self.base_panel.reload_icons()
 
 
-    def _go_to_submenu(self, widget, name):
+    def _go_to_submenu(self, widget, name=None):
         """
             前往子菜单
         :param widget: 部件
