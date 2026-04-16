@@ -328,10 +328,10 @@ def update_time_left(self, action,data):
     if self.file_metadata is not None and 'thumbnails' in self.file_metadata:
         length = len(self.file_metadata['thumbnails'])
         path = self.file_metadata['thumbnails'][length-1]['relative_path']
-        pixbuf = self._gtk.PixbufFromHttp(path, 280, 280)
+        pixbuf = self._gtk.PixbufFromHttp(path, 250, 250)
     if pixbuf is None:
         pixbuf = GdkPixbuf.Pixbuf.new_from_file("images/no_model_image.png")
-        scaled_pixbuf = pixbuf.scale_simple(280, 280, GdkPixbuf.InterpType.BILINEAR)
+        scaled_pixbuf = pixbuf.scale_simple(250, 250, GdkPixbuf.InterpType.BILINEAR)
         self.labels["print_modeling_graphics"].set_from_pixbuf(scaled_pixbuf)
     else:
         self.labels["print_modeling_graphics"].set_from_pixbuf(pixbuf)
@@ -357,6 +357,7 @@ def update_time_left(self, action,data):
         self.labels["percentage_progress"].set_label(_("Progress")+f' : {int(progress * 100)}%')
         self.labels['v_progress_bar'].set_fraction(progress)
         self.labels['h_progress_bar'].set_fraction(progress)
+    self.labels['print_layers'].set_label(_("Layers")+f' : 71 | 316')
     #更新打印层数 total_layer 总层数  current_layer 打印层数
     # if 'info' in data["print_stats"]:
     #     if ('total_layer' in data['print_stats']['info']

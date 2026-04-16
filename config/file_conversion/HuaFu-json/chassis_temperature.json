@@ -76,7 +76,7 @@
         "vexpand": "False",
         "button_width": 150,
         "button_height": 15,
-        "v_button_width": 100,
+        "v_button_width": 200,
         "v_button_height": 40,
         "column": 4,
         "row": 0,

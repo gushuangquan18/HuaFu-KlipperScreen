@@ -237,14 +237,14 @@ button.print_button{
 #left_up_grid{
     background-color: @grid_bg;
     border-radius: 0.5em;
-    margin: 0px 10px 5px 10px;
+    margin: 0px 7px 5px 10px;
     padding: 10px 10px 5px 10px;
 
 }
 #temperature_grid{
     background-color: green;
     border-radius: 0.5em;
-    margin: 5px 10px 0px 10px;
+    margin: 5px 7px 0px 10px;
     padding: 40px 0px 0px 0px;
 }
 #printer_temperature_grid{
@@ -389,7 +389,7 @@ button.air_system_right_grid_button{
 
 /* 喷嘴温度管理 */
 #extruder_temperature{
-
+    padding: 15px 15px 0px 15px;
 }
 
 #extruder_temperature_grid{
@@ -400,7 +400,7 @@ button.air_system_right_grid_button{
 
 /* 腔温管理 */
 #chassis_temperature{
-
+    padding: 15px 15px 0px 15px;
 }
 
 #chassis_temperature_grid{
@@ -410,9 +410,8 @@ button.air_system_right_grid_button{
 
 /* 热床温度管理 */
 #heater_bed_temperature{
-
+    padding: 15px 15px 0px 15px;
 }
-
 #heater_bed_temperature_grid{
     padding: 10px 10px 0px 10px;
     margin: 0px 10px 10px 10px;
