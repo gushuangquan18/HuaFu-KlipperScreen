@@ -40,8 +40,10 @@ def consumables_confirm(dialog, response_id, klippy_gtk,self,*args):
     # self._gtk.remove_dialog(dialog)
     extruder = ''
     if args[1].startswith('t0'):
+        self._screen._ws.klippy.gcode_script('T0')
         extruder = 'extruder'
     else:
+        self._screen._ws.klippy.gcode_script('T1')
         extruder = 'extruder1'
     # change_extruder(dialog, self, extruder)
     change_extruder(None, self, extruder)

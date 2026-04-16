@@ -357,7 +357,7 @@ def update_time_left(self, action,data):
         self.labels["percentage_progress"].set_label(_("Progress")+f' : {int(progress * 100)}%')
         self.labels['v_progress_bar'].set_fraction(progress)
         self.labels['h_progress_bar'].set_fraction(progress)
-    self.labels['print_layers'].set_label(_("Layers")+f' : 71 | 316')
+    # self.labels['print_layers'].set_label(_("Layers")+f' : 71 | 316')
     #更新打印层数 total_layer 总层数  current_layer 打印层数
     # if 'info' in data["print_stats"]:
     #     if ('total_layer' in data['print_stats']['info']

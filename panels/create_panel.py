@@ -93,7 +93,7 @@ class Panel(ScreenPanel):
         self.create_radionButton = False
         self.radioButton = {}
         self.entry = {}
-        self.percentage_progress = 0.5;
+        self.percentage_progress = 0.0;
         self.cur_directory = 'gcodes'
         self.list_mode = True
         self.time_24 = self._config.get_main_config().getboolean("24htime", True)
@@ -339,7 +339,7 @@ class Panel(ScreenPanel):
             #     value=self._printer.get_stat(key_array[len(key_array) - 1], "temperature")
 
             if(current_key == "percentage_progress"):
-                self.percentage_progress=int(value)*0.01;
+                self.percentage_progress=0;
                 value=f"{value}%"
 
             if select_extruder is not None:
@@ -445,7 +445,8 @@ class Panel(ScreenPanel):
             self.counter += 1
             item_control_name= Gtk.ProgressBar()
             #设置进度条百分比
-            item_control_name.set_fraction(self.percentage_progress)
+            # item_control_name.set_fraction(self.percentage_progress)
+            item_control_name.set_fraction(0)
             item_control_name.set_show_text(False)
             width = int(self._screen.env.from_string(item['width']).render(self.j2_data) if item['width'] else None)
             height = int(self._screen.env.from_string(item['height']).render(self.j2_data) if item['height'] else None)

@@ -41,6 +41,7 @@ def bed_mesh_calibration(widget,self):
 def start_z_calibration(widget, self):
     command = 'PROBE_CALIBRATE'
     self.buttons['start_z_calibration'].set_sensitive(False)
+    logging.info(_("Z Calibration!"))
     self._screen._ws.klippy.gcode_script("SET_GCODE_OFFSET Z=0")
     if self._printer.config_section_exists("bed_mesh"):
         self._screen._ws.klippy.gcode_script("BED_MESH_CLEAR")
@@ -48,7 +49,9 @@ def start_z_calibration(widget, self):
         self._screen._ws.klippy.gcode_script("G28")
     x,y=get_calibration_location(widget, self)
     move_to_position(widget, self, x, y)
-    self._screen._ws.klippy.gcode_script('PROBE_CALIBRATE')
+    # self._screen._ws.klippy.gcode_script('T0')
+    self._screen._ws.klippy.gcode_script('M104 S180 T0')
+    self._screen._ws.klippy.gcode_script('PROBE_EDDY_CURRENT_CALIBRATE CHIP=btt_eddy')
     # self.labels['new_z_value'].set_text(f"New:{abs(position[2] - self.z_offset):.3f}")
 
 def get_calibration_location(widget,self):
