@@ -521,11 +521,11 @@ button.air_system_right_grid_button{
 #wifi_switch_grid{
     background-color: @grid_bg;
     border-radius: 0.5em;
-    margin: 7px 20px 7px 20px;
-    padding: 0px 15px 0px 70px;
+    margin: 7px 10px 7px 10px;
+    padding: 0px 15px 0px 50px;
 }
 #wifi_message_grid{
-    margin: 0px 20px 0px 20px;
+    margin: 0px 10px 0px 10px;
 }
 button.single_wifi_current{
     background-color: @grid_bg;
