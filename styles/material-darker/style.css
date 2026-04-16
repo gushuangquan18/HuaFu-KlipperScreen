@@ -288,6 +288,7 @@ button.print_menu_button{
     background-image: url('images/printer_control_menu_background.jpg');
     background-size: contain; /* cover; 会缩放图片以完全覆盖整个区域，可能会裁剪图片。 contain; 会缩放图片以完整显示在区域内，可能不会填满整个区域。*/
     background-repeat: no-repeat;
+    padding: 10px 10px 0px 10px;
 }
 
 #air_system_grid,

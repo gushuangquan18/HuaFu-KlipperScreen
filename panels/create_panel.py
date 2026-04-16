@@ -432,6 +432,10 @@ class Panel(ScreenPanel):
             # width = int(self._screen.env.from_string(item['width']).render(self.j2_data) if item['width'] else None)
             # height = int(self._screen.env.from_string(item['height']).render(self.j2_data) if item['height'] else None)
             # item_control_name.set_size_request(120, 60)
+            if current_key == "light_switch":
+                item_control_name.set_active(True)  # 强制开启
+                # item_control_name.set_sensitive(False)  # 禁止点击
+                return item_control_name
             if current_key == "wifi_switch":
                 item_control_name.connect("notify::active", on_wifi_switch_toggled, self)
                 self.switch[current_key] = item_control_name

@@ -193,7 +193,7 @@ def create_wifi_item(self, ssid, is_connected=False, is_secure=False, ap=None):
     width = 800
     height = 100
     if self._screen.vertical_mode:
-        width = 545
+        width = 530
         height = 80
 
     check_mark_icon = Gtk.Image()
