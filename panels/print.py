@@ -244,33 +244,24 @@ def confirm_delete_file(self, widget, filepath):
 #Print_menu界面使用的方法
 
 #改变按钮控件状态 暂停 开始
-def change_pause_button_state(self, state, is_control, *args):
-    pixbuf = ''
-    state_text = ''
-    filename = ''
-    button_text = ''
+def change_pause_button_state(self, state, widget):
+
     # printing 打印中 paused暂停
-    if state == 'printing':
-        #args[0],widget 发出请求的按钮控件
-        # if len(args) == 1:
-        #     self._gtk.Button_busy(args[0], True)
-        if is_control:
-            self._screen._ws.klippy.print_resume()
-        # self._gtk.Button_busy(args[0], False)
-        state_text = _("Printing...")
-        filename = "images/pause.png"
-        button_text = _("Pause")
+    if state == 'printing' :
+        self._screen._ws.klippy.gcode_script("G28")
+        self._screen._ws.klippy.print_resume()
+        self._gtk.Button_busy(widget, True)
 
-    elif state == 'paused':
-        # if len(args) == 1:
-        #     self._gtk.Button_busy(args[0], True)
-        if is_control:
-            self._screen._ws.klippy.print_pause()
-        # self._gtk.Button_busy(args[0], False)
-        state_text = _("Paused")
-        filename = "images/start.png"
-        button_text = _("Start")
+    elif state == 'paused' :
+        self._screen._ws.klippy.print_pause()
+        self._gtk.Button_busy(widget, True)
 
+
+def set_pause_button_state(self, state_text, filename, button_text):
+    if not self.init_panel:
+        self._gtk.Button_busy(self.buttons['pause_button'], False)
+        self.print_state = self._printer.state
+    pixbuf = ''
     self.labels['print_state'].set_label(_("State")+" : "+state_text)
     pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_scale(
         filename=filename,
@@ -282,6 +273,7 @@ def change_pause_button_state(self, state, is_control, *args):
     # 设置缩放后的图片到Image控件
     image = Gtk.Image.new_from_pixbuf(pixbuf)
     self.buttons['pause_button'].set_image(image)
+
 
 #实时更新print_menu界面相关数据信息
 def update_time_left(self, action,data):
@@ -300,11 +292,20 @@ def update_time_left(self, action,data):
     if ('extruder1' in data) and ('temperature' in data['extruder1']):
         self.buttons["extruder1_temperature"].set_label(f"{int(data['extruder1']['temperature'])}℃")
     #更改打印状态
-    if 'print_stats' in data :
-        if 'state' in data['print_stats']:
-            #更改打印状态
-            if data['print_stats']['state'] == 'paused':
-                change_pause_button_state(self, data['print_stats']['state'], False)
+    if self._printer.state == 'paused' and (self.init_panel or self.print_state == "printing"):
+        state_text = _("Paused")
+        filename = "images/start.png"
+        button_text = _("Start")
+        self.print_state = 'paused'
+        set_pause_button_state(self, state_text, filename, button_text)
+    elif self._printer.state == 'printing' and (self.init_panel or self.print_state == "paused"):
+        state_text = _("Printing...")
+        filename = "images/pause.png"
+        button_text = _("Pause")
+        self.print_state = 'printing'
+        set_pause_button_state(self, state_text, filename, button_text)
+    if self.init_panel:
+        self.init_panel = False
     # print_speed
     if ('gcode_move' in data) and ('speed_factor' in data['gcode_move']):
         self.speed = round(float(data['gcode_move']['speed_factor']) * 100)
@@ -352,23 +353,23 @@ def update_time_left(self, action,data):
         self.labels['print_state'].set_label(_("State") + " : " +_("Printing..."))
     if estimated > 1:
         # 更新剩余打印时间
-        self.labels["remaining_time"].set_label(_("Time") + f" : -{self.format_eta(estimated, print_duration)}")
+        self.labels["remaining_time"].set_label(_("Time :") + f" -{self.format_eta(estimated, print_duration)}")
         progress = min(max(print_duration / estimated, 0), 1)
         self.labels["percentage_progress"].set_label(_("Progress")+f' : {int(progress * 100)}%')
         self.labels['v_progress_bar'].set_fraction(progress)
         self.labels['h_progress_bar'].set_fraction(progress)
-    # self.labels['print_layers'].set_label(_("Layers")+f' : 71 | 316')
-    #更新打印层数 total_layer 总层数  current_layer 打印层数
-    # if 'info' in data["print_stats"]:
-    #     if ('total_layer' in data['print_stats']['info']
-    #             and data["print_stats"]['info']['total_layer'] is not None):
-    #         self.labels['total_layers'].set_label(f"0 / {data['print_stats']['info']['total_layer']}")
-    #     if ('current_layer' in data['print_stats']['info']
-    #             and data['print_stats']['info']['current_layer'] is not None):
-    #         self.labels['layer'].set_label(
-    #             f"{data['print_stats']['info']['current_layer']} / "
-    #             f"{self.labels['total_layers'].get_text()}"
-    #         )
+    # (_("Layers")+f' : 71 | 316')
+    # 更新打印层数 total_layer 总层数  current_layer 打印层数
+    if 'info' in data["print_stats"]:
+        print_layers
+        if ('current_layer' in data['print_stats']['info']
+                and data['print_stats']['info']['current_layer'] is not None):
+            self.current_layer = data['print_stats']['info']['current_layer']
+        if ('total_layer' in data['print_stats']['info']
+                and data["print_stats"]['info']['total_layer'] is not None):
+            self.total_layers = data['print_stats']['info']['total_layer']
+        self.labels['print_layers'].set_label(_("Layers")+f' : {self.current_layer} | {self.total_layers}')
+
 
 
 #暂停或开始打印
@@ -377,9 +378,11 @@ def pause_confirm(widget,self):
     state = ''
     if self._printer.state == 'printing':
         state = 'paused'
+        self.print_state = 'paused'
     elif self._printer.state == 'paused':
         state = 'printing'
-    change_pause_button_state(self, state, True, widget)
+        self.print_state = 'printing'
+    change_pause_button_state(self, state, widget)
 
 
 #停止打印窗口

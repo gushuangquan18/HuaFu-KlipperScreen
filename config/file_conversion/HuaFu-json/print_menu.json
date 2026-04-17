@@ -22,7 +22,7 @@
     "left_up_grid": {
       "name": "Left Up Grid",
       "type": "Grid",
-      "column_homogeneous": "False",
+      "column_homogeneous": "True",
       "row_homogeneous": "True",
       "width": 330,
       "height": 330,

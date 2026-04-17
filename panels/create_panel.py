@@ -107,6 +107,10 @@ class Panel(ScreenPanel):
         self.box = {}
         self.switch ={}
         self.wifi_switch = None
+        self.total_layers = 0
+        self.current_layer = 0
+        self.print_state = ''
+        self.init_panel = True
         self.change_item = ['print_busy',
                             'fen_model','speed_control_model','chassis_temperature', 'heater_bed_temperature', 'extruder_temperature', 'extruder1_temperature',
                             'percentage_progress','print_layers','print_speed','remaining_time','floor_height_progress',
