@@ -404,12 +404,27 @@ def cancel_confirm(dialog, response_id, klippy_gtk,self,*args):
         #     self._gtk.Button_busy(args[0], True)
         direction_home(None, self, value=None)
         if self._screen._ws.klippy.print_cancel():
-            parameter_item = {
-                "panel": "home_menu",
-                "father": "home_menu",
-                "icon": "home_menu_icon",
-            }
-            self._screen.jump_rotor_page(dialog, parameter_item)
+            if self._printer.state == 'printing':
+                # filename = "images/start.png"
+                # pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_scale(
+                #     filename=filename,
+                #     width=50,
+                #     height=50,
+                #     preserve_aspect_ratio=True  # 设为False则强制50x50（可能拉伸）
+                # )
+                # # self.buttons['pause_button'].set_label()
+                # # 设置缩放后的图片到Image控件
+                # image = Gtk.Image.new_from_pixbuf(pixbuf)
+                # self.buttons['pause_button'].set_image(image)
+                self._gtk.Button_busy(self.buttons['cancel_button'], True)
+                return
+            else:
+                parameter_item = {
+                    "panel": "home_menu",
+                    "father": "home_menu",
+                    "icon": "home_menu_icon",
+                }
+                self._screen.jump_rotor_page(dialog, parameter_item)
         return
     # Cancel_dialog
     if response_id == Gtk.ResponseType.CANCEL:

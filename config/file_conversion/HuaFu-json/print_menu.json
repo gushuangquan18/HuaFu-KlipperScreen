@@ -99,29 +99,12 @@
               "file_label": {
                 "name": "File Label",
                 "type": "Label",
-                "value": "File/>",
+                "value": "File",
                 "column": 2,
                 "row": 0,
                 "columnspan": 1,
                 "rowspan": 1,
                 "v_column": 2,
-                "v_row": 0,
-                "v_columnspan": 1,
-                "v_rowspan": 1
-              },
-              "settings_right_arrow_icon": {
-                "name": "Right Arrow Icon",
-                "type": "Image",
-                "src": "images/right_arrow.png",
-                "width": 20,
-                "height": 30,
-                "column": 3,
-                "row": 0,
-                "columnspan": 1,
-                "rowspan": 1,
-                "v_width": 20,
-                "v_height": 30,
-                "v_column": 3,
                 "v_row": 0,
                 "v_columnspan": 1,
                 "v_rowspan": 1
@@ -140,7 +123,7 @@
                 "v_height": 200,
                 "v_column": 0,
                 "v_row": 1,
-                "v_columnspan": 4,
+                "v_columnspan": 3,
                 "v_rowspan": 4
               },
               "print_file_name": {
@@ -153,7 +136,7 @@
                 "rowspan": 1,
                 "v_column": 0,
                 "v_row": 5,
-                "v_columnspan": 4,
+                "v_columnspan": 3,
                 "v_rowspan": 1
               }
             }

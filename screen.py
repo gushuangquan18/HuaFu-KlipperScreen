@@ -183,6 +183,7 @@ class KlipperScreen(Gtk.Window):
         self.vertical_mode = self.aspect_ratio < 1.0
         # self.vertical_mode = True
         logging.info(f"Screen resolution: {self.width}x{self.height}")
+        logging.info(f"Screen resolution: {self.width}x{self.height}")
         self.theme = self._config.get_main_config().get('theme')
         self.show_cursor = self._config.get_main_config().getboolean("show_cursor", fallback=False)
         self.setup_gtk_settings()

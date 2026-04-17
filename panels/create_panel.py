@@ -110,7 +110,7 @@ class Panel(ScreenPanel):
         self.change_item = ['print_busy',
                             'fen_model','speed_control_model','chassis_temperature', 'heater_bed_temperature', 'extruder_temperature', 'extruder1_temperature',
                             'percentage_progress','print_layers','print_speed','remaining_time','floor_height_progress',
-                            'print_modeling_graphics', 'print_file_name', 'print_state','pause_button',
+                            'print_modeling_graphics', 'print_file_name', 'print_state','pause_button','cancel_button',
                             't0_extruder_consumables_control',
                             'start_z_calibration','raise_heater_bed','reduce_heater_bed','confirm','cancel',
                             'z_value','old_z_value','new_z_value',
@@ -357,6 +357,8 @@ class Panel(ScreenPanel):
                 else:
                     item_control_name.set_hexpand(True)
 
+            elif (current_key == "file_label"):
+                item_control_name = Gtk.Label(label=_(value)+">")
             else:
                 item_control_name = Gtk.Label(label=_(value))
 
